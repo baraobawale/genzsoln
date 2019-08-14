@@ -1,0 +1,17 @@
+C:\workspace\RTA\src\test\java\dataProviders\Customer.java
+C:\workspace\RTA\src\test\java\dataProviders\JsonDataReader.java
+C:\workspace\RTA\src\test\java\library\ExtentManager.java
+C:\workspace\RTA\src\test\java\dataProviders\FileReaderManager.java
+C:\workspace\RTA\target\generated-test-sources\cucumber\Parallel01IT.java
+C:\workspace\RTA\src\test\java\library\ApplicationLibraryWeb.java
+C:\workspace\RTA\src\test\java\library\TANGenerator.java
+C:\workspace\RTA\target\generated-test-sources\cucumber\Parallel02IT.java
+C:\workspace\RTA\src\test\java\pageObjects\LoginPage.java
+C:\workspace\RTA\src\test\java\pageObjects\LandingPage.java
+C:\workspace\RTA\src\test\java\library\ApplicationLibraryAndroid.java
+C:\workspace\RTA\src\test\java\stepDefinition\Stammdaten.java
+C:\workspace\RTA\src\test\java\configurations\ConfigWeb.java
+C:\workspace\RTA\src\test\java\configurations\ConfigAndroid.java
+C:\workspace\RTA\src\test\java\library\ActionMethods.java
+C:\workspace\RTA\src\test\java\pageObjects\HomePage.java
+C:\workspace\RTA\src\test\java\runner\TestRunner.java

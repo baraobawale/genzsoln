@@ -1,0 +1,202 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 51,
+        "name": "stammdaten_edit_mandatoryfieldsSuccess",
+        "description": "",
+        "id": "stammdaten-bestaetigen-und-aendern;\u003ctestcase\u003e\u003cexpectedresult\u003e;;2",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 33,
+            "name": "User Logs in with 880589404 , 12345",
+            "match": {},
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 34,
+            "name": "User submits the generated TAN number in \"TAN_field\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TAN_field",
+                  "offset": 42
+                }
+              ],
+              "location": "Stammdaten.user_submits_the_generated_TAN_number_in(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 35,
+            "name": "User navigates to \"Persoenliche_Einstellungen\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Persoenliche_Einstellungen",
+                  "offset": 19
+                }
+              ],
+              "location": "Stammdaten.clickson(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 36,
+            "name": "clicks on \"Aendern\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Aendern",
+                  "offset": 11
+                }
+              ],
+              "location": "Stammdaten.clicks_on(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 37,
+            "name": "User enters Bahnhofstr. 55 in Straße, Hausnr. field",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 38,
+            "name": "User enters 90402 in PLZ field",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 39,
+            "name": "User enters Nürnberg in Ort field",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 40,
+            "name": "User enters Deutschland in Land field",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 41,
+            "name": "User enters 49257301603 in Steueridentifikationsnummer field",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 42,
+            "name": "User selects Arbeiter(in) in Beruf Field",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 43,
+            "name": "User selects Chemie, Pharma in Branche Field",
+            "match": {
+              "location": "Stammdaten.user_selects_Chemie_Pharma_in_Branche_Field()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "undefined"
+            },
+            "line": 44,
+            "name": "User clicks on \"Weiter\" to continue",
+            "match": {},
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 45,
+            "name": "User submits the generated TAN number in \"TAN_field\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "TAN_field",
+                  "offset": 42
+                }
+              ],
+              "location": "Stammdaten.user_submits_the_generated_TAN_number_in(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 46,
+            "name": "clicks on \"Bestaetigen\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Bestaetigen",
+                  "offset": 11
+                }
+              ],
+              "location": "Stammdaten.clicks_on(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "line": 47,
+            "name": "verify changed data shown on bestaetigung page",
+            "match": {
+              "location": "Stammdaten.verify_changed_data_shown_on_bestaetigung_page()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Stammdaten bestaetigen und aendern",
+    "description": "",
+    "id": "stammdaten-bestaetigen-und-aendern",
+    "keyword": "Feature",
+    "uri": "C:/workspace/RTA/src/test/java/features/UC67_68_Stammdaten.feature",
+    "tags": []
+  }
+]
