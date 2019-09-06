@@ -1,4 +1,4 @@
-package steps;
+package com.bnpp.steps;
 
 import java.io.IOException;
 
