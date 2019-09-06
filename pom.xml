@@ -1,28 +1,37 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>RTA</groupId>
   <artifactId>RTA</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
+ <packaging>jar</packaging>
   <name>RTA</name>
   <url>http://maven.apache.org</url>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+    <dependencies>
+          <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+<dependency>
+    <groupId>com.googlecode.json-simple</groupId>
+    <artifactId>json-simple</artifactId>
+    <version>1.1.1</version>
+</dependency>
+    
+ <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>3.141.5</version>
+</dependency>
 
-  <dependencies>
-       <dependency>
-              <groupId>org.seleniumhq.selenium</groupId>
-              <artifactId>selenium-java</artifactId>
-              <version>3.14.0</version>
-       </dependency>
-     
-     
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-picocontainer -->
+  <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-picocontainer -->
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-picocontainer</artifactId>
@@ -32,10 +41,9 @@
    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-java</artifactId>
-    <version>3.0.2</version>
+    <version>4.0.2</version>
     <scope>test</scope>
 </dependency>
-
 <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
 <dependency>
     <groupId>org.assertj</groupId>
@@ -43,44 +51,30 @@
     <version>3.10.0</version>
     <scope>test</scope>
 </dependency>
-<dependency>
-    <groupId>org.testng</groupId>
-    <artifactId>testng</artifactId>
-    <version>6.14.3</version>
-    <scope>test</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
-<dependency>
-    <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-testng</artifactId>
-    <version>3.0.2</version>
-</dependency>
+
 <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-junit</artifactId>
-    <version>3.0.2</version>
+    <version>4.0.2</version>
     <scope>test</scope>
 </dependency>
        <dependency>
        <groupId>com.aventstack</groupId>
        <artifactId>extentreports</artifactId>
        <version>3.1.2</version>
-</dependency> 
-           
-           <dependency>
-               <groupId>io.appium</groupId>
-        <artifactId>java-client</artifactId>
-        <version>7.1.0</version>
-       </dependency>
-
-<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-<dependency>
+</dependency>      
+   <dependency>
     <groupId>org.apache.poi</groupId>
     <artifactId>poi-ooxml</artifactId>
     <version>3.17</version>
 </dependency>
-
+<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-core</artifactId>
+    <version>4.0.2</version>
+</dependency>
 
 <!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
 <dependency>
@@ -93,9 +87,6 @@
   <artifactId>httpclient</artifactId>
   <version>4.5.9</version>
 </dependency>
-
-
-
 <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
 <dependency>
     <groupId>org.apache.poi</groupId>
@@ -108,18 +99,11 @@
     <version>1.3</version>
     <scope>test</scope>
 </dependency>
-<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
-<dependency>
-    <groupId>org.seleniumhq.selenium</groupId>
-    <artifactId>selenium-chrome-driver</artifactId>
-    <version>3.141.5</version>
-</dependency>
 <dependency>
      <groupId>io.github.bonigarcia</groupId>
      <artifactId>webdrivermanager</artifactId>
      <version>2.2.5</version>
 </dependency>
-
 <dependency>
   <groupId>net.masterthought</groupId>
   <artifactId>cucumber-reporting</artifactId>
@@ -127,79 +111,6 @@
 </dependency>
 <!-- https://mvnrepository.com/artifact/org.testng/testng -->
 </dependencies>
-   <build>
-       <plugins>
-    <plugin>
-      <groupId>com.github.temyers</groupId>
-      <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-      <version>5.0.0</version>
-     <executions>
-                  <execution>
-                    <id>generateRunners</id>
-                    <phase>generate-test-sources</phase>
-                    <goals>
-                      <goal>generateRunners</goal>
-                    </goals>
-                    <configuration>
-                      <glue>
-                        <package>stepDefinition</package>
-                      </glue>
-                    <outputDirectory>${project.build.directory}/generated-test-sources/cucumber</outputDirectory>
-                      <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
-                    <featuresDirectory>src/test/java/features</featuresDirectory>
-                      <parallelScheme>SCENARIO</parallelScheme>
-                
-                           <plugins>
-                           <plugin>
-                                  <name>json</name>
-                            </plugin>
-                            <plugin>
-                                  <name>html</name>
-                            </plugin>
-                    </plugins>
-                    <!-- CucumberOptions.strict property -->
-                    <strict>true</strict>
-                           <!-- CucumberOptions.monochrome property -->
-                    <monochrome>true</monochrome>
-                      <!-- The tags to run, maps to CucumberOptions.tags property. Default is no tags. 
-                      <tags>
-                        <tag>@billing</tag>
-                        <tag>~@billing</tag>
-                        <tag>@important</tag>
-                        <tag>@important,@billing</tag>
-                      </tags-->
-             <!-- Generate TestNG runners instead of JUnit ones. --> 
-                     <useTestNG>true</useTestNG>
-                      
-                    </configuration>
-                  </execution>
-        </executions>
-    </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.0</version>
-        <configuration>
-              <forkCount>4</forkCount>
-                            <reuseForks>true</reuseForks>
-                                  <includes>
-                 <include>**/*IT.class</include>
-                                  </includes>
-                     </configuration>
-      </plugin>
-   
-</plugins>
-
-</build>
-<repositories>
-    <repository>
-    <id>sonatype-snapshots</id>
-    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    <snapshots>
-        <enabled>true</enabled>
-    </snapshots>
-</repository>
-  </repositories>
   
  
 </project>
