@@ -1,0 +1,14 @@
+{
+	"UC71_Datenschutz": {
+		"Datenschutz_select_Notificationtype_unselect All_Unselected": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"check": "null"
+		},
+		"Datenschutz_select_Notificationtype_select All_Selected": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"check": "select"
+		}
+	}
+}		

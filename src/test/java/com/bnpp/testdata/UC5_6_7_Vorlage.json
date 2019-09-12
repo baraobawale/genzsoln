@@ -1,0 +1,46 @@
+{
+	"UC5_6_7_Vorlage": {
+		"Ueberweisungsvorlagen_anlegen Verify create IBAN": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"Vorlagenname": "001 Michaela Kiehl",
+			"Name": "Michaela Kiehl",
+			"IBAN_oder_Kontonummer": "DE87 7118 0005 0244 7174 00",
+			"Betrag": "1,00",
+			"Ihre_Überweisungsvorlage_wurde_angelegt1": "Ihre Überweisungsvorlage wurde angelegt"
+		},
+		"Ueberweisungsvorlagen_anlegen Verify create KontoBLZ": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"Vorlagenname": "002 Michaela Kiehl",
+			"Name": "Michaela Kiehl",
+			"IBAN_oder_Kontonummer": "244717400",
+			"BLZ": "71180005",
+			"Betrag": "1,00"
+		},
+		"Ueberweisungsvorlagen_aendern_IBAN Verify change for IBAN": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"Created_Vorlagenname1": "001 Michaela Kiehl",
+			"Betrag": "2,00"
+		},
+		"Ueberweisungsvorlagen_aendern_kontoBLZ Verify change for KontoBLZ": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"Created_Vorlagenname1": "002 Michaela Kiehl",
+			"Betrag": "1,01"
+		},
+		"Ueberweisung_loeschen_IBAN Verify delete for IBAN": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"Created_Vorlagenname1": "001 Michaela Kiehl"
+		},
+		"Ueberweisung_loeschen_kontoBLZ Verify delete for KontoBLZ": {
+			"UserID_Kontonummer": "880589404",
+			"PIN_Password": "12345",
+			"Created_Vorlagenname1": "002 Michaela Kiehl"
+		}
+	}
+}
+
+	
