@@ -4,7 +4,7 @@ public class Configurations {
 
 	//DriverPaths and Run on browser parameter
 	public static final String BrowserName="Chrome";
-	public final static String chromeDriverPath = ".\\src\\test\\Resources\\Drivers\\chromedriver.exe";
+	public final static String chromeDriverPath = ".\\src\\test\\Resources\\Drivers\\chromedriver75.exe";
 	public final static String ieDriverPath=".\\src\\test\\Resources\\Drivers\\IEDriverServer.exe"; 
 	
 	//Application URL
