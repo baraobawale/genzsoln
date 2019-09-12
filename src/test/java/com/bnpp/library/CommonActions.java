@@ -23,6 +23,9 @@ import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.InvalidSelectorException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
@@ -35,6 +38,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.aventstack.extentreports.ExtentReports;
@@ -43,6 +47,7 @@ import com.aventstack.extentreports.Status;
 
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
+import com.bnpp.utilities.TANGenerator;
 
 public class CommonActions {
 	WebDriver driver;
@@ -92,9 +97,9 @@ public class CommonActions {
 					driver = new InternetExplorerDriver();
 				}
 				driver.manage().window().maximize();
-				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 				driver.get(Configurations.Appurl);
-				Thread.sleep(10000);
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -134,31 +139,58 @@ public class CommonActions {
 	}
 
 	/**
+	 * 
+	 */
+
+	public void waitForVisibilityofElement(String ObjectKey) {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			wait.until(ExpectedConditions.visibilityOf(getElement(ObjectKey)));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logAssert_Fail("Element not visible within given time limit: " + ObjectKey);
+		}
+	}
+
+	public void waitForInvisibilityofElement(String ObjectKey) {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 20);
+			wait.until(ExpectedConditions.invisibilityOf(getElement(ObjectKey)));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logAssert_Fail("Element still visible within given time limit: " + ObjectKey);
+		}
+	}
+
+	/**
 	 * @param objectKey
-	 * @return WebElement Description: central function to extract objects
+	 * @return WebElement Description: Central function to extract objects
 	 */
 	public WebElement getElement(String objectKey) throws IllegalArgumentException {
 		WebElement e = null;
-		WebDriverWait wait = new WebDriverWait(driver, 20);
-		
+		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
-		e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
-			
+			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
-			System.out.println("\r\n" + "Locator key missing in object repository file " + objectKey);
-			logAssert_Fail("\r\n" + "Locator key missing in object repository file " + objectKey);
+			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
+			logAssert_Fail("\r\n" + "Locator key missing in object repository file: " + objectKey);
 		} catch (NoSuchElementException ex) {
 			ex.printStackTrace();
-			System.out.println("Element not present on the page " + objectKey);
-			logAssert_Fail("\r\n" + "Element not present on the page " + objectKey);
+			System.out.println("Element not present on the page: " + objectKey);
+			logAssert_Fail("\r\n" + "Element not present on the page: " + objectKey);
 		} catch (ElementNotInteractableException ex) {
 			ex.printStackTrace();
-			logAssert_Fail("\r\n" + "Element not visible on the page " + objectKey);
+			logAssert_Fail("\r\n" + "Element not visible on the page: " + objectKey);
+		}catch(InvalidSelectorException ex){
+			ex.printStackTrace();
+			logAssert_Fail("Invalid xpath selector");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("Object identification failed" + objectKey);
-			logAssert_Fail("\r\n" + "Object identification failed" + objectKey);
+			System.out.println("Object identification failed: " + objectKey);
+			logAssert_Fail("\r\n" + "Object identification failed: " + objectKey);
 		}
 		return e;
 	}
@@ -170,11 +202,14 @@ public class CommonActions {
 	 */
 	public boolean isElementPresent(String objectKey) {
 		List<WebElement> e = null;
-		e = driver.findElements(By.xpath(properties.getProperty(objectKey)));
-		if (e.size() == 0)
+		e=driver.findElements(By.xpath(properties.getProperty(objectKey)));
+		if (e.size() == 0) {
+			System.out.println("element not present: "+objectKey);
 			return false;
-		else
+		} else{
+			System.out.println("Elements present:Count "+objectKey+":"+e.size());
 			return true;
+		}
 	}
 
 	/**
@@ -184,8 +219,13 @@ public class CommonActions {
 	 * @throws InterruptedException
 	 */
 	public void click(String objectKey) throws InterruptedException {
-		Thread.sleep(2000);
-		getElement(objectKey).click();
+		try {
+			Thread.sleep(2000);
+			getElement(objectKey).click();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -217,6 +257,7 @@ public class CommonActions {
 		// TODO Auto-generated method stub
 		Thread.sleep(2000);
 		getElement(objectKey).sendKeys(strValue);
+
 	}
 
 	/**
@@ -245,13 +286,20 @@ public class CommonActions {
 	 */
 	public void selectFromDropDown(String objectKey, String datakey) throws Exception {
 		Select s = new Select(getElement(objectKey));
-		String myData = getValueFromJson(objectKey);
+		String myData = getValueFromJson(datakey);
 		try {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
 			logAssert_Fail("Select by visble text failed on: " + objectKey);
 		}
 
+	}
+	/**
+	 * Description Press escape key
+	 */
+	public void pressTab(){
+		Actions act=new Actions(driver);
+		act.sendKeys(Keys.TAB).build().perform();
 	}
 
 	/**
@@ -300,10 +348,13 @@ public class CommonActions {
 	 * Description Common action to move scroll down
 	 */
 
-	public void scrollDown() {
-	
-		Actions act=new Actions(driver);
-        act.moveByOffset(-100,-100).build().perform();
+	public void moveScrollDown() {
+
+		// Actions act=new Actions(driver);
+		// act.moveByOffset(-100,-100).build().perform();
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,500)");
 
 	}
 
@@ -394,10 +445,17 @@ public class CommonActions {
 	}
 
 	public String getValueFromJson(String objectKey) throws FileNotFoundException, IOException, ParseException {
+		String datakey = null;
+		try {
+			datakey = getKeyFromJson(objectKey);
+			datakey = checkGermanCharacters(datakey);
+			System.out.println(objectKey + ":" + datakey);
 
-		String datakey = getKeyFromJson(objectKey);
-		datakey = checkGermanCharacters(datakey);
-		System.out.println(objectKey + ":" + datakey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logAssert_Fail(objectKey + " :ObjectKey not present in json file");
+		}
 		return datakey;
 	}
 
@@ -406,7 +464,7 @@ public class CommonActions {
 		String data = null;
 		JSONParser parser = new JSONParser();
 		JSONObject getFeatureName = (JSONObject) parser
-				.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\"+featurename+".json"));
+				.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
 		JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 		Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 		Iterator it = getScenarioName.entrySet().iterator();
@@ -427,7 +485,7 @@ public class CommonActions {
 		try {
 			JSONParser parser = new JSONParser();
 			JSONObject getFeatureName = (JSONObject) parser
-					.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\"+featurename+".json"));
+					.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 			Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -479,5 +537,46 @@ public class CommonActions {
 		scenarioname = name;
 
 	}
+
+	public void deleteExistingTemplates(String DeleteTemplates) throws Exception {
+		List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));// TODO
+																				// Auto-generated
+																				// method
+																				// stub
+		try {
+			if (isElementPresent(DeleteTemplates)) {
+				for (int i = 0; i < ele.size(); i++) {
+					click(DeleteTemplates);
+					enterTokenTan("Mobile_TAN_field_Bhavini", TANGenerator.requestTan());
+					click("Delete_confirmation");
+					System.out.println("Deleting element" + ele.get(0));
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("All existing templates cleared");
+		}
+	}
+	
+	public void clearCheckBox(String objectKey){
+        WebElement e;
+        
+        try {
+        e = driver.findElement(By.xpath(properties.getProperty(objectKey+"_checkbox")));// present
+        System.out.println(e.isSelected());
+        if(e.isSelected()) {
+               Thread.sleep(1000);
+               System.out.println("checkbox was selected");
+               driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
+        }
+        else {
+               System.out.println("checkbox was unselected");
+        }
+        }
+        catch(Exception ex) {
+               
+        }
+  }
+
 
 }
