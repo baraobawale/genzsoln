@@ -3,6 +3,7 @@
 		"Ueberweisungsvorlagen_anlegen Verify create IBAN": {
 			"UserID_Kontonummer": "880589404",
 			"PIN_Password": "12345",
+			 "Account_Type": "Verrechnungskonto|880589404",
 			"Vorlagenname": "001 Michaela Kiehl",
 			"Name": "Michaela Kiehl",
 			"IBAN_oder_Kontonummer": "DE87 7118 0005 0244 7174 00",

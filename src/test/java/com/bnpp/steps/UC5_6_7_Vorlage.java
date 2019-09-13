@@ -21,9 +21,10 @@ public class UC5_6_7_Vorlage {
 	@And("^User clicks on \"(.*?)\" of \"(.*?)\" field$")
 	public void clicksEDITorDELETE(String locatorKey, String Created_Vorlagenname1) throws Exception 
 	{
-		
+		if(locatorKey.equals("Created_Vorlagenname"))
+			commonActions.waitForVisibilityofElement("locatorKey");
 		commonActions.click(locatorKey);
-		System.out.println("clicked on edit or delete");
+		
 
 	}	
 	

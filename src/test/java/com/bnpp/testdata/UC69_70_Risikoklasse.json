@@ -1,19 +1,26 @@
 {
 	"UC69_70_Risikoklasse": {
-		"Risikoklasse_error_blankmandatoryfields Verify Errors": {
+		"Risikoklasse_Verify_Errors": 
+		{
 			"UserID_Kontonummer": "880589404",
 			"PIN_Password": "12345",
-			"check": "null",
-			"ErrorMesssages": {
-				"Risikoklasse_msg_1": "Bitte korrigieren Sie die folgenden Punkte:",
-				"Risikoklasse_msg_2": "Bitte bestätigen Sie durch Setzen des Hakens, dass Sie den untenstehenden Hinweis bezüglich gesetzlich geforderter Angaben zur Kenntnis genommen haben.",
-				"Risikoklasse_msg_3": "Bitte geben Sie bei jeder Produktgruppe Ihre Kenntnisse und die durchschnittlichen Wertpapierkäufe pro Jahr in den letzten 2 Jahren an."
-			}
+			"Hinweis_gelesen": "null",
+			"Kenntnisse_vorhanden": "null",
+			"Wertpapierkaeufe": "null",
+			"ErrorMesssages":{
+			 "HeadingError":"Bitte korrigieren Sie die folgenden Punkte :",
+			 "Hinweis_gelesenError":"Hinweis: Bitte bestaetigen Sie durch Setzen des Hakens, dass Sie den untenstehenden Hinweis bezueglich gesetzlich geforderter Angaben zur Kenntnis genommen haben ",
+			 "ProduktgruppeError":"Hinweis: Bitte geben Sie bei jeder Produktgruppe Ihre Kenntnisse und die durchschnittlichen Wertpapierkaeufe pro Jahr in den letzten 2 Jahren an "
+			 }
 		},
-		"Risikoklasse_set_mandatoryfields Verify Save": {
+		"Risikoklasse_Verify_Save": {
 			"UserID_Kontonummer": "880589404",
 			"PIN_Password": "12345",
-			"check": "select"
+			"Hinweis_gelesen": "select",
+			"Risikoklasse":" Produkte mit mittlerem Risiko (3)",
+			"Kenntnisse_vorhanden": "Ja",
+			"Wertpapierkaeufe": "mehr als 3 ",
+			"Message": "Ihre Angaben wurden erfolgreich gespeichert und ausgewertet. Ermittelte Risikoklasse: 5. Bitte beachten Sie, dass die eventuelle Änderung Ihrer Risikoklasse aus technischen Gründen erst am nächsten Tag wirksam wird."
 		}
 	}
-}		
+}

@@ -70,16 +70,16 @@ public class GenericSteps {
 	@And("^User clicks on \"(.*?)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
 		if (locatorKey.equals("Aendern") || locatorKey.equals("Neue_Ueberweisungsvorlage_anlegen")
-				|| locatorKey.equals("Vorlagen")) {
+				|| locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
 			commonActions.moveScrollDown();
 			commonActions.click(locatorKey);
-		}  else if (locatorKey.equals("Ueberweisungsvorlage_speichern")) {
+		} else if (locatorKey.equals("Ueberweisungsvorlage_speichern")) {
 			commonActions.click(locatorKey);
 			if (commonActions.isElementPresent("New_mobile_tan")) {
 				commonActions.enterTokenTan("Mobile_TAN_field1", TANGenerator.requestTan());
 				commonActions.click(locatorKey);
 			}
-		}else
+		} else
 			commonActions.click(locatorKey);
 
 	}
@@ -95,26 +95,36 @@ public class GenericSteps {
 
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void select(String dataKey, String locatorKey) throws Exception {
-		commonActions.selectFromDropDown(locatorKey, dataKey);
+		if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
+				|| dataKey.equals("Wertpapierkaeufe")) {
+			System.out.println(dataKey);
+			String str1 = commonActions.getValueFromJson(dataKey);
+			commonActions.clearCheckBox(locatorKey);
+			if (str1.equals("null")) {
+				// System.out.println("checkbox is unchecked");
+			} else {
+				commonActions.click(locatorKey);
+			}
+		} else {
+			commonActions.selectFromDropDown(locatorKey, dataKey);
+		}
 	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 			throws ClientProtocolException, IOException, InterruptedException {
-		if (TanKey.equals("TAN_field_PersoenlicheEinstellungen")) {
-			Thread.sleep(2000);
-			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
-		} else if (TanKey.equals("TAN_field_login")) {
+		 if (TanKey.equals("TAN_field_Login")) {
 			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 			commonActions.click("BestaetigenButton");
 			if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
 				if (commonActions.isElementPresent("NewTan")) {
+					commonActions.clearfield("TAN_field_Login");
 					commonActions.enterTokenTan("TAN_field_PersoenlicheEinstellungen", TANGenerator.requestTan());
 					commonActions.click("BestaetigenButton");
 				}
 			}
-		}
-		
+		}else
+			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 
 	}
 

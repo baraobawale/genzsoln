@@ -1,35 +1,18 @@
 Feature: UC71_Datenschutz
 
-  @RTA
-  Scenario Outline: <TestCase> <ExpectedResult>
+  # Datenschutz andern - Non Executable
+     @RTARTA
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    And User clicks on "Einloggen"
-    And User submits generated TAN number in "TAN_field"
-    And User clicks on "BestaetigenButton"
-    And User navigates to "Mein_Konto_Depot" in "Mein_Datenschutz"
-    And User "check" in "E-Mail_informiert" field
-    And User "check" in "telefonisch_informiert" field
-    And User "check" in "meine_Bewegungen" field
-    And User clicks on "Bestaetigen"
-    Then Verify error messages with unselected mark displayed on Mein Datenchutz
+    And User submits generated TAN number in "TAN_field_Login"
+    And User navigates to "Mein_Datenschutz" in "Mein_Konto_Depot"
+    And User selects checkbox "E-Mail_informiert" in "EMailInformiert_MeinDatenschutzAndern"
+    And User selects checkbox "telefonisch_informiert" in "telefonischInformiert_MeinDatenschutzAndern"
+    And User selects checkbox "meine_Bewegungen" in "meineBewegungen_MeinDatenschutzAndern"
+    And User clicks on "Bestaetigen_MeinDatenschutzAndern"
+    Then Verify messages displayed on Mein Datenchutz
 
     Examples: 
-      | TestCase                                     | ExpectedResult |
-      | Datenschutz_select_Notificationtype_unselect | All_Unselected |
-
- @RTA
-  Scenario Outline: <TestCase> <ExpectedResult>
-    When User Logs in with "UserID_Kontonummer","PIN_Password"
-    And User clicks on "Einloggen"
-    And User submits generated TAN number in "TAN_field"
-    And User clicks on "BestaetigenButton"
-    And User navigates to "Mein_Konto_Depot" in "Mein_Datenschutz"
-    And User "check" in "E-Mail_informiert" field
-    And User "check" in "telefonisch_informiert" field
-    And User "check" in "meine_Bewegungen" field
-    And User clicks on "Bestaetigen"
-    Then Verify error messages with selected mark displayed on Mein Datenchutz
-
-    Examples: 
-      | TestCase                                   | ExpectedResult |
-      | Datenschutz_select_Notificationtype_select | All_Selected   |
+      | TestCase                          |
+      | Datenschutz_select_All_Unselected |
+      | Datenschutz_select_All_Selected   |

@@ -1,42 +1,41 @@
 Feature: UC69_70_Risikoklasse
 
-  @RTA
-  Scenario Outline: <TestCase> <ExpectedResult>
-     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    And User clicks on "Einloggen"
-    And User submits generated TAN number in "TAN_field"
-    And User clicks on "BestaetigenButton"
-    And User navigates to "Mein_Konto_Depot" in "Persoenliche_Einstellungen"
-    And User clicks on "Risikoklasse/Finanztermingeschaefte"
-    And User clicks on "Risikoklasse_jetzt_aendern"
-    And User "check" in "Hinweis_gelesen" field
-    And User "check" in "Kenntnisse_vorhanden" field
-    And User "check" in "Wertpapierkufe_in_den_letzten_zwei_Jahren" field
-    And User clicks on "Weiter"
-    Then Verify if ErrorMesssages are displayed on Risikoklasse
-
-    Examples: 
-      | TestCase                                | ExpectedResult |
-      | Risikoklasse_error_blankmandatoryfields | Verify Errors  |
-
-  @RTA
-  Scenario Outline: <TestCase> <ExpectedResult>
+  #Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)
+  # Risikoklasse/FTG Setzen Fehlermeldungen
+  @RTARTA
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    And User clicks on "Einloggen"
-    And User submits generated TAN number in "TAN_field"
-    And User clicks on "BestaetigenButton"
-    And User navigates to "Mein_Konto_Depot" in "Persoenliche_Einstellungen"
-    And User clicks on "Risikoklasse/Finanztermingeschaefte"
-    And User clicks on "Risikoklasse_jetzt_aendern"
-    And User "check" in "Hinweis_gelesen" field
-    And User "check" in "Kenntnisse_vorhanden" field
-    And User "check" in "Wertpapierkufe_in_den_letzten_zwei_Jahren" field
-    And User clicks on "Weiter"
-    And User "check" in "TAN-bestaetigung" field
-    And User submits generated TAN number in "mobile_TAN_field"
-    And User clicks on "Bestaetigen_button"
-    Then "Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet" is present
+    And User submits generated TAN number in "TAN_field_Login"
+    And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
+    And User clicks on "Risikoklasse/Finanztermingeschaefte_PersoenlicheEinstellungen"
+    And User clicks on "RisikoklasseJetztAendern_RisikoklasseFinanztermingeschaefte"
+    And User selects "Hinweis_gelesen" in "HinweisGelesen_RisikoklasseFinanztermingeschaefte"
+    And User selects "Kenntnisse_vorhanden" in "KenntnisseVorhanden_RisikoklasseFinanztermingeschaefte"
+    And User selects "Wertpapierkaeufe" in "WertpapierkaeufeInDenLetztenZweiJahren_RisikoklasseFinanztermingeschaefte"
+    And User clicks on "Weiter_RisikoklasseFinanztermingeschaefte"
+    Then Verify displayed ErrorMesssages on RisikoklasseFinanztermingeschaefte
 
     Examples: 
-      | TestCase                         | ExpectedResult |
-      | Risikoklasse_set_mandatoryfields | Verify Save    |
+      | TestCase                   |
+      | Risikoklasse_Verify_Errors |
+
+  # Risikoklasse/FTG Setzen
+  @RTARTA
+  Scenario Outline: <TestCase>
+    When User Logs in with "UserID_Kontonummer","PIN_Password"
+    And User submits generated TAN number in "TAN_field_Login"
+    And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
+    And User clicks on "Risikoklasse/Finanztermingeschaefte_PersoenlicheEinstellungen"
+    And User clicks on "RisikoklasseJetztAendern_RisikoklasseFinanztermingeschaefte"
+    And User selects "Hinweis_gelesen" in "HinweisGelesen_RisikoklasseFinanztermingeschaefte"
+    And User selects "Kenntnisse_vorhanden" in "KenntnisseVorhanden_RisikoklasseFinanztermingeschaefte"
+    And User selects "Wertpapierkaeufe" in "WertpapierkaeufeInDenLetztenZweiJahren_RisikoklasseFinanztermingeschaefte"
+    And User clicks on "Weiter_RisikoklasseFinanztermingeschaefte"
+    And User clicks on checkbox "TAN_bestaetigung" in "TANBestaetigung_RisikoklasseFinanztermingeschaefte"
+    And User submits generated TAN number in "TAN_field_Vorlageloeschen"
+    And User clicks on "Bestaetigen_RisikoklasseFinanztermingeschaefte"
+    Then verify success message shown on bestaetigung page
+
+    Examples: 
+      | TestCase                 |
+      | Risikoklasse_Verify_Save |

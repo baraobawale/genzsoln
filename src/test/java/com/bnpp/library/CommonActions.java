@@ -144,7 +144,7 @@ public class CommonActions {
 
 	public void waitForVisibilityofElement(String ObjectKey) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 20);
+			WebDriverWait wait = new WebDriverWait(driver, 50);
 			wait.until(ExpectedConditions.visibilityOf(getElement(ObjectKey)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -227,7 +227,7 @@ public class CommonActions {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * @param objectKey
 	 * @param strValue

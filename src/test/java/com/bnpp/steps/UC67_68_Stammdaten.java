@@ -22,7 +22,7 @@ public class UC67_68_Stammdaten {
 
 	HashMap<String, String> hmap = new HashMap<String, String>();
 
-	@Then("^Verify displayed \"(.*?)\"$")
+	@Then("^Verify displayed \"(.*?)\" on PersoenlicheEinstellungen$")
 	public void verify_error_messsages_are_displayed(String ErrorMesssages)
 			throws FileNotFoundException, IOException, ParseException {
 

@@ -9,13 +9,15 @@ import org.openqa.selenium.By;
 import com.bnpp.library.CommonActions;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.runtime.CucumberException;
 
 public class UC69_70_Risikoklasse {
-	
+
 	CommonActions commonActions;
-	
+
 	public UC69_70_Risikoklasse(CommonActions commonActions) {
 		this.commonActions = commonActions;
 	}
@@ -23,12 +25,12 @@ public class UC69_70_Risikoklasse {
 	@When("User navigates to {string}")
 	public void user_navigates_to(String string) throws InterruptedException {
 		commonActions.mouseover("Mein_Konto_Depot");
-	       System.out.println(string);
-	       Thread.sleep(5000);
-	       commonActions.click(string);
+		System.out.println(string);
+		Thread.sleep(5000);
+		commonActions.click(string);
 
 	}
-	
+
 	@When("User selects {string} in Risikoklasse {string} field")
 	public void user_selects_in_Risikoklasse_field(String locatorKey, String string2) {
 		try {
@@ -39,38 +41,45 @@ public class UC69_70_Risikoklasse {
 			Assert.fail();
 		}
 	}
-	
-//	@Then("Verify if {string} are displayed")
-//	public void verify_if_are_displayed(String string) {
-//
-//			try {
-////				System.out.println(commonActions.getText("Risikoklasse_text1"));
-////				commonActions.verifyErrorMessage("Risikoklasse_msg_1").equals(commonActions.getText("Risikoklasse_text1"));
-////				commonActions.logPassStatus("Risikoklasse_msg_1 message displayed successfully");
-////				commonActions.verifyErrorMessage("Risikoklasse_msg_2").equals(commonActions.getText("Risikoklasse_text2"));
-////				commonActions.logPassStatus("Risikoklasse_msg_2 message displayed successfully");
-////				commonActions.verifyErrorMessage("Risikoklasse_msg_3").equals(commonActions.getText("Risikoklasse_text3"));
-////				commonActions.logPassStatus("Risikoklasse_msg_3 message displayed successfully");
-//				
-//				commonActions.waitForVisibilityofElement("Risikoklasse_text1");
-//				commonActions.waitForVisibilityofElement("Risikoklasse_text2");
-//				commonActions.waitForVisibilityofElement("Risikoklasse_text3");
-//				
-//				
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				Assert.fail();
-//			}
-//	}
-	
-	@Then("Verify if ErrorMesssages are displayed on Risikoklasse")
-	public void verify_if_ErrorMesssages_are_displayed_on_Risikoklasse() throws InterruptedException  {
-	    // Write code here that turns the phrase above into concrete actions
-		commonActions.waitForVisibilityofElement("Risikoklasse_text1");
-		commonActions.waitForVisibilityofElement("Risikoklasse_text2");
-		commonActions.waitForVisibilityofElement("Risikoklasse_text3");
-		
-//	   throw new cucumber.api.PendingException();
+
+	@Then("^Verify displayed ErrorMesssages on RisikoklasseFinanztermingeschaefte$")
+	public void Verify_displayed()
+			throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+		// commonActions.getElement("HeadingError");
+		// commonActions.getElement("Hinweis_gelesenError");
+		// commonActions.getElement("ProduktgruppeError");
+		//
+		try {
+			if (commonActions.isElementPresent("HeadingError"))
+				commonActions.logPassStatus("HeadingError message display success");
+			else
+				commonActions.logFailStatus("HeadingError message display fail");
+			if (commonActions.isElementPresent("Hinweis_gelesenError"))
+				commonActions.logPassStatus("Hinweis_gelesenError message display success");
+			else
+				commonActions.logFailStatus("Hinweis_gelesenError message display fail");
+			if (commonActions.isElementPresent("ProduktgruppeError"))
+				commonActions.logPassStatus("ProduktgruppeError message display success");
+			else
+				commonActions.logFailStatus("ProduktgruppeError message display fail");
+		} catch (CucumberException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logFailStatus("Check step definition and feature file configured correctly with respect to arguments ");
+		}
+
 	}
+
+	@And("User clicks on checkbox {string} in {string}")
+	public void User_clicks_on_checkbox(String objectKey, String data) throws InterruptedException {
+		commonActions.click(objectKey);
+	}
+
+	@Then("verify success message shown on bestaetigung page")
+	public void verify_success_message_shown_on_bestaetigung_page() throws InterruptedException {
+		//commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
+		if(commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
+			commonActions.logPassStatus("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+	}
+
 }
