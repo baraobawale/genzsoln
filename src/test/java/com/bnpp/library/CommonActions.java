@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -41,10 +42,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
 import com.bnpp.utilities.TANGenerator;
@@ -64,7 +65,7 @@ public class CommonActions {
 			try {
 				properties = new Properties();
 				fis = new FileInputStream(
-						System.getProperty("user.dir") + "\\src\\test\\resources\\ObjectRepository\\Object.properties");
+						System.getProperty("user.dir") + "/src/test/resources/ObjectRepository/Object.properties");
 				properties.load(fis);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -122,7 +123,7 @@ public class CommonActions {
 			// Setting new download directory path
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			// prefs.put("download.default_directory",
-			// System.getProperty("user.dir") + "\\Downloads");
+			// System.getProperty("user.dir") + "/Downloads");
 			ops.setExperimentalOption("prefs", prefs);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -173,6 +174,8 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+			
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -464,7 +467,7 @@ public class CommonActions {
 		String data = null;
 		JSONParser parser = new JSONParser();
 		JSONObject getFeatureName = (JSONObject) parser
-				.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
+				.parse(new FileReader("./src/test/java/com/bnpp/TestData/" + featurename + ".json"));
 		JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 		Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 		Iterator it = getScenarioName.entrySet().iterator();
@@ -485,7 +488,7 @@ public class CommonActions {
 		try {
 			JSONParser parser = new JSONParser();
 			JSONObject getFeatureName = (JSONObject) parser
-					.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
+					.parse(new FileReader("./src/test/java/com/bnpp/TestData/" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 			Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -529,7 +532,7 @@ public class CommonActions {
 
 	public void setfaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
-		String[] d = featurename.split("/features/");
+		String[] d = featurename.split("/features_wip/");
 		System.out.println(d[0] + " " + d[1]);
 		String[] d2 = d[1].split(".feature");
 		System.out.println(d2[0]);
@@ -577,6 +580,16 @@ public class CommonActions {
                
         }
   }
+
+		public void selectCheckBox(String objectKey) throws Exception {
+		WebElement checkbox = getElement(objectKey);
+		if (!checkbox.isSelected())
+		{
+			checkbox.click();
+		}
+		
+		Thread.sleep(2000);
+	}
 
 
 }

@@ -5,10 +5,10 @@ import java.io.IOException;
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
-import org.openqa.selenium.support.ui.ISelect;
 
 import com.bnpp.library.CommonActions;
 import com.bnpp.utilities.TANGenerator;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -108,6 +108,12 @@ public class GenericSteps {
 		} else {
 			commonActions.selectFromDropDown(locatorKey, dataKey);
 		}
+	}
+	
+	
+	@And("^User selects checkbox \"(.*?)\"")
+	public void selectCheckbox(String locatorKey) throws Exception {
+		commonActions.selectCheckBox(locatorKey);
 	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")

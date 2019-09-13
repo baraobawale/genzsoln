@@ -1,0 +1,39 @@
+{
+	"UC16_Dauerlastschrift": 
+	{
+		"Dauerlastschrift_Anlegen ihre Dauerlastschriften wurde angenommen": 
+		{
+			"UserID_Kontonummer": "253234441",
+			"PIN_Password": "12345",
+			"Account_Type": "Tagesgeldkonto | 253234441",
+			"IBAN_oder_Kontonummer": "DE87 7118 0005 0244 7174 00",
+			"Betrag": "50,00",
+			"Intervall": "monatlich",
+			"Immer_am": "10. des Monats",
+			"Startdatum": "10.10.2019",
+			"unbegrenzt_gultig": "select",
+			"Message": "ihre Dauerlastschriften wurde angenommen"
+		},
+
+		"Dauerlastschrift_Andern ihre Dauerlastschriften wurde gespeichert": 
+		{
+			"UserID_Kontonummer": "253234441",
+			"PIN_Password": "12345",
+			"Account_Type": "Tagesgeldkonto",
+			"Created_Dauerlastschrift": "DE87 7118 0005 0244 7174 00",
+			"Betrag": "100,00",
+			"Intervall": "alle 2 Wochen",
+			"Immer_am": "Montag",
+			"Startdatum": "10.10.2019",
+			"Message": "ihre Dauerlastschriften wurde gespeichert"
+		},
+
+		"Dauerlastschrift_loeschen ihre Dauerlastschriften wurde geloescht": 
+		{
+			"UserID_Kontonummer": "253234441",
+			"PIN_Password": "12345",
+			"Account_Type": "Tagesgeldkonto",
+			"Created_Dauerlastschrift": "DE87 7118 0005 0244 7174 00"
+		}
+	}
+}
