@@ -1,4 +1,4 @@
-@567
+
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create-IBAN
@@ -23,6 +23,7 @@ Feature: UC5_6_7_Vorlage
       | Ueberweisungsvorlagen_anlegen | Verify create IBAN |
 
   #Aendern/Change-IBAN
+@567
   Scenario Outline: <TestCase> <ExpectedResult>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"

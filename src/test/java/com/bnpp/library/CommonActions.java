@@ -184,7 +184,7 @@ public class CommonActions {
 		} catch (ElementNotInteractableException ex) {
 			ex.printStackTrace();
 			logAssert_Fail("\r\n" + "Element not visible on the page: " + objectKey);
-		}catch(InvalidSelectorException ex){
+		} catch (InvalidSelectorException ex) {
 			ex.printStackTrace();
 			logAssert_Fail("Invalid xpath selector");
 		} catch (Exception ex) {
@@ -202,12 +202,12 @@ public class CommonActions {
 	 */
 	public boolean isElementPresent(String objectKey) {
 		List<WebElement> e = null;
-		e=driver.findElements(By.xpath(properties.getProperty(objectKey)));
+		e = driver.findElements(By.xpath(properties.getProperty(objectKey)));
 		if (e.size() == 0) {
-			System.out.println("element not present: "+objectKey);
+			System.out.println("element not present: " + objectKey);
 			return false;
-		} else{
-			System.out.println("Elements present:Count "+objectKey+":"+e.size());
+		} else {
+			System.out.println("Elements present:Count " + objectKey + ":" + e.size());
 			return true;
 		}
 	}
@@ -227,7 +227,7 @@ public class CommonActions {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @param objectKey
 	 * @param strValue
@@ -294,11 +294,12 @@ public class CommonActions {
 		}
 
 	}
+
 	/**
 	 * Description Press escape key
 	 */
-	public void pressTab(){
-		Actions act=new Actions(driver);
+	public void pressTab() {
+		Actions act = new Actions(driver);
 		act.sendKeys(Keys.TAB).build().perform();
 	}
 
@@ -539,10 +540,7 @@ public class CommonActions {
 	}
 
 	public void deleteExistingTemplates(String DeleteTemplates) throws Exception {
-		List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));// TODO
-																				// Auto-generated
-																				// method
-																				// stub
+		List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));
 		try {
 			if (isElementPresent(DeleteTemplates)) {
 				for (int i = 0; i < ele.size(); i++) {
@@ -557,26 +555,43 @@ public class CommonActions {
 			System.out.println("All existing templates cleared");
 		}
 	}
-	
-	public void clearCheckBox(String objectKey){
-        WebElement e;
-        
-        try {
-        e = driver.findElement(By.xpath(properties.getProperty(objectKey+"_checkbox")));// present
-        System.out.println(e.isSelected());
-        if(e.isSelected()) {
-               Thread.sleep(1000);
-               System.out.println("checkbox was selected");
-               driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
-        }
-        else {
-               System.out.println("checkbox was unselected");
-        }
-        }
-        catch(Exception ex) {
-               
-        }
-  }
 
+	public void clearCheckBox(String objectKey) {
+		WebElement e;
+
+		try {
+			e = driver.findElement(By.xpath(properties.getProperty(objectKey + "_checkbox")));// present
+			System.out.println(e.isSelected());
+			if (e.isSelected()) {
+				Thread.sleep(1000);
+				System.out.println("checkbox was selected");
+				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
+			} else {
+				System.out.println("checkbox was unselected");
+			}
+		} catch (Exception ex) {
+
+		}
+	}
+
+	public void formXpathofRelativeEditElementandClickonit(String PersonNametitle) {
+		int index = 0;
+		String a = "//tr/td[";
+		// String counter="1";
+		String b = "]/div/a[@title='";
+		String d = "']";
+		String c = PersonNametitle;
+		// System.out.println((a+counter+b+c+d));
+		for (int counter = 0; counter <= 20; counter++) {
+			List<WebElement> lst = driver.findElements(By.xpath(a + counter + b + c + d));
+			if (lst.size() != 0)
+				index = counter;
+
+		}
+		String Xpath = "//tr[" + index + "]//div[1]/a[@title='Anzeigen und bearbeiten']";
+		// WebElement Editelement=driver.findElement(By.xpath(EditXpath));
+		driver.findElement(By.xpath(Xpath)).click();
+		
+	}
 
 }

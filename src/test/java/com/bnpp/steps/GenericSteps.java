@@ -115,11 +115,13 @@ public class GenericSteps {
 			throws ClientProtocolException, IOException, InterruptedException {
 		 if (TanKey.equals("TAN_field_Login")) {
 			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			// commonActions.enterTokenTan(TanKey,"931272");
 			commonActions.click("BestaetigenButton");
 			if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
-				if (commonActions.isElementPresent("NewTan")) {
-					commonActions.clearfield("TAN_field_Login");
-					commonActions.enterTokenTan("TAN_field_PersoenlicheEinstellungen", TANGenerator.requestTan());
+				if (commonActions.isElementPresent("UsedTanMessage")) {
+					commonActions.clearfield(TanKey);
+					commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+					
 					commonActions.click("BestaetigenButton");
 				}
 			}
