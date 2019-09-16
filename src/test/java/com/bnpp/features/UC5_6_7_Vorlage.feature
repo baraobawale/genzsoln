@@ -1,116 +1,124 @@
-
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create-IBAN
-  Scenario Outline: <TestCase> <ExpectedResult>
+  @RTA
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Neue_Ueberweisungsvorlage_anlegen"
-    And User enters "Vorlagenname" in "Vorlagenname"
-    And User enters "Name" in "Name"
-    And User enters "IBAN_oder_Kontonummer" in "IBAN_oder_Kontonummer"
-    And User enters "Betrag" in "Betrag"
-    And User clicks on "Weiter_zur_TAN_Eingabe"
-    And User submits generated TAN number in "Mobile_TAN_field1"
-    And User clicks on "Ueberweisungsvorlage_anlegen"
-    Then Verify IBAN create message
+    And User clicks on "NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr"
+    And User enters "Vorlagenname" in "Vorlagenname_VorlageAnlegen"
+    And User enters "Name" in "Name_VorlageAnlegen"
+    And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_VorlageAnlegen"
+    And User enters "Betrag" in "Betrag_VorlageAnlegen"
+    And User clicks on "WeiterZurTANEingabe_VorlageAnlegen"
+    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User clicks on "UeberweisungsvorlageAnlegen_VorlageAnlegen"
+    And Capture entered details on VorlageAnlegen
+    And Capture Message on VorlageAnlegen
+    And User clicks on "ZumZahlungsverkehr_VorlageAnlegen"
+    Then Verify "Vorlagenname","IBAN_oder_Kontonummer" on  UmsaetzeZahlungsverkehr
+    And Verify captured details,Message from VorlageAnlegen
 
     Examples: 
-      | TestCase                      | ExpectedResult     |
-      | Ueberweisungsvorlagen_anlegen | Verify create IBAN |
+      | TestCase             |
+      | IBANVorlagen_Anlegen |
 
   #Aendern/Change-IBAN
-@567
-  Scenario Outline: <TestCase> <ExpectedResult>
+  @567
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Edit" of "Created_Vorlagenname" field
-    And User changes "Betrag" in "Betrag" field
-    And User clicks on "Weiter_zur_TAN_Eingabe"
-    And User submits generated TAN number in "Mobile_TAN_field1"
-    And User clicks on "Ueberweisungsvorlage_speichern"
-    Then Verify IBAN update message
+    And User clicks on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
+    And User changes "Betrag" in "Betrag_VorlageAendern"
+    And User clicks on "WeiterZurTANEingabe_VorlageAendern"
+    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User clicks on "UeberweisungVorlageSpeichern_VorlageAendern"
+    Then Verify Message,details on VorlageAendern
 
     Examples: 
-      | TestCase                           | ExpectedResult         |
-      | Ueberweisungsvorlagen_aendern_IBAN | Verify change for IBAN |
+      | TestCase              |
+      | Vorlagen_Aendern_IBAN |
+
 
   #Loeschen/Delete-IBAN
-  Scenario Outline: <TestCase> <ExpectedResult>
+  @RTA
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Delete" of "Created_Vorlagenname1" field
-    And User clicks on "Weiter_zur_TAN_Eingabe"
-    And User submits generated TAN number in "Mobile_TAN_field1"
-    And User clicks on "Ueberweisungsvorlage_loeschen"
-    Then Verify IBAN delete message
+    And User clicks on "Delete" of "CreatedVorlagenname_UmsaetzeZahlungsverkehr" field
+    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
+    Then Verify Message on Vorlageloeschen
 
     Examples: 
-      | TestCase                   | ExpectedResult         |
-      | Ueberweisung_loeschen_IBAN | Verify delete for IBAN |
+      | TestCase               |
+      | Vorlagen_loeschen_IBAN |
 
   #Anlegen/Create-KontoBLZ
-  Scenario Outline: <TestCase> <ExpectedResult>
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Neue_Ueberweisungsvorlage_anlegen"
-    And User enters "Vorlagenname" in "Vorlagenname"
-    And User enters "Name" in "Name"
-    And User enters "IBAN_oder_Kontonummer" in "IBAN_oder_Kontonummer"
-    And User enters "BLZ" in "BLZ"
-    And User enters "Betrag" in "Betrag"
-    And User clicks on "Weiter_zur_TAN_Eingabe"
-    And User submits generated TAN number in "Mobile_TAN_field1"
-    And User clicks on "Ueberweisungsvorlage_anlegen"
-    Then Verify KontoBLZ create message
+    And User clicks on "NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr"
+    And User enters "Vorlagenname" in "Vorlagenname_VorlageAnlegen"
+    And User enters "Name" in "Name_VorlageAnlegen"
+    And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_VorlageAnlegen"
+    And User enters "BLZ" in "BLZ_VorlageAnlegen"
+    And User enters "Betrag" in "Betrag_VorlageAnlegen"
+    And User clicks on "WeiterZurTANEingabe_VorlageAnlegen"
+    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User clicks on "UeberweisungsvorlageAnlegen_VorlageAnlegen"
+    And Capture entered details on VorlageAnlegen_
+    And Capture Message on VorlageAnlegen
+    And User clicks on "ZumZahlungsverkehr_VorlageAnlegen"
+    Then Verify "Vorlagenname","IBAN_oder_Kontonummer" on UmsaetzeZahlungsverkehr
+    And Verify captured details,Message from VorlageAnlegen
 
     Examples: 
-      | TestCase                      | ExpectedResult         |
-      | Ueberweisungsvorlagen_anlegen | Verify create KontoBLZ |
+      | TestCase                 |
+      | KontoBLZVorlagen_Anlegen |
 
   #Aendern/Change-KontoBLZ
-  Scenario Outline: <TestCase> <ExpectedResult>
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Edit" of "Created_Vorlagenname" field
-    And User changes "Betrag" in "Betrag" field
-    And User clicks on "Weiter_zur_TAN_Eingabe"
-    And User submits generated TAN number in "Mobile_TAN_field1"
-    And User clicks on "Ueberweisungsvorlage_speichern"
-    Then Verify KontoBLZ update message
+    And User clicks on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
+    And User changes "Betrag" in "Betrag_VorlageAendern"
+    And User clicks on "WeiterZurTANEingabe_VorlageAendern"
+    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User clicks on "UeberweisungVorlageSpeichern_VorlageAendern"
+    Then Verify Message,details on VorlageAendern
 
     Examples: 
-      | TestCase                               | ExpectedResult             |
-      | Ueberweisungsvorlagen_aendern_kontoBLZ | Verify change for KontoBLZ |
+      | TestCase                  |
+      | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-KontoBLZ
-  Scenario Outline: <TestCase> <ExpectedResult>
+  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Delete" of "Created_Vorlagenname1"
-    And User clicks on "Weiter_zur_TAN_Eingabe"
-    And User submits generated TAN number in "Mobile_TAN_field1"
-    And User clicks on "Ueberweisungsvorlage_loeschen"
-    Then Verify KontoBLZ delete message
+    And User clicks on "Delete" of "CreatedVorlagenname_UmsaetzeZahlungsverkehr" field
+    And User submits generated TAN number in "TAN_field_Vorlageloeschen"
+    And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
+   Then Verify Message on Vorlageloeschen1
 
     Examples: 
-      | TestCase                       | ExpectedResult             |
-      | Ueberweisung_loeschen_kontoBLZ | Verify delete for KontoBLZ |
+      | TestCase                   |
+      | Vorlagen_loeschen_kontoBLZ |

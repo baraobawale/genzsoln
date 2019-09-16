@@ -1,5 +1,7 @@
 package com.bnpp.library;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -276,6 +278,11 @@ public class CommonActions {
 		String str = "";
 		return str = getElement(objectKey).getText();
 	}
+	
+	public String getAttribute(String objectKey,String attributeName) {
+		String str = "";
+		return str = getElement(objectKey).getAttribute(attributeName);
+	}
 
 	/**
 	 * @param objectKey
@@ -373,6 +380,7 @@ public class CommonActions {
 	 */
 	public void logPassStatus(String msg) {
 		scenario.log(Status.PASS, msg);
+		//assertEquals(true, true);
 	}
 
 	/**
@@ -399,6 +407,8 @@ public class CommonActions {
 	 */
 	public void logFailStatus(String msg) {
 		scenario.log(Status.FAIL, msg);
+		takeSceenShot();
+		//assertEquals(false, true);
 	}
 
 	/**

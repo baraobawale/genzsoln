@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"><Body><run xmlns="http://cortalconsors.com/middleware/mtan/sms/inq/v1_0"><request feid="CAFE" language="DE" sessionId="6df73ad56bd2459cbf8bc4737e8b0bda"><customerNo>CID_DE:3076072</customerNo><startDate>2019-09-14T09:24:55</startDate></request></run></Body></Envelope>

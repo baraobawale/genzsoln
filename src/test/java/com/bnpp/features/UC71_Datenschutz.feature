@@ -1,7 +1,7 @@
+@RTA
 Feature: UC71_Datenschutz
 
   # Datenschutz andern - Non Executable
-     @RTARTA
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"

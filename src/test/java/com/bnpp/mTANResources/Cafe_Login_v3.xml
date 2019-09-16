@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"><Body><run xmlns="http://cortalconsors.com/middleware/login/v2_0"><request feid="CAFE" language="DE" sessionId=""><userid>qtp01</userid><pin>Qtp_0001</pin></request></run></Body></Envelope>
