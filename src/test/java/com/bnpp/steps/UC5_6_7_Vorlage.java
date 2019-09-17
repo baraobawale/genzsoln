@@ -20,8 +20,14 @@ public class UC5_6_7_Vorlage {
 
 	@And("^User clicks on \"(.*?)\" of \"(.*?)\" field$")
 	public void clicksEDITorDELETE(String locatorKey, String Created_Vorlagenname1) throws Exception {
-		if (locatorKey.equals("Created_Vorlagenname"))
-			commonActions.waitForVisibilityofElement("locatorKey");
+		if (locatorKey.equals("Edit") && commonActions.getScenarioName().equals("Vorlagen_Aendern_IBAN"))
+			locatorKey = "EditIBAN";
+		if (locatorKey.equals("Edit") && commonActions.getScenarioName().equals("Vorlagen_Aendern_kontoBLZ"))
+			locatorKey = "EditKontoBLZ";
+		if (locatorKey.equals("Delete") && commonActions.getScenarioName().equals("Vorlagen_loeschen_IBAN"))
+			locatorKey = "DeleteIBAN";
+		if (locatorKey.equals("Delete") && commonActions.getScenarioName().equals("Vorlagen_loeschen_kontoBLZ"))
+			locatorKey = "DeleteKontoBLZ";
 		commonActions.click(locatorKey);
 
 	}
@@ -50,13 +56,26 @@ public class UC5_6_7_Vorlage {
 			commonActions.logAssert_Fail("IBAN update fail");
 
 	}
-//IBAN delete
+
+	// IBAN/KontoBLZ delete
 	@Then("^Verify Message on Vorlageloeschen$")
-	public void Verify_Message_Ihre_Überweisungsvorlage_wurde_angelegt6() {
-		if (commonActions.getText("Ihre_Überweisungsvorlage_wurde").contains("Ihre Überweisungsvorlage wurde gelöscht"))
-			commonActions.logPassStatus("IBAN delete success");
+	public void Verify_Message_Ihre_Überweisungsvorlage_wurde_angelegt6() throws FileNotFoundException, IOException, ParseException {
+		if(commonActions.getScenarioName().equals("Vorlagen_loeschen_IBAN")){
+			System.out.println("Value from Page: "+commonActions.getText("Ihre_Überweisungsvorlage_wurde").trim());
+			System.out.println("Value from Json: "+commonActions.getValueFromJson("Message"));
+		if (commonActions.getText("Ihre_Überweisungsvorlage_wurde").trim().equalsIgnoreCase(commonActions.getValueFromJson("Message")))
+			commonActions.logPassStatus("IBANTemplate delete success");
 		else
-			commonActions.logAssert_Fail("IBAN delete fail");
+			commonActions.logAssert_Fail("IBANTemplate delete fail");
+		}
+		else if (commonActions.getScenarioName().equals("Vorlagen_loeschen_kontoBLZ")){
+			System.out.println("Value from Page: "+commonActions.getText("Ihre_Überweisungsvorlage_wurde").trim());
+			System.out.println("Value from json: "+commonActions.getValueFromJson("Message"));
+			if (commonActions.getText("Ihre_Überweisungsvorlage_wurde").trim().equalsIgnoreCase(commonActions.getValueFromJson("Message")))
+				commonActions.logPassStatus("KontoBLZTemplate delete success");
+			else
+				commonActions.logAssert_Fail("KontoBLZTemplate delete fail");
+		}
 	}
 
 	@Then("^Verify KontoBLZ create message$")
@@ -76,7 +95,8 @@ public class UC5_6_7_Vorlage {
 		else
 			commonActions.logAssert_Fail("KontoBLZ update failed");
 	}
-//KontoBLZDelete
+
+	// KontoBLZDelete
 	@Then("^Verify Message on Vorlageloeschen1$")
 	public void Verify_Message_Ihre_Überweisungsvorlage_wurde_angelegt5() {
 		if (commonActions.getText("Ihre_Überweisungsvorlage_wurde").contains("Ihre Überweisungsvorlage wurde gelöscht"))
@@ -114,27 +134,47 @@ public class UC5_6_7_Vorlage {
 	@Then("^Verify \"(.*?)\",\"(.*?)\" on  UmsaetzeZahlungsverkehr$")
 	public void Verify_Vorlagenname_IBAN_oder_Kontonummer(String Vorlagenname, String IBAN_oder_Kontonummer)
 			throws Exception, IOException, ParseException {
-		
-		Vorlagenname = commonActions.getValueFromJson("Vorlagenname");
-		System.out.println("VorlagennameIBAN:"+Vorlagenname);
-		System.out.println("Name:"+commonActions.getAttribute("CustomerNameIBAN", "title"));
+
+		String VorlagennameFromJson = commonActions.getKeyFromJson("Vorlagenname");
+		System.out.println("VorlagennameFromJson:" + VorlagennameFromJson);
+		System.out.println("VorlagennameFromPage:" + commonActions.getAttribute("CustomerNameIBAN", "title"));
 		Thread.sleep(10000);
-		
-//		if(commonActions.isElementPresent("CustomerNameIBAN")){
-//		if (Vorlagenname.equals(commonActions.getAttribute("CustomerNameIBAN", "title")))
-//			commonActions.logPassStatus("Vorlagenname verified save success on UmsaetzeZahlungsverkehr");
-//		else
-//			commonActions.logFailStatus("Vorlagenname verified save fail on UmsaetzeZahlungsverkehr");
-//		}
-//		IBAN_oder_Kontonummer = commonActions.getValueFromJson("IBAN_oder_Kontonummer");
-//		System.out.println("IBAN_oder_Kontonummer:"+IBAN_oder_Kontonummer);
-//		System.out.println("Name:"+commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title"));
-//		if(commonActions.isElementPresent("IBAN_oder_KontonummerIBAN")){
-//		if (IBAN_oder_Kontonummer.equals(commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title")))
-//			commonActions.logPassStatus("IBAN_oder_Kontonummer verified save success on UmsaetzeZahlungsverkehr");
-//		else
-//			commonActions.logFailStatus("IBAN_oder_Kontonummer verified save fail on UmsaetzeZahlungsverkehr");
-//		}
+
+		if (commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")) {
+			if (VorlagennameFromJson.equals(commonActions.getAttribute("CustomerNameIBAN", "title")))
+				commonActions.logPassStatus("VorlagennameIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+			else
+				commonActions.logFailStatus("VorlagennameIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+
+			String IBAN_oder_KontonummerFromJson = commonActions.getKeyFromJson("IBAN_oder_Kontonummer")
+					.replaceAll("\\s", "");
+			System.out.println("IBAN_oder_KontonummerFromJson:" + IBAN_oder_KontonummerFromJson);
+			System.out.println("IBAN_oder_KontonummerFromPage:"
+					+ commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title"));
+
+			if (IBAN_oder_KontonummerFromJson.equals(commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title")))
+				commonActions.logPassStatus("IBAN_oder_KontonummerIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+			else
+				commonActions.logFailStatus("IBAN_oder_KontonummerIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+
+		}
+		if(commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")){
+			if (VorlagennameFromJson.equals(commonActions.getAttribute("CustomerNameKontoBLZ", "title")))
+				commonActions.logPassStatus("VorlagennameIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+			else
+				commonActions.logFailStatus("VorlagennameIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+
+			String IBAN_oder_KontonummerFromJson = commonActions.getKeyFromJson("IBAN_oder_Kontonummer")
+					.replaceAll("\\s", "");
+			System.out.println("IBAN_oder_KontonummerFromJson:" + IBAN_oder_KontonummerFromJson);
+			System.out.println("IBAN_oder_KontonummerFromPage:"
+					+ commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title"));
+
+			if (IBAN_oder_KontonummerFromJson.equals(commonActions.getAttribute("IBAN_oder_KontonummerKontoBLZ", "title")))
+				commonActions.logPassStatus("IBAN_oder_KontonummerIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+			else
+				commonActions.logFailStatus("IBAN_oder_KontonummerIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+		}
 	}
 
 	@And("^Verify captured details,Message from VorlageAnlegen$")

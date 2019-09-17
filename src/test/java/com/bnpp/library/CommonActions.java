@@ -19,6 +19,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
+import org.assertj.core.api.SoftAssertions;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -59,6 +60,7 @@ public class CommonActions {
 	public FileInputStream fis;
 	public static String featurename;
 	public static String scenarioname;
+	public SoftAssertions softAssertions;
 
 	public CommonActions() {
 
@@ -68,6 +70,7 @@ public class CommonActions {
 				fis = new FileInputStream(
 						System.getProperty("user.dir") + "\\src\\test\\resources\\ObjectRepository\\Object.properties");
 				properties.load(fis);
+				softAssertions = new SoftAssertions();
 			} catch (Exception e) {
 				e.printStackTrace();
 				Assert.fail();
@@ -278,8 +281,8 @@ public class CommonActions {
 		String str = "";
 		return str = getElement(objectKey).getText();
 	}
-	
-	public String getAttribute(String objectKey,String attributeName) {
+
+	public String getAttribute(String objectKey, String attributeName) {
 		String str = "";
 		return str = getElement(objectKey).getAttribute(attributeName);
 	}
@@ -301,6 +304,20 @@ public class CommonActions {
 		}
 
 	}
+	
+	public void selectAccountType(String dataKey, String locatorKey) throws Exception, IOException, Exception{
+		Select s = new Select(getElement(locatorKey));
+		String myData = getValueFromJson(dataKey);
+		myData=myData+" "+"| "+getKeyFromJson("UserID_Kontonummer");
+		System.out.println(myData);
+		try {
+			s.selectByVisibleText(myData);
+		} catch (Exception e) {
+			logAssert_Fail("Select by visble text failed on: " + locatorKey);
+		}
+
+	}
+	
 
 	/**
 	 * Description Press escape key
@@ -380,7 +397,9 @@ public class CommonActions {
 	 */
 	public void logPassStatus(String msg) {
 		scenario.log(Status.PASS, msg);
-		//assertEquals(true, true);
+
+		softAssertions.assertThat(true);
+		// assertEquals(true, true);
 	}
 
 	/**
@@ -407,8 +426,10 @@ public class CommonActions {
 	 */
 	public void logFailStatus(String msg) {
 		scenario.log(Status.FAIL, msg);
+		softAssertions.assertThat(false);
 		takeSceenShot();
-		//assertEquals(false, true);
+
+		// assertEquals(false, true);
 	}
 
 	/**
@@ -440,6 +461,7 @@ public class CommonActions {
 	public void quit() {
 		if (report != null)
 			report.flush();
+		softAssertions.assertAll();
 		if (driver != null)
 			driver.quit();
 	}
@@ -455,22 +477,22 @@ public class CommonActions {
 		scenario.log(Status.INFO, "Starting " + scenarioName);
 	}
 
-	public String getValueFromJson(String objectKey) throws FileNotFoundException, IOException, ParseException {
+	public String getValueFromJson(String dataKeyInJson) throws FileNotFoundException, IOException, ParseException {
 		String datakey = null;
 		try {
-			datakey = getKeyFromJson(objectKey);
+			datakey = getKeyFromJson(dataKeyInJson);
 			datakey = checkGermanCharacters(datakey);
-			System.out.println(objectKey + ":" + datakey);
+			System.out.println(dataKeyInJson + ":" + datakey);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			logAssert_Fail(objectKey + " :ObjectKey not present in json file");
+			logAssert_Fail(dataKeyInJson + " :ObjectKey not present in json file");
 		}
 		return datakey;
 	}
 
-	public String getKeyFromJson(String objectKey) throws FileNotFoundException, IOException, ParseException {
+	public String getKeyFromJson(String dataKey) throws FileNotFoundException, IOException, ParseException {
 
 		String data = null;
 		JSONParser parser = new JSONParser();
@@ -481,7 +503,7 @@ public class CommonActions {
 		Iterator it = getScenarioName.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			if (pair.getKey().toString().equals(objectKey)) {
+			if (pair.getKey().toString().equals(dataKey)) {
 				data = pair.getValue().toString();
 				break;
 			}
@@ -537,6 +559,8 @@ public class CommonActions {
 		return data;
 
 	}
+	
+	
 
 	public void setfaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
@@ -548,6 +572,11 @@ public class CommonActions {
 		scenarioname = name;
 
 	}
+	
+	public String getScenarioName() {
+        return scenarioname;
+  }
+
 
 	public void deleteExistingTemplates(String DeleteTemplates) throws Exception {
 		List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));
@@ -601,7 +630,7 @@ public class CommonActions {
 		String Xpath = "//tr[" + index + "]//div[1]/a[@title='Anzeigen und bearbeiten']";
 		// WebElement Editelement=driver.findElement(By.xpath(EditXpath));
 		driver.findElement(By.xpath(Xpath)).click();
-		
+
 	}
 
 }
