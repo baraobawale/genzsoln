@@ -1,47 +1,65 @@
 {
-	"UC5_6_7_Vorlage": {
-		"IBANVorlagen_Anlegen": {
-			"UserID_Kontonummer": "880589404",
-			"PIN_Password": "12345",
-			 "Account_Type": "Verrechnungskonto|880589404",
-			"Vorlagenname": "001 Michaela Kiehl",
-			"Name": "Michaela Kiehl",
-			"IBAN_oder_Kontonummer": "DE87711800050244717400",
-			"Betrag": "1,00",
-			"Ihre_Überweisungsvorlage_wurde_angelegt1": "Ihre Überweisungsvorlage wurde angelegt"
+	"UC5_6_7_Vorlage": 
+	{
+		"IBANVorlagen_Anlegen":
+		{
+		       "UserID_Kontonummer": "880589404",
+		       "PIN_Password": "12345",
+		       "Account_Type": "Verrechnungskonto",
+		       "Vorlagenname": "001 DELTA BUERICZUEK",
+		       "Name": "DELTA BUERICZUEK",
+		       "IBAN_oder_Kontonummer": "DE33760300800880589370",
+		       "Betrag": "1",
+		       "Message" : "Ihre Ueberweisungsvorlage wurde angelegt"
 		},
-		"KontoBLZVorlagen_Anlegen": {
-			"UserID_Kontonummer": "880589404",
-			"PIN_Password": "12345",
-			"Vorlagenname": "002 Michaela Kiehl",
-			"Name": "Michaela Kiehl",
-			"IBAN_oder_Kontonummer": "244717400",
-			"BLZ": "71180005",
-			"Betrag": "1,00"
+		
+		"KontoBLZVorlagen_Anlegen":
+		{
+		       "UserID_Kontonummer": "880589404",
+		       "PIN_Password": "12345",
+		       "Account_Type": "Verrechnungskonto",
+		       "Vorlagenname": "002 DELTA BUERICZUEK",
+		       "Name": "DELTA BUERICZUEK",
+		       "IBAN_oder_Kontonummer": "0880589370",
+		       "BLZ": "76030080",
+		       "Betrag": "1",
+		       "Message" : "Ihre Ueberweisungsvorlage wurde angelegt"
 		},
-		"Vorlagen_Aendern_IBAN": {
-			"UserID_Kontonummer": "880589404",
-			"PIN_Password": "12345",
-			"Created_Vorlagenname1": "001 Michaela Kiehl",
-			"Betrag": "2,00"
+		"Vorlagen_Aendern_IBAN":
+		{
+		       "UserID_Kontonummer": "880589404",
+		       "PIN_Password": "12345",
+		       "Account_Type": "Verrechnungskonto",
+		       "Created_Vorlagenname": "001 DELTA BUERICZUEK",
+		       "Betrag": "2,00",
+		       "Message" : "Ihre Ueberweisungsvorlage wurde gespeichert"
+		},	
+		"Vorlagen_Aendern_kontoBLZ":
+		{
+		       "UserID_Kontonummer": "880589404",
+		       "PIN_Password": "12345",
+		       "Account_Type": "Verrechnungskonto",
+		       "Created_Vorlagenname": "002 DELTA BUERICZUEK",
+		       "Betrag": "1,01",
+		       "Message" : "Ihre Ueberweisungsvorlage wurde gespeichert"
 		},
-		"Vorlagen_Aendern_kontoBLZ": {
-			"UserID_Kontonummer": "880589404",
-			"PIN_Password": "12345",
-			"Created_Vorlagenname1": "002 Michaela Kiehl",
-			"Betrag": "1,01"
+		"Vorlagen_loeschen_IBAN":
+		{
+		       "UserID_Kontonummer": "880589404",
+		       "PIN_Password": "12345",
+		       "Account_Type": "Verrechnungskonto",
+		       "Created_Vorlagenname": "001 DELTA BUERICZUEK",
+		       "Message" : "Ihre Ueberweisungsvorlage wurde geloescht"
 		},
-		"Vorlagen_loeschen_IBAN": {
-			"UserID_Kontonummer": "880589404",
-			"PIN_Password": "12345",
-			"Created_Vorlagenname1": "001 Michaela Kiehl"
-		},
-		"Vorlagen_loeschen_kontoBLZ": {
-			"UserID_Kontonummer": "880589404",
-			"PIN_Password": "12345",
-			"Created_Vorlagenname1": "002 Michaela Kiehl"
+		"Vorlagen_loeschen_kontoBLZ":
+		{
+		       "UserID_Kontonummer": "880589404",
+		       "PIN_Password": "12345",
+		       "Account_Type": "Verrechnungskonto",
+		       "Created_Vorlagenname": "002 DELTA BUERICZUEK",
+		       "Message" : "Ihre Ueberweisungsvorlage wurde geloescht"
 		}
 	}
 }
 
-	
+

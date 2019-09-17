@@ -79,18 +79,17 @@ public class GenericSteps {
 				|| locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
 			commonActions.moveScrollDown();
 			commonActions.click(locatorKey);
-		} else if (locatorKey.equals("Ueberweisungsvorlage_speichern")) {
+		} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
 			commonActions.click(locatorKey);
 			if (commonActions.isElementPresent("New_mobile_tan")) {
-				commonActions.enterTokenTan("Mobile_TAN_field1", TANGenerator.requestTan());
+				commonActions.enterTokenTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
 				commonActions.click(locatorKey);
 			}
-		} else if(locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")){
+		} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
 			commonActions.click(locatorKey);
 			commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
 			commonActions.moveScrollDown();
-		}
-		else
+		} else
 			commonActions.click(locatorKey);
 
 	}
@@ -116,15 +115,18 @@ public class GenericSteps {
 			} else {
 				commonActions.click(locatorKey);
 			}
-		} else {
+		}else if(dataKey.equals("Account_Type")) 
+			commonActions.selectAccountType(dataKey,locatorKey);
+		
+		else {
 			commonActions.selectFromDropDown(locatorKey, dataKey);
 		}
 	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
-			throws ClientProtocolException, IOException, InterruptedException {
-		 if (TanKey.equals("TAN_field_Login")) {
+			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
+		if (TanKey.equals("TAN_field_Login")) {
 			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 			// commonActions.enterTokenTan(TanKey,"931272");
 			commonActions.click("BestaetigenButton");
@@ -132,13 +134,34 @@ public class GenericSteps {
 				if (commonActions.isElementPresent("UsedTanMessage")) {
 					commonActions.clearfield(TanKey);
 					commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
-					
+
 					commonActions.click("BestaetigenButton");
 				}
 			}
-		}else
-			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+		} else {
+			Properties prop = new Properties();
+			// FileInputStream fis = new
+			// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
+			FileInputStream fis = new FileInputStream(
+					System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+			prop.load(fis);
+			String customerId = prop.getProperty("userID");
+			String customerPin = prop.getProperty("pin");
+			String cafeUser = prop.getProperty("cafeUserID");
+			String cafePin = prop.getProperty("cafePin");
 
+			// Redirecting Mobile TAN
+			MobileTan mt = new MobileTan();
+			mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+
+			// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+			commonActions.click("MobileTAN_link_Login");
+
+			String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+			System.out.println("mTAN is  -" + mTAN);
+			commonActions.enterTokenTan(TanKey, mTAN);
+			// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+		}
 	}
 
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
@@ -175,34 +198,36 @@ public class GenericSteps {
 		commonActions.getElement(objectKey);
 
 	}
-	///New Mobile Tan generation
-	
+	/// New Mobile Tan generation
+
 	@When("User submits generated Mobile TAN number")
-    public void user_submits_generated_Mobile_TAN_number_in() throws InterruptedException, ParserConfigurationException, SAXException, IOException {
+	public void user_submits_generated_Mobile_TAN_number_in()
+			throws InterruptedException, ParserConfigurationException, SAXException, IOException {
 
-          //Loading property files and its values       
-                       Properties prop = new Properties();
-                       //FileInputStream fis = new FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
-                 FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
-                       prop.load(fis);
-                       String customerId = prop.getProperty("userID");
-                       String customerPin = prop.getProperty("pin");
-                       String cafeUser  = prop.getProperty("cafeUserID");
-                       String cafePin  = prop.getProperty("cafePin");
-                       
-                       //Redirecting Mobile TAN
-                       MobileTan mt = new MobileTan();
-                       mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
-                       
-                       //String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-                       commonActions.click("MobileTAN_link_Login");
-                       
-                       String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-                       System.out.println("mTAN is  -" + mTAN);
-                       commonActions.enterTokenTan("TAN_field_Login", mTAN);
-                       commonActions.click("BestaetigenButton");
+		// Loading property files and its values
+		Properties prop = new Properties();
+		// FileInputStream fis = new
+		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
+		FileInputStream fis = new FileInputStream(
+				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+		prop.load(fis);
+		String customerId = prop.getProperty("userID");
+		String customerPin = prop.getProperty("pin");
+		String cafeUser = prop.getProperty("cafeUserID");
+		String cafePin = prop.getProperty("cafePin");
 
-                 }
+		// Redirecting Mobile TAN
+		MobileTan mt = new MobileTan();
+		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
 
+		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+		commonActions.click("MobileTAN_link_Login");
+
+		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+		System.out.println("mTAN is  -" + mTAN);
+		commonActions.enterTokenTan("TAN_field_Login", mTAN);
+		commonActions.click("BestaetigenButton");
+
+	}
 
 }
