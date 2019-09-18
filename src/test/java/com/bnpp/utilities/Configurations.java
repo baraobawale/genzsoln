@@ -22,6 +22,10 @@ public class Configurations {
 
     //Output Reports path
     public static final String reportPath =".\\Reports\\";
+    
+  //download file path
+    public static String downloadPath = System.getProperty("user.dir")+"\\";
+
 	
     //Take screenshots on run parameter settings.
 	public static final String takeScreenshots="Y";

@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ISelect;
 import org.xml.sax.SAXException;
 
@@ -25,6 +26,10 @@ import cucumber.api.java.en.When;
 public class GenericSteps {
 
 	CommonActions commonActions;
+	String Ueberweisungslimit_MaxLimit = "";
+    String Ueberweisungslimit_DecreaseMaxLimitByOne = "";
+    String Ueberweisungslimit_IncreaseMaxLimitByOne = "";
+
 
 	public GenericSteps(CommonActions con) {
 		this.commonActions = con;
@@ -62,7 +67,36 @@ public class GenericSteps {
 			// Move the focus out of field to handle the error displayed on
 			// clearing the field.
 			commonActions.pressTab();
-		} else
+		} 
+        else if(locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
+            if(commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
+                  WebElement text = commonActions.getElement("Max_limit");
+                  Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+                  int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+                  cnt = cnt +1;
+                  commonActions.setText(locatorKey, String.valueOf(cnt));
+                  // Move the focus out of field to handle the error displayed on
+                  // clearing the field.
+                  commonActions.pressTab();
+            }      
+         else if(commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
+                  WebElement text = commonActions.getElement("Max_limit");
+                  Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+                  int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+                  cnt = cnt -1;
+                  commonActions.setText(locatorKey, String.valueOf(cnt));
+                  commonActions.logPassStatus("Ueberweisungslimit is set to"+cnt);
+                  // Move the focus out of field to handle the error displayed on
+                  // clearing the field.
+                  commonActions.pressTab();
+            } 
+      else {
+            commonActions.enterText(locatorKey, dataKey);
+            commonActions.pressTab();
+     }
+     }      
+
+		else
 			commonActions.enterText(locatorKey, dataKey);
 
 	}
@@ -90,6 +124,10 @@ public class GenericSteps {
 			commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
 			commonActions.moveScrollDown();
 		}
+		else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
+            commonActions.click(locatorKey);
+            commonActions.pressTab();
+        }
 		else
 			commonActions.click(locatorKey);
 
@@ -105,21 +143,26 @@ public class GenericSteps {
 	}
 
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
-	public void select(String dataKey, String locatorKey) throws Exception {
-		if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
-				|| dataKey.equals("Wertpapierkaeufe")) {
-			System.out.println(dataKey);
-			String str1 = commonActions.getValueFromJson(dataKey);
-			commonActions.clearCheckBox(locatorKey);
-			if (str1.equals("null")) {
-				// System.out.println("checkbox is unchecked");
-			} else {
-				commonActions.click(locatorKey);
-			}
-		} else {
-			commonActions.selectFromDropDown(locatorKey, dataKey);
-		}
-	}
+    public void select(String dataKey, String locatorKey) throws Exception {
+          if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
+                       || dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Ich_bestaetige")) {
+                 System.out.println(dataKey);
+                 String str1 = commonActions.getValueFromJson(dataKey);
+                 commonActions.clearCheckBox(locatorKey);
+                 if (str1.equals("null")) {
+                       // System.out.println("checkbox is unchecked");
+                 } else {
+                       commonActions.click(locatorKey);
+                 }
+          }
+          else if(dataKey.equals("Account_Type")) {
+                 commonActions.selectFromDropDownByValue(locatorKey, dataKey);
+          }
+          else {
+                 commonActions.selectFromDropDown(locatorKey, dataKey);
+          }
+    }
+
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
@@ -136,7 +179,12 @@ public class GenericSteps {
 					commonActions.click("BestaetigenButton");
 				}
 			}
-		}else
+		}
+		else if(TanKey.equals("TAN_field_Ueberweisungslimit")) {
+             commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+             commonActions.pressTab();
+		}
+		else
 			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 
 	}
