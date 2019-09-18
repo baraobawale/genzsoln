@@ -1,7 +1,8 @@
 Feature: UC5_6_7_Vorlage
 
-  #Anlegen/Create-IBAN
-  #@567Create
+ 
+ #Anlegen/Create - IBAN
+  @RTA
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
