@@ -110,8 +110,9 @@ public class GenericSteps {
 	@And("^User clicks on \"(.*?)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
 		if (locatorKey.equals("Aendern") || locatorKey.equals("Neue_Ueberweisungsvorlage_anlegen")
-				|| locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
+				|| locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr") || locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")) {
 			commonActions.moveScrollDown();
+			commonActions.waitForVisibilityofElement(locatorKey);
 			commonActions.click(locatorKey);
 		} else if (locatorKey.equals("Ueberweisungsvorlage_speichern")) {
 			commonActions.click(locatorKey);
