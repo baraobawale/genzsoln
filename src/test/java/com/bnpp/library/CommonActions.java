@@ -545,10 +545,17 @@ public class CommonActions {
 			if (!data.equals("")) {
 				if (data.contains("ae"))
 					data = data.replace("ae", "ä");
-				else if (data.contains("oe"))
+				if (data.contains("oe"))
 					data = data.replace("oe", "ö");
-				else if (data.contains("ue"))
+				if (data.contains("ue"))
 					data = data.replace("ue", "ü");
+				if (data.contains("Ae"))
+					data = data.replace("Ae", "Ä");
+				if (data.contains("Oe"))
+					data = data.replace("Oe", "Ö");
+				if (data.contains("Ue"))
+					data = data.replace("Ue", "Ü");
+
 
 			}
 

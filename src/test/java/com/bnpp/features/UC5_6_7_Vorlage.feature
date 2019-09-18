@@ -1,7 +1,7 @@
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create-IBAN
-  @567Create
+  #@567Create
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -29,7 +29,7 @@ Feature: UC5_6_7_Vorlage
       | IBANVorlagen_Anlegen |
 
 #Anlegen/Create-KontoBLZ
-@567Create
+#@567Create
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -57,6 +57,7 @@ Feature: UC5_6_7_Vorlage
       | KontoBLZVorlagen_Anlegen |
 
 	#Aendern/Change-IBAN/KontoBLZ
+	@567update
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -64,7 +65,7 @@ Feature: UC5_6_7_Vorlage
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr" field
+    And User click on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
     And User changes "Betrag" in "Betrag_VorlageAendern"
     And User clicks on "WeiterZurTANEingabe_VorlageAendern"
     And User submits generated TAN number in "TAN_field_VorlageAnlegen"
@@ -77,7 +78,7 @@ Feature: UC5_6_7_Vorlage
       | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-IBAN/KontoBLZ
-  @567Delete
+#  @567Delete
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
