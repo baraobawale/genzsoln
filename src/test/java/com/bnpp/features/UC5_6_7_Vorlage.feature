@@ -1,14 +1,14 @@
+@567Run
 Feature: UC5_6_7_Vorlage
 
- 
- #Anlegen/Create - IBAN
-  @RTA
+  #Anlegen/Create - IBAN
+  @CreateUpdate
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     #And User submits generated Mobile TAN number
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
-     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
+    And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
     And User clicks on "NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr"
@@ -29,8 +29,8 @@ Feature: UC5_6_7_Vorlage
       | TestCase             |
       | IBANVorlagen_Anlegen |
 
-#Anlegen/Create-KontoBLZ
-#@567Create
+  #Anlegen/Create-KontoBLZ
+  @CreateUpdate
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -57,8 +57,8 @@ Feature: UC5_6_7_Vorlage
       | TestCase                 |
       | KontoBLZVorlagen_Anlegen |
 
-	#Aendern/Change-IBAN/KontoBLZ
-	@567update
+  #Aendern/Change-IBAN/KontoBLZ
+  @CreateUpdate
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -74,12 +74,12 @@ Feature: UC5_6_7_Vorlage
     Then Verify Message,details on VorlageAendern
 
     Examples: 
-      | TestCase                  | 
+      | TestCase                  |
       | Vorlagen_Aendern_IBAN     |
       | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-IBAN/KontoBLZ
-#  @567Delete
+  @Delete
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -87,7 +87,7 @@ Feature: UC5_6_7_Vorlage
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Delete" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr" field
+    And User click on "Delete" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
     And User submits generated TAN number in "TAN_field_Vorlageloeschen"
     And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
     Then Verify Message on Vorlageloeschen
