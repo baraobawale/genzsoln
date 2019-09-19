@@ -128,6 +128,19 @@ public class CommonActions {
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			// prefs.put("download.default_directory",
 			// System.getProperty("user.dir") + "\\Downloads");
+			prefs.put("plugins.plugins_disabled", new String[] {
+                    "Chrome PDF Viewer"
+                });
+                    prefs.put("plugins.always_open_pdf_externally", true);
+                    prefs.put("profile.default_content_settings.popups", 0);
+                    Date d = new Date();
+            String folderName=d.toString().replace(":", "_");
+            Configurations.downloadPath = Configurations.downloadPath+folderName;
+            
+            // directory of the report folder
+            new File(Configurations.downloadPath).mkdirs();
+                 prefs.put("download.default_directory", Configurations.downloadPath);
+
 			ops.setExperimentalOption("prefs", prefs);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -135,6 +148,72 @@ public class CommonActions {
 		}
 		return ops;
 	}
+	
+	
+	/**
+	 * Description set text to the field
+	 */
+	public void setText(String objectKey, String datakey)
+            throws IllegalArgumentException, InterruptedException, IOException, ParseException {
+		getElement(objectKey).clear();
+		getElement(objectKey).sendKeys(datakey);
+     }
+	
+	
+	/**
+     * @param objectKey
+     *            Description Common verify file is Present
+     * @throws InterruptedException 
+      */
+     public void VerifyifFilePresent() throws InterruptedException {
+           Thread.sleep(10000);
+           File Files = new File(Configurations.downloadPath);
+           System.out.println("download path"+Configurations.downloadPath);
+           int Count = Files.list().length;
+           System.out.println("No. Of Files: "+Count);
+           if(Count == 1) {
+                  logPassStatus("PDF is downloaded successfully at "+Configurations.downloadPath);
+           }
+           else {
+                  logFailStatus("Pdf is not downloaded");
+           }
+           // put download file path in reports
+           scenario.debug(Configurations.downloadPath);
+     }
+     
+     /**
+      * @param objectKey
+      *            Description get scenario name
+      * @throws InterruptedException 
+       */ 
+     public String getScenarioName() {
+         return scenarioname;
+     }
+
+
+     
+     /**
+      * @param objectKey
+      * @param data
+      * @throws Exception
+      *             Description Common action select from combo box by value
+      *             text
+      */
+      public void selectFromDropDownByValue(String objectKey, String datakey) throws Exception {
+            Select s = new Select(getElement(objectKey));
+            String myData = getValueFromJson(datakey);
+            if(datakey.equals("Account_Type")) {
+                   myData = "880589404";
+            }
+            try {
+                   s.selectByValue(myData);
+            } catch (Exception e) {
+                   logAssert_Fail("Select by visble text failed on: " + objectKey);
+            }
+
+      }
+
+
 
 	/**
 	 * Description Refresh the page
@@ -566,8 +645,6 @@ public class CommonActions {
 		return data;
 
 	}
-	
-	
 
 	public void setfaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
@@ -579,10 +656,6 @@ public class CommonActions {
 		scenarioname = name;
 
 	}
-	
-	public String getScenarioName() {
-        return scenarioname;
-  }
 
 
 	public void deleteExistingTemplates(String DeleteTemplates) throws Exception {
