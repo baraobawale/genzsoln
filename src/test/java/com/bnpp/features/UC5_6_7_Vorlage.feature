@@ -6,7 +6,6 @@ Feature: UC5_6_7_Vorlage
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
-    #And User submits generated Mobile TAN number
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
@@ -33,6 +32,7 @@ Feature: UC5_6_7_Vorlage
   @CreateUpdate
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
+    When User opens application
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
@@ -67,7 +67,7 @@ Feature: UC5_6_7_Vorlage
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
     And User click on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
-    And User changes "Betrag" in "Betrag_VorlageAendern"
+    And User enters "Betrag" in "Betrag_VorlageAendern"
     And User clicks on "WeiterZurTANEingabe_VorlageAendern"
     And User submits generated TAN number in "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungVorlageSpeichern_VorlageAendern"

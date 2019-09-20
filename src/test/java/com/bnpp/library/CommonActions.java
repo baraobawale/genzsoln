@@ -46,6 +46,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
 import com.bnpp.reports.ExtentManager;
@@ -128,18 +129,16 @@ public class CommonActions {
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			// prefs.put("download.default_directory",
 			// System.getProperty("user.dir") + "\\Downloads");
-			prefs.put("plugins.plugins_disabled", new String[] {
-                    "Chrome PDF Viewer"
-                });
-                    prefs.put("plugins.always_open_pdf_externally", true);
-                    prefs.put("profile.default_content_settings.popups", 0);
-                    Date d = new Date();
-            String folderName=d.toString().replace(":", "_");
-            Configurations.downloadPath = Configurations.downloadPath+folderName;
-            
-            // directory of the report folder
-            new File(Configurations.downloadPath).mkdirs();
-                 prefs.put("download.default_directory", Configurations.downloadPath);
+			prefs.put("plugins.plugins_disabled", new String[] { "Chrome PDF Viewer" });
+			prefs.put("plugins.always_open_pdf_externally", true);
+			prefs.put("profile.default_content_settings.popups", 0);
+			Date d = new Date();
+			String folderName = d.toString().replace(":", "_");
+			Configurations.downloadPath = Configurations.downloadPath + folderName;
+
+			// directory of the report folder
+			new File(Configurations.downloadPath).mkdirs();
+			prefs.put("download.default_directory", Configurations.downloadPath);
 
 			ops.setExperimentalOption("prefs", prefs);
 		} catch (Exception e) {
@@ -148,72 +147,55 @@ public class CommonActions {
 		}
 		return ops;
 	}
-	
-	
+
 	/**
 	 * Description set text to the field
 	 */
 	public void setText(String objectKey, String datakey)
-            throws IllegalArgumentException, InterruptedException, IOException, ParseException {
+			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		getElement(objectKey).clear();
 		getElement(objectKey).sendKeys(datakey);
-     }
-	
-	
+	}
+
 	/**
-     * @param objectKey
-     *            Description Common verify file is Present
-     * @throws InterruptedException 
-      */
-     public void VerifyifFilePresent() throws InterruptedException {
-           Thread.sleep(10000);
-           File Files = new File(Configurations.downloadPath);
-           System.out.println("download path"+Configurations.downloadPath);
-           int Count = Files.list().length;
-           System.out.println("No. Of Files: "+Count);
-           if(Count == 1) {
-                  logPassStatus("PDF is downloaded successfully at "+Configurations.downloadPath);
-           }
-           else {
-                  logFailStatus("Pdf is not downloaded");
-           }
-           // put download file path in reports
-           scenario.debug(Configurations.downloadPath);
-     }
-     
-     /**
-      * @param objectKey
-      *            Description get scenario name
-      * @throws InterruptedException 
-       */ 
-     public String getScenarioName() {
-         return scenarioname;
-     }
+	 * @param objectKey
+	 *            Description Common verify file is Present
+	 * @throws InterruptedException
+	 */
+	public void VerifyifFilePresent() throws InterruptedException {
+		Thread.sleep(10000);
+		File Files = new File(Configurations.downloadPath);
+		System.out.println("download path" + Configurations.downloadPath);
+		int Count = Files.list().length;
+		System.out.println("No. Of Files: " + Count);
+		if (Count == 1) {
+			logPassStatus("PDF is downloaded successfully at " + Configurations.downloadPath);
+		} else {
+			logFailStatus("Pdf is not downloaded");
+		}
+		// put download file path in reports
+		scenario.debug(Configurations.downloadPath);
+	}
 
+	/**
+	 * @param objectKey
+	 * @param data
+	 * @throws Exception
+	 *             Description Common action select from combo box by value text
+	 */
+	public void selectFromDropDownByValue(String objectKey, String datakey) throws Exception {
+		Select s = new Select(getElement(objectKey));
+		String myData = getValueFromJson(datakey);
+		if (datakey.equals("Account_Type")) {
+			myData = "880589404";
+		}
+		try {
+			s.selectByValue(myData);
+		} catch (Exception e) {
+			logAssert_Fail("Select by visble text failed on: " + objectKey);
+		}
 
-     
-     /**
-      * @param objectKey
-      * @param data
-      * @throws Exception
-      *             Description Common action select from combo box by value
-      *             text
-      */
-      public void selectFromDropDownByValue(String objectKey, String datakey) throws Exception {
-            Select s = new Select(getElement(objectKey));
-            String myData = getValueFromJson(datakey);
-            if(datakey.equals("Account_Type")) {
-                   myData = "880589404";
-            }
-            try {
-                   s.selectByValue(myData);
-            } catch (Exception e) {
-                   logAssert_Fail("Select by visble text failed on: " + objectKey);
-            }
-
-      }
-
-
+	}
 
 	/**
 	 * Description Refresh the page
@@ -383,11 +365,11 @@ public class CommonActions {
 		}
 
 	}
-	
-	public void selectAccountType(String dataKey, String locatorKey) throws Exception, IOException, Exception{
+
+	public void selectAccountType(String dataKey, String locatorKey) throws Exception, IOException, Exception {
 		Select s = new Select(getElement(locatorKey));
 		String myData = getValueFromJson(dataKey);
-		myData=myData+" "+"| "+getKeyFromJson("UserID_Kontonummer");
+		myData = myData + " " + "| " + getKeyFromJson("UserID_Kontonummer");
 		System.out.println(myData);
 		try {
 			s.selectByVisibleText(myData);
@@ -396,7 +378,6 @@ public class CommonActions {
 		}
 
 	}
-	
 
 	/**
 	 * Description Press escape key
@@ -415,8 +396,21 @@ public class CommonActions {
 	 */
 	public void selectDropDownByIndex(String objectKey, String data) throws Exception {
 		Select s = new Select(getElement(objectKey));
-		Thread.sleep(5000);
-		s.selectByIndex(Integer.parseInt(data));
+		if (data.equals("Intervall")) {
+			Thread.sleep(3000);
+			s.selectByIndex(2);
+			System.out.println("dropdown condition success-MONATLICH selected");
+		} else if (data.equals("Immer_am")) {
+			System.out.println("dropdown condition success");
+			Thread.sleep(3000);
+			s.selectByIndex(9);
+			System.out.println("dropdown condition success-10. des montas selected");
+		} else {
+
+			Thread.sleep(5000);
+			s.selectByIndex(Integer.parseInt(data));
+		}	
+
 	}
 
 	/**
@@ -518,17 +512,20 @@ public class CommonActions {
 	public void takeSceenShot() {
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			Date d = new Date();
-			String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
-			// take screenshot
-			File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			try {
+				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
+				// take screenshot
+				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
 				// get the dynamic folder name
 				FileUtils.copyFile(srcFile, new File(ExtentManager.screenshotFolderPath + screenshotFile));
+				String PathofScreenShot = System.getProperty("user.dir") + "\\" + ExtentManager.screenshotFolderPath
+						+ screenshotFile;
 				// put screenshot file in reports
-				scenario.log(Status.DEBUG, "Screenshot-> "
-						+ scenario.addScreenCaptureFromPath(ExtentManager.screenshotFolderPath + screenshotFile));
+				scenario.info("Screenshot", MediaEntityBuilder.createScreenCaptureFromPath(PathofScreenShot).build());
 			} catch (IOException e) {
 				e.printStackTrace();
+				Assert.fail();
 			}
 		}
 
@@ -635,7 +632,6 @@ public class CommonActions {
 				if (data.contains("Ue"))
 					data = data.replace("Ue", "Ü");
 
-
 			}
 
 		} catch (Exception e) {
@@ -657,6 +653,9 @@ public class CommonActions {
 
 	}
 
+	public String getScenarioName() {
+		return scenarioname;
+	}
 
 	public void deleteExistingTemplates(String DeleteTemplates) throws Exception {
 		List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));
@@ -711,6 +710,23 @@ public class CommonActions {
 		// WebElement Editelement=driver.findElement(By.xpath(EditXpath));
 		driver.findElement(By.xpath(Xpath)).click();
 
+	}
+
+	public boolean compareTextWithJsonDataKeyValue(String ObjectKey, String jsonDataKey)
+			throws FileNotFoundException, IOException, ParseException {
+		if (getText(ObjectKey).equals(getValueFromJson(jsonDataKey)))
+			return true;
+		else
+			return false;
+
+	}
+
+	public boolean compareAtrributeWithJson(String ObjectKey, String AttributeName, String jsonDataKey)
+			throws FileNotFoundException, IOException, ParseException {
+		if (getAttribute(ObjectKey, AttributeName).equals(getValueFromJson(jsonDataKey)))
+			return true;
+		else
+			return false;
 	}
 
 }

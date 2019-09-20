@@ -38,15 +38,15 @@ public class UC5_6_7_Vorlage {
 
 	}
 
-	@And("^User changes \"(.*?)\" in \"(.*?)\"$")
-	public void user_changes_in_field(String Betrag, String locatorKey)
-			throws Exception, InterruptedException, IOException, ParseException {
-		System.out.println("locatorKey+  " + locatorKey);
-		System.out.println("Betrag+  " + Betrag);
-
-		commonActions.clearfield(locatorKey);
-		commonActions.enterText(locatorKey, Betrag);
-	}
+//	@And("^User changes \"(.*?)\" in \"(.*?)\"$")
+//	public void user_changes_in_field(String Betrag, String locatorKey)
+//			throws Exception, InterruptedException, IOException, ParseException {
+//		System.out.println("locatorKey+  " + locatorKey);
+//		System.out.println("Betrag+  " + Betrag);
+//
+//		commonActions.clearfield(locatorKey);
+//		commonActions.enterText(locatorKey, Betrag);
+//	}
 
 	@And("^Capture Message on VorlageAnlegen$")
 	public void Verify_Message_Ihre_Überweisungsvorlage_wurde_angelegt1()

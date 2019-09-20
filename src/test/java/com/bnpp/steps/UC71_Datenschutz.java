@@ -30,15 +30,22 @@ public class UC71_Datenschutz {
 	@And("User selects checkbox {string} in {string}")
 	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
-		String str1 = commonActions.getValueFromJson(dataKey);
-		commonActions.clearCheckBox(locatorKey);
-		if (str1.equals("null")) {
-			// System.out.println("checkbox is unchecked");
-		} else {
-			commonActions.click(locatorKey);
-		}
-	}
+		String str1 = commonActions.getValueFromJson(dataKey);	
+		if(!locatorKey.equals("Unbegrenzt_gültig"))
+        	commonActions.click(locatorKey);
+			 if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern") )
+             { 
+             commonActions.click(locatorKey);
+             }else
+            	 commonActions.click(locatorKey);
+             
 
+               //commonActions.clearCheckBox(locatorKey);
+         } 
+            
+
+
+	
 	@Then("Verify messages displayed on Mein Datenchutz")
     public void Verify_messages_displayed_on_Mein_Datenchutz() {
              String ScenarioName = commonActions.getScenarioName();

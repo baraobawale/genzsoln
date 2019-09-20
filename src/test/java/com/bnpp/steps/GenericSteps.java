@@ -27,9 +27,8 @@ public class GenericSteps {
 
 	CommonActions commonActions;
 	String Ueberweisungslimit_MaxLimit = "";
-    String Ueberweisungslimit_DecreaseMaxLimitByOne = "";
-    String Ueberweisungslimit_IncreaseMaxLimitByOne = "";
-
+	String Ueberweisungslimit_DecreaseMaxLimitByOne = "";
+	String Ueberweisungslimit_IncreaseMaxLimitByOne = "";
 
 	public GenericSteps(CommonActions con) {
 		this.commonActions = con;
@@ -67,34 +66,31 @@ public class GenericSteps {
 			// Move the focus out of field to handle the error displayed on
 			// clearing the field.
 			commonActions.pressTab();
-		} 
-        else if(locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
-            if(commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
-                  WebElement text = commonActions.getElement("Max_limit");
-                  Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
-                  int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
-                  cnt = cnt +1;
-                  commonActions.setText(locatorKey, String.valueOf(cnt));
-                  // Move the focus out of field to handle the error displayed on
-                  // clearing the field.
-                  commonActions.pressTab();
-            }      
-         else if(commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
-                  WebElement text = commonActions.getElement("Max_limit");
-                  Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
-                  int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
-                  cnt = cnt -1;
-                  commonActions.setText(locatorKey, String.valueOf(cnt));
-                  commonActions.logPassStatus("Ueberweisungslimit is set to"+cnt);
-                  // Move the focus out of field to handle the error displayed on
-                  // clearing the field.
-                  commonActions.pressTab();
-            } 
-      else {
-            commonActions.enterText(locatorKey, dataKey);
-            commonActions.pressTab();
-     }
-     }      
+		} else if (locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
+			if (commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
+				WebElement text = commonActions.getElement("Max_limit");
+				Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+				int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+				cnt = cnt + 1;
+				commonActions.setText(locatorKey, String.valueOf(cnt));
+				// Move the focus out of field to handle the error displayed on
+				// clearing the field.
+				commonActions.pressTab();
+			} else if (commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
+				WebElement text = commonActions.getElement("Max_limit");
+				Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+				int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+				cnt = cnt - 1;
+				commonActions.setText(locatorKey, String.valueOf(cnt));
+				commonActions.logPassStatus("Ueberweisungslimit is set to" + cnt);
+				// Move the focus out of field to handle the error displayed on
+				// clearing the field.
+				commonActions.pressTab();
+			} else {
+				commonActions.enterText(locatorKey, dataKey);
+				commonActions.pressTab();
+			}
+		}
 
 		else
 			commonActions.enterText(locatorKey, dataKey);
@@ -107,10 +103,10 @@ public class GenericSteps {
 		commonActions.clearfield(locatorKey);
 	}
 
-	@And("^User clicks on \"(.*?)\"$")
+	//@And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
+	@And("^User clicks on \"(.*)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
-		if (locatorKey.equals("Aendern") || locatorKey.equals("Neue_Ueberweisungsvorlage_anlegen")
-				|| locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr") || locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")) {
+		if (locatorKey.equals("Aendern") || locatorKey.equals("Neue_Ueberweisungsvorlage_anlegen") || locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr") || locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr") || locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 			commonActions.moveScrollDown();
 			commonActions.waitForVisibilityofElement(locatorKey);
 			commonActions.click(locatorKey);
@@ -124,12 +120,10 @@ public class GenericSteps {
 			commonActions.click(locatorKey);
 			commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
 			commonActions.moveScrollDown();
-		}
-		else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
-            commonActions.click(locatorKey);
-            commonActions.pressTab();
-        }
-		else
+		} else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
+			commonActions.click(locatorKey);
+			commonActions.pressTab();
+		} else
 			commonActions.click(locatorKey);
 	}
 
@@ -144,40 +138,41 @@ public class GenericSteps {
 
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 
-    public void select(String dataKey, String locatorKey) throws Exception {
-          if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
-                       || dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Ich_bestaetige")) {
-                 System.out.println(dataKey);
-                 String str1 = commonActions.getValueFromJson(dataKey);
-                 commonActions.clearCheckBox(locatorKey);
-                 if (str1.equals("null")) {
-                       // System.out.println("checkbox is unchecked");
-                 } else {
-                       commonActions.click(locatorKey);
-                 }
-          }
-          else if(dataKey.equals("Account_Type")) {
-                 commonActions.selectFromDropDownByValue(locatorKey, dataKey);
-          }
-          else {
-                 commonActions.selectFromDropDown(locatorKey, dataKey);
-          }
-    }
-
+	public void select(String dataKey, String locatorKey) throws Exception {
+		if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
+				|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Ich_bestaetige")) {
+			System.out.println(dataKey);
+			String str1 = commonActions.getValueFromJson(dataKey);
+			commonActions.clearCheckBox(locatorKey);
+			if (str1.equals("null")) {
+				// System.out.println("checkbox is unchecked");
+			} else {
+				commonActions.click(locatorKey);
+			}
+		} else if (dataKey.equals("Account_Type")) {
+			commonActions.selectFromDropDownByValue(locatorKey, dataKey);
+		} else {
+			commonActions.selectFromDropDown(locatorKey, dataKey);
+		}
+	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
+        String token = TANGenerator.requestTan();
 		if (TanKey.equals("TAN_field_Login")) {
-			commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			commonActions.enterTokenTan(TanKey, token);
+            commonActions.logInfoStatus("Info | Token used : " + token );
 			// commonActions.enterTokenTan(TanKey,"931272");
 			commonActions.click("BestaetigenButton");
 			if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
 				if (commonActions.isElementPresent("UsedTanMessage")) {
-					commonActions.clearfield(TanKey);
-					commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+					commonActions.clearfield(TanKey);             
+                    commonActions.enterTokenTan(TanKey, token);
+                    commonActions.click("BestaetigenButton");
+                    commonActions.logInfoStatus("Info | Token used : " + token );
+                    commonActions.takeSceenShot();
 
-					commonActions.click("BestaetigenButton");
 				}
 			}
 		} else {
@@ -201,12 +196,17 @@ public class GenericSteps {
 
 			String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
 			System.out.println("mTAN is  -" + mTAN);
+			
 			commonActions.enterTokenTan(TanKey, mTAN);
+			if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
+				commonActions.pressTab();
+			}
+            commonActions.logInfoStatus("Info | Token used : " + token );
+          
+
 			// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 		}
-		if(TanKey.equals("TAN_field_Ueberweisungslimit")) {
-             commonActions.pressTab();
-		}
+		
 	}
 
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
@@ -217,6 +217,9 @@ public class GenericSteps {
 		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 		commonActions.enterText(PIN_Password, "PIN_Password");
 		click("Einloggen");
+		commonActions.logInfoStatus(
+				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+		commonActions.takeSceenShot();
 	}
 
 	@When("User \"(.*?)\" in \"(.*?)\" field")
