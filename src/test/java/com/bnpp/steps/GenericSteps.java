@@ -106,13 +106,35 @@ public class GenericSteps {
 	// @And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
 	@And("^User clicks on \"(.*)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
-		if (locatorKey.equals("Aendern") || locatorKey.equals("Neue_Ueberweisungsvorlage_anlegen")
-				|| locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")
+		if (locatorKey.equals("Aendern") || locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
 				|| locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")
 				|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 			commonActions.moveScrollDown();
 			commonActions.waitForVisibilityofElement(locatorKey);
 			commonActions.click(locatorKey);
+		} else if (locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
+			commonActions.click(locatorKey);
+			commonActions.moveScrollDown();
+			if (commonActions.isElementPresent("CustomerNameIBAN")||commonActions.isElementPresent("CustomerNameKontoBLZ")) {
+				if(commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")){
+				commonActions.logInfoStatus("Vorlagename '001 DELTA BUERICZUEK' template already exists.");
+				commonActions.click("DeleteIBAN");
+				}
+				if(commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")){
+					commonActions.logInfoStatus("Vorlagename '002 DELTA BUERICZUEK' template already exists.");
+					commonActions.click("DeleteKontoBLZ");
+				}					
+					commonActions.logInfoStatus("Deleting the template");
+				String token = TANGenerator.requestTan();
+				commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+				commonActions.moveScrollDown();
+				commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				// Add code to revert to vorlage template display page if
+				// not
+			} // navigated.
+
 		} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
 			commonActions.click(locatorKey);
 			if (commonActions.isElementPresent("New_mobile_tan")) {
@@ -193,34 +215,7 @@ public class GenericSteps {
 				}
 			}
 		} else {
-			Properties prop = new Properties();
-			// FileInputStream fis = new
-			// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
-			FileInputStream fis = new FileInputStream(
-					System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
-			prop.load(fis);
-			String customerId = prop.getProperty("userID");
-			String customerPin = prop.getProperty("pin");
-			String cafeUser = prop.getProperty("cafeUserID");
-			String cafePin = prop.getProperty("cafePin");
-
-			// Redirecting Mobile TAN
-			MobileTan mt = new MobileTan();
-			mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
-
-			// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-			commonActions.click("MobileTAN_link_Login");
-
-			String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-			// System.out.println("mTAN is -" + mTAN);
-			Thread.sleep(3000);
-			commonActions.enterTokenTan(TanKey, mTAN);
-			if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
-				commonActions.pressTab();
-			}
-			commonActions.logInfoStatus("Info | Token used : " + token);
-
-			// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			commonActions.enterNewMobileTan(TanKey, token);
 		}
 
 	}

@@ -26,7 +26,7 @@ public class UC5_6_7_Vorlage {
 				locatorKey = "EditKontoBLZ";
 			if (locatorKey.equals("Delete") && commonActions.getScenarioName().equals("Vorlagen_loeschen_IBAN")) {
 				locatorKey = "DeleteIBAN";
-			}
+				}
 			if (locatorKey.equals("Delete") && commonActions.getScenarioName().equals("Vorlagen_loeschen_kontoBLZ"))
 				locatorKey = "DeleteKontoBLZ";
 

@@ -16,7 +16,11 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.assertj.core.api.SoftAssertions;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -43,11 +47,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.xml.sax.SAXException;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-
+import com.bnpp.mTANResources.MobileTan;
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
 
@@ -227,7 +233,7 @@ public class CommonActions {
 
 	public void waitForVisibilityofElement(String ObjectKey) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 50);
+			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.visibilityOf(getElement(ObjectKey)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -775,4 +781,36 @@ public class CommonActions {
 			return false;
 	}
 
-}
+	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException, IOException, ParserConfigurationException, SAXException {
+		Properties prop = new Properties();
+		// FileInputStream fis = new
+		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
+		FileInputStream fis = new FileInputStream(
+				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+		prop.load(fis);
+		String customerId = prop.getProperty("userID");
+		String customerPin = prop.getProperty("pin");
+		String cafeUser = prop.getProperty("cafeUserID");
+		String cafePin = prop.getProperty("cafePin");
+
+		// Redirecting Mobile TAN
+		MobileTan mt = new MobileTan();
+		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+
+		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+		click("MobileTAN_link_Login");
+
+		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+		// System.out.println("mTAN is -" + mTAN);
+		Thread.sleep(3000);
+		enterTokenTan(tanKey, mTAN);
+		if (tanKey.equals("TAN_field_Ueberweisungslimit")) {
+			pressTab();
+		}
+		logInfoStatus("Info | Token used : " + token);
+
+		// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+	}
+		
+	}
+
