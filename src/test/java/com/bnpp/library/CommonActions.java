@@ -135,6 +135,7 @@ public class CommonActions {
 			prefs.put("profile.default_content_settings.popups", 0);
 			Date d = new Date();
 			String folderName = d.toString().replace(":", "_");
+			new File(Configurations.downloadPath).mkdirs();
 			Configurations.downloadPath = Configurations.downloadPath + folderName;
 
 			// directory of the report folder

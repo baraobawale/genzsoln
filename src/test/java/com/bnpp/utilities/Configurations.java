@@ -24,7 +24,7 @@ public class Configurations {
     public static final String reportPath =".\\Reports\\";
     
   //download file path
-    public static String downloadPath = System.getProperty("user.dir")+"\\";
+    public static String downloadPath = System.getProperty("user.dir")+"\\Downloads\\";
 
 	
     //Take screenshots on run parameter settings.
