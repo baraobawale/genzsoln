@@ -24,7 +24,7 @@ public class ExtentManager {
                                 
                                 reportPath=reportPath+folderName+"//";
                                 screenshotFolderPath=reportPath+"screenshots//";
-                                System.out.println(reportPath+fileName);
+                                //System.out.println(reportPath+fileName);
                                 createInstance(reportPath+fileName);
                 }
                 

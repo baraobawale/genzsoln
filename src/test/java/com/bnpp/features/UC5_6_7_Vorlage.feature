@@ -1,8 +1,8 @@
-@567Run
+
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create - IBAN
-  @CreateUpdate
+ 
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -29,11 +29,10 @@ Feature: UC5_6_7_Vorlage
       | IBANVorlagen_Anlegen |
 
   #Anlegen/Create-KontoBLZ
-  @CreateUpdate
+ 
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    When User opens application
-    And User submits generated TAN number in "TAN_field_Login"
+  	 And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
@@ -58,7 +57,7 @@ Feature: UC5_6_7_Vorlage
       | KontoBLZVorlagen_Anlegen |
 
   #Aendern/Change-IBAN/KontoBLZ
-  @CreateUpdate
+
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -79,7 +78,7 @@ Feature: UC5_6_7_Vorlage
       | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-IBAN/KontoBLZ
-  @Delete
+ 
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"

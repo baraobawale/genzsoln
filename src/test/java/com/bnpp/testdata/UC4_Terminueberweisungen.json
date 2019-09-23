@@ -1,8 +1,6 @@
 {
-	"UC4_Terminueberweisungen": 
-	{
-		"Terminueberweisungen_Anlegen": 
-		{
+	"UC4_Terminueberweisungen": {
+		"Terminueberweisungen_Anlegen": {
 			"UserID_Kontonummer": "880589404",
 			"PIN_Password": "12345",
 			"Account_Type": "Verrechnungskonto",
@@ -12,11 +10,9 @@
 			"Datum": "12.10.2019",
 			"Als_Vorlage_speichern": "select",
 			"Vorlagenname": "001 DELTA BUERICZUEK",
-			"Message": "Ihre Terminüberweisung wurde angenommen" 
+			"Message": "Ihre Terminüberweisung wurde angenommen"
 		},
-
-		"Terminueberweisungen_Andern": 
-		{
+		"Terminueberweisungen_Andern": {
 			"UserID_Kontonummer": "880589404",
 			"PIN_Password": "12345",
 			"Account_Type": "Verrechnungskonto",
@@ -25,9 +21,7 @@
 			"Datum": "11.10.2019",
 			"Message": "Ihre Terminueberweisung wurde gespeichert"
 		},
-
-		"Terminueberweisungen_Loeschen": 
-		{
+		"Terminueberweisungen_Loeschen": {
 			"UserID_Kontonummer": "880589404",
 			"PIN_Password": "12345",
 			"Account_Type": "Verrechnungskonto",

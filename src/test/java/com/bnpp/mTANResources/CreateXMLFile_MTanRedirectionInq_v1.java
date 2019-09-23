@@ -81,7 +81,7 @@ public class CreateXMLFile_MTanRedirectionInq_v1  {
  
             transformer.transform(domSource, streamResult);
  
-            System.out.println("Done creating XML File for MTanRedirectionInq");
+           // System.out.println("Done creating XML File for MTanRedirectionInq");
  
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();

@@ -1,4 +1,4 @@
-@RTA
+
 Feature: UC67_68_Stammdaten
 
   Scenario Outline: <TestCase>

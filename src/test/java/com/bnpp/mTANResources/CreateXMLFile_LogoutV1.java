@@ -81,7 +81,7 @@ public class CreateXMLFile_LogoutV1  {
  
             transformer.transform(domSource, streamResult);
  
-            System.out.println("Done creating XML File for Logout");
+            //System.out.println("Done creating XML File for Logout");
  
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();

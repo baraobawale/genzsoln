@@ -1,8 +1,9 @@
+@RTA
 Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen
   #Anlegen/Creation
-  @UC3Create
+  
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -20,8 +21,8 @@ Feature: UC3_Dauerauftraege
     And User selects checkbox "Unbegrenzt_gültig" in "UnbegrenztGultig_DauerauftrageAnlegen"
     And User selects checkbox "Als_Vorlage_speichern" in "AlsVorlageSpeichern_DauerauftrageAnlegen"
     And User enters "Vorlagenname" in "Vorlagenname_DauerauftrageAnlegen"
-    And User clicks on "WeiterZurTANEingabe_DauerauftrageAnlegen"
-    And User submits generated Mobile TAN number in "TAN_field_DauerauftrageAnlegen"
+     And User clicks on "WeiterZurTANEingabe_DauerauftrageAnlegen"
+    And User submits generated TAN number in "TAN_field_DauerauftrageAnlegen"  
     And User clicks on "DauerauftraegeAnlegen_DauerauftrageAnlegen"
     And Capture entered details on DauerauftrageAnlegen
     And Capture Message on DauerauftrageAnlegen
@@ -34,7 +35,7 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Anlegen |
 
   #Andern/Updation
-@UC3Update
+
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -45,7 +46,7 @@ Feature: UC3_Dauerauftraege
     And User click on "Edit_Dauerauftraege" of "Created_Dauerauftraege" in "CreatedDauerauftraege_UmsaetzeZahlungsverkehr"
     And User enters "Betrag" in "Betrag_DauerauftrageAndern"
     And User clicks on "WeiterZurTANEingabe_DauerauftrageAndern"
-    And User submits generated Mobile TAN number in "TAN_field_DauerauftrageAndern"
+   And User submits generated TAN number in "TAN_field_DauerauftrageAndern"
     And User clicks on "DauerauftraegeSpeichern_DauerauftrageAndern"
     Then Verify Message,details on DauerauftrageAndern
 
@@ -54,7 +55,7 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Andern |
 
   #Loeschen/Deletion
-  @UC3Delete
+
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -63,7 +64,7 @@ Feature: UC3_Dauerauftraege
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Dauerauftraege_UmsaetzeZahlungsverkehr"
     And User click on "Delete_Dauerauftraege" of "Created_Dauerauftraege" in "CreatedDauerauftraege_UmsaetzeZahlungsverkehr"
-    And User submits generated Mobile TAN number in "TAN_field_Dauerauftraegeloeschen"
+    And User submits generated TAN number in "TAN_field_Dauerauftraegeloeschen"
     And User clicks on "Dauerauftraegeloeschen_Dauerauftraegeloeschen"
     Then Verify Message on Dauerauftraegeloeschen
 

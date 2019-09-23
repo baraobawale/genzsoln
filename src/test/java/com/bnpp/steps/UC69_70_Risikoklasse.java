@@ -4,11 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
-
 import com.bnpp.library.CommonActions;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -24,10 +20,15 @@ public class UC69_70_Risikoklasse {
 
 	@When("User navigates to {string}")
 	public void user_navigates_to(String string) throws InterruptedException {
-		commonActions.mouseover("Mein_Konto_Depot");
-		System.out.println(string);
-		Thread.sleep(5000);
-		commonActions.click(string);
+		try {
+			commonActions.mouseover("Mein_Konto_Depot");
+			System.out.println(string);
+			Thread.sleep(5000);
+			commonActions.click(string);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -43,12 +44,7 @@ public class UC69_70_Risikoklasse {
 	}
 
 	@Then("^Verify displayed ErrorMesssages on RisikoklasseFinanztermingeschaefte$")
-	public void Verify_displayed()
-			throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
-		// commonActions.getElement("HeadingError");
-		// commonActions.getElement("Hinweis_gelesenError");
-		// commonActions.getElement("ProduktgruppeError");
-		//
+	public void Verify_displayed() throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		try {
 			if (commonActions.isElementPresent("HeadingError"))
 				commonActions.logPassStatus("HeadingError message display success");
@@ -65,21 +61,35 @@ public class UC69_70_Risikoklasse {
 		} catch (CucumberException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logFailStatus("Check step definition and feature file configured correctly with respect to arguments ");
+			commonActions.logFailStatus(
+					"Check step definition and feature file configured correctly with respect to arguments ");
 		}
 
 	}
 
 	@And("User clicks on checkbox {string} in {string}")
 	public void User_clicks_on_checkbox(String objectKey, String data) throws InterruptedException {
-		commonActions.click(objectKey);
+		try {
+			commonActions.click(objectKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Then("verify success message shown on bestaetigung page")
 	public void verify_success_message_shown_on_bestaetigung_page() throws InterruptedException {
-		//commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
-		if(commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
-			commonActions.logPassStatus("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+		// commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
+
+		try {
+			if (commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
+				commonActions.logPassStatus(
+						"Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.bnpp.steps;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -10,7 +11,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ISelect;
 import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
@@ -103,10 +103,13 @@ public class GenericSteps {
 		commonActions.clearfield(locatorKey);
 	}
 
-	//@And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
+	// @And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
 	@And("^User clicks on \"(.*)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
-		if (locatorKey.equals("Aendern") || locatorKey.equals("Neue_Ueberweisungsvorlage_anlegen") || locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr") || locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr") || locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
+		if (locatorKey.equals("Aendern") || locatorKey.equals("Neue_Ueberweisungsvorlage_anlegen")
+				|| locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")
+				|| locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")
+				|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 			commonActions.moveScrollDown();
 			commonActions.waitForVisibilityofElement(locatorKey);
 			commonActions.click(locatorKey);
@@ -141,7 +144,7 @@ public class GenericSteps {
 	public void select(String dataKey, String locatorKey) throws Exception {
 		if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
 				|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Ich_bestaetige")) {
-			System.out.println(dataKey);
+			// System.out.println(dataKey);
 			String str1 = commonActions.getValueFromJson(dataKey);
 			commonActions.clearCheckBox(locatorKey);
 			if (str1.equals("null")) {
@@ -156,22 +159,36 @@ public class GenericSteps {
 		}
 	}
 
+	@And("User selects checkbox {string} in {string}")
+	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
+			throws FileNotFoundException, IOException, ParseException, InterruptedException {
+		String str1 = commonActions.getValueFromJson(dataKey);
+		if (!locatorKey.equals("Unbegrenzt_gültig"))
+			commonActions.click(locatorKey);
+		if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+			commonActions.click(locatorKey);
+		} else
+			commonActions.click(locatorKey);
+
+		// commonActions.clearCheckBox(locatorKey);
+	}
+
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
-        String token = TANGenerator.requestTan();
+		String token = TANGenerator.requestTan();
 		if (TanKey.equals("TAN_field_Login")) {
 			commonActions.enterTokenTan(TanKey, token);
-            commonActions.logInfoStatus("Info | Token used : " + token );
+			commonActions.logInfoStatus("Info | Token used : " + token);
 			// commonActions.enterTokenTan(TanKey,"931272");
 			commonActions.click("BestaetigenButton");
 			if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
 				if (commonActions.isElementPresent("UsedTanMessage")) {
-					commonActions.clearfield(TanKey);             
-                    commonActions.enterTokenTan(TanKey, token);
-                    commonActions.click("BestaetigenButton");
-                    commonActions.logInfoStatus("Info | Token used : " + token );
-                    commonActions.takeSceenShot();
+					commonActions.clearfield(TanKey);
+					commonActions.enterTokenTan(TanKey, token);
+					commonActions.click("BestaetigenButton");
+					commonActions.logInfoStatus("Info | Token used : " + token);
+					commonActions.takeSceenShot();
 
 				}
 			}
@@ -195,18 +212,17 @@ public class GenericSteps {
 			commonActions.click("MobileTAN_link_Login");
 
 			String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-			System.out.println("mTAN is  -" + mTAN);
-			
+			// System.out.println("mTAN is -" + mTAN);
+			Thread.sleep(3000);
 			commonActions.enterTokenTan(TanKey, mTAN);
 			if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
 				commonActions.pressTab();
 			}
-            commonActions.logInfoStatus("Info | Token used : " + token );
-          
+			commonActions.logInfoStatus("Info | Token used : " + token);
 
 			// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 		}
-		
+
 	}
 
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
@@ -225,7 +241,7 @@ public class GenericSteps {
 	@When("User \"(.*?)\" in \"(.*?)\" field")
 	public void user_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {
 		try {
-			System.out.println(check);
+			// System.out.println(check);
 			String str1 = commonActions.getValueFromJson(check);
 			commonActions.clearCheckBox(locatorKey);
 			if (str1.equals("null")) {
@@ -272,7 +288,7 @@ public class GenericSteps {
 		commonActions.click("MobileTAN_link_Login");
 
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-		System.out.println("mTAN is  -" + mTAN);
+		// System.out.println("mTAN is -" + mTAN);
 		commonActions.enterTokenTan("TAN_field_Login", mTAN);
 		commonActions.click("BestaetigenButton");
 

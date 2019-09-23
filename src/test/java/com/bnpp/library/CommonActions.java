@@ -1,7 +1,5 @@
 package com.bnpp.library;
 
-import static org.testng.Assert.assertEquals;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,6 +28,7 @@ import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -51,7 +50,6 @@ import com.aventstack.extentreports.Status;
 
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
-import com.bnpp.utilities.TANGenerator;
 
 public class CommonActions {
 	WebDriver driver;
@@ -98,6 +96,7 @@ public class CommonActions {
 				if ((Configurations.BrowserName).equals("Chrome")) {
 					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath);
 					driver = new ChromeDriver(loadChromeOptions());
+					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
 					System.setProperty("webdriver.ie.driver", properties.getProperty("ieDriverPath"));
 					driver = new InternetExplorerDriver();
@@ -105,6 +104,7 @@ public class CommonActions {
 				driver.manage().window().maximize();
 				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 				driver.get(Configurations.Appurl);
+				logInfoStatus("Info | Environment Name: " + Configurations.Appurl);
 
 			}
 		} catch (Exception e) {
@@ -125,6 +125,7 @@ public class CommonActions {
 			ops.addArguments("disable-infobars");
 			ops.addArguments("--start-maximized");
 			ops.setExperimentalOption("useAutomationExtension", false);
+			ops.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 			// Setting new download directory path
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			// prefs.put("download.default_directory",
@@ -153,8 +154,13 @@ public class CommonActions {
 	 */
 	public void setText(String objectKey, String datakey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
-		getElement(objectKey).clear();
-		getElement(objectKey).sendKeys(datakey);
+		try {
+			getElement(objectKey).clear();
+			getElement(objectKey).sendKeys(datakey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -163,18 +169,28 @@ public class CommonActions {
 	 * @throws InterruptedException
 	 */
 	public void VerifyifFilePresent() throws InterruptedException {
-		Thread.sleep(10000);
-		File Files = new File(Configurations.downloadPath);
-		System.out.println("download path" + Configurations.downloadPath);
-		int Count = Files.list().length;
-		System.out.println("No. Of Files: " + Count);
-		if (Count == 1) {
-			logPassStatus("PDF is downloaded successfully at " + Configurations.downloadPath);
-		} else {
-			logFailStatus("Pdf is not downloaded");
+		try {
+			Thread.sleep(10000);
+			File Files = new File(Configurations.downloadPath);
+			System.out.println("download path" + Configurations.downloadPath);
+			int Count = Files.list().length;
+			System.out.println("No. Of Files: " + Count);
+			if (Count == 1) {
+				// logPassStatus("PDF is downloaded successfully at
+				// "+Configurations.downloadPath);
+				logPassStatus("Pass | PDF is downloaded successfully at - " + Configurations.downloadPath);
+
+			} else {
+				logFailStatus("Error | PDF download failed, PLease check");
+
+				logFailStatus("Pdf is not downloaded");
+			}
+			// put download file path in reports
+			// scenario.debug(Configurations.downloadPath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		// put download file path in reports
-		scenario.debug(Configurations.downloadPath);
 	}
 
 	/**
@@ -288,6 +304,7 @@ public class CommonActions {
 		try {
 			Thread.sleep(2000);
 			getElement(objectKey).click();
+			logInfoStatus("Info | Clicked on : " + objectKey);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -305,10 +322,15 @@ public class CommonActions {
 	 */
 	public void enterText(String objectKey, String datakey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
-		getElement(objectKey).clear();
-		getElement(objectKey).sendKeys(getValueFromJson(datakey));
-		if (objectKey.equals("Steueridentifikationsnummer"))
-			getElement("Weiter").click();
+		try {
+			getElement(objectKey).clear();
+			getElement(objectKey).sendKeys(getValueFromJson(datakey));
+			if (objectKey.equals("Steueridentifikationsnummer"))
+				getElement("Weiter").click();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -321,8 +343,13 @@ public class CommonActions {
 	 */
 	public void enterTokenTan(String objectKey, String strValue) throws InterruptedException {
 		// TODO Auto-generated method stub
-		Thread.sleep(2000);
-		getElement(objectKey).sendKeys(strValue);
+		try {
+			Thread.sleep(2000);
+			getElement(objectKey).sendKeys(strValue);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -331,7 +358,12 @@ public class CommonActions {
 	 *            Description Common action clear
 	 */
 	public void clearfield(String objectKey) {
-		getElement(objectKey).clear();
+		try {
+			getElement(objectKey).clear();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -370,7 +402,7 @@ public class CommonActions {
 		Select s = new Select(getElement(locatorKey));
 		String myData = getValueFromJson(dataKey);
 		myData = myData + " " + "| " + getKeyFromJson("UserID_Kontonummer");
-		System.out.println(myData);
+		// System.out.println(myData);
 		try {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
@@ -383,8 +415,13 @@ public class CommonActions {
 	 * Description Press escape key
 	 */
 	public void pressTab() {
-		Actions act = new Actions(driver);
-		act.sendKeys(Keys.TAB).build().perform();
+		try {
+			Actions act = new Actions(driver);
+			act.sendKeys(Keys.TAB).build().perform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -409,7 +446,7 @@ public class CommonActions {
 
 			Thread.sleep(5000);
 			s.selectByIndex(Integer.parseInt(data));
-		}	
+		}
 
 	}
 
@@ -448,9 +485,6 @@ public class CommonActions {
 
 	public void moveScrollDown() {
 
-		// Actions act=new Actions(driver);
-		// act.moveByOffset(-100,-100).build().perform();
-
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,500)");
 
@@ -472,6 +506,7 @@ public class CommonActions {
 		scenario.log(Status.PASS, msg);
 
 		softAssertions.assertThat(true);
+
 		// assertEquals(true, true);
 	}
 
@@ -537,9 +572,9 @@ public class CommonActions {
 	public void quit() {
 		if (report != null)
 			report.flush();
-		softAssertions.assertAll();
 		if (driver != null)
 			driver.quit();
+		softAssertions.assertAll();
 	}
 
 	/**
@@ -558,7 +593,7 @@ public class CommonActions {
 		try {
 			datakey = getKeyFromJson(dataKeyInJson);
 			datakey = checkGermanCharacters(datakey);
-			System.out.println(dataKeyInJson + ":" + datakey);
+			// System.out.println(dataKeyInJson + ":" + datakey);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -583,7 +618,8 @@ public class CommonActions {
 				data = pair.getValue().toString();
 				break;
 			}
-			System.out.println(pair.getKey() + ":" + pair.getValue().toString());
+			// System.out.println(pair.getKey() + ":" +
+			// pair.getValue().toString());
 		}
 		return data;
 
@@ -605,7 +641,8 @@ public class CommonActions {
 					data = pair.getValue().toString();
 					break;
 				}
-				System.out.println(pair.getKey() + ":" + pair.getValue().toString());
+				// System.out.println(pair.getKey() + ":" +
+				// pair.getValue().toString());
 			}
 
 		} catch (Exception e) {
@@ -645,9 +682,9 @@ public class CommonActions {
 	public void setfaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
 		String[] d = featurename.split("/features/");
-		System.out.println(d[0] + " " + d[1]);
+		// System.out.println(d[0] + " " + d[1]);
 		String[] d2 = d[1].split(".feature");
-		System.out.println(d2[0]);
+		// System.out.println(d2[0]);
 		featurename = d2[0];
 		scenarioname = name;
 
@@ -657,22 +694,23 @@ public class CommonActions {
 		return scenarioname;
 	}
 
-	public void deleteExistingTemplates(String DeleteTemplates) throws Exception {
-		List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));
-		try {
-			if (isElementPresent(DeleteTemplates)) {
-				for (int i = 0; i < ele.size(); i++) {
-					click(DeleteTemplates);
-					enterTokenTan("Mobile_TAN_field_Bhavini", TANGenerator.requestTan());
-					click("Delete_confirmation");
-					System.out.println("Deleting element" + ele.get(0));
-				}
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("All existing templates cleared");
-		}
-	}
+	// public void deleteExistingTemplates(String DeleteTemplates) throws
+	// Exception {
+	// List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));
+	// try {
+	// if (isElementPresent(DeleteTemplates)) {
+	// for (int i = 0; i < ele.size(); i++) {
+	// click(DeleteTemplates);
+	// enterTokenTan("Mobile_TAN_field_Bhavini", TANGenerator.requestTan());
+	// click("Delete_confirmation");
+	// System.out.println("Deleting element" + ele.get(0));
+	// }
+	// }
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// System.out.println("All existing templates cleared");
+	// }
+	// }
 
 	public void clearCheckBox(String objectKey) {
 		WebElement e;
