@@ -325,7 +325,14 @@ public class CommonActions {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			getElement(objectKey).clear();
-			getElement(objectKey).sendKeys(getValueFromJson(datakey));
+//			getElement(objectKey).sendKeys(getValueFromJson(datakey));
+			String text = getValueFromJson(datakey);
+			if(text.equals("null")) {
+				//do nothing
+			}
+			else {
+				getElement(objectKey).sendKeys(text);
+			}
 			if (objectKey.equals("Steueridentifikationsnummer"))
 				getElement("Weiter").click();
 		} catch (Exception e) {
