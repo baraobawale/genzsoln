@@ -115,26 +115,34 @@ public class GenericSteps {
 		} else if (locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
 			commonActions.click(locatorKey);
 			commonActions.moveScrollDown();
-			if (commonActions.isElementPresent("CustomerNameIBAN")||commonActions.isElementPresent("CustomerNameKontoBLZ")) {
-				if(commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")){
+			if (commonActions.isElementPresent("CustomerNameIBAN")
+					&& commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")) {
 				commonActions.logInfoStatus("Vorlagename '001 DELTA BUERICZUEK' template already exists.");
+				commonActions.logInfoStatus("Deleting the template");
 				commonActions.click("DeleteIBAN");
-				}
-				if(commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")){
-					commonActions.logInfoStatus("Vorlagename '002 DELTA BUERICZUEK' template already exists.");
-					commonActions.click("DeleteKontoBLZ");
-				}					
-					commonActions.logInfoStatus("Deleting the template");
 				String token = TANGenerator.requestTan();
 				commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
 				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
 				commonActions.moveScrollDown();
-				commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
-				// Add code to revert to vorlage template display page if
-				// not
-			} // navigated.
+				//commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+			}
 
+			if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")
+					&& commonActions.isElementPresent("CustomerNameKontoBLZ")) {
+				commonActions.logInfoStatus("Vorlagename '002 DELTA BUERICZUEK' template already exists.");
+				commonActions.logInfoStatus("Deleting the template");
+				commonActions.click("DeleteKontoBLZ");
+				String token = TANGenerator.requestTan();
+				commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+				commonActions.moveScrollDown();
+			//	commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+			}
+			
+			// Add code to revert to vorlage template display page if
+			// not
 		} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
 			commonActions.click(locatorKey);
 			if (commonActions.isElementPresent("New_mobile_tan")) {
@@ -224,6 +232,7 @@ public class GenericSteps {
 	public void abc(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
 		commonActions.launchBrowser();
+		commonActions.mouseover("logInButton");
 		commonActions.click("logInButton");
 		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 		commonActions.enterText(PIN_Password, "PIN_Password");
@@ -288,5 +297,8 @@ public class GenericSteps {
 		commonActions.click("BestaetigenButton");
 
 	}
+	
+	
+	}
 
-}
+

@@ -233,7 +233,7 @@ public class CommonActions {
 
 	public void waitForVisibilityofElement(String ObjectKey) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 30);
+			WebDriverWait wait = new WebDriverWait(driver, 20);
 			wait.until(ExpectedConditions.visibilityOf(getElement(ObjectKey)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

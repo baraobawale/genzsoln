@@ -1,10 +1,8 @@
-
 Feature: UC67_68_Stammdaten
 
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    #And User submits generated TAN number in "TAN_field_Login"
-    And User submits generated Mobile TAN number
+    And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
     And User clicks on "Aendern_PersoenlicheEinstellungen"
     And User enters "Strasse_Hausnr" in "StrasseHausnr_PersoenlicheEinstellungen"
