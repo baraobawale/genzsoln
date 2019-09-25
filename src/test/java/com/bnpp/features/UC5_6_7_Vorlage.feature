@@ -1,4 +1,3 @@
-
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create - IBAN

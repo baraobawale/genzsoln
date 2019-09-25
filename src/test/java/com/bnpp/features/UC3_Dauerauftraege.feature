@@ -1,9 +1,8 @@
-@RTA
+@RTARTA
 Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen
-  #Anlegen/Creation
-  
+  #Anlegen/Creation  
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"

@@ -712,6 +712,10 @@ public class CommonActions {
 	public String getScenarioName() {
 		return scenarioname;
 	}
+	
+	public String getFeatureName(){
+		return featurename;
+	}
 
 	// public void deleteExistingTemplates(String DeleteTemplates) throws
 	// Exception {

@@ -3,6 +3,7 @@ package com.bnpp.steps;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -57,6 +58,12 @@ public class GenericSteps {
 	}
 
 	// ********Common step definitions ************//
+
+	@When("^User open an application$")
+	public void User_Open_an_Application() throws MalformedURLException, InterruptedException {
+		commonActions.launchBrowser();
+		Thread.sleep(10000);
+	}
 
 	@And("^User enters \"(.*?)\" in \"(.*?)\"$")
 	public void type(String dataKey, String locatorKey)
@@ -125,7 +132,7 @@ public class GenericSteps {
 				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
 				commonActions.moveScrollDown();
-				//commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
 			}
 
 			if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")
@@ -138,9 +145,9 @@ public class GenericSteps {
 				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
 				commonActions.moveScrollDown();
-			//	commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
 			}
-			
+
 			// Add code to revert to vorlage template display page if
 			// not
 		} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
@@ -193,38 +200,61 @@ public class GenericSteps {
 	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
 		String str1 = commonActions.getValueFromJson(dataKey);
-		if (!locatorKey.equals("Unbegrenzt_gültig"))
+		if (!locatorKey.equals("Unbegrenzt_gültig")) {
 			commonActions.click(locatorKey);
+		}
 		if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
 			commonActions.click(locatorKey);
 		} else
 			commonActions.click(locatorKey);
-
 		// commonActions.clearCheckBox(locatorKey);
+		if (locatorKey.equals("Einverstaendnis_mit_PRIIP_Verordnung")
+				|| locatorKey.equals("EinverstaendnisMitPRIIPVerordnung_AngabenZurPerson")) {
+			commonActions.click(locatorKey);
+		}
+	}
+
+	@And("^User selects radiobutton \"(.*?)\" in \"(.*?)\"$")
+	public void User_Selects_radiobutton(String radiobutton, String Pagename) throws InterruptedException {
+		try {
+			commonActions.click(radiobutton);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
 		String token = TANGenerator.requestTan();
-		if (TanKey.equals("TAN_field_Login")) {
-			commonActions.enterTokenTan(TanKey, token);
-			commonActions.logInfoStatus("Info | Token used : " + token);
-			// commonActions.enterTokenTan(TanKey,"931272");
-			commonActions.click("BestaetigenButton");
-			if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
-				if (commonActions.isElementPresent("UsedTanMessage")) {
-					commonActions.clearfield(TanKey);
-					commonActions.enterTokenTan(TanKey, token);
-					commonActions.click("BestaetigenButton");
-					commonActions.logInfoStatus("Info | Token used : " + token);
-					commonActions.takeSceenShot();
+		try {
+			if (TanKey.equals("TAN_field_Login")) {
+				commonActions.enterTokenTan(TanKey, token);
+				commonActions.logInfoStatus("Info | Token used : " + token);
+				// commonActions.enterTokenTan(TanKey,"931272");
+				commonActions.click("BestaetigenButton");
+				if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
+					if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
+						if (commonActions.isElementPresent("UsedTanMessage")) {
+							commonActions.clearfield(TanKey);
+							commonActions.enterTokenTan(TanKey, token);
+							commonActions.click("BestaetigenButton");
+							commonActions.logInfoStatus("Info | Token used : " + token);
+							commonActions.takeSceenShot();
 
+						}
+					}
 				}
+			} else {
+				commonActions.enterNewMobileTan(TanKey, token);
 			}
-		}
-		else {
-			commonActions.enterNewMobileTan(TanKey, token);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Login failed due to reused tan");
+
 		}
 
 	}
@@ -232,9 +262,14 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void abc(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		commonActions.launchBrowser();
-		commonActions.mouseover("logInButton");
-		commonActions.click("logInButton");
+		if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
+				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")) {
+			// commonActions.movetoChildWindow();
+		} else {
+			commonActions.launchBrowser();
+			commonActions.mouseover("logInButton");
+			commonActions.click("logInButton");
+		}
 		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 		commonActions.enterText(PIN_Password, "PIN_Password");
 		click("Einloggen");
@@ -298,8 +333,5 @@ public class GenericSteps {
 		commonActions.click("BestaetigenButton");
 
 	}
-	
-	
-	}
 
-
+}

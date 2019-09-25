@@ -193,20 +193,16 @@ public class UC3_Dauerauftraege {
 	@Then("Verify Message on Dauerauftraegeloeschen")
 	public void verify_Message_on_Dauerauftraegeloeschen() {
 		try {
-			System.out
-					.println("txtVerify for Dauerauftraegeloeschen:" + commonActions.getText("Dauerauftraegeloeschen"));
 			String txtVerify = commonActions.getText("Dauerauftraegeloeschen");
 			System.out.println(commonActions.getValueFromJson("Message"));
-			if (txtVerify.equalsIgnoreCase(commonActions.getKeyFromJson("Message"))) {
+			if (txtVerify.equals(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message on Dauerauftraegeloeschen SUCCESSFULLY");
 				commonActions.logPassStatus("Verify Message on Dauerauftraegeloeschen");
 
 			} else {
 
-				System.out.println("AAA:" + txtVerify);
-				System.out.println("BBB: " + commonActions.getKeyFromJson("Message"));
-				commonActions.logFailStatus("Verify Message on Dauerauftraegeloeschen is failed" + "Expected: "
-						+ commonActions.getKeyFromJson("Message") + "Actual: " + txtVerify);
+				commonActions.logFailStatus("Verify Message on Dauerauftraegeloeschen is failed " + "Expected:"
+						+ commonActions.getValueFromJson("Message") + " Actual: " + txtVerify);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

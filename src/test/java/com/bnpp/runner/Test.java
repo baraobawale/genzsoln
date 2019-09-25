@@ -19,7 +19,7 @@ public class Test {
 		String customerPin = prop.getProperty("pin");
 		String cafeUser = prop.getProperty("cafeUserID");
 		String cafePin = prop.getProperty("cafePin");
-
+		
 		// Redirecting Mobile TAN
 		MobileTan mt = new MobileTan();
 		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
@@ -28,7 +28,7 @@ public class Test {
 		//commonActions.click("MobileTAN_link_Login");
 
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-		//System.out.println("mTAN is  -" + mTAN);
+		System.out.println("mTAN is  -" + mTAN);
 		Thread.sleep(3000);
 		//commonActions.enterTokenTan(TanKey, mTAN);
 	}
