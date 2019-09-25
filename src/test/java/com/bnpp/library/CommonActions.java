@@ -91,13 +91,18 @@ public class CommonActions {
 	public void launchBrowser() throws MalformedURLException {
 		try {
 			if ((Configurations.RunOnBrowserStack).equals("Y")) {
-				DesiredCapabilities capability = DesiredCapabilities.chrome();
-				capability.setPlatform(Platform.WINDOWS);
-				capability.setCapability("name", "Bstack-[Java] JUnit Single Test");
-				capability.setCapability("build", "JUnit - Sample");
-				capability.setCapability("browserstack.local", "true");
-				System.out.println(Configurations.URL_BS);
-				driver = new RemoteWebDriver(new URL(Configurations.URL_BS), capability);
+	            DesiredCapabilities caps = new DesiredCapabilities();
+	            System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
+	            System.getProperties().put("https.proxyPort", "8080");
+	            caps.setCapability("browser", "Chrome");
+	            caps.setCapability("browser_version", "75.0");
+	            caps.setCapability("os", "Windows");
+	            caps.setCapability("os_version", "10");
+	            caps.setCapability("resolution", "1024x768");
+	            caps.setCapability("name", "BNPP 25.09 UC69_70_Risikoklasse");
+	            caps.setCapability("browserstack.local", "true");
+	            System.out.println(Configurations.URL_BS);
+				driver = new RemoteWebDriver(new URL(Configurations.URL_BS), caps);
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
 					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath);
@@ -107,12 +112,11 @@ public class CommonActions {
 					System.setProperty("webdriver.ie.driver", properties.getProperty("ieDriverPath"));
 					driver = new InternetExplorerDriver();
 				}
-				driver.manage().window().maximize();
-				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-				driver.get(Configurations.Appurl);
-				logInfoStatus("Info | Environment Name: " + Configurations.Appurl);
-
 			}
+			driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+	        driver.get(Configurations.Appurl);
+	        logInfoStatus("Info | Environment Name: " + Configurations.Appurl);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,6 +124,7 @@ public class CommonActions {
 			Assert.fail();
 		}
 	}
+
 
 	public ChromeOptions loadChromeOptions() {
 		ChromeOptions ops = null;
@@ -798,7 +803,12 @@ public class CommonActions {
 		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
 
 		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		click("MobileTAN_link_Login");
+		if(tanKey.equals("mobile_TAN_field")) {
+			click("MobileTan_anfordern");
+		}
+		else {
+			click("MobileTAN_link_Login");
+		}	
 
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
 		// System.out.println("mTAN is -" + mTAN);

@@ -1,3 +1,4 @@
+@RTA
 Feature: UC69_70_Risikoklasse
 
   #Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)
@@ -30,7 +31,7 @@ Feature: UC69_70_Risikoklasse
     And User selects "Wertpapierkaeufe" in "WertpapierkaeufeInDenLetztenZweiJahren_RisikoklasseFinanztermingeschaefte"
     And User clicks on "Weiter_RisikoklasseFinanztermingeschaefte"
     And User clicks on checkbox "TAN_bestaetigung" in "TANBestaetigung_RisikoklasseFinanztermingeschaefte"
-    And User submits generated TAN number in "TAN_field_Vorlageloeschen"
+    And User submits generated TAN number in "mobile_TAN_field"
     And User clicks on "Bestaetigen_RisikoklasseFinanztermingeschaefte"
     Then verify success message shown on bestaetigung page
 

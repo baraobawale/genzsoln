@@ -222,7 +222,8 @@ public class GenericSteps {
 
 				}
 			}
-		} else {
+		}
+		else {
 			commonActions.enterNewMobileTan(TanKey, token);
 		}
 
