@@ -91,17 +91,17 @@ public class CommonActions {
 	public void launchBrowser() throws MalformedURLException {
 		try {
 			if ((Configurations.RunOnBrowserStack).equals("Y")) {
-	            DesiredCapabilities caps = new DesiredCapabilities();
-	            System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
-	            System.getProperties().put("https.proxyPort", "8080");
-	            caps.setCapability("browser", "Chrome");
-	            caps.setCapability("browser_version", "75.0");
-	            caps.setCapability("os", "Windows");
-	            caps.setCapability("os_version", "10");
-	            caps.setCapability("resolution", "1024x768");
-	            caps.setCapability("name", "BNPP 25.09 UC69_70_Risikoklasse");
-	            caps.setCapability("browserstack.local", "true");
-	            System.out.println(Configurations.URL_BS);
+				DesiredCapabilities caps = new DesiredCapabilities();
+				System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
+				System.getProperties().put("https.proxyPort", "8080");
+				caps.setCapability("browser", "Chrome");
+				caps.setCapability("browser_version", "75.0");
+				caps.setCapability("os", "Windows");
+				caps.setCapability("os_version", "10");
+				caps.setCapability("resolution", "1024x768");
+				caps.setCapability("name", "BNPP 25.09 UC69_70_Risikoklasse");
+				caps.setCapability("browserstack.local", "true");
+				System.out.println(Configurations.URL_BS);
 				driver = new RemoteWebDriver(new URL(Configurations.URL_BS), caps);
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
@@ -115,8 +115,8 @@ public class CommonActions {
 			}
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-	        driver.get(Configurations.Appurl);
-	        logInfoStatus("Info | Environment Name: " + Configurations.Appurl);
+			driver.get(Configurations.Appurl);
+			logInfoStatus("Info | Environment Name: " + Configurations.Appurl);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,7 +124,6 @@ public class CommonActions {
 			Assert.fail();
 		}
 	}
-
 
 	public ChromeOptions loadChromeOptions() {
 		ChromeOptions ops = null;
@@ -336,12 +335,11 @@ public class CommonActions {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			getElement(objectKey).clear();
-//			getElement(objectKey).sendKeys(getValueFromJson(datakey));
+			// getElement(objectKey).sendKeys(getValueFromJson(datakey));
 			String text = getValueFromJson(datakey);
-			if(text.equals("null")) {
-				//do nothing
-			}
-			else {
+			if (text.equals("null")) {
+				// do nothing
+			} else {
 				getElement(objectKey).sendKeys(text);
 			}
 			if (objectKey.equals("Steueridentifikationsnummer"))
@@ -409,6 +407,18 @@ public class CommonActions {
 	public void selectFromDropDown(String objectKey, String datakey) throws Exception {
 		Select s = new Select(getElement(objectKey));
 		String myData = getValueFromJson(datakey);
+		try {
+			s.selectByVisibleText(myData);
+		} catch (Exception e) {
+			logAssert_Fail("Select by visble text failed on: " + objectKey);
+		}
+
+	}
+	
+	public void selectDepot(String objectKey, String datakey) throws Exception {
+		Select s = new Select(getElement(objectKey));
+		String myData = getValueFromJson(datakey);
+		myData=getValueFromJson(datakey)+" (Depot)";
 		try {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
@@ -712,8 +722,8 @@ public class CommonActions {
 	public String getScenarioName() {
 		return scenarioname;
 	}
-	
-	public String getFeatureName(){
+
+	public String getFeatureName() {
 		return featurename;
 	}
 
@@ -790,7 +800,8 @@ public class CommonActions {
 			return false;
 	}
 
-	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException, IOException, ParserConfigurationException, SAXException {
+	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
+			IOException, ParserConfigurationException, SAXException {
 		Properties prop = new Properties();
 		// FileInputStream fis = new
 		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
@@ -807,12 +818,11 @@ public class CommonActions {
 		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
 
 		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		if(tanKey.equals("mobile_TAN_field")) {
+		if (tanKey.equals("mobile_TAN_field")||tanKey.equals("TAN_Depotuebertrag")) {
 			click("MobileTan_anfordern");
-		}
-		else {
+		} else {
 			click("MobileTAN_link_Login");
-		}	
+		}
 
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
 		// System.out.println("mTAN is -" + mTAN);
@@ -825,6 +835,32 @@ public class CommonActions {
 
 		// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 	}
-		
+
+	/**
+	 * Description Common function for checked or unchecked the radio button
+	 */
+	public void clearRadioButton(String objectKey) {
+		WebElement e;
+
+		try {
+			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
+			System.out.println(e.isSelected());
+			if (e.isSelected()) {
+				Thread.sleep(1000);
+				System.out.println("checkbox was selected");
+				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
+			} else {
+				System.out.println("checkbox was unselected");
+			}
+		} catch (Exception ex) {
+
+		}
 	}
 
+	public void clickJavaScriptExecutor(String locatorKey) {
+		//WebElement element = driver.findElement(By.id("//*[@id='header-login-button']"));
+		getElement(locatorKey);
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].click();", getElement(locatorKey));
+	}
+}

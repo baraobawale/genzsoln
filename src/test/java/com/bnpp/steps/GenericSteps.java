@@ -163,6 +163,11 @@ public class GenericSteps {
 		} else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
 			commonActions.click(locatorKey);
 			commonActions.pressTab();
+		} else if (locatorKey.equals("Bestaetigen_Benachrichtigungen")) {
+			System.out.println("Value of loactorkey-----------" + locatorKey);
+			commonActions.pressTab();
+			commonActions.click(locatorKey);
+
 		} else
 			commonActions.click(locatorKey);
 	}
@@ -184,13 +189,16 @@ public class GenericSteps {
 			// System.out.println(dataKey);
 			String str1 = commonActions.getValueFromJson(dataKey);
 			commonActions.clearCheckBox(locatorKey);
-			if (str1.equals("null")) {
+			if (str1.equals("Null")) {
 				// System.out.println("checkbox is unchecked");
 			} else {
 				commonActions.click(locatorKey);
 			}
 		} else if (dataKey.equals("Account_Type")) {
 			commonActions.selectFromDropDownByValue(locatorKey, dataKey);
+		} else if (dataKey.equals("FromDepot_Nr")) {
+			commonActions.selectDepot(locatorKey, dataKey);
+
 		} else {
 			commonActions.selectFromDropDown(locatorKey, dataKey);
 		}
@@ -199,15 +207,19 @@ public class GenericSteps {
 	@And("User selects checkbox {string} in {string}")
 	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
-		String str1 = commonActions.getValueFromJson(dataKey);
+
 		if (!locatorKey.equals("Unbegrenzt_gültig")) {
 			commonActions.click(locatorKey);
 		}
-		if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-			commonActions.click(locatorKey);
+		if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
+			String str1 = commonActions.getValueFromJson(dataKey);
+			if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+				commonActions.click(locatorKey);
+			}
 		} else
 			commonActions.click(locatorKey);
-		// commonActions.clearCheckBox(locatorKey);
+		if (locatorKey.equals("IchhabediesenHinweiszurKenntnisgenommen_Positionwaehlen"))
+			commonActions.click(locatorKey);
 		if (locatorKey.equals("Einverstaendnis_mit_PRIIP_Verordnung")
 				|| locatorKey.equals("EinverstaendnisMitPRIIPVerordnung_AngabenZurPerson")) {
 			commonActions.click(locatorKey);
@@ -247,7 +259,12 @@ public class GenericSteps {
 						}
 					}
 				}
-			} else {
+			} else if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
+				commonActions.pressTab();
+				commonActions.enterNewMobileTan(TanKey, token);
+			} else if (TanKey.equals("TAN_field_Benachrichtigungen"))
+				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			else {
 				commonActions.enterNewMobileTan(TanKey, token);
 			}
 		} catch (Exception e) {
@@ -267,6 +284,7 @@ public class GenericSteps {
 			// commonActions.movetoChildWindow();
 		} else {
 			commonActions.launchBrowser();
+			commonActions.waitForVisibilityofElement("LoginToWait");
 			commonActions.mouseover("logInButton");
 			commonActions.click("logInButton");
 		}
