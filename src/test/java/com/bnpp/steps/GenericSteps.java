@@ -3,6 +3,7 @@ package com.bnpp.steps;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -61,7 +62,7 @@ public class GenericSteps {
 	@And("^User enters \"(.*?)\" in \"(.*?)\"$")
 	public void type(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
-		if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")) {
+		if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen") || locatorKey.equals("TelefonPrivat_AngabenZurPerson")) {
 			commonActions.enterText(locatorKey, dataKey);
 			// Move the focus out of field to handle the error displayed on
 			// clearing the field.
@@ -192,10 +193,14 @@ public class GenericSteps {
 	@And("User selects checkbox {string} in {string}")
 	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
-		String str1 = commonActions.getValueFromJson(dataKey);
-		if (!locatorKey.equals("Unbegrenzt_gültig"))
+		String str = commonActions.getValueFromJson(dataKey);
+		System.out.println("str for dataKey"+str+" "+dataKey);
+//		if (!locatorKey.equals("Unbegrenzt_gültig"))
+//			commonActions.click(locatorKey);
+		if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 			commonActions.click(locatorKey);
-		if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+		}
+		if (str.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
 			commonActions.click(locatorKey);
 		} else
 			commonActions.click(locatorKey);
@@ -232,9 +237,11 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void abc(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		commonActions.launchBrowser();
-		commonActions.mouseover("logInButton");
-		commonActions.click("logInButton");
+		if(!commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+			commonActions.launchBrowser();
+			commonActions.mouseover("logInButton");
+			commonActions.click("logInButton");
+		}
 		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 		commonActions.enterText(PIN_Password, "PIN_Password");
 		click("Einloggen");
@@ -299,7 +306,38 @@ public class GenericSteps {
 
 	}
 	
-	
+	@When("User open the application")
+	public void user_open_the_application() throws MalformedURLException {
+		try {
+			commonActions.launchBrowser();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
 	}
+	
+	@When("User selects radiobutton {string} in {string}")
+	public void user_selects_radiobutton_in(String dataKey, String locatorKey) {
+		try {
+			String str = commonActions.getValueFromJson(dataKey);
+			System.out.println("str for datakey:"+str+" "+dataKey);
+			commonActions.clearRadioButton(locatorKey);
+			if (str.equals("Nein")) {
+				commonActions.click(locatorKey+"_Nein");
+			} else if(str.equals("Ja")){
+				commonActions.click(locatorKey+"_Ja");
+			}
+			else {
+				commonActions.click(locatorKey);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+	}
+
+}
 
 
