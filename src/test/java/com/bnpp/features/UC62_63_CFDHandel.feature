@@ -59,7 +59,6 @@ Feature: UC62_63_CFDHandel
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_CFDKontoEroeffnen"
     And User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
-    And User submits generated Mobile TAN number
     And User clicks on "Weiter_CFDKontoEroeffnen"
     And User clicks on "WeiterZurAntragsstrecke_KundeninformationZumDatenschutz"
     And User selects "Depot" in "Depot_CFDKontodaten"
