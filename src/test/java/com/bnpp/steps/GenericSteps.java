@@ -271,17 +271,6 @@ public class GenericSteps {
 	       }
 	
 
-	@And("^User selects radiobutton \"(.*?)\" in \"(.*?)\"$")
-	public void User_Selects_radiobutton(String radiobutton, String Pagename) throws InterruptedException {
-		try {
-			commonActions.click(radiobutton);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
