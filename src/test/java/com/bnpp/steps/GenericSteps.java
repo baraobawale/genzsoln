@@ -59,6 +59,12 @@ public class GenericSteps {
 
 	// ********Common step definitions ************//
 
+	@When("^User open an application$")
+	public void User_Open_an_Application() throws MalformedURLException, InterruptedException {
+		commonActions.launchBrowser();
+		Thread.sleep(10000);
+	}
+
 	@And("^User enters \"(.*?)\" in \"(.*?)\"$")
 	public void type(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
@@ -126,7 +132,7 @@ public class GenericSteps {
 				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
 				commonActions.moveScrollDown();
-				//commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
 			}
 
 			if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")
@@ -139,9 +145,9 @@ public class GenericSteps {
 				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
 				commonActions.moveScrollDown();
-			//	commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
 			}
-			
+
 			// Add code to revert to vorlage template display page if
 			// not
 		} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
@@ -157,6 +163,11 @@ public class GenericSteps {
 		} else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
 			commonActions.click(locatorKey);
 			commonActions.pressTab();
+		} else if (locatorKey.equals("Bestaetigen_Benachrichtigungen")) {
+			System.out.println("Value of loactorkey-----------" + locatorKey);
+			commonActions.pressTab();
+			commonActions.click(locatorKey);
+
 		} else
 			commonActions.click(locatorKey);
 	}
@@ -178,58 +189,134 @@ public class GenericSteps {
 			// System.out.println(dataKey);
 			String str1 = commonActions.getValueFromJson(dataKey);
 			commonActions.clearCheckBox(locatorKey);
-			if (str1.equals("null")) {
+			if (str1.equals("Null")) {
 				// System.out.println("checkbox is unchecked");
 			} else {
 				commonActions.click(locatorKey);
 			}
 		} else if (dataKey.equals("Account_Type")) {
 			commonActions.selectFromDropDownByValue(locatorKey, dataKey);
+		} else if (dataKey.equals("FromDepot_Nr")) {
+			commonActions.selectDepot(locatorKey, dataKey);
+
 		} else {
 			commonActions.selectFromDropDown(locatorKey, dataKey);
 		}
 	}
 
-	@And("User selects checkbox {string} in {string}")
-	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
-			throws FileNotFoundException, IOException, ParseException, InterruptedException {
-		String str = commonActions.getValueFromJson(dataKey);
-		System.out.println("str for dataKey"+str+" "+dataKey);
-//		if (!locatorKey.equals("Unbegrenzt_gültig"))
+//	@And("User selects checkbox {string} in {string}")
+//	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
+//			throws FileNotFoundException, IOException, ParseException, InterruptedException {
+//<<<<<<< HEAD
+//		String str = commonActions.getValueFromJson(dataKey);
+//		System.out.println("str for dataKey"+str+" "+dataKey);
+////		if (!locatorKey.equals("Unbegrenzt_gültig"))
+////			commonActions.click(locatorKey);
+//		if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 //			commonActions.click(locatorKey);
-		if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
-			commonActions.click(locatorKey);
-		}
-		if (str.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-			commonActions.click(locatorKey);
-		} else
-			commonActions.click(locatorKey);
+//		}
+//		if (str.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+//=======
+//
+//		if (!locatorKey.equals("Unbegrenzt_gültig")) {
+//>>>>>>> a213edc5d7e63dcc3358109c95d3cd0e538d6bfb
+//			commonActions.click(locatorKey);
+//		}
+//		if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
+//			String str1 = commonActions.getValueFromJson(dataKey);
+//			if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+//				commonActions.click(locatorKey);
+//			}
+//		} else
+//			commonActions.click(locatorKey);
+//		if (locatorKey.equals("IchhabediesenHinweiszurKenntnisgenommen_Positionwaehlen"))
+//			commonActions.click(locatorKey);
+//		if (locatorKey.equals("Einverstaendnis_mit_PRIIP_Verordnung")
+//				|| locatorKey.equals("EinverstaendnisMitPRIIPVerordnung_AngabenZurPerson")) {
+//			commonActions.click(locatorKey);
+//		}
+//	}
+		
+	@And("User selects checkbox {string} in {string}")
+	       public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
+	                    throws FileNotFoundException, IOException, ParseException, InterruptedException {
+		
+	             if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
+	                    if (locatorKey.equals("Unbegrenzt_gültig")) {
+	                          //commonActions.click(locatorKey);
+	                    }
 
-		// commonActions.clearCheckBox(locatorKey);
+	                    String str1 = commonActions.getValueFromJson(dataKey);
+	                    if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+	                          commonActions.click(locatorKey);
+	                    }
+	             }else if(commonActions.getFeatureName().equals("UC76_77_EMailBenachrichtigungen")) {
+	                    String str1 = commonActions.getValueFromJson(dataKey);
+	                    System.out.println("Value of str1   "+str1);
+	                    
+	                          if (str1.equals("Check")) {
+	                                 commonActions.clearRadioButton(locatorKey);
+	                                 commonActions.click(locatorKey);
+	                          }
+	                          else {
+	                                 commonActions.clearRadioButton(locatorKey);
+	                          }
+	             }else if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+						commonActions.click(locatorKey);
+						commonActions.click(locatorKey);
+				 }    
+	             else 
+	                    commonActions.click(locatorKey);
+	             
+	       }
+	
+
+	@And("^User selects radiobutton \"(.*?)\" in \"(.*?)\"$")
+	public void User_Selects_radiobutton(String radiobutton, String Pagename) throws InterruptedException {
+		try {
+			commonActions.click(radiobutton);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
 		String token = TANGenerator.requestTan();
-		if (TanKey.equals("TAN_field_Login")) {
-			commonActions.enterTokenTan(TanKey, token);
-			commonActions.logInfoStatus("Info | Token used : " + token);
-			// commonActions.enterTokenTan(TanKey,"931272");
-			commonActions.click("BestaetigenButton");
-			if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
-				if (commonActions.isElementPresent("UsedTanMessage")) {
-					commonActions.clearfield(TanKey);
-					commonActions.enterTokenTan(TanKey, token);
-					commonActions.click("BestaetigenButton");
-					commonActions.logInfoStatus("Info | Token used : " + token);
-					commonActions.takeSceenShot();
+		try {
+			if (TanKey.equals("TAN_field_Login")) {
+				commonActions.enterTokenTan(TanKey, token);
+				commonActions.logInfoStatus("Info | Token used : " + token);
+				// commonActions.enterTokenTan(TanKey,"931272");
+				commonActions.click("BestaetigenButton");
+				if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
+					if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
+						if (commonActions.isElementPresent("UsedTanMessage")) {
+							commonActions.clearfield(TanKey);
+							commonActions.enterTokenTan(TanKey, token);
+							commonActions.click("BestaetigenButton");
+							commonActions.logInfoStatus("Info | Token used : " + token);
+							commonActions.takeSceenShot();
 
+						}
+					}
 				}
+			} else if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
+				commonActions.pressTab();
+				commonActions.enterNewMobileTan(TanKey, token);
+			} else if (TanKey.equals("TAN_field_Benachrichtigungen"))
+				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			else {
+				commonActions.enterNewMobileTan(TanKey, token);
 			}
-		}
-		else {
-			commonActions.enterNewMobileTan(TanKey, token);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Login failed due to reused tan");
+
 		}
 
 	}
@@ -237,8 +324,12 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void abc(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		if(!commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+		if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
+				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld") || commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+			// commonActions.movetoChildWindow();
+		} else {
 			commonActions.launchBrowser();
+			commonActions.waitForVisibilityofElement("LoginToWait");
 			commonActions.mouseover("logInButton");
 			commonActions.click("logInButton");
 		}
@@ -339,5 +430,3 @@ public class GenericSteps {
 	}
 
 }
-
-

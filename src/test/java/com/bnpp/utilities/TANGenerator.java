@@ -27,7 +27,7 @@ public class TANGenerator {
                     sb.append(line);
              }
              String jsn = sb.toString();
-             token = jsn.substring(25, 31);
+             token = jsn.substring(23, 31);
              System.out.println(jsn);
              System.out.println(token);
              return token;
