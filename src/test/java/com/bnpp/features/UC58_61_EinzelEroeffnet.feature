@@ -1,4 +1,4 @@
-
+@UC58_61
 Feature: UC58_61_EinzelEroeffnet
 
   #Executable - Inhaber Einzelkonto Eroeffnet Konto Depot /Tagesgeld Einzelkonto (Single account holder opens trading account/call to money account)

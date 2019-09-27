@@ -1,4 +1,4 @@
-@RTARTA
+@UC3
 Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen

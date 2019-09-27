@@ -147,6 +147,7 @@ public class UC5_6_7_Vorlage {
 				if (UpdateMessageFromPage.equals(UpdateMessageFromJson))
 
 					commonActions.logPassStatus("IBAN update success");
+			
 				else
 					commonActions.logAssert_Fail("IBAN update failed");
 

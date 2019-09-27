@@ -803,14 +803,15 @@ public class CommonActions {
 	}
 
 	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
-			IOException, ParserConfigurationException, SAXException {
+			IOException, ParserConfigurationException, SAXException, ParseException {
 		Properties prop = new Properties();
 		// FileInputStream fis = new
 		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
 		FileInputStream fis = new FileInputStream(
 				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
 		prop.load(fis);
-		String customerId = prop.getProperty("userID");
+		//String customerId = prop.getProperty("userID");
+		String customerId = getValueFromJson("UserID_Kontonummer");
 		String customerPin = prop.getProperty("pin");
 		String cafeUser = prop.getProperty("cafeUserID");
 		String cafePin = prop.getProperty("cafePin");

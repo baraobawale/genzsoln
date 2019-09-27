@@ -151,17 +151,14 @@
 					<execution>
 						<id>generateRunners</id>
 						<phase>generate-test-sources</phase>
-						
 						<goals>
 							<goal>generateRunners</goal>
-							
 						</goals>
 						<configuration>
 							<featuresDirectory>src/test/java/com/bnpp/features/</featuresDirectory>
 							<glue>
 								<package>com/bnpp/steps/</package>
 							</glue>
-
 							<outputDirectory>${project.build.directory}/generated-test-sources/cucumber</outputDirectory>
 							<cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
 							<parallelScheme>FEATURE</parallelScheme>
