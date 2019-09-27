@@ -1,4 +1,4 @@
-@RTARTA
+@UC_9_10
 Feature: UC_9_10_UeberweisungLimit
 
   #Executable : Ueberweisungslimit Aendern (mit Fehlermeldungen)

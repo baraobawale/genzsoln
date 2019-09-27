@@ -1,4 +1,4 @@
-@RTARTA
+@UC4
 Feature: UC4_Terminueberweisungen
 
   #Executable - Terminueberweisungen anlegen,Andern,loeschen

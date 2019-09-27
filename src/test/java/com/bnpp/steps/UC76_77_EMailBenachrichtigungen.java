@@ -31,21 +31,12 @@ public class UC76_77_EMailBenachrichtigungen {
 			
 		}
 	}
-		
-		@And("User selects  checkbox {string} in {string}")
-		public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
-				throws FileNotFoundException, IOException, ParseException, InterruptedException {
-			String str1 = commonActions.getValueFromJson(dataKey);
-			System.out.println("Value of str1   "+str1);
-			
-				if (str1.equals("Check")) {
-					commonActions.clearRadioButton(locatorKey);
-					commonActions.click(locatorKey);
-				}
-				else {
-					commonActions.clearRadioButton(locatorKey);
-				}
-		}
+		//UC76_77_EmailBenachrichtigungen
+	//	@And("User selectscheckbox {string} in {string}")
+//		public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
+//				throws FileNotFoundException, IOException, ParseException, InterruptedException {
+//			
+//		}
 		
 		@Then("Verify Message,Status on Benachrichtigungen")
 		public void verify_Message_Status_on_Benachrichtigungen() {
