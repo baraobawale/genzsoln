@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"><Body><run xmlns="http://cortalconsors.com/middleware/logout/v1_0"><request feid="CAFE" language="DE" sessionId="8749073a736e4854a4c4cff15e8f0e02"/></run></Body></Envelope>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"><Body><run xmlns="http://cortalconsors.com/middleware/logout/v1_0"><request feid="CAFE" language="DE" sessionId="929bc74aeaa14fd388b6a9c78d10b4c9"/></run></Body></Envelope>

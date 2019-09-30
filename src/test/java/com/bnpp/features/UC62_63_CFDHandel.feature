@@ -1,8 +1,9 @@
-@RTA
+@Demo300919
 Feature: UC62_63_CFDHandel
 
   #Executable : Inhaber Einzelkonto Eroeffnet Depot-CFD  (Neues/BestehendesKonto)
   #Eroeffnet Depot-CFD Neues Konto
+  @demotest
   Scenario Outline: <TestCase>
     When User open the application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"
@@ -52,6 +53,7 @@ Feature: UC62_63_CFDHandel
       | Einzelkonto_DepotCFD_NeuesKonto |
 
   #Eroeffnet Depot-CFD Bestehendes Konto
+   @demotest
   Scenario Outline: <TestCase>
     When User open the application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"

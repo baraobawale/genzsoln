@@ -1,4 +1,4 @@
-@UC_9_10
+@Demo300919
 Feature: UC_9_10_UeberweisungLimit
 
   #Executable : Ueberweisungslimit Aendern (mit Fehlermeldungen)
@@ -39,6 +39,7 @@ Feature: UC_9_10_UeberweisungLimit
       | Ueberweisungslimit_MaxLimit_Error |
 
   #Aendern
+  @EmailSelect
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"

@@ -61,132 +61,167 @@ public class GenericSteps {
 
 	@When("^User open an application$")
 	public void User_Open_an_Application() throws MalformedURLException, InterruptedException {
-		commonActions.launchBrowser();
-		Thread.sleep(10000);
+		try {
+			commonActions.launchBrowser();
+			Thread.sleep(10000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
 	}
 
 	@And("^User enters \"(.*?)\" in \"(.*?)\"$")
 	public void type(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
-		if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen") || locatorKey.equals("TelefonPrivat_AngabenZurPerson")) {
-			commonActions.enterText(locatorKey, dataKey);
-			// Move the focus out of field to handle the error displayed on
-			// clearing the field.
-			commonActions.pressTab();
-		} else if (locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
-			if (commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
-				WebElement text = commonActions.getElement("Max_limit");
-				Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
-				int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
-				cnt = cnt + 1;
-				commonActions.setText(locatorKey, String.valueOf(cnt));
-				// Move the focus out of field to handle the error displayed on
-				// clearing the field.
-				commonActions.pressTab();
-			} else if (commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
-				WebElement text = commonActions.getElement("Max_limit");
-				Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
-				int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
-				cnt = cnt - 1;
-				commonActions.setText(locatorKey, String.valueOf(cnt));
-				commonActions.logPassStatus("Ueberweisungslimit is set to" + cnt);
-				// Move the focus out of field to handle the error displayed on
-				// clearing the field.
-				commonActions.pressTab();
-			} else {
+		try {
+			if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen") || locatorKey.equals("TelefonPrivat_AngabenZurPerson")) {
 				commonActions.enterText(locatorKey, dataKey);
+				// Move the focus out of field to handle the error displayed on
+				// clearing the field.
 				commonActions.pressTab();
+			} else if (locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
+				if (commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
+					WebElement text = commonActions.getElement("Max_limit");
+					Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+					int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+					cnt = cnt + 1;
+					commonActions.setText(locatorKey, String.valueOf(cnt));
+					// Move the focus out of field to handle the error displayed on
+					// clearing the field.
+					commonActions.pressTab();
+				} else if (commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
+					WebElement text = commonActions.getElement("Max_limit");
+					Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+					int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+					cnt = cnt - 1;
+					commonActions.setText(locatorKey, String.valueOf(cnt));
+					commonActions.logPassStatus("Ueberweisungslimit is set to" + cnt);
+					// Move the focus out of field to handle the error displayed on
+					// clearing the field.
+					commonActions.pressTab();
+				}else if(commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
+					locatorKey="Limit_OrderErteilen_Stop";
+					commonActions.enterText(locatorKey, dataKey);
+				}
+				else {
+					commonActions.enterText(locatorKey, dataKey);
+					commonActions.pressTab();
+				}
 			}
-		}
 
-		else
-			commonActions.enterText(locatorKey, dataKey);
+			else
+				commonActions.enterText(locatorKey, dataKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Enter text failed -" + locatorKey);
+		}
 
 	}
 
 	@And("^User clears \"(.*?)\"$")
 	public void clear(String locatorKey) {
 
-		commonActions.clearfield(locatorKey);
+		try {
+			commonActions.clearfield(locatorKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Clear text failed -" + locatorKey);
+		}
 	}
 
 	// @And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
 	@And("^User clicks on \"(.*)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
-		if (locatorKey.equals("Aendern") || locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
-				|| locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")
-				|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
-			commonActions.moveScrollDown();
-			commonActions.waitForVisibilityofElement(locatorKey);
-			commonActions.click(locatorKey);
-		} else if (locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
-			commonActions.click(locatorKey);
-			commonActions.moveScrollDown();
-			if (commonActions.isElementPresent("CustomerNameIBAN")
-					&& commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")) {
-				commonActions.logInfoStatus("Vorlagename '001 DELTA BUERICZUEK' template already exists.");
-				commonActions.logInfoStatus("Deleting the template");
-				commonActions.click("DeleteIBAN");
-				String token = TANGenerator.requestTan();
-				commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
-				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+		try {
+			if (locatorKey.equals("Aendern") || locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
+					|| locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")
+					|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 				commonActions.moveScrollDown();
-				// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
-			}
-
-			if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")
-					&& commonActions.isElementPresent("CustomerNameKontoBLZ")) {
-				commonActions.logInfoStatus("Vorlagename '002 DELTA BUERICZUEK' template already exists.");
-				commonActions.logInfoStatus("Deleting the template");
-				commonActions.click("DeleteKontoBLZ");
-				String token = TANGenerator.requestTan();
-				commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
-				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-				commonActions.moveScrollDown();
-				// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
-			}
-
-			// Add code to revert to vorlage template display page if
-			// not
-		} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
-			commonActions.click(locatorKey);
-			if (commonActions.isElementPresent("New_mobile_tan")) {
-				commonActions.enterTokenTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
+				commonActions.waitForVisibilityofElement(locatorKey);
 				commonActions.click(locatorKey);
-			}
-		} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
-			commonActions.click(locatorKey);
-			commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
-			commonActions.moveScrollDown();
-		} else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
-			commonActions.click(locatorKey);
-			commonActions.pressTab();
-		} else if (locatorKey.equals("Bestaetigen_Benachrichtigungen")) {
-			System.out.println("Value of loactorkey-----------" + locatorKey);
-			commonActions.pressTab();
-			commonActions.click(locatorKey);
+			} else if (locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
+				commonActions.click(locatorKey);
+				commonActions.moveScrollDown();
+				if (commonActions.isElementPresent("CustomerNameIBAN")
+						&& commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")) {
+					commonActions.logInfoStatus("Vorlagename '001 DELTA BUERICZUEK' template already exists.");
+					commonActions.logInfoStatus("Deleting the template");
+					commonActions.click("DeleteIBAN");
+					String token = TANGenerator.requestTan();
+					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					commonActions.moveScrollDown();
+					// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				}
 
-		} else
-			commonActions.click(locatorKey);
+				if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")
+						&& commonActions.isElementPresent("CustomerNameKontoBLZ")) {
+					commonActions.logInfoStatus("Vorlagename '002 DELTA BUERICZUEK' template already exists.");
+					commonActions.logInfoStatus("Deleting the template");
+					commonActions.click("DeleteKontoBLZ");
+					String token = TANGenerator.requestTan();
+					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					commonActions.moveScrollDown();
+					// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				}
+
+				// Add code to revert to vorlage template display page if
+				// not
+			} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
+				commonActions.click(locatorKey);
+				if (commonActions.isElementPresent("New_mobile_tan")) {
+					commonActions.enterTokenTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
+					commonActions.click(locatorKey);
+				}
+			} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
+				commonActions.click(locatorKey);
+				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
+				commonActions.moveScrollDown();
+			} else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
+				commonActions.click(locatorKey);
+				commonActions.pressTab();
+			} else if (locatorKey.equals("Bestaetigen_Benachrichtigungen")) {
+				System.out.println("Value of loactorkey-----------" + locatorKey);
+				commonActions.pressTab();
+				commonActions.click(locatorKey);
+
+			}else if(locatorKey.equals("Handelsplatz")) 
+				commonActions.waitForVisibilityofElement(locatorKey);
+			else
+				commonActions.click(locatorKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Clicking failed -" + locatorKey);
+		}
 	}
 
 	@And("^User navigates to \"(.*?)\" in \"(.*?)\"$")
 	public void User_mouseOvers_and_navigates_to(String clickElementKey, String mouseoverelementKey)
 			throws InterruptedException {
-		Thread.sleep(5000);
-		commonActions.mouseover(mouseoverelementKey);
-		commonActions.click(clickElementKey);
+		try {
+			Thread.sleep(5000);
+			commonActions.mouseover(mouseoverelementKey);
+			commonActions.click(clickElementKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | USer navigates to failed -" + clickElementKey);
+		}
 
 	}
 
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
-
 	public void select(String dataKey, String locatorKey) throws Exception {
 		if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
-				|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Ich_bestaetige")) {
-			// System.out.println(dataKey);
+				|| dataKey.equals("Wertpapierkaeufe")) {
+			
 			String str1 = commonActions.getValueFromJson(dataKey);
 			commonActions.clearCheckBox(locatorKey);
 			if (str1.equals("Null")) {
@@ -194,7 +229,17 @@ public class GenericSteps {
 			} else {
 				commonActions.click(locatorKey);
 			}
-		} else if (dataKey.equals("Account_Type")) {
+		}
+		else if (dataKey.equals("Ich_bestaetige")) {
+			String str1 = commonActions.getValueFromJson(dataKey);
+			commonActions.clearCheckBox(locatorKey);
+			if (str1.equals("null")) {
+				// System.out.println("checkbox is unchecked");
+			} else {
+				commonActions.click(locatorKey);
+			}
+		}
+		else if (dataKey.equals("Account_Type")) {
 			commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 		} else if (dataKey.equals("FromDepot_Nr")) {
 			commonActions.selectDepot(locatorKey, dataKey);
@@ -241,32 +286,38 @@ public class GenericSteps {
 	       public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
 	                    throws FileNotFoundException, IOException, ParseException, InterruptedException {
 		
-	             if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
-	                    if (locatorKey.equals("Unbegrenzt_gültig")) {
-	                          //commonActions.click(locatorKey);
-	                    }
+	             try {
+					if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
+					        if (locatorKey.equals("Unbegrenzt_gültig")) {
+					              //commonActions.click(locatorKey);
+					        }
 
-	                    String str1 = commonActions.getValueFromJson(dataKey);
-	                    if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-	                          commonActions.click(locatorKey);
-	                    }
-	             }else if(commonActions.getFeatureName().equals("UC76_77_EMailBenachrichtigungen")) {
-	                    String str1 = commonActions.getValueFromJson(dataKey);
-	                    System.out.println("Value of str1   "+str1);
-	                    
-	                          if (str1.equals("Check")) {
-	                                 commonActions.clearRadioButton(locatorKey);
-	                                 commonActions.click(locatorKey);
-	                          }
-	                          else {
-	                                 commonActions.clearRadioButton(locatorKey);
-	                          }
-	             }else if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
-						commonActions.click(locatorKey);
-						commonActions.click(locatorKey);
-				 }    
-	             else 
-	                    commonActions.click(locatorKey);
+					        String str1 = commonActions.getValueFromJson(dataKey);
+					        if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+					              commonActions.click(locatorKey);
+					        }
+					 }else if(commonActions.getFeatureName().equals("UC76_77_EMailBenachrichtigungen")) {
+					        String str1 = commonActions.getValueFromJson(dataKey);
+					        System.out.println("Value of str1   "+str1);
+					        
+					              if (str1.equals("Check")) {
+					                     commonActions.clearRadioButton(locatorKey);
+					                     commonActions.click(locatorKey);
+					              }
+					              else {
+					                     commonActions.clearRadioButton(locatorKey);
+					              }
+					 }else if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+							commonActions.click(locatorKey);
+							commonActions.click(locatorKey);
+					 }    
+					 else 
+					        commonActions.click(locatorKey);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					commonActions.logAssert_Fail("Clicking failed on: "+locatorKey);
+				}
 	             
 	       }
 	
@@ -285,8 +336,11 @@ public class GenericSteps {
 					if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
 						if (commonActions.isElementPresent("UsedTanMessage")) {
 							commonActions.clearfield(TanKey);
+							Thread.sleep(60000);
 							commonActions.enterTokenTan(TanKey, token);
 							commonActions.click("BestaetigenButton");
+							if(commonActions.isElementPresent("UsedTanMessage"))
+								commonActions.logAssert_Fail("Unable to login due to reused tan.");
 							commonActions.logInfoStatus("Info | Token used : " + token);
 							commonActions.takeSceenShot();
 
@@ -407,6 +461,10 @@ public class GenericSteps {
 				commonActions.click(locatorKey+"_Nein");
 			} else if(str.equals("Ja")){
 				commonActions.click(locatorKey+"_Ja");
+			}
+			else if(dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig")){
+				commonActions.pressTab();
+				commonActions.click(locatorKey);
 			}
 			else {
 				commonActions.click(locatorKey);

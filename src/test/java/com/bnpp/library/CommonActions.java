@@ -121,7 +121,7 @@ public class CommonActions {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Invalid browser name or configuration");
-			Assert.fail();
+			logAssert_Fail("Launching browser failed");
 		}
 	}
 
@@ -823,7 +823,9 @@ public class CommonActions {
 		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
 		if (tanKey.equals("mobile_TAN_field")||tanKey.equals("TAN_Depotuebertrag")) {
 			click("MobileTan_anfordern");
-		} else {
+		}else if(tanKey.equals("TAN_field_OrderErteilen")) 
+			click("MobileTAN_link_UC17");
+		else {
 			click("MobileTAN_link_Login");
 		}
 

@@ -74,6 +74,7 @@ Feature: UC5_6_7_Vorlage
       | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-IBAN/KontoBLZ
+  @Delete
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -89,4 +90,4 @@ Feature: UC5_6_7_Vorlage
     Examples: 
       | TestCase                   |
       | Vorlagen_loeschen_IBAN     |
-      | Vorlagen_loeschen_kontoBLZ |
+   #   | Vorlagen_loeschen_kontoBLZ |
