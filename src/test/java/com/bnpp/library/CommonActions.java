@@ -230,7 +230,7 @@ public class CommonActions {
 	 * Description Refresh the page
 	 */
 	public void refreshPage() {
-		driver.navigate().refresh();
+		driver.navigate().back();
 	}
 
 	/**

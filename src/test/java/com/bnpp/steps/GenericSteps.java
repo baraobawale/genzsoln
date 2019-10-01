@@ -67,7 +67,7 @@ public class GenericSteps {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		}
 	}
 
@@ -75,7 +75,8 @@ public class GenericSteps {
 	public void type(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
-			if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen") || locatorKey.equals("TelefonPrivat_AngabenZurPerson")) {
+			if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")
+					|| locatorKey.equals("TelefonPrivat_AngabenZurPerson")) {
 				commonActions.enterText(locatorKey, dataKey);
 				// Move the focus out of field to handle the error displayed on
 				// clearing the field.
@@ -87,7 +88,8 @@ public class GenericSteps {
 					int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
 					cnt = cnt + 1;
 					commonActions.setText(locatorKey, String.valueOf(cnt));
-					// Move the focus out of field to handle the error displayed on
+					// Move the focus out of field to handle the error displayed
+					// on
 					// clearing the field.
 					commonActions.pressTab();
 				} else if (commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
@@ -97,14 +99,14 @@ public class GenericSteps {
 					cnt = cnt - 1;
 					commonActions.setText(locatorKey, String.valueOf(cnt));
 					commonActions.logPassStatus("Ueberweisungslimit is set to" + cnt);
-					// Move the focus out of field to handle the error displayed on
+					// Move the focus out of field to handle the error displayed
+					// on
 					// clearing the field.
 					commonActions.pressTab();
-				}else if(commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
-					locatorKey="Limit_OrderErteilen_Stop";
+				} else if (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
+					locatorKey = "Limit_OrderErteilen_Stop";
 					commonActions.enterText(locatorKey, dataKey);
-				}
-				else {
+				} else {
 					commonActions.enterText(locatorKey, dataKey);
 					commonActions.pressTab();
 				}
@@ -136,7 +138,8 @@ public class GenericSteps {
 	@And("^User clicks on \"(.*)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
 		try {
-			if (locatorKey.equals("Aendern") || locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
+			if (locatorKey.equals("Aendern")
+					|| locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
 					|| locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")
 					|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 				commonActions.moveScrollDown();
@@ -191,11 +194,18 @@ public class GenericSteps {
 				commonActions.pressTab();
 				commonActions.click(locatorKey);
 
-			}else if(locatorKey.equals("Handelsplatz")) 
+			} else if (locatorKey.equals("Handelsplatz"))
 				commonActions.waitForVisibilityofElement(locatorKey);
-			else
+			else if (locatorKey.equals("CloseWindow_SessionTANAktivieren")) {
+				// commonActions.click(locatorKey);
+				Thread.sleep(5000);
+				commonActions.refreshPage();
+				
+			} else
 				commonActions.click(locatorKey);
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Clicking failed -" + locatorKey);
@@ -220,8 +230,8 @@ public class GenericSteps {
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void select(String dataKey, String locatorKey) throws Exception {
 		if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
-				|| dataKey.equals("Wertpapierkaeufe")) {
-			
+				|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Orderart")) {
+
 			String str1 = commonActions.getValueFromJson(dataKey);
 			commonActions.clearCheckBox(locatorKey);
 			if (str1.equals("Null")) {
@@ -229,8 +239,11 @@ public class GenericSteps {
 			} else {
 				commonActions.click(locatorKey);
 			}
-		}
-		else if (dataKey.equals("Ich_bestaetige")) {
+		} else if (dataKey.equals("Name_WKN_ISIN")) {
+			commonActions.enterText(locatorKey, dataKey);
+			Thread.sleep(3000);
+			commonActions.click("NameWKN");
+		} else if (dataKey.equals("Ich_bestaetige")) {
 			String str1 = commonActions.getValueFromJson(dataKey);
 			commonActions.clearCheckBox(locatorKey);
 			if (str1.equals("null")) {
@@ -238,8 +251,10 @@ public class GenericSteps {
 			} else {
 				commonActions.click(locatorKey);
 			}
-		}
-		else if (dataKey.equals("Account_Type")) {
+		} else if (dataKey.equals("Handelsplatz")) {
+			commonActions.click("Handelsplatz_OrderErteilen_1");
+			commonActions.click("Handelsplatz_OrderErteilen_2");
+		} else if (dataKey.equals("Account_Type")) {
 			commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 		} else if (dataKey.equals("FromDepot_Nr")) {
 			commonActions.selectDepot(locatorKey, dataKey);
@@ -249,78 +264,83 @@ public class GenericSteps {
 		}
 	}
 
-//	@And("User selects checkbox {string} in {string}")
-//	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
-//			throws FileNotFoundException, IOException, ParseException, InterruptedException {
-//<<<<<<< HEAD
-//		String str = commonActions.getValueFromJson(dataKey);
-//		System.out.println("str for dataKey"+str+" "+dataKey);
-////		if (!locatorKey.equals("Unbegrenzt_gültig"))
-////			commonActions.click(locatorKey);
-//		if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
-//			commonActions.click(locatorKey);
-//		}
-//		if (str.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-//=======
-//
-//		if (!locatorKey.equals("Unbegrenzt_gültig")) {
-//>>>>>>> a213edc5d7e63dcc3358109c95d3cd0e538d6bfb
-//			commonActions.click(locatorKey);
-//		}
-//		if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
-//			String str1 = commonActions.getValueFromJson(dataKey);
-//			if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-//				commonActions.click(locatorKey);
-//			}
-//		} else
-//			commonActions.click(locatorKey);
-//		if (locatorKey.equals("IchhabediesenHinweiszurKenntnisgenommen_Positionwaehlen"))
-//			commonActions.click(locatorKey);
-//		if (locatorKey.equals("Einverstaendnis_mit_PRIIP_Verordnung")
-//				|| locatorKey.equals("EinverstaendnisMitPRIIPVerordnung_AngabenZurPerson")) {
-//			commonActions.click(locatorKey);
-//		}
-//	}
-		
-	@And("User selects checkbox {string} in {string}")
-	       public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
-	                    throws FileNotFoundException, IOException, ParseException, InterruptedException {
-		
-	             try {
-					if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
-					        if (locatorKey.equals("Unbegrenzt_gültig")) {
-					              //commonActions.click(locatorKey);
-					        }
+	// @And("User selects checkbox {string} in {string}")
+	// public void User_selects_checkbox_in_field(String dataKey, String
+	// locatorKey)
+	// throws FileNotFoundException, IOException, ParseException,
+	// InterruptedException {
+	// <<<<<<< HEAD
+	// String str = commonActions.getValueFromJson(dataKey);
+	// System.out.println("str for dataKey"+str+" "+dataKey);
+	//// if (!locatorKey.equals("Unbegrenzt_gültig"))
+	//// commonActions.click(locatorKey);
+	// if(dataKey.equals("Mit_sehr_hohem_Risiko") &&
+	// commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto"))
+	// {
+	// commonActions.click(locatorKey);
+	// }
+	// if (str.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+	// =======
+	//
+	// if (!locatorKey.equals("Unbegrenzt_gültig")) {
+	// >>>>>>> a213edc5d7e63dcc3358109c95d3cd0e538d6bfb
+	// commonActions.click(locatorKey);
+	// }
+	// if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
+	// String str1 = commonActions.getValueFromJson(dataKey);
+	// if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+	// commonActions.click(locatorKey);
+	// }
+	// } else
+	// commonActions.click(locatorKey);
+	// if
+	// (locatorKey.equals("IchhabediesenHinweiszurKenntnisgenommen_Positionwaehlen"))
+	// commonActions.click(locatorKey);
+	// if (locatorKey.equals("Einverstaendnis_mit_PRIIP_Verordnung")
+	// ||
+	// locatorKey.equals("EinverstaendnisMitPRIIPVerordnung_AngabenZurPerson"))
+	// {
+	// commonActions.click(locatorKey);
+	// }
+	// }
 
-					        String str1 = commonActions.getValueFromJson(dataKey);
-					        if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-					              commonActions.click(locatorKey);
-					        }
-					 }else if(commonActions.getFeatureName().equals("UC76_77_EMailBenachrichtigungen")) {
-					        String str1 = commonActions.getValueFromJson(dataKey);
-					        System.out.println("Value of str1   "+str1);
-					        
-					              if (str1.equals("Check")) {
-					                     commonActions.clearRadioButton(locatorKey);
-					                     commonActions.click(locatorKey);
-					              }
-					              else {
-					                     commonActions.clearRadioButton(locatorKey);
-					              }
-					 }else if(dataKey.equals("Mit_sehr_hohem_Risiko") && commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
-							commonActions.click(locatorKey);
-							commonActions.click(locatorKey);
-					 }    
-					 else 
-					        commonActions.click(locatorKey);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					commonActions.logAssert_Fail("Clicking failed on: "+locatorKey);
+	@And("User selects checkbox {string} in {string}")
+	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
+			throws FileNotFoundException, IOException, ParseException, InterruptedException {
+
+		try {
+			if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
+				if (locatorKey.equals("Unbegrenzt_gültig")) {
+					// commonActions.click(locatorKey);
 				}
-	             
-	       }
-	
+
+				String str1 = commonActions.getValueFromJson(dataKey);
+				if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
+					commonActions.click(locatorKey);
+				}
+			} else if (commonActions.getFeatureName().equals("UC76_77_EMailBenachrichtigungen")) {
+				String str1 = commonActions.getValueFromJson(dataKey);
+				System.out.println("Value of str1   " + str1);
+
+				if (str1.equals("Check")) {
+					commonActions.clearRadioButton(locatorKey);
+					commonActions.click(locatorKey);
+				} else {
+					commonActions.clearRadioButton(locatorKey);
+				}
+			} else if (dataKey.equals("Mit_sehr_hohem_Risiko")
+					&& commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+				commonActions.click(locatorKey);
+				commonActions.click(locatorKey);
+			} else
+				commonActions.click(locatorKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Clicking failed on: " + locatorKey);
+		}
+
+	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
@@ -339,7 +359,7 @@ public class GenericSteps {
 							Thread.sleep(60000);
 							commonActions.enterTokenTan(TanKey, token);
 							commonActions.click("BestaetigenButton");
-							if(commonActions.isElementPresent("UsedTanMessage"))
+							if (commonActions.isElementPresent("UsedTanMessage"))
 								commonActions.logAssert_Fail("Unable to login due to reused tan.");
 							commonActions.logInfoStatus("Info | Token used : " + token);
 							commonActions.takeSceenShot();
@@ -351,6 +371,8 @@ public class GenericSteps {
 				commonActions.pressTab();
 				commonActions.enterNewMobileTan(TanKey, token);
 			} else if (TanKey.equals("TAN_field_Benachrichtigungen"))
+				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			else if (TanKey.equals("TAN_SessionTANAktivieren"))
 				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 			else {
 				commonActions.enterNewMobileTan(TanKey, token);
@@ -368,7 +390,8 @@ public class GenericSteps {
 	public void abc(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
 		if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
-				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld") || commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")
+				|| commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 			// commonActions.movetoChildWindow();
 		} else {
 			commonActions.launchBrowser();
@@ -439,34 +462,31 @@ public class GenericSteps {
 		commonActions.click("BestaetigenButton");
 
 	}
-	
+
 	@When("User open the application")
 	public void user_open_the_application() throws MalformedURLException {
 		try {
 			commonActions.launchBrowser();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
 	}
-	
+
 	@When("User selects radiobutton {string} in {string}")
 	public void user_selects_radiobutton_in(String dataKey, String locatorKey) {
 		try {
 			String str = commonActions.getValueFromJson(dataKey);
-			System.out.println("str for datakey:"+str+" "+dataKey);
+			System.out.println("str for datakey:" + str + " " + dataKey);
 			commonActions.clearRadioButton(locatorKey);
 			if (str.equals("Nein")) {
-				commonActions.click(locatorKey+"_Nein");
-			} else if(str.equals("Ja")){
-				commonActions.click(locatorKey+"_Ja");
-			}
-			else if(dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig")){
+				commonActions.click(locatorKey + "_Nein");
+			} else if (str.equals("Ja")) {
+				commonActions.click(locatorKey + "_Ja");
+			} else if (dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig")) {
 				commonActions.pressTab();
 				commonActions.click(locatorKey);
-			}
-			else {
+			} else {
 				commonActions.click(locatorKey);
 			}
 		} catch (Exception e) {
