@@ -100,9 +100,9 @@ public class UC3_Dauerauftraege {
 			// Datum."+commonActions.getValueFromJson("Datum"));
 
 			if (txtVerify1.equals(commonActions.getValueFromJson("Name"))) {
-				commonActions.logPassStatus("Verify Name on DauerauftrageAnlegen");
+				commonActions.logPassStatus("Pass | Valid message displayed - "+txtVerify1);
 			} else {
-				commonActions.logFailStatus("Data save fail for DauerauftrageAnlegen");
+				commonActions.logFailStatus("Fail | Valid message display failed - "+txtVerify1);
 			}
 
 		} catch (Exception e) {
@@ -116,40 +116,37 @@ public class UC3_Dauerauftraege {
 		try {
 
 			if (CapturedName.equals(commonActions.getValueFromJson("Name"))) {
-				commonActions.logPassStatus("Verified name on DauerauftrageAnlegen");
-			} else {
-				commonActions.logFailStatus("Data save fail for DauerauftrageAnlegen");
-			}
-			if (CapturedIBAN.equals(
-					commonActions.checkGermanCharacters(commonActions.getValueFromJson("IBAN_oder_Kontonummer")))) {
-				commonActions.logPassStatus("Verified IBAN on DauerauftrageAnlegen");
-			} else {
-				commonActions.logFailStatus("Data save fail for DauerauftrageAnlegen");
-			}
-			if (CapturedBetrag.contains(commonActions.getValueFromJson("Betrag"))) {
-				commonActions.logPassStatus("Verified Betrag on DauerauftrageAnlegen");
-			} else {
-				commonActions.logFailStatus("Data save fail for DauerauftrageAnlegen");
-			}
-			if (CapturedDatum.equals(commonActions.getValueFromJson("Startdatum"))) {
-				commonActions.logPassStatus("Verified Datum on DauerauftrageAnlegen");
-			} else {
-				commonActions.logFailStatus("Data save fail for DauerauftrageAnlegen");
-			}
+					commonActions.logPassStatus("Pass | Valid name displayed - "+CapturedName);
+				} else {
+					commonActions.logFailStatus("Fail | Valid name display failed - "+CapturedName);
+				}
+				if (CapturedIBAN.equals(
+						commonActions.checkGermanCharacters(commonActions.getValueFromJson("IBAN_oder_Kontonummer")))) {
+					commonActions.logPassStatus("Pass | Valid IBAN displayed - "+CapturedIBAN);
+				} else {
+					commonActions.logFailStatus("Fail | Valid IBAN display failed - "+CapturedIBAN);
+				}
+				if (CapturedBetrag.contains(commonActions.getValueFromJson("Betrag"))) {
+					commonActions.logPassStatus("Pass | Valid Betrag displayed - "+CapturedBetrag);
+				} else {
+					commonActions.logFailStatus("Fail | Valid Betrag display failed - "+CapturedBetrag);
+				}
+				if (CapturedDatum.equals(commonActions.getValueFromJson("Startdatum"))) {
+					commonActions.logPassStatus("Pass | Valid Startdatum displayed - "+CapturedDatum);
+				} else {
+					commonActions.logFailStatus("Pass | Valid Startdatum display failed - "+CapturedDatum);
+				}
 
-			if (CaptureErrorMsg.equals(commonActions.getKeyFromJson("Message"))) {
-				commonActions.logPassStatus("Message verified");
-			} else {
-				System.out.println("MMMM: " + CaptureErrorMsg);
-				System.out.println("LLLL: " + commonActions.getKeyFromJson(("Message")));
-				commonActions.logFailStatus("Message not matched");
-
+				if (CaptureErrorMsg.equals(commonActions.getKeyFromJson("Message"))) {
+					commonActions.logPassStatus("Pass | Valid message displayed - "+CaptureErrorMsg);
+				} else {
+					commonActions.logFailStatus("Fail | Valid message display failed - "+CaptureErrorMsg);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				commonActions.logAssert_Fail("Fail | Verify captured details,Message failed");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
 		}
-	}
 
 	@And("^User changes \"(.*?)\" in \"(.*?)\"$")
 	public void type(String dataKey, String locatorKey)
@@ -171,18 +168,16 @@ public class UC3_Dauerauftraege {
 			System.out.println("PPP: " + txtVerify);
 			System.out.println("QQQ: " + commonActions.getKeyFromJson("Message"));
 			if (txtVerify.equalsIgnoreCase(commonActions.getKeyFromJson("Message"))) {
-				System.out.println("Verify Message on DauerauftrageAndern edit successfully");
-				commonActions.logPassStatus("Verify Message on DauerauftrageAndern");
+				commonActions.logPassStatus("Pass | Valid message displayed - "+txtVerify);
 
 			} else
 				commonActions.logFailStatus("Verification of Message on DauerauftrageAndern edit is failed");
 			String BetragExpected = commonActions.getText("BetragCaptureDauerauftraege");
 			String BetragActual = commonActions.getValueFromJson("Betrag") + " EUR";
 			if (BetragExpected.equals(BetragActual))
-				commonActions.logPassStatus("Betrag update success");
+				commonActions.logPassStatus("Pass | Valid Betrag updated - " + BetragActual);
 			else
-				commonActions.logFailStatus(
-						"Betrag update fail" + "Expected: " + BetragExpected + "Actual: " + BetragActual);
+				commonActions.logFailStatus("Fail | Valid Betrag update failed - " + BetragExpected);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -197,7 +192,7 @@ public class UC3_Dauerauftraege {
 			System.out.println(commonActions.getValueFromJson("Message"));
 			if (txtVerify.equals(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message on Dauerauftraegeloeschen SUCCESSFULLY");
-				commonActions.logPassStatus("Verify Message on Dauerauftraegeloeschen");
+				commonActions.logPassStatus("Pass | Valid message displayed - "+txtVerify);
 
 			} else {
 
@@ -206,7 +201,7 @@ public class UC3_Dauerauftraege {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Data save fail for Dauerauftraegeloeschen");
+			commonActions.logAssert_Fail("Delete template failed for Dauerauftraegeloeschen");
 		}
 
 	}

@@ -140,7 +140,6 @@ public class GenericSteps {
 		try {
 			if (locatorKey.equals("Aendern")
 					|| locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
-					|| locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")
 					|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 				commonActions.moveScrollDown();
 				commonActions.waitForVisibilityofElement(locatorKey);
@@ -200,12 +199,30 @@ public class GenericSteps {
 				// commonActions.click(locatorKey);
 				Thread.sleep(5000);
 				commonActions.refreshPage();
-				
+				Thread.sleep(5000);
+			} else if (locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")) {
+				commonActions.moveScrollDown();
+				commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
+				if (commonActions.isElementPresent("TerminoUberWise_03")) {
+					commonActions.click("DeleteTerminoUberwise_03");
+					String token = TANGenerator.requestTan();
+					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					commonActions.moveScrollDown();
+				}
+				if (commonActions.isElementPresent("TerminoUberWise_04")) {
+					commonActions.click("DeleteTerminoUberwise_04");
+					String token = TANGenerator.requestTan();
+					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					Thread.sleep(3000);
+				}
+				commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
 			} else
 				commonActions.click(locatorKey);
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Clicking failed -" + locatorKey);
@@ -332,7 +349,21 @@ public class GenericSteps {
 					&& commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 				commonActions.click(locatorKey);
 				commonActions.click(locatorKey);
-			} else
+			} else if (commonActions.getFeatureName().equals("UC78_79_Aboservice")) {
+				String str1 = commonActions.getValueFromJson(dataKey);
+				System.out.println("Value of str1   " + str1);
+
+				if (str1.equals("Null")) {
+
+				} else if (str1.equals("Select")) {
+					commonActions.click(locatorKey);
+
+				} else {
+					commonActions.click(locatorKey);
+				}
+			}
+
+			else
 				commonActions.click(locatorKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -374,6 +405,11 @@ public class GenericSteps {
 				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 			else if (TanKey.equals("TAN_SessionTANAktivieren"))
 				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			else if (TanKey.equals("TAN_field_NewsLetter")||TanKey.equals("TAN_field_NewsletterMeineAbos"))
+				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+//			else if (TanKey.equals("TAN_field_NewsletterMeineAbos"))
+//				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+
 			else {
 				commonActions.enterNewMobileTan(TanKey, token);
 			}

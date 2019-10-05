@@ -26,7 +26,7 @@ public class UC5_6_7_Vorlage {
 				locatorKey = "EditKontoBLZ";
 			if (locatorKey.equals("Delete") && commonActions.getScenarioName().equals("Vorlagen_loeschen_IBAN")) {
 				locatorKey = "DeleteIBAN";
-				}
+			}
 			if (locatorKey.equals("Delete") && commonActions.getScenarioName().equals("Vorlagen_loeschen_kontoBLZ"))
 				locatorKey = "DeleteKontoBLZ";
 
@@ -58,20 +58,25 @@ public class UC5_6_7_Vorlage {
 			if (commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")) {
 				if (commonActions.getText("Ihre_Überweisungsvorlage_wurde")
 						.equals(commonActions.getValueFromJson("Message")))
-					commonActions.logPassStatus("IBAN create success");
+					commonActions.logPassStatus("Pass | Valid message displayed - "
+							+ commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 				else
-					commonActions.logAssert_Fail("IBAN create fail");
+					commonActions.logFailStatus("Fail | Valid message display failed - "
+							+ commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 			}
 			if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")) {
 				if (commonActions.getText("Ihre_Überweisungsvorlage_wurde")
 						.equals(commonActions.getValueFromJson("Message")))
-					commonActions.logPassStatus("KontoBLZ create success");
+					commonActions.logPassStatus("Pass | Valid message displayed - "
+							+ commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 				else
-					commonActions.logAssert_Fail("KontoBLZ create fail");
+					commonActions.logFailStatus("Fail | Valid message display failed - "
+							+ commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Valid message display failed");
 		}
 	}
 
@@ -80,9 +85,11 @@ public class UC5_6_7_Vorlage {
 		try {
 			if (commonActions.getText("Ihre_Überweisungsvorlage_wurde")
 					.contains("Ihre Überweisungsvorlage wurde gespeichert"))
-				commonActions.logPassStatus("IBAN update success");
+				commonActions.logPassStatus(
+						"Pass | Valid message displayed - " + commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 			else
-				commonActions.logAssert_Fail("IBAN update fail");
+				commonActions.logAssert_Fail("Fail | Valid message display failed - "
+						+ commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,7 +107,7 @@ public class UC5_6_7_Vorlage {
 						.println("Value from Page: " + commonActions.getText("Ihre_Überweisungsvorlage_wurde").trim());
 				System.out.println("Value from Json: " + commonActions.getValueFromJson("Message"));
 				if (commonActions.getText("Ihre_Überweisungsvorlage_wurde").trim()
-						.equalsIgnoreCase(commonActions.getValueFromJson("Message")))
+						.equals(commonActions.getValueFromJson("Message")))
 					commonActions.logPassStatus("IBANTemplate delete success");
 				else
 					commonActions.logAssert_Fail("IBANTemplate delete fail");
@@ -125,9 +132,11 @@ public class UC5_6_7_Vorlage {
 		try {
 			if (commonActions.getText("Ihre_Überweisungsvorlage_wurde")
 					.contains("Ihre Überweisungsvorlage wurde angelegt"))
-				commonActions.logPassStatus("KontoBLZ create success");
+				commonActions.logPassStatus(
+						"Pass | Valid message displayed - " + commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 			else
-				commonActions.logAssert_Fail("KontoBLZ create failed");
+				commonActions.logAssert_Fail("Fail | Valid message display failed - "
+						+ commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,37 +154,33 @@ public class UC5_6_7_Vorlage {
 				String UpdateMessageFromJson = commonActions.getValueFromJson("Message");
 
 				if (UpdateMessageFromPage.equals(UpdateMessageFromJson))
-
-					commonActions.logPassStatus("IBAN update success");
-			
+					commonActions.logPassStatus("Pass | Valid message displayed- "+UpdateMessageFromPage);
 				else
-					commonActions.logAssert_Fail("IBAN update failed");
-
+					commonActions.logFailStatus("Fail | Valid message display failed - "+UpdateMessageFromPage);
+			
 				String BetragUpdateValueFromPage = commonActions.getText("BetragIBANCaptureScreen");
 				String BetragUpdateValueFromJson = commonActions.getValueFromJson("Betrag") + " EUR";
 
 				if (BetragUpdateValueFromPage.equals(BetragUpdateValueFromJson))
-					commonActions.logPassStatus("Betrag_IBAN update success");
+					commonActions.logPassStatus("Pass | Valid Betrag updated- "+BetragUpdateValueFromPage);
 				else
-					commonActions.logFailStatus("Betrag_IBAN update fail");
+					commonActions.logFailStatus("Fail | Valid Betrag update failed - "+BetragUpdateValueFromPage);
 
 			}
 			if (commonActions.getScenarioName().equals("Vorlagen_Aendern_kontoBLZ")) {
 				String UpdateMessageFromPage = commonActions.getText("Ihre_Überweisungsvorlage_wurde");
 				String UpdateMessageFromJson = commonActions.getValueFromJson("Message");
 				if (UpdateMessageFromPage.equals(UpdateMessageFromJson))
-					commonActions.logPassStatus("KontoBLZ update message display success" + "Expected:"
-							+ UpdateMessageFromJson + "Actual" + UpdateMessageFromJson);
+					commonActions.logPassStatus("Pass | Valid message displayed- "+UpdateMessageFromPage);
 				else
-					commonActions.logAssert_Fail("KontoBLZ update message display failed");
+					commonActions.logFailStatus("Fail | Valid message display failed - "+UpdateMessageFromPage);
 
 				String BetragUpdateValueFromPage = commonActions.getText("BetragKontoBLZCaptureScreen");
 				String BetragUpdateValueFromJson = commonActions.getValueFromJson("Betrag") + " EUR";
 				if (BetragUpdateValueFromPage.equals(BetragUpdateValueFromJson))
-					commonActions.logPassStatus("Betrag_KontoBLZ update success" + "Expected:"
-							+ BetragUpdateValueFromPage + "Actual:" + BetragUpdateValueFromJson);
+					commonActions.logPassStatus("Pass | Valid Betrag updated - "+BetragUpdateValueFromPage);
 				else
-					commonActions.logFailStatus("Betrag_KontoBLZ update fail");
+					commonActions.logAssert_Fail("Fail | Valid Betrag update failed - "+BetragUpdateValueFromPage);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -189,10 +194,10 @@ public class UC5_6_7_Vorlage {
 		try {
 			if (commonActions.getText("Ihre_Überweisungsvorlage_wurde")
 					.contains("Ihre Überweisungsvorlage wurde gelöscht"))
-				commonActions.logPassStatus("KontoBLZ delete success");
+				commonActions.logPassStatus("Pass | Valid message displayed - "+commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 			else
-				commonActions.logAssert_Fail("KontoBLZ delete failed");
-		} catch (Exception e) {
+				commonActions.logFailStatus("Fail | Valid message displayed - "+commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
+			} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -207,69 +212,71 @@ public class UC5_6_7_Vorlage {
 
 				if (commonActions.getText("VorlagenameIBANCaptureScreen")
 						.equals(commonActions.getValueFromJson("Vorlagenname")))
-					commonActions.logPassStatus("Vorlagename_IBAN verify success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid Vorlagename displayed - "+commonActions.getText("VorlagenameIBANCaptureScreen"));
 				else
-					commonActions.logFailStatus("Vorlagename_IBAN verify fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid Vorlagename display failed - "+commonActions.getText("VorlagenameIBANCaptureScreen"));
 
 				if (commonActions.getText("NameIBANCaptureScreen").equals(commonActions.getValueFromJson("Name")))
-					commonActions.logPassStatus("Name_IBAN verify success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid name displayed - "+commonActions.getText("NameIBANCaptureScreen"));
 				else
-					commonActions.logFailStatus("Name_IBAN verify fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid name display failed - "+commonActions.getText("NameIBANCaptureScreen"));
 
 				if (commonActions.getText("BetragIBANCaptureScreen")
 						.equals((commonActions.getValueFromJson("Betrag") + ",00 EUR")))
-					commonActions.logPassStatus("Betrag_IBAN verify success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid betrag displayed - "+commonActions.getText("BetragIBANCaptureScreen"));
 				else
-					commonActions.logFailStatus("Betrag_IBAN verify fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid betrag display failed - "+commonActions.getText("BetragIBANCaptureScreen"));
 			}
 			if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")) {
 
 				if (commonActions.getText("VorlagenameKontoBLZCaptureScreen")
 						.equals(commonActions.getValueFromJson("Vorlagenname")))
-					commonActions.logPassStatus("Vorlagename_KontoBLZ verify success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid Vorlagename displayed - "+commonActions.getText("VorlagenameKontoBLZCaptureScreen"));
 				else
-					commonActions.logFailStatus("Vorlagename_KontoBLZ verify fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid Vorlagename display failed - "+commonActions.getText("VorlagenameKontoBLZCaptureScreen"));
+
 
 				if (commonActions.getText("NameKontoBLZCaptureScreen").equals(commonActions.getValueFromJson("Name")))
-					commonActions.logPassStatus("Name_KontoBLZ verify success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid name displayed - "+commonActions.getText("NameKontoBLZCaptureScreen"));
 				else
-					commonActions.logFailStatus("Name_KontoBLZ verify fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid name display failed - "+commonActions.getText("NameKontoBLZCaptureScreen"));
 
 				if (commonActions.getText("BetragKontoBLZCaptureScreen")
 						.equals((commonActions.getValueFromJson("Betrag") + ",00 EUR")))
-					commonActions.logPassStatus("Betrag_KontoBLZ verify success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid betrag displayed - "+commonActions.getText("BetragKontoBLZCaptureScreen"));
 				else
-					commonActions.logFailStatus("Betrag_KontoBLZ verify fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid betrag display failed - "+commonActions.getText("BetragKontoBLZCaptureScreen"));
 			} /////// Update
 			if (commonActions.getScenarioName().equals("Vorlagen_Aendern_IBAN")) {
 				if (commonActions.getText("Ihre_Überweisungsvorlage_wurde")
 						.equals(commonActions.getValueFromJson("Message")))
-					commonActions.logPassStatus("IBAN update success");
+					commonActions.logPassStatus("Pass | Valid message displayed - "+commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 				else
-					commonActions.logAssert_Fail("IBAN update fail");
+					commonActions.logFailStatus("Fail | Valid message display failed - "+commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 
 				if (commonActions.getText("BetragIBANCaptureScreen")
 						.equals((commonActions.getValueFromJson("Betrag") + ", EUR")))
-					commonActions.logPassStatus("Betrag_IBAN update success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid betrag displayed - "+commonActions.getText("BetragIBANCaptureScreen"));
 				else
-					commonActions.logFailStatus("Betrag_IBAN update fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid betrag display failed - "+commonActions.getText("BetragIBANCaptureScreen"));
 			}
 			if (commonActions.getScenarioName().equals("Vorlagen_Aendern_kontoBLZ")) {
 				if (commonActions.getText("Ihre_Überweisungsvorlage_wurde")
 						.equals(commonActions.getValueFromJson("Message")))
-					commonActions.logPassStatus("KontoBLZ update success message displayed");
+					commonActions.logPassStatus("Pass | Valid message displayed - "+commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 				else
-					commonActions.logAssert_Fail("KontoBLZ update success message display fail");
+					commonActions.logFailStatus("Fail | Valid message displayed - "+commonActions.getText("Ihre_Überweisungsvorlage_wurde"));
 
 				if (commonActions.getText("BetragKontoBLZCaptureScreen")
 						.equals((commonActions.getValueFromJson("Betrag") + ", EUR")))
-					commonActions.logPassStatus("Betrag_KontoBLZ update success on VorlageAnlegen");
+					commonActions.logPassStatus("Pass | Valid betrag displayed - "+commonActions.getText("BetragIBANCaptureScreen"));
 				else
-					commonActions.logFailStatus("Betrag_KontoBLZ update fail on VorlageAnlegen");
+					commonActions.logFailStatus("Fail | Valid betrag display failed - "+commonActions.getText("BetragIBANCaptureScreen"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Valid values display failed");
 		}
 
 	}
@@ -290,10 +297,10 @@ public class UC5_6_7_Vorlage {
 
 				if (VorlagennameFromJson.equals(commonActions.getAttribute("CustomerNameIBAN", "title")))
 					commonActions
-							.logPassStatus("VorlagennameIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+							.logPassStatus("Pass | VorlagennameIBANAccount verify success "+commonActions.getAttribute("CustomerNameIBAN", "title"));
 				else
 					commonActions
-							.logFailStatus("VorlagennameIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+					.logFailStatus("Fail | VorlagennameIBANAccount verify failed "+commonActions.getAttribute("CustomerNameIBAN", "title"));
 
 				String IBAN_oder_KontonummerFromJson = commonActions.getKeyFromJson("IBAN_oder_Kontonummer")
 						.replaceAll("\\s", "");
@@ -304,10 +311,10 @@ public class UC5_6_7_Vorlage {
 				if (IBAN_oder_KontonummerFromJson
 						.equals(commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title")))
 					commonActions.logPassStatus(
-							"IBAN_oder_KontonummerIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+							"Pass | IBAN_oder_KontonummerIBAN verify success "+commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title"));
 				else
 					commonActions.logFailStatus(
-							"IBAN_oder_KontonummerIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+							"Fail | IBAN_oder_KontonummerIBAN verify success failed "+commonActions.getAttribute("IBAN_oder_KontonummerIBAN", "title"));
 
 			}
 			if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")) {
@@ -316,10 +323,10 @@ public class UC5_6_7_Vorlage {
 					commonActions.click("NextPage");
 				if (VorlagennameFromJson.equals(commonActions.getAttribute("CustomerNameKontoBLZ", "title")))
 					commonActions
-							.logPassStatus("VorlagennameIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+					.logPassStatus("Pass | VorlagennameKontoBLZAccount verify success "+commonActions.getAttribute("CustomerNameKontoBLZ", "title"));
 				else
 					commonActions
-							.logFailStatus("VorlagennameIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+					.logPassStatus("Fail | VorlagennameKontoBLZAccount verify failed "+commonActions.getAttribute("CustomerNameKontoBLZ", "title"));
 
 				String IBAN_oder_KontonummerFromJson = commonActions.getKeyFromJson("IBAN_oder_Kontonummer")
 						.replaceAll("\\s", "");
@@ -331,15 +338,14 @@ public class UC5_6_7_Vorlage {
 
 				if (IBAN_oder_KontonummerFromJson
 						.equals(commonActions.getAttribute("IBAN_oder_KontonummerKontoBLZ", "title")))
-					commonActions.logPassStatus(
-							"IBAN_oder_KontonummerIBANAccount verified save success on UmsaetzeZahlungsverkehr");
+					commonActions.logPassStatus("Pass | IBANOrder_KontoBLZAccount verify success "+commonActions.getAttribute("CustomerNameKontoBLZ", "title"));
 				else
-					commonActions.logFailStatus(
-							"IBAN_oder_KontonummerIBANAccount verified save fail on UmsaetzeZahlungsverkehr");
+					commonActions.logFailStatus("Fail | IBANOrder_KontoBLZAccount verify failed "+commonActions.getAttribute("CustomerNameKontoBLZ", "title"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail("Verify Vorlagenname and IBANOrder failed");
 		}
 	}
 
