@@ -483,8 +483,14 @@ public class GenericSteps {
 				commonActions.click(locatorKey + "_Nein");
 			} else if (str.equals("Ja")) {
 				commonActions.click(locatorKey + "_Ja");
-			} else if (dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig")) {
+			} else if (dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig") 
+					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_1")
+					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_2") 
+					|| dataKey.equals("DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber") 
+					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_2")
+					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_3")) {
 				commonActions.pressTab();
+				Thread.sleep(2000);
 				commonActions.click(locatorKey);
 			} else {
 				commonActions.click(locatorKey);
@@ -494,6 +500,17 @@ public class GenericSteps {
 			Assert.fail();
 		}
 
+	}
+	
+	@When("user clicks on {string} in {string}")
+	public void user_clicks_on_in(String locatorKey, String string) {
+		try {
+			commonActions.click(locatorKey);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	}
 
 }

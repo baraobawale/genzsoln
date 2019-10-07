@@ -144,7 +144,9 @@ public class CommonActions {
 			prefs.put("plugins.always_open_pdf_externally", true);
 			prefs.put("profile.default_content_settings.popups", 0);
 			//below condition is for creating download folder only in case of scenario with PDF download feature
-			if(getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error") || getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")) {
+			if(getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error") || getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")
+					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen") || getScenarioName().equals("SparplanGemeinschaftskonto_Anlegen")
+					|| getScenarioName().equals("SparplanEinzelkonto_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();
