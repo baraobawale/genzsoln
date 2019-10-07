@@ -173,6 +173,7 @@ public class CommonActions {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 	}
 
@@ -812,7 +813,7 @@ public class CommonActions {
 		prop.load(fis);
 		//String customerId = prop.getProperty("userID");
 		String customerId = getValueFromJson("UserID_Kontonummer");
-		String customerPin = prop.getProperty("pin");
+		String customerPin = getValueFromJson("PIN_Password");
 		String cafeUser = prop.getProperty("cafeUserID");
 		String cafePin = prop.getProperty("cafePin");
 
@@ -834,7 +835,7 @@ public class CommonActions {
 		Thread.sleep(3000);
 		enterTokenTan(tanKey, mTAN);
 		if (tanKey.equals("TAN_field_Ueberweisungslimit")) {
-			pressTab();
+			pressTab();	
 		}
 		if(tanKey.equals("TAN_field_AngabenZurPerson")) {
 			click("TAN_field_AngabenZurPerson_Button");
