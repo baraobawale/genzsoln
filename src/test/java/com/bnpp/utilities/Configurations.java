@@ -8,7 +8,7 @@ public class Configurations {
 	public final static String ieDriverPath=".\\src\\test\\Resources\\Drivers\\IEDriverServer.exe"; 
 	
 	//Application URL
-	public final static String Appurl = "https://int-acc-ewev.consorsbank.de/home";
+	public final static String Appurl = "https://int-acc-ewev-2.consorsbank.de/home";
 	
 	//Test Data source path
 	public final static String testDataResourcePath = ".\\src\\test\\java\\com\\bnpp\\TestData\\";

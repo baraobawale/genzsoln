@@ -29,13 +29,13 @@ public class UC58_61_EinzelEroeffnet {
 					commonActions.getText("Verify_Message") + "   :   " + commonActions.getValueFromJson("Message"));
 
 			if (commonActions.getText("Verify_Message").equals(commonActions.getValueFromJson("Message")))
-				commonActions.logPassStatus("Danke für Ihren Antrag message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed - "+commonActions.getText("Verify_Message"));
 			else
-				commonActions.logFailStatus("Danke für Ihren Antrag message display fail");
+				commonActions.logFailStatus("Fail | Valid message display failed - " +commonActions.getText("Verify_Message"));
 			if (!commonActions.getText("VorlageNumber").equals(""))
-				commonActions.logPassStatus("Vorlage number display success");
+				commonActions.logPassStatus("Pass | Valid Vorlagenumber displayed - " +commonActions.getText("VorlageNumber"));
 			else
-				commonActions.logFailStatus("Vorlage number display fail");
+				commonActions.logFailStatus("Fail | Valid Vorlagenumber display failed - "+commonActions.getText("VorlageNumber"));
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -52,16 +52,17 @@ public class UC58_61_EinzelEroeffnet {
 			System.out.println(
 					commonActions.getText("Verify_Message") + "   :   " + commonActions.getValueFromJson("Message"));
 			if (commonActions.getText("Verify_Message").equals(commonActions.getValueFromJson("Message")))
-				commonActions.logPassStatus("Danke für Ihren Antrag message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed - " +commonActions.getText("Verify_Message"));
 			else
-				commonActions.logFailStatus("Danke für Ihren Antrag message display fail");
+				commonActions.logFailStatus("Fail | Valid message display failed - " +commonActions.getText("Verify_Message"));
 			if (!commonActions.getText("VorlageNumber").equals(""))
-				commonActions.logPassStatus("Vorlage number display success");
+				commonActions.logPassStatus("Pass | Valid message displayed - "+commonActions.getText("VorlageNumber"));
 			else
-				commonActions.logFailStatus("Vorlage number display fail");
+				commonActions.logFailStatus("Fail | Valid message display failed - "+commonActions.getText("VorlageNumber"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message failed");
 		}
 	}
 

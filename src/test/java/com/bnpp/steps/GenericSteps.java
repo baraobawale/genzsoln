@@ -140,7 +140,6 @@ public class GenericSteps {
 		try {
 			if (locatorKey.equals("Aendern")
 					|| locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
-					|| locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")
 					|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 				commonActions.moveScrollDown();
 				commonActions.waitForVisibilityofElement(locatorKey);
@@ -200,12 +199,30 @@ public class GenericSteps {
 				// commonActions.click(locatorKey);
 				Thread.sleep(5000);
 				commonActions.refreshPage();
-				
+				Thread.sleep(5000);
+			} else if (locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")) {
+				commonActions.moveScrollDown();
+				commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
+				if (commonActions.isElementPresent("TerminoUberWise_03")) {
+					commonActions.click("DeleteTerminoUberwise_03");
+					String token = TANGenerator.requestTan();
+					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					commonActions.moveScrollDown();
+				}
+				if (commonActions.isElementPresent("TerminoUberWise_04")) {
+					commonActions.click("DeleteTerminoUberwise_04");
+					String token = TANGenerator.requestTan();
+					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					Thread.sleep(3000);
+				}
+				commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
 			} else
 				commonActions.click(locatorKey);
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Clicking failed -" + locatorKey);
@@ -229,38 +246,44 @@ public class GenericSteps {
 
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void select(String dataKey, String locatorKey) throws Exception {
-		if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
-				|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Orderart")) {
+		try {
+			if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
+					|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Orderart")) {
 
-			String str1 = commonActions.getValueFromJson(dataKey);
-			commonActions.clearCheckBox(locatorKey);
-			if (str1.equals("Null")) {
-				// System.out.println("checkbox is unchecked");
-			} else {
-				commonActions.click(locatorKey);
-			}
-		} else if (dataKey.equals("Name_WKN_ISIN")) {
-			commonActions.enterText(locatorKey, dataKey);
-			Thread.sleep(3000);
-			commonActions.click("NameWKN");
-		} else if (dataKey.equals("Ich_bestaetige")) {
-			String str1 = commonActions.getValueFromJson(dataKey);
-			commonActions.clearCheckBox(locatorKey);
-			if (str1.equals("null")) {
-				// System.out.println("checkbox is unchecked");
-			} else {
-				commonActions.click(locatorKey);
-			}
-		} else if (dataKey.equals("Handelsplatz")) {
-			commonActions.click("Handelsplatz_OrderErteilen_1");
-			commonActions.click("Handelsplatz_OrderErteilen_2");
-		} else if (dataKey.equals("Account_Type")) {
-			commonActions.selectFromDropDownByValue(locatorKey, dataKey);
-		} else if (dataKey.equals("FromDepot_Nr")) {
-			commonActions.selectDepot(locatorKey, dataKey);
+				String str1 = commonActions.getValueFromJson(dataKey);
+				commonActions.clearCheckBox(locatorKey);
+				if (str1.equals("Null")) {
+					// System.out.println("checkbox is unchecked");
+				} else {
+					commonActions.click(locatorKey);
+				}
+			} else if (dataKey.equals("Name_WKN_ISIN")) {
+				commonActions.enterText(locatorKey, dataKey);
+				Thread.sleep(3000);
+				commonActions.click("NameWKN");
+			} else if (dataKey.equals("Ich_bestaetige")) {
+				String str1 = commonActions.getValueFromJson(dataKey);
+				commonActions.clearCheckBox(locatorKey);
+				if (str1.equals("null")) {
+					// System.out.println("checkbox is unchecked");
+				} else {
+					commonActions.click(locatorKey);
+				}
+			} else if (dataKey.equals("Handelsplatz")) {
+				commonActions.click("Handelsplatz_OrderErteilen_1");
+				Thread.sleep(2000);
+				commonActions.click("Handelsplatz_OrderErteilen_2");
+			} else if (dataKey.equals("Account_Type")) {
+				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
+			} else if (dataKey.equals("FromDepot_Nr")) {
+				commonActions.selectDepot(locatorKey, dataKey);
 
-		} else {
-			commonActions.selectFromDropDown(locatorKey, dataKey);
+			} else {
+				commonActions.selectFromDropDown(locatorKey, dataKey);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -332,7 +355,21 @@ public class GenericSteps {
 					&& commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 				commonActions.click(locatorKey);
 				commonActions.click(locatorKey);
-			} else
+			} else if (commonActions.getFeatureName().equals("UC78_79_Aboservice")) {
+				String str1 = commonActions.getValueFromJson(dataKey);
+				System.out.println("Value of str1   " + str1);
+
+				if (str1.equals("Null")) {
+
+				} else if (str1.equals("Select")) {
+					commonActions.click(locatorKey);
+
+				} else {
+					commonActions.click(locatorKey);
+				}
+			}
+
+			else
 				commonActions.click(locatorKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -372,8 +409,17 @@ public class GenericSteps {
 				commonActions.enterNewMobileTan(TanKey, token);
 			} else if (TanKey.equals("TAN_field_Benachrichtigungen"))
 				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
-			else if (TanKey.equals("TAN_SessionTANAktivieren"))
+			else if (TanKey.equals("TAN_SessionTANAktivieren")){
+				//Env 1
+				//commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+				//Env 2
+				commonActions.enterNewMobileTan(TanKey, token);
+			}
+			else if (TanKey.equals("TAN_field_NewsLetter")||TanKey.equals("TAN_field_NewsletterMeineAbos"))
 				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+//			else if (TanKey.equals("TAN_field_NewsletterMeineAbos"))
+//				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+
 			else {
 				commonActions.enterNewMobileTan(TanKey, token);
 			}
@@ -435,7 +481,7 @@ public class GenericSteps {
 
 	@When("User submits generated Mobile TAN number")
 	public void user_submits_generated_Mobile_TAN_number_in()
-			throws InterruptedException, ParserConfigurationException, SAXException, IOException {
+			throws InterruptedException, ParserConfigurationException, SAXException, Throwable {
 
 		// Loading property files and its values
 		Properties prop = new Properties();
@@ -444,8 +490,10 @@ public class GenericSteps {
 		FileInputStream fis = new FileInputStream(
 				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
 		prop.load(fis);
-		String customerId = prop.getProperty("userID");
-		String customerPin = prop.getProperty("pin");
+		//String customerId = prop.getProperty("userID");
+		String customerId=commonActions.getValueFromJson("UserID_Kontonummer");
+		String customerPin = commonActions.getValueFromJson("PIN_Password");
+		//String customerPin = prop.getProperty("pin");
 		String cafeUser = prop.getProperty("cafeUserID");
 		String cafePin = prop.getProperty("cafePin");
 

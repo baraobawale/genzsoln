@@ -23,9 +23,9 @@ public class UC76_77_EMailBenachrichtigungen {
 		
 		try {
 			if (commonActions.isElementPresent("Messages_confirm"))
-				commonActions.logPassStatus("Display success message with confirm by ticking not that you read");
+				commonActions.logPassStatus("Pass | Valid message displayed ");
 			else
-				commonActions.logFailStatus("Display failure message");
+				commonActions.logFailStatus("Fail | Valid message display failed ");
 			
 		} catch (Exception e) {
 			
@@ -39,20 +39,20 @@ public class UC76_77_EMailBenachrichtigungen {
 //		}
 		
 		@Then("Verify Message,Status on Benachrichtigungen")
-		public void verify_Message_Status_on_Benachrichtigungen() {
+		public void verify_Message_Status_on_Benachrichtigungen() throws FileNotFoundException, IOException, ParseException {
 			   String ScenarioName = commonActions.getScenarioName();
                System.out.println("ScenarioName"+ScenarioName);
 	             if(ScenarioName.equals("EMail_Benachrichtigungen_Select")){
-	            	  if (commonActions.isElementPresent("Message_Select")) 
-	                 commonActions.logPassStatus("Email Select message display successfully");
+	            	  if (commonActions.getText("Message_Select").equals(commonActions.getValueFromJson("Message"))) 
+	            		  commonActions.logPassStatus("Pass | Valid message displayed ");
 	 	          else
-	 	                 commonActions.logFailStatus("Email Select message display fail");
+	 	        	 commonActions.logFailStatus("Fail | Valid message display failed ");
 	             }
 	             if(ScenarioName.equals("EMail_Benachrichtigungen_Unselect")) {
-	             if (commonActions.isElementPresent("Message_Unselect"))
-	                 commonActions.logPassStatus("Email Unselect message display successfully");
+	            	 if (commonActions.getText("Message_Unselect").equals(commonActions.getValueFromJson("Message"))) 
+	            	 commonActions.logPassStatus("Pass | Valid message displayed ");
 	            else
-	                 commonActions.logFailStatus("Email unselect message display fail");
+	            	commonActions.logPassStatus("Pass | Valid message display failed ");
 	             }
 			}
 		}

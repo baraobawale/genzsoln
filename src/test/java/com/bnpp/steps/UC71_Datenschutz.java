@@ -20,37 +20,37 @@ public class UC71_Datenschutz {
 			if (ScenarioName.equals("Datenschutz_select_All_Unselected")) {
 				if (commonActions.isElementPresent("e-mail_msg_1")
 						&& commonActions.isElementPresent("unselected_Mark_1"))
-					commonActions.logPassStatus("Email message display success with unchecked mark");
+					commonActions.logPassStatus("Pass | Email message display success with unchecked mark");
 				else
-					commonActions.logFailStatus("Email message display fail");
+					commonActions.logFailStatus("Fail | Email message display fail");
 
 				if (commonActions.isElementPresent("phone_msg_2")
 						&& commonActions.isElementPresent("unselected_Mark_2"))
-					commonActions.logPassStatus("Phone message display success with unchecked mark");
+					commonActions.logPassStatus("Pass | Phone message display success with unchecked mark");
 				else
-					commonActions.logFailStatus("Phone message display fail");
+					commonActions.logFailStatus("Fail | Phone message display fail");
 
 				if (commonActions.isElementPresent("website_msg_3")
 						&& commonActions.isElementPresent("unselected_Mark_3"))
-					commonActions.logPassStatus("WebSite message display success with unchecked mark");
+					commonActions.logPassStatus("Pass | WebSite message display success with unchecked mark");
 				else
-					commonActions.logFailStatus("WebSite message display fail");
+					commonActions.logFailStatus("Fail | WebSite message display fail");
 			} else {
 				if (commonActions.isElementPresent("e-mail_msg_1") && commonActions.isElementPresent("selected_Mark_1"))
-					commonActions.logPassStatus("Email message display success with checked mark");
+					commonActions.logPassStatus("Pass | Email message display success with checked mark");
 				else
-					commonActions.logFailStatus("Email message display fail");
+					commonActions.logFailStatus("Fail | Email message display fail");
 
 				if (commonActions.isElementPresent("phone_msg_2") && commonActions.isElementPresent("selected_Mark_2"))
-					commonActions.logPassStatus("Phone message display success with checked mark ");
+					commonActions.logPassStatus("Pass | Phone message display success with checked mark ");
 				else
-					commonActions.logFailStatus("Phone message display fail");
+					commonActions.logFailStatus("Fail | Phone message display fail");
 
 				if (commonActions.isElementPresent("website_msg_3")
 						&& commonActions.isElementPresent("selected_Mark_3"))
-					commonActions.logPassStatus("WebSite message display success with checked mark");
+					commonActions.logPassStatus("Pass | WebSite message display success with checked mark");
 				else
-					commonActions.logFailStatus("WebSite message display fail");
+					commonActions.logFailStatus("Fail | WebSite message display fail");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

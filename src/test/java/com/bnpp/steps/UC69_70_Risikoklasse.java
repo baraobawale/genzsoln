@@ -47,22 +47,22 @@ public class UC69_70_Risikoklasse {
 	public void Verify_displayed() throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		try {
 			if (commonActions.isElementPresent("HeadingError"))
-				commonActions.logPassStatus("HeadingError message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed HeadingError");
 			else
-				commonActions.logFailStatus("HeadingError message display fail");
+				commonActions.logFailStatus("Fail | Valid message display failed HeadingError");
 			if (commonActions.isElementPresent("Hinweis_gelesenError"))
-				commonActions.logPassStatus("Hinweis_gelesenError message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed Hinweis_gelesenError");
 			else
-				commonActions.logFailStatus("Hinweis_gelesenError message display fail");
+				commonActions.logFailStatus("Fail | Valid message display failed Hinweis_gelesenError");
 			if (commonActions.isElementPresent("ProduktgruppeError"))
-				commonActions.logPassStatus("ProduktgruppeError message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed ProduktgruppeError");
 			else
-				commonActions.logFailStatus("ProduktgruppeError message display fail");
+				commonActions.logFailStatus("Pass | Valid message display failed ProduktgruppeError");
 		} catch (CucumberException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			commonActions.logFailStatus(
-					"Check step definition and feature file configured correctly with respect to arguments ");
+					"Fail | Valid check step definition and feature file configured correctly with respect to arguments ");
 		}
 
 	}
@@ -83,8 +83,9 @@ public class UC69_70_Risikoklasse {
 
 		try {
 			if (commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
-				commonActions.logPassStatus(
-						"Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+				commonActions.logPassStatus("Pass | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+			else
+				commonActions.logFailStatus("Fail | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display failed");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

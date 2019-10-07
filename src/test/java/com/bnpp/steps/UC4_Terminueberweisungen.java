@@ -43,14 +43,12 @@ public class UC4_Terminueberweisungen {
 
 		try {
 			Thread.sleep(5000);
-			WebElement text = commonActions.getElement("TerminAnlegen");
-			CaptureErrorMsg = text.getText();
-			System.out.println("CaptureErrorMsg " + CaptureErrorMsg);
+			CaptureErrorMsg = commonActions.getText("TerminAnlegen");
 			commonActions.logPassStatus("Capture Message on TerminAnlegen");
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Capture Message on TerminAnlegen fail");
+			commonActions.logAssert_Fail("Fail | Valid message display failed - ");
 		}
 	}
 
@@ -71,7 +69,7 @@ public class UC4_Terminueberweisungen {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Data match fail");
+			commonActions.logAssert_Fail("Fail | Valid message display failed - Data match fail");
 		}
 
 	}
@@ -91,9 +89,10 @@ public class UC4_Terminueberweisungen {
 			System.out.println("Verify JSON Datum." + commonActions.getValueFromJson("Datum"));
 
 			if (txtVerify1.equals(commonActions.getValueFromJson("Name"))) {
-				commonActions.logPassStatus("Verify Name on Terminueberweisung");
+				commonActions.logPassStatus("Pass | Valid name displayed - " + txtVerify1);
 			} else {
-				commonActions.logFailStatus("Data save fail for Terminueberweisung");
+				commonActions
+						.logFailStatus("Fail | Valid name display failed - " + commonActions.getValueFromJson("Name"));
 			}
 
 		} catch (Exception e) {
@@ -108,25 +107,26 @@ public class UC4_Terminueberweisungen {
 		try {
 
 			if (CapturedName.equals(commonActions.getValueFromJson("Name"))) {
-				commonActions.logPassStatus("Verified name on Terminueberweisung");
+				commonActions.logPassStatus("Pass | Valid name displayed - " + CapturedName);
 			} else {
-				commonActions.logFailStatus("Data save fail for Terminueberweisung");
+				commonActions.logFailStatus("Fail | Valid name display failed - " + CapturedName);
+
 			}
 			if (CapturedIBAN.equals(
 					commonActions.checkGermanCharacters(commonActions.getValueFromJson("IBAN_oder_Kontonummer")))) {
-				commonActions.logPassStatus("Verified IBAN on Terminueberweisung");
+				commonActions.logPassStatus("Pass | Valid IBAN_oder_Kontonummer displayed - " + CapturedIBAN);
 			} else {
-				commonActions.logFailStatus("Data save fail for Terminueberweisung");
+				commonActions.logFailStatus("Fail | Valid IBAN_oder_Kontonummer display failed - " + CapturedIBAN);
 			}
 			if (CapturedBetrag.contains(commonActions.getValueFromJson("Betrag"))) {
-				commonActions.logPassStatus("Verified Betrag on Terminueberweisung");
+				commonActions.logPassStatus("Pass | Valid Betrag displayed - " + CapturedBetrag);
 			} else {
-				commonActions.logFailStatus("Data save fail for Terminueberweisung");
+				commonActions.logFailStatus("Fail | Valid Betrag display failed - " + CapturedBetrag);
 			}
 			if (CapturedDatum.equals(commonActions.getValueFromJson("Datum"))) {
-				commonActions.logPassStatus("Verified Datum on Terminueberweisung");
+				commonActions.logPassStatus("Pass | Valid Datum displayed - " + CapturedDatum);
 			} else {
-				commonActions.logFailStatus("Data save fail for Terminueberweisung");
+				commonActions.logFailStatus("Fail | Valid Datum display failed - " + CapturedDatum);
 			}
 
 			if (CaptureErrorMsg.equals(commonActions.getValueFromJson("Message"))) {
@@ -165,14 +165,13 @@ public class UC4_Terminueberweisungen {
 			System.out.println(commonActions.getValueFromJson("Message"));
 			if (txtVerify.equalsIgnoreCase(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message on Terminueberweisungloeschen SUCCESSFULLY");
-				commonActions.logPassStatus("Verify Message on Terminueberweisungloeschen");
+				commonActions.logPassStatus("Pass | Valid message displayed - " + txtVerify);
 
 			} else
-				commonActions.logFailStatus("Verify Message on Terminueberweisungloeschen is failed");
-
+				commonActions.logFailStatus("Fail | Valid message display failed - " + txtVerify);
 		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Data save fail for Terminueberweisungloeschen");
+			commonActions.logAssert_Fail("Fail | Data save fail for Terminueberweisungloeschen");
 		}
 
 	}
@@ -185,10 +184,10 @@ public class UC4_Terminueberweisungen {
 			System.out.println(commonActions.getValueFromJson("Message"));
 			if (txtVerify.equalsIgnoreCase(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message on TerminAendern edit successfully");
-				commonActions.logPassStatus("Verify Message on TerminAendern");
+				commonActions.logPassStatus("Pass | Valid message displayed - " + txtVerify);
 
 			} else
-				commonActions.logFailStatus("Verification of Message on TerminAendern edit is failed");
+				commonActions.logFailStatus("Fail | Valid message display failed - " + txtVerify);
 
 		} catch (Exception e) {
 			e.printStackTrace();
