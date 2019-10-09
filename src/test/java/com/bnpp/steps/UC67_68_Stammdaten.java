@@ -26,6 +26,7 @@ public class UC67_68_Stammdaten {
 				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("Branchie_errorMessage"));
 			else
 				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("Branchie_errorMessage"));
+			
 			if (commonActions.verifyErrorMessage("PLZError").equals(commonActions.getText("plz_errorMessage")))
 				commonActions.logPassStatus("Pass | Valid PLZ message displayed "+commonActions.getText("plz_errorMessage"));
 			else
@@ -37,7 +38,7 @@ public class UC67_68_Stammdaten {
 				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("StraBe_errorMessage"));
 			
 			if (commonActions.verifyErrorMessage("OrtError").equals(commonActions.getText("Ort_errorMessage")))
-				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("OrtError"));
+				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("Ort_errorMessage"));
 			else
 				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("OrtError"));
 

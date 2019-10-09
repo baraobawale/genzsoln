@@ -3,12 +3,10 @@ Feature: UC27_DepotUebertrag
 
   #Executable - Depot Transfer Internally
   #The depot account should have open position not transfered.!!
-  
- # Depot Uebertrag
+  # Depot Uebertrag
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-   And User submits generated TAN number in "TAN_field_Login"    
-    #When User submits generated Mobile TAN number
+    And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "DepotUebertrag" in "Mein_Konto_Depot"
     And User clicks on "DepotUebertragIntern_DepotUebertrag"
     And User selects radiobutton "Ohne_Glaeubigerwechsel" in "OhneGlaeubigerwechsel_DepotUebertrag"
@@ -26,7 +24,7 @@ Feature: UC27_DepotUebertrag
     And User submits generated TAN number in "TAN_Depotuebertrag"
     And User clicks on "Bestaetign_Depotuebertrag"
     Then Verify the message
-    And Verify the captured details from Depotuebertrag	
+    And Verify the captured details from Depotuebertrag
 
     Examples: 
       | TestCase              |

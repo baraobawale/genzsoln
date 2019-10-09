@@ -1,4 +1,4 @@
-@AB
+
 Feature: UC78_79_Aboservice
 
   #Executable : Aboservice setzen und zuruecksetzen(mit Fehlermeldungen)
@@ -18,7 +18,7 @@ Feature: UC78_79_Aboservice
       | Aboservice_Verify_Errors |
 
   #Setzen/Set Newsletter Subscription
-  
+@AB  
  Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"

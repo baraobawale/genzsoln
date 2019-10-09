@@ -1,3 +1,4 @@
+@UC67
 Feature: UC67_68_Stammdaten
 
   Scenario Outline: <TestCase>

@@ -67,10 +67,18 @@ public class UC17_18_19_20_21_TradingKauf {
 
 	}
 
-	@Then("Verify captured details,Message from OrderErteilen")
+	@Then("^Verify captured details,Message from OrderErteilen$")
 	public void verify_captured_details_Message_from_OrderErteilen() {
 		// Write code here that turns the phrase above into concrete actions
 
+	}
+	@Then("^Verify Message,details on OrderAendern")
+	public void Then_Verify_Message_details_on_OrderAendern(){
+		
+	}
+	@Then("Verify Message on OrderLoeschen")
+	public void Then_Verify_Message_on_OrderLoeschen(){
+		
 	}
 
 }

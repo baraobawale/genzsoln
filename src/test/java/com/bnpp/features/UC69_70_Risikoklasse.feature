@@ -1,4 +1,4 @@
-@RTA
+@Risko
 Feature: UC69_70_Risikoklasse
 
   #Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)
@@ -13,6 +13,8 @@ Feature: UC69_70_Risikoklasse
     And User selects "Kenntnisse_vorhanden" in "KenntnisseVorhanden_RisikoklasseFinanztermingeschaefte"
     And User selects "Wertpapierkaeufe" in "WertpapierkaeufeInDenLetztenZweiJahren_RisikoklasseFinanztermingeschaefte"
     And User clicks on "Weiter_RisikoklasseFinanztermingeschaefte"
+    #Environement 2 don't ask for tan to enter
+    #And User submits generated TAN number in "TAN_field_Risikoklasse"
     Then Verify displayed ErrorMesssages on RisikoklasseFinanztermingeschaefte
 
     Examples: 

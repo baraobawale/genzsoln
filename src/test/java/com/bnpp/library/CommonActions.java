@@ -27,6 +27,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -59,6 +60,7 @@ import com.bnpp.utilities.Configurations;
 
 public class CommonActions {
 	WebDriver driver;
+	Exception e;
 	public ExtentReports report;
 	public ExtentTest scenario;
 	Properties properties;
@@ -106,6 +108,14 @@ public class CommonActions {
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
 					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath);
+					// String browser_version = null;
+					// Capabilities cap = ((RemoteWebDriver)
+					// driver).getCapabilities();
+					// String browsername = cap.getBrowserName();
+					// String browserName = cap.getBrowserName();
+					// String browserVersion = cap.getVersion();
+					// System.out.println(browserName+" "+browserVersion);
+					//
 					driver = new ChromeDriver(loadChromeOptions());
 					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
@@ -115,8 +125,15 @@ public class CommonActions {
 			}
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-			driver.get(Configurations.Appurl);
-			logInfoStatus("Info | Environment Name: " + Configurations.Appurl);
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
+				driver.get(Configurations.AppurlEnv1);
+				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv2);
+			}
+
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
+				driver.get(Configurations.AppurlEnv2);
+				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv2);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,6 +153,7 @@ public class CommonActions {
 			ops.addArguments("--start-maximized");
 			ops.setExperimentalOption("useAutomationExtension", false);
 			ops.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+
 			// Setting new download directory path
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			// prefs.put("download.default_directory",
@@ -143,9 +161,12 @@ public class CommonActions {
 			prefs.put("plugins.plugins_disabled", new String[] { "Chrome PDF Viewer" });
 			prefs.put("plugins.always_open_pdf_externally", true);
 			prefs.put("profile.default_content_settings.popups", 0);
-			//below condition is for creating download folder only in case of scenario with PDF download feature
-			if(getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error") || getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")
-					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen") || getScenarioName().equals("SparplanGemeinschaftskonto_Anlegen")
+			// below condition is for creating download folder only in case of
+			// scenario with PDF download feature
+			if (getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")
+					|| getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")
+					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen")
+					|| getScenarioName().equals("SparplanGemeinschaftskonto_Anlegen")
 					|| getScenarioName().equals("SparplanEinzelkonto_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
@@ -175,7 +196,7 @@ public class CommonActions {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		}
 	}
 
@@ -219,12 +240,12 @@ public class CommonActions {
 		Select s = new Select(getElement(objectKey));
 		String myData = getValueFromJson(datakey);
 		if (datakey.equals("Account_Type")) {
-			myData = "880589404";
+			myData = getValueFromJson(datakey);
 		}
 		try {
 			s.selectByValue(myData);
 		} catch (Exception e) {
-			logAssert_Fail("Select by visble text failed on: " + objectKey);
+			logAssert_Fail("Select by value failed " + objectKey);
 		}
 
 	}
@@ -419,11 +440,11 @@ public class CommonActions {
 		}
 
 	}
-	
+
 	public void selectDepot(String objectKey, String datakey) throws Exception {
 		Select s = new Select(getElement(objectKey));
 		String myData = getValueFromJson(datakey);
-		myData=getValueFromJson(datakey)+" (Depot)";
+		myData = getValueFromJson(datakey) + " (Depot)";
 		try {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
@@ -551,6 +572,7 @@ public class CommonActions {
 	 */
 	public void logAssert_Fail(String errMsg) {
 		// fail in extent reports
+		
 		scenario.log(Status.FAIL, errMsg);
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			takeSceenShot();
@@ -558,6 +580,12 @@ public class CommonActions {
 		// take screenshot and put in repots
 		// fail in cucumber as well
 		Assert.fail();
+		try {
+			throw new NoSuchFieldException();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -609,6 +637,8 @@ public class CommonActions {
 		if (driver != null)
 			driver.quit();
 		softAssertions.assertAll();
+		if((softAssertions.errorsCollected().size())!=0)
+			logAssert_Fail(scenarioname+" failed");
 	}
 
 	/**
@@ -629,6 +659,9 @@ public class CommonActions {
 			datakey = checkGermanCharacters(datakey);
 			// System.out.println(dataKeyInJson + ":" + datakey);
 
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			logAssert_Fail(featurename + " .json file not found");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -641,18 +674,37 @@ public class CommonActions {
 
 		String data = null;
 		JSONParser parser = new JSONParser();
-		JSONObject getFeatureName = (JSONObject) parser
-				.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
-		JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
-		Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
-		Iterator it = getScenarioName.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			if (pair.getKey().toString().equals(dataKey)) {
-				data = pair.getValue().toString();
-				break;
+		if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
+			JSONObject getFeatureName = (JSONObject) parser.parse(
+					new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\environment1\\" + featurename + ".json"));
+			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+			Iterator it = getScenarioName.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				if (pair.getKey().toString().equals(dataKey)) {
+					data = pair.getValue().toString();
+					break;
+				}
+				// System.out.println(pair.getKey() + ":" +
+
 			}
-			// System.out.println(pair.getKey() + ":" +
+
+		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
+			JSONObject getFeatureName = (JSONObject) parser.parse(
+					new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\environment2\\" + featurename + ".json"));
+			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+			Iterator it = getScenarioName.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				if (pair.getKey().toString().equals(dataKey)) {
+					data = pair.getValue().toString();
+					break;
+				}
+				// System.out.println(pair.getKey() + ":" +
+
+			}
 			// pair.getValue().toString());
 		}
 		return data;
@@ -663,26 +715,48 @@ public class CommonActions {
 		String data = null;
 		try {
 			JSONParser parser = new JSONParser();
-			JSONObject getFeatureName = (JSONObject) parser
-					.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
-			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
-			JSONObject scenario = (JSONObject) featureName.get(scenarioname);
-			Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
-			Iterator it = getmessagename.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				if (pair.getKey().toString().equals(messageKey)) {
-					data = pair.getValue().toString();
-					break;
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						".\\src\\test\\java\\com\\bnpp\\TestData\\environment1\\" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
+				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
+				Iterator it = getmessagename.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(messageKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+					// pair.getValue().toString());
 				}
-				// System.out.println(pair.getKey() + ":" +
-				// pair.getValue().toString());
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						".\\src\\test\\java\\com\\bnpp\\TestData\\environment2\\" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
+				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
+				Iterator it = getmessagename.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(messageKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+					// pair.getValue().toString());
+				}
 			}
 
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logAssert_Fail("Json file not found");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Assert.fail();
+			logAssert_Fail("Unable to read message data from json");
 		}
 		return data;
 	}
@@ -767,7 +841,7 @@ public class CommonActions {
 
 		}
 	}
-	
+
 	public void formXpathofRelativeEditElementandClickonit(String PersonNametitle) {
 		int index = 0;
 		String a = "//tr/td[";
@@ -813,7 +887,7 @@ public class CommonActions {
 		FileInputStream fis = new FileInputStream(
 				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
 		prop.load(fis);
-		//String customerId = prop.getProperty("userID");
+		// String customerId = prop.getProperty("userID");
 		String customerId = getValueFromJson("UserID_Kontonummer");
 		String customerPin = getValueFromJson("PIN_Password");
 		String cafeUser = prop.getProperty("cafeUserID");
@@ -824,9 +898,10 @@ public class CommonActions {
 		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
 
 		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		if (tanKey.equals("mobile_TAN_field")||tanKey.equals("TAN_Depotuebertrag")) {
+		if (tanKey.equals("mobile_TAN_field") || tanKey.equals("TAN_Depotuebertrag")
+				|| tanKey.equals("TAN_field_PersoenlicheEinstellungen")||tanKey.equals("TAN_field_Risikoklasse")) {
 			click("MobileTan_anfordern");
-		}else if(tanKey.equals("TAN_field_OrderErteilen")) 
+		} else if (tanKey.equals("TAN_field_OrderErteilen"))
 			click("MobileTAN_link_UC17");
 		else {
 			click("MobileTAN_link_Login");
@@ -837,9 +912,9 @@ public class CommonActions {
 		Thread.sleep(3000);
 		enterTokenTan(tanKey, mTAN);
 		if (tanKey.equals("TAN_field_Ueberweisungslimit")) {
-			pressTab();	
+			pressTab();
 		}
-		if(tanKey.equals("TAN_field_AngabenZurPerson")) {
+		if (tanKey.equals("TAN_field_AngabenZurPerson")) {
 			click("TAN_field_AngabenZurPerson_Button");
 		}
 		logInfoStatus("Info | Token used : " + token);
@@ -869,7 +944,8 @@ public class CommonActions {
 	}
 
 	public void clickJavaScriptExecutor(String locatorKey) {
-		//WebElement element = driver.findElement(By.id("//*[@id='header-login-button']"));
+		// WebElement element =
+		// driver.findElement(By.id("//*[@id='header-login-button']"));
 		getElement(locatorKey);
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", getElement(locatorKey));

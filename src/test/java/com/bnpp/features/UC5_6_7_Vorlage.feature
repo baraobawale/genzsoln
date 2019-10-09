@@ -90,4 +90,4 @@ Feature: UC5_6_7_Vorlage
     Examples: 
       | TestCase                   |
       | Vorlagen_loeschen_IBAN     |
-   #   | Vorlagen_loeschen_kontoBLZ |
+   		 | Vorlagen_loeschen_kontoBLZ |

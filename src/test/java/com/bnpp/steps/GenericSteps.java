@@ -178,7 +178,8 @@ public class GenericSteps {
 			} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
 				commonActions.click(locatorKey);
 				if (commonActions.isElementPresent("New_mobile_tan")) {
-					commonActions.enterTokenTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
+					//commonActions.enterTokenTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
+					commonActions.enterNewMobileTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
 					commonActions.click(locatorKey);
 				}
 			} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
@@ -385,7 +386,8 @@ public class GenericSteps {
 		String token = TANGenerator.requestTan();
 		try {
 			if (TanKey.equals("TAN_field_Login")) {
-				commonActions.enterTokenTan(TanKey, token);
+				//commonActions.enterTokenTan(TanKey, token);
+				commonActions.enterNewMobileTan(TanKey, token);
 				commonActions.logInfoStatus("Info | Token used : " + token);
 				// commonActions.enterTokenTan(TanKey,"931272");
 				commonActions.click("BestaetigenButton");
@@ -394,7 +396,8 @@ public class GenericSteps {
 						if (commonActions.isElementPresent("UsedTanMessage")) {
 							commonActions.clearfield(TanKey);
 							Thread.sleep(60000);
-							commonActions.enterTokenTan(TanKey, token);
+							//commonActions.enterTokenTan(TanKey, token);
+							commonActions.enterNewMobileTan(TanKey, token);
 							commonActions.click("BestaetigenButton");
 							if (commonActions.isElementPresent("UsedTanMessage"))
 								commonActions.logAssert_Fail("Unable to login due to reused tan.");
@@ -407,20 +410,22 @@ public class GenericSteps {
 			} else if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
 				commonActions.pressTab();
 				commonActions.enterNewMobileTan(TanKey, token);
-			} else if (TanKey.equals("TAN_field_Benachrichtigungen"))
-				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			} else if (TanKey.equals("TAN_field_Benachrichtigungen")){
+				//commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+				commonActions.enterNewMobileTan(TanKey, token);
+			}
 			else if (TanKey.equals("TAN_SessionTANAktivieren")){
 				//Env 1
 				//commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 				//Env 2
 				commonActions.enterNewMobileTan(TanKey, token);
 			}
-			else if (TanKey.equals("TAN_field_NewsLetter")||TanKey.equals("TAN_field_NewsletterMeineAbos"))
-				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			else if (TanKey.equals("TAN_field_NewsLetter")||TanKey.equals("TAN_field_NewsletterMeineAbos")){
+				//commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
 //			else if (TanKey.equals("TAN_field_NewsletterMeineAbos"))
 //				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
-
-			else {
+				commonActions.enterNewMobileTan(TanKey, token);
+			}else {
 				commonActions.enterNewMobileTan(TanKey, token);
 			}
 		} catch (Exception e) {
@@ -433,7 +438,7 @@ public class GenericSteps {
 	}
 
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
-	public void abc(String UserID_Kontonummer, String PIN_Password)
+	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
 		if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
 				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")
@@ -505,9 +510,9 @@ public class GenericSteps {
 		commonActions.click("MobileTAN_link_Login");
 
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-		// System.out.println("mTAN is -" + mTAN);
+		System.out.println("mTAN is -" + mTAN);
 		commonActions.enterTokenTan("TAN_field_Login", mTAN);
-		commonActions.click("BestaetigenButton");
+		//commonActions.click("BestaetigenButton");
 
 	}
 

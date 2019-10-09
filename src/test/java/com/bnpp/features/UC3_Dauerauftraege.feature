@@ -1,4 +1,5 @@
 @Demo300919
+@UC3
 Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen

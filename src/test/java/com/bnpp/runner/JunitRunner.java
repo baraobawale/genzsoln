@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(monochrome = true,features = "src/test/java/com/bnpp/features/", glue={"com/bnpp/steps/"},tags="@AB")
+@CucumberOptions(monochrome = true,features = "src/test/java/com/bnpp/features/", glue={"com/bnpp/steps/"},tags="@UC3")
 
 public class JunitRunner {
 
