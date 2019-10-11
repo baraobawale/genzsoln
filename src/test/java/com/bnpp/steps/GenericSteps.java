@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
 import com.bnpp.mTANResources.MobileTan;
+import com.bnpp.utilities.Configurations;
 import com.bnpp.utilities.TANGenerator;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -76,7 +77,7 @@ public class GenericSteps {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")
-					|| locatorKey.equals("TelefonPrivat_AngabenZurPerson")) {
+					|| locatorKey.equals("TelefonPrivat_AngabenZurPerson")||locatorKey.equals("Ort1_Kontoinhaber")) {
 				commonActions.enterText(locatorKey, dataKey);
 				// Move the focus out of field to handle the error displayed on
 				// clearing the field.
@@ -103,8 +104,9 @@ public class GenericSteps {
 					// on
 					// clearing the field.
 					commonActions.pressTab();
-				} else if (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
-					locatorKey = "Limit_OrderErteilen_Stop";
+				} else if (locatorKey.equals("Limit_OrderErteilen")
+						&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
+					locatorKey = "Stop_OrderErteilen";
 					commonActions.enterText(locatorKey, dataKey);
 				} else {
 					commonActions.enterText(locatorKey, dataKey);
@@ -138,6 +140,17 @@ public class GenericSteps {
 	@And("^User clicks on \"(.*)\"$")
 	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
 		try {
+			if ((commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")
+					&& locatorKey.equals("Handelsplatz_OrderErteilen"))
+					|| (commonActions.getScenarioName().equals("KaufOrder_Anendern_Aktie")
+							&& locatorKey.equals("Limithandel_OrderErteilen"))
+					|| (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Fonds1")
+							&& locatorKey.equals("Handelsplatz_OrderErteilen"))) {
+				if (commonActions.isElementPresent("RiskoclassePopup")) {
+					commonActions.click("Riskocheckbox");
+					commonActions.click("Riskocalssebutton");
+				}
+			}
 			if (locatorKey.equals("Aendern")
 					|| locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
 					|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
@@ -178,7 +191,8 @@ public class GenericSteps {
 			} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
 				commonActions.click(locatorKey);
 				if (commonActions.isElementPresent("New_mobile_tan")) {
-					//commonActions.enterTokenTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
+					// commonActions.enterTokenTan("TAN_field_VorlageAnlegen",
+					// TANGenerator.requestTan());
 					commonActions.enterNewMobileTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
 					commonActions.click(locatorKey);
 				}
@@ -193,6 +207,10 @@ public class GenericSteps {
 				System.out.println("Value of loactorkey-----------" + locatorKey);
 				commonActions.pressTab();
 				commonActions.click(locatorKey);
+
+			} else if (locatorKey.equals("Handelsplatz_Tradegate")
+					&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Anleihe")) {
+				commonActions.pressEnter();
 
 			} else if (locatorKey.equals("Handelsplatz"))
 				commonActions.waitForVisibilityofElement(locatorKey);
@@ -221,6 +239,9 @@ public class GenericSteps {
 					Thread.sleep(3000);
 				}
 				commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
+			} else if (locatorKey.equals("WeiterTANEingabe_OrderErteilen")) {
+				Thread.sleep(10000);
+				commonActions.click(locatorKey);
 			} else
 				commonActions.click(locatorKey);
 		} catch (Exception e) {
@@ -253,7 +274,7 @@ public class GenericSteps {
 
 				String str1 = commonActions.getValueFromJson(dataKey);
 				commonActions.clearCheckBox(locatorKey);
-				if (str1.equals("Null")) {
+				if (str1.equalsIgnoreCase("Null")) {
 					// System.out.println("checkbox is unchecked");
 				} else {
 					commonActions.click(locatorKey);
@@ -278,6 +299,13 @@ public class GenericSteps {
 				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 			} else if (dataKey.equals("FromDepot_Nr")) {
 				commonActions.selectDepot(locatorKey, dataKey);
+
+			} else if (dataKey.equals("Ordertyp")) {
+				commonActions.selectFromDropDown(locatorKey, dataKey);
+			} else if (dataKey.equals("Beruf_1")) {
+				commonActions.selectFromDropDown(locatorKey, dataKey);
+			} else if (dataKey.equals("Branche_1")) {
+				commonActions.selectFromDropDown(locatorKey, dataKey);
 
 			} else {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
@@ -386,7 +414,7 @@ public class GenericSteps {
 		String token = TANGenerator.requestTan();
 		try {
 			if (TanKey.equals("TAN_field_Login")) {
-				//commonActions.enterTokenTan(TanKey, token);
+				// commonActions.enterTokenTan(TanKey, token);
 				commonActions.enterNewMobileTan(TanKey, token);
 				commonActions.logInfoStatus("Info | Token used : " + token);
 				// commonActions.enterTokenTan(TanKey,"931272");
@@ -396,7 +424,7 @@ public class GenericSteps {
 						if (commonActions.isElementPresent("UsedTanMessage")) {
 							commonActions.clearfield(TanKey);
 							Thread.sleep(60000);
-							//commonActions.enterTokenTan(TanKey, token);
+							// commonActions.enterTokenTan(TanKey, token);
 							commonActions.enterNewMobileTan(TanKey, token);
 							commonActions.click("BestaetigenButton");
 							if (commonActions.isElementPresent("UsedTanMessage"))
@@ -410,22 +438,24 @@ public class GenericSteps {
 			} else if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
 				commonActions.pressTab();
 				commonActions.enterNewMobileTan(TanKey, token);
-			} else if (TanKey.equals("TAN_field_Benachrichtigungen")){
-				//commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			} else if (TanKey.equals("TAN_field_Benachrichtigungen")) {
+				// commonActions.enterTokenTan(TanKey,
+				// TANGenerator.requestTan());
 				commonActions.enterNewMobileTan(TanKey, token);
-			}
-			else if (TanKey.equals("TAN_SessionTANAktivieren")){
-				//Env 1
-				//commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
-				//Env 2
+			} else if (TanKey.equals("TAN_SessionTANAktivieren")) {
+				// Env 1
+				// commonActions.enterTokenTan(TanKey,
+				// TANGenerator.requestTan());
+				// Env 2
 				commonActions.enterNewMobileTan(TanKey, token);
-			}
-			else if (TanKey.equals("TAN_field_NewsLetter")||TanKey.equals("TAN_field_NewsletterMeineAbos")){
-				//commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
-//			else if (TanKey.equals("TAN_field_NewsletterMeineAbos"))
-//				commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+			} else if (TanKey.equals("TAN_field_NewsLetter") || TanKey.equals("TAN_field_NewsletterMeineAbos")) {
+				// commonActions.enterTokenTan(TanKey,
+				// TANGenerator.requestTan());
+				// else if (TanKey.equals("TAN_field_NewsletterMeineAbos"))
+				// commonActions.enterTokenTan(TanKey,
+				// TANGenerator.requestTan());
 				commonActions.enterNewMobileTan(TanKey, token);
-			}else {
+			} else {
 				commonActions.enterNewMobileTan(TanKey, token);
 			}
 		} catch (Exception e) {
@@ -446,7 +476,10 @@ public class GenericSteps {
 			// commonActions.movetoChildWindow();
 		} else {
 			commonActions.launchBrowser();
-			commonActions.waitForVisibilityofElement("LoginToWait");
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1"))
+				commonActions.waitForVisibilityofElement("LoginToWait");
+			else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2"))
+				commonActions.waitForVisibilityofElement("LogintoWait_Env2");
 			commonActions.mouseover("logInButton");
 			commonActions.click("logInButton");
 		}
@@ -495,10 +528,10 @@ public class GenericSteps {
 		FileInputStream fis = new FileInputStream(
 				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
 		prop.load(fis);
-		//String customerId = prop.getProperty("userID");
-		String customerId=commonActions.getValueFromJson("UserID_Kontonummer");
+		// String customerId = prop.getProperty("userID");
+		String customerId = commonActions.getValueFromJson("UserID_Kontonummer");
 		String customerPin = commonActions.getValueFromJson("PIN_Password");
-		//String customerPin = prop.getProperty("pin");
+		// String customerPin = prop.getProperty("pin");
 		String cafeUser = prop.getProperty("cafeUserID");
 		String cafePin = prop.getProperty("cafePin");
 
@@ -512,7 +545,7 @@ public class GenericSteps {
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
 		System.out.println("mTAN is -" + mTAN);
 		commonActions.enterTokenTan("TAN_field_Login", mTAN);
-		//commonActions.click("BestaetigenButton");
+		// commonActions.click("BestaetigenButton");
 
 	}
 
@@ -536,10 +569,10 @@ public class GenericSteps {
 				commonActions.click(locatorKey + "_Nein");
 			} else if (str.equals("Ja")) {
 				commonActions.click(locatorKey + "_Ja");
-			} else if (dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig") 
+			} else if (dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig")
 					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_1")
-					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_2") 
-					|| dataKey.equals("DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber") 
+					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_2")
+					|| dataKey.equals("DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber")
 					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_2")
 					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_3")) {
 				commonActions.pressTab();
@@ -554,7 +587,7 @@ public class GenericSteps {
 		}
 
 	}
-	
+
 	@When("user clicks on {string} in {string}")
 	public void user_clicks_on_in(String locatorKey, String string) {
 		try {
@@ -563,7 +596,7 @@ public class GenericSteps {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
+
 	}
 
 }

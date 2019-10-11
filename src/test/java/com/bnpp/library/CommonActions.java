@@ -167,7 +167,8 @@ public class CommonActions {
 					|| getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")
 					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen")
 					|| getScenarioName().equals("SparplanGemeinschaftskonto_Anlegen")
-					|| getScenarioName().equals("SparplanEinzelkonto_Anlegen")) {
+					|| getScenarioName().equals("SparplanEinzelkonto_Anlegen")
+					|| getFeatureName().equals("UC34_35_36_37_NeukundenTagesgeld")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();
@@ -473,6 +474,18 @@ public class CommonActions {
 		try {
 			Actions act = new Actions(driver);
 			act.sendKeys(Keys.TAB).build().perform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Description Press enter key
+	 */
+	public void pressEnter() {
+		try {
+			Actions act = new Actions(driver);
+			act.sendKeys(Keys.ENTER).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -903,6 +916,8 @@ public class CommonActions {
 			click("MobileTan_anfordern");
 		} else if (tanKey.equals("TAN_field_OrderErteilen"))
 			click("MobileTAN_link_UC17");
+		else if(tanKey.equals("TAN_field_OrderAendern"))
+			click("MobileTan_UC17");
 		else {
 			click("MobileTAN_link_Login");
 		}

@@ -35,20 +35,20 @@ public class UC3_Dauerauftraege {
 
 	}
 
-	@And("^User clicks on \"(.*?)\" of \"(.*?)\" in \"(.*?)\"$")
-	public void user_click_on_of_in(String locatorKey, String datakey,
-			String CreatedDauerauftraege_UmsaetzeZahlungsverkehr)
-			throws FileNotFoundException, IOException, ParseException, InterruptedException {
-
-		try {
-			if (CreatedDauerauftraege_UmsaetzeZahlungsverkehr.equals("Created_Dauerauftraege"))
-				commonActions.waitForVisibilityofElement("locatorKey");
-			commonActions.click(locatorKey);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@And("^User clicks on \"(.*?)\" of \"(.*?)\" in \"(.*?)\"$")
+//	public void user_click_on_of_in(String locatorKey, String datakey,
+//			String CreatedDauerauftraege_UmsaetzeZahlungsverkehr)
+//			throws FileNotFoundException, IOException, ParseException, InterruptedException {
+//
+//		try {
+//			if (CreatedDauerauftraege_UmsaetzeZahlungsverkehr.equals("Created_Dauerauftraege"))
+//				commonActions.waitForVisibilityofElement("locatorKey");
+//			commonActions.click(locatorKey);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	@When("Capture entered details on DauerauftrageAnlegen")
 	public void capture_entered_details_on_DauerauftrageAnlegen() {
