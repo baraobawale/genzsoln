@@ -41,7 +41,7 @@ public class UC27_DepotUebertrag {
 		else
 			commonActions.logFailStatus("Fail | Depot-Nr display fail");
 		
-		if (commonActions.getText("Stuecke").equals(commonActions.getValueFromJson("zu_uebertragende_Stueke")))
+		if (commonActions.getText("Stuecke").equals(commonActions.getValueFromJson("zu_uebertragende_Stueke")+" "))
 			commonActions.logPassStatus("Pass | zu_uebertragende_Stueke display success");
 		else
 			commonActions.logFailStatus("Fail | zu_uebertragende_Stueke display fail");

@@ -168,7 +168,9 @@ public class CommonActions {
 					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen")
 					|| getScenarioName().equals("SparplanGemeinschaftskonto_Anlegen")
 					|| getScenarioName().equals("SparplanEinzelkonto_Anlegen")
-					|| getFeatureName().equals("UC34_35_36_37_NeukundenTagesgeld")) {
+					|| getScenarioName().equals("TagesgeldGemeinschaftskonto_Anlegen")
+					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto1GV_Anlegen")
+					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto2GV_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();
@@ -479,6 +481,7 @@ public class CommonActions {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Description Press enter key
 	 */
@@ -585,7 +588,7 @@ public class CommonActions {
 	 */
 	public void logAssert_Fail(String errMsg) {
 		// fail in extent reports
-		
+
 		scenario.log(Status.FAIL, errMsg);
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			takeSceenShot();
@@ -611,6 +614,7 @@ public class CommonActions {
 		scenario.log(Status.FAIL, msg);
 		softAssertions.assertThat(false);
 		takeSceenShot();
+		throw new NoSuchFieldError();
 
 		// assertEquals(false, true);
 	}
@@ -650,8 +654,8 @@ public class CommonActions {
 		if (driver != null)
 			driver.quit();
 		softAssertions.assertAll();
-		if((softAssertions.errorsCollected().size())!=0)
-			logAssert_Fail(scenarioname+" failed");
+		if ((softAssertions.errorsCollected().size()) != 0)
+			logAssert_Fail(scenarioname + " failed");
 	}
 
 	/**
@@ -912,11 +916,11 @@ public class CommonActions {
 
 		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
 		if (tanKey.equals("mobile_TAN_field") || tanKey.equals("TAN_Depotuebertrag")
-				|| tanKey.equals("TAN_field_PersoenlicheEinstellungen")||tanKey.equals("TAN_field_Risikoklasse")) {
+				|| tanKey.equals("TAN_field_PersoenlicheEinstellungen") || tanKey.equals("TAN_field_Risikoklasse")) {
 			click("MobileTan_anfordern");
 		} else if (tanKey.equals("TAN_field_OrderErteilen"))
 			click("MobileTAN_link_UC17");
-		else if(tanKey.equals("TAN_field_OrderAendern"))
+		else if (tanKey.equals("TAN_field_OrderAendern"))
 			click("MobileTan_UC17");
 		else {
 			click("MobileTAN_link_Login");

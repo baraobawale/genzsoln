@@ -1,12 +1,11 @@
+@Demo14.10.2019
 Feature: UC82_Authorization
 
   #Executable : Activate & Deactivate Session TAN
   # Session-TAN aktivieren & Deaktivieren
-  @EB
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-   And User submits generated Mobile TAN number
-    And User submits generated TAN number in "TAN_field_Login"    
+   And User submits generated TAN number in "TAN_field_Login"    
     And User clicks on "SessionTANAktivieren_MeinKontoDepot"
     And User select in checkbox "Ja_Mir_Sind" in "JaMirSind_SessionTANAktivieren"
     And User submits generated TAN number in "TAN_SessionTANAktivieren"

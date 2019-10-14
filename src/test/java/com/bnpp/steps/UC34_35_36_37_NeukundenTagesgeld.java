@@ -28,6 +28,7 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 	public void capture_Vorgangsnummer_Message_on_TagesgeldkontoEinzel() {
 		try {
 			CaptureMsgTagesgeldkontoEinzel = commonActions.getText("TagesgeldkontoEinzel");
+			CaptureMsgVorgangsnummer = commonActions.getText("CaptureVorgangsnummer");
 			
 			System.out.println("CaptureMsgTagesgeldkontoEinzel:" + CaptureMsgTagesgeldkontoEinzel);
 		
@@ -41,11 +42,16 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 	@Then("Verify captured Vorgangsnummer,message from TagesgeldkontoEinzel")
 	public void verify_captured_Vorgangsnummer_message_from_TagesgeldkontoEinzel() {
 		try {
-			if (commonActions.isElementPresent("CaptureVorgangsnummer")){
-				commonActions.logPassStatus("Pass | Valid transaction number displayed -"+commonActions.getText("CaptureVorgangsnummer"));
-				System.out.println("CaptureMsgVorgangsnummer:" + CaptureMsgVorgangsnummer);
+			
+			if (CaptureMsgTagesgeldkontoEinzel.equals(commonActions.getValueFromJson("Message"))) {
+				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMsgTagesgeldkontoEinzel);
 			} else {
-				commonActions.logFailStatus("Error | Valid transaction display failed -"+commonActions.getText("CaptureVorgangsnummer"));
+				commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureMsgTagesgeldkontoEinzel);
+			}
+			if (!CaptureMsgVorgangsnummer.equals("")) {
+				commonActions.logPassStatus("Pass | captured Vorgangsnummer - "+CaptureMsgVorgangsnummer);
+			} else {
+				commonActions.logFailStatus("Error | captured Vorgangsnummer - "+CaptureMsgVorgangsnummer);
 			}
 		}
 		catch (Exception e) {
@@ -58,6 +64,7 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 	public void capture_Vorgangsnummer_Message_on_TagesgeldkontoGemeinschafts() {
 		try {
 			CaptureMsgTagesgeldkontoGemeinschafts2 = commonActions.getText("CaptureMsgTagesgeldkontoGemeinschafts");
+			CaptureMsgVorgangsnummer2 = commonActions.getText("CaptureVorgangsnummer2");
 			
 			System.out.println("CaptureMsgTagesgeldkontoGemeinschafts2:" + CaptureMsgTagesgeldkontoGemeinschafts2);
 		
@@ -71,11 +78,15 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 	@Then("Verify captured Vorgangsnummer,Message from TagesgeldkontoGemeinschafts")
 	public void verify_captured_Vorgangsnummer_Message_from_TagesgeldkontoGemeinschafts() {
 		try {
-			if (commonActions.isElementPresent("CaptureVorgangsnummer2")){
-				commonActions.logPassStatus("Pass | Valid transaction number displayed -"+commonActions.getText("CaptureVorgangsnummer2"));
-				System.out.println("CaptureMsgVorgangsnummer2:" + CaptureMsgVorgangsnummer2);
+			if (CaptureMsgTagesgeldkontoGemeinschafts2.equals(commonActions.getValueFromJson("Message"))) {
+				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMsgTagesgeldkontoGemeinschafts2);
+	
 			} else {
-				commonActions.logFailStatus("Error | Valid transaction number display failed -"+commonActions.getText("CaptureVorgangsnummer2"));
+				commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureMsgTagesgeldkontoGemeinschafts2);
+			}if (!CaptureMsgVorgangsnummer2.equals("")) {
+				commonActions.logPassStatus("Pass | captured Vorgangsnummer - "+CaptureMsgVorgangsnummer2);
+			} else {
+				commonActions.logFailStatus("Error | captured Vorgangsnummer - "+CaptureMsgVorgangsnummer2);
 			}
 		}
 		catch (Exception e) {
@@ -87,6 +98,7 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 	public void capture_Vorgangsnummer_Message_on_TagesgeldkontoMinderjaehrigen(Integer int1) {
 		try {
 			CaptureMsgTagesgeldkontoMinderjaehrigen = commonActions.getText("CaptureMsgTagesgeldkontoMinderjaehrigen3");
+			CaptureMsgTagesgeldkontoMinderjaehrigen3 = commonActions.getText("CaptureTagesgeldkontoMinderjaehrigen3");
 			
 			System.out.println("CaptureMsgTagesgeldkontoMinderjaehrigen:" + CaptureMsgTagesgeldkontoMinderjaehrigen);
 		
@@ -100,11 +112,16 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 	@Then("Verify captured Vorgangsnummer,Message from TagesgeldkontoMinderjaehrigen{int}")
 	public void verify_captured_Vorgangsnummer_Message_from_TagesgeldkontoMinderjaehrigen(Integer int1) {
 		try {
-			if (commonActions.isElementPresent("CaptureTagesgeldkontoMinderjaehrigen3")){
-				commonActions.logPassStatus("Pass | Valid transaction number displayed -"+commonActions.getText("CaptureTagesgeldkontoMinderjaehrigen3"));
-				System.out.println("CaptureMsgTagesgeldkontoMinderjaehrigen3:" + CaptureMsgTagesgeldkontoMinderjaehrigen3);
+			if (CaptureMsgTagesgeldkontoMinderjaehrigen.equals(commonActions.getValueFromJson("Message"))) {
+				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMsgTagesgeldkontoMinderjaehrigen);
+				
 			} else {
-				commonActions.logFailStatus("Error | Valid transaction number display failed -"+commonActions.getText("CaptureTagesgeldkontoMinderjaehrigen3"));
+				commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureMsgTagesgeldkontoMinderjaehrigen);
+			}
+			if (!CaptureMsgTagesgeldkontoMinderjaehrigen3.equals("")) {
+				commonActions.logPassStatus("Pass | captured Vorgangsnummer - "+CaptureMsgTagesgeldkontoMinderjaehrigen3);
+			} else {
+				commonActions.logFailStatus("Error | captured Vorgangsnummer - "+CaptureMsgTagesgeldkontoMinderjaehrigen3);
 			}
 		}
 		catch (Exception e) {

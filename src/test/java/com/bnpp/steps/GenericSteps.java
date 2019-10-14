@@ -76,7 +76,8 @@ public class GenericSteps {
 	public void type(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
-			if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")
+			
+				if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")
 					|| locatorKey.equals("TelefonPrivat_AngabenZurPerson")||locatorKey.equals("Ort1_Kontoinhaber")) {
 				commonActions.enterText(locatorKey, dataKey);
 				// Move the focus out of field to handle the error displayed on
@@ -145,7 +146,8 @@ public class GenericSteps {
 					|| (commonActions.getScenarioName().equals("KaufOrder_Anendern_Aktie")
 							&& locatorKey.equals("Limithandel_OrderErteilen"))
 					|| (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Fonds1")
-							&& locatorKey.equals("Handelsplatz_OrderErteilen"))) {
+							&& locatorKey.equals("Handelsplatz_OrderErteilen"))
+					) {
 				if (commonActions.isElementPresent("RiskoclassePopup")) {
 					commonActions.click("Riskocheckbox");
 					commonActions.click("Riskocalssebutton");
@@ -269,6 +271,11 @@ public class GenericSteps {
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void select(String dataKey, String locatorKey) throws Exception {
 		try {
+			if(locatorKey.equals("Handelsplatz_OrderErteilen")&&commonActions.getFeatureName().equals("UC82_Authorization")){
+				if (commonActions.isElementPresent("RiskoclassePopup")) {
+					commonActions.click("Riskocheckbox");
+					commonActions.click("Riskocalssebutton");
+				}}
 			if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
 					|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Orderart")) {
 

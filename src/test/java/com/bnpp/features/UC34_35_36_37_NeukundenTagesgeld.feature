@@ -1,8 +1,9 @@
-@NKT
+
 Feature: UC34_35_36_37_NeukundenTagesgeld
 
   #Neukunden Tagesgeld Anlegen
   #Einzelkonto Anlegen
+  
   Scenario Outline: <TestCase>
     When User open the application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
@@ -48,6 +49,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
       | TagesgeldEinzelkonto_Anlegen |
 
   #Gemeinschaftskonto Anlegen
+  @NKT
   Scenario Outline: <TestCase>
     When User open the application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"

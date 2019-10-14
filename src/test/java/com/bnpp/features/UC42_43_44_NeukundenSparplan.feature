@@ -1,7 +1,9 @@
+
 Feature: UC42_43_44_NeukundenSparplan
 
   #Executable - Neukunden Sparplan Anlegen
   #Sparplan Einzelkonto Anlegen
+  
   Scenario Outline: <TestCase>
     When User open the application
     And User navigates to "Sparplaene" in "Sparen_Anlegen"
