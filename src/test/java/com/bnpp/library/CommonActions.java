@@ -243,7 +243,7 @@ public class CommonActions {
 		Select s = new Select(getElement(objectKey));
 		String myData = getValueFromJson(datakey);
 		if (datakey.equals("Account_Type")) {
-			myData = getValueFromJson(datakey);
+			myData = getValueFromJson("UserID_Kontonummer");
 		}
 		try {
 			s.selectByValue(myData);
