@@ -9,6 +9,10 @@ public class Test {
 
 	public static void main(String[] args) throws Throwable {
 		// TODO Auto-generated method stub
+//		String abc="12345678";
+//		String cd=abc.replace("4", "4 ");
+//		System.out.println(cd);
+//		
 		Properties prop = new Properties();
 		// FileInputStream fis = new
 		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");

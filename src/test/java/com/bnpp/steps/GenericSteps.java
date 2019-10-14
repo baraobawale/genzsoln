@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,6 +23,7 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -60,6 +62,18 @@ public class GenericSteps {
 
 	// ********Common step definitions ************//
 
+	@Given("^User launches consorsbank web application$")
+	public void User_launches_consorsbank_web_application(){
+		try {
+			commonActions.launchBrowser();
+			Thread.sleep(10000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+	}
+	
 	@When("^User open an application$")
 	public void User_Open_an_Application() throws MalformedURLException, InterruptedException {
 		try {
@@ -76,9 +90,9 @@ public class GenericSteps {
 	public void type(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
-			
-				if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")
-					|| locatorKey.equals("TelefonPrivat_AngabenZurPerson")||locatorKey.equals("Ort1_Kontoinhaber")) {
+
+			if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")
+					|| locatorKey.equals("TelefonPrivat_AngabenZurPerson") || locatorKey.equals("Ort1_Kontoinhaber")) {
 				commonActions.enterText(locatorKey, dataKey);
 				// Move the focus out of field to handle the error displayed on
 				// clearing the field.
@@ -146,8 +160,7 @@ public class GenericSteps {
 					|| (commonActions.getScenarioName().equals("KaufOrder_Anendern_Aktie")
 							&& locatorKey.equals("Limithandel_OrderErteilen"))
 					|| (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Fonds1")
-							&& locatorKey.equals("Handelsplatz_OrderErteilen"))
-					) {
+							&& locatorKey.equals("Handelsplatz_OrderErteilen"))) {
 				if (commonActions.isElementPresent("RiskoclassePopup")) {
 					commonActions.click("Riskocheckbox");
 					commonActions.click("Riskocalssebutton");
@@ -271,11 +284,13 @@ public class GenericSteps {
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void select(String dataKey, String locatorKey) throws Exception {
 		try {
-			if(locatorKey.equals("Handelsplatz_OrderErteilen")&&commonActions.getFeatureName().equals("UC82_Authorization")){
+			if (locatorKey.equals("Handelsplatz_OrderErteilen")
+					&& commonActions.getFeatureName().equals("UC82_Authorization")) {
 				if (commonActions.isElementPresent("RiskoclassePopup")) {
 					commonActions.click("Riskocheckbox");
 					commonActions.click("Riskocalssebutton");
-				}}
+				}
+			}
 			if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
 					|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Orderart")) {
 
@@ -477,26 +492,40 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
+		if(commonActions.getFeatureName().equals("UC69_70_Risikoklasse")){
+			commonActions.mouseover("logInButton");
+			commonActions.click("logInButton");
+			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
+			commonActions.enterText(PIN_Password, "PIN_Password");
+			click("Einloggen");
+			commonActions.logInfoStatus(
+					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+			commonActions.takeSceenShot();
+		}else if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
 				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")
-				|| commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+				|| commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")
+				) {
 			// commonActions.movetoChildWindow();
 		} else {
 			commonActions.launchBrowser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1"))
 				commonActions.waitForVisibilityofElement("LoginToWait");
-			else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2"))
+			else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")){
 				commonActions.waitForVisibilityofElement("LogintoWait_Env2");
+			}
 			commonActions.mouseover("logInButton");
 			commonActions.click("logInButton");
+			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
+			commonActions.enterText(PIN_Password, "PIN_Password");
+			click("Einloggen");
+			commonActions.logInfoStatus(
+					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+			commonActions.takeSceenShot();
 		}
-		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
-		commonActions.enterText(PIN_Password, "PIN_Password");
-		click("Einloggen");
-		commonActions.logInfoStatus(
-				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
-		commonActions.takeSceenShot();
+				
+		
 	}
+	
 
 	@When("User \"(.*?)\" in \"(.*?)\" field")
 	public void user_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {

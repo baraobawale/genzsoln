@@ -295,6 +295,8 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
+//			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+//			Thread.sleep(500); 
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -559,6 +561,10 @@ public class CommonActions {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,500)");
 
+	}
+	public void moveScrollUp(){
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,-500)");
 	}
 
 	/**
@@ -920,7 +926,7 @@ public class CommonActions {
 			click("MobileTan_anfordern");
 		} else if (tanKey.equals("TAN_field_OrderErteilen"))
 			click("MobileTAN_link_UC17");
-		else if (tanKey.equals("TAN_field_OrderAendern"))
+		else if (tanKey.equals("TAN_field_OrderAendern")||tanKey.equals("TAN_field_OrderLoeschen"))
 			click("MobileTan_UC17");
 		else {
 			click("MobileTAN_link_Login");
@@ -962,11 +968,12 @@ public class CommonActions {
 		}
 	}
 
-	public void clickJavaScriptExecutor(String locatorKey) {
-		// WebElement element =
-		// driver.findElement(By.id("//*[@id='header-login-button']"));
-		getElement(locatorKey);
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		executor.executeScript("arguments[0].click();", getElement(locatorKey));
-	}
+	/*
+	 * Description Count no of elements
+	 */
+	public int noofelement(String objectKey) {
+        List<WebElement> e = driver.findElements(By.xpath(properties.getProperty(objectKey)));
+        return e.size();
+	
+	}	
 }
