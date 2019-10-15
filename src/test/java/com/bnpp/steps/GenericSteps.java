@@ -406,7 +406,16 @@ public class GenericSteps {
 					&& commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 				commonActions.click(locatorKey);
 				commonActions.click(locatorKey);
-			} else if (commonActions.getFeatureName().equals("UC78_79_Aboservice")) {
+			}else if(commonActions.getFeatureName().equals("UC71_Datenschutz")) {
+				String str1 = commonActions.getValueFromJson(dataKey);
+				commonActions.clearCheckBox(locatorKey);
+				if (str1.equals("null")) {
+					// System.out.println("checkbox is unchecked");
+				} else {
+					commonActions.click(locatorKey);
+				}
+			}
+			else if (commonActions.getFeatureName().equals("UC78_79_Aboservice")) {
 				String str1 = commonActions.getValueFromJson(dataKey);
 				System.out.println("Value of str1   " + str1);
 
