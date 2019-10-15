@@ -438,7 +438,7 @@ public class GenericSteps {
 			if (TanKey.equals("TAN_field_Login")) {
 				// commonActions.enterTokenTan(TanKey, token);
 				commonActions.enterNewMobileTan(TanKey, token);
-				commonActions.logInfoStatus("Info | Token used : " + token);
+//				commonActions.logInfoStatus("Info | Token used : " + token);
 				// commonActions.enterTokenTan(TanKey,"931272");
 				commonActions.click("BestaetigenButton");
 				if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
@@ -451,7 +451,7 @@ public class GenericSteps {
 							commonActions.click("BestaetigenButton");
 							if (commonActions.isElementPresent("UsedTanMessage"))
 								commonActions.logAssert_Fail("Unable to login due to reused tan.");
-							commonActions.logInfoStatus("Info | Token used : " + token);
+//							commonActions.logInfoStatus("Info | Token used : " + token);
 							commonActions.takeSceenShot();
 
 						}
