@@ -502,11 +502,17 @@ public class GenericSteps {
 					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 			commonActions.takeSceenShot();
 		}else if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
-				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")
-				|| commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")
-				) {
+				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")) {
 			// commonActions.movetoChildWindow();
-		} else {
+		}else if(commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
+			commonActions.enterText(PIN_Password, "PIN_Password");
+			click("Einloggen");
+			commonActions.logInfoStatus(
+					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+			commonActions.takeSceenShot();
+		}
+		else {
 			commonActions.launchBrowser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1"))
 				commonActions.waitForVisibilityofElement("LoginToWait");

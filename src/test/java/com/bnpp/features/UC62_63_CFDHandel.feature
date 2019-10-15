@@ -1,4 +1,4 @@
-@Demo300919
+@Demo300919 
 Feature: UC62_63_CFDHandel
 
   #Executable : Inhaber Einzelkonto Eroeffnet Depot-CFD  (Neues/BestehendesKonto)
@@ -53,7 +53,7 @@ Feature: UC62_63_CFDHandel
       | Einzelkonto_DepotCFD_NeuesKonto |
 
   #Eroeffnet Depot-CFD Bestehendes Konto
-   @demotest
+   @demotest @CF_Handel
   Scenario Outline: <TestCase>
     When User open the application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"
@@ -67,6 +67,7 @@ Feature: UC62_63_CFDHandel
     And User clicks on "Weiter_CFDKontodaten"
     And User selects radiobutton "USA_Steuerpflichtig" in "USASteuerpflichtig_AngabenZurPerson"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA" in "AnsaessigkeitAusserhalbDeutschlandsUSA_AngabenZurPerson"
+    And User enters "EMail" in "EMail_AngabenZurPerson"
     And User enters "EMail_wiederholen" in "EMailWiederholen_AngabenZurPerson"
     And User enters "Telefon_privat" in "TelefonPrivat_AngabenZurPerson"
     And User selects checkbox "Mit_sehr_hohem_Risiko" in "MitSehrHohemRisiko_AngabenZurPerson"
