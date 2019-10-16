@@ -1,4 +1,4 @@
-@Demo300919
+@Demo300919 @report
 Feature: UC76_77_EMailBenachrichtigungen
 
   Executable - E-Mail Benachrichtigungen setzen (mit Fehlermeldungen)
@@ -22,7 +22,7 @@ Feature: UC76_77_EMailBenachrichtigungen
       | EMail_Benachrichtigungen_Errors |
 
   #E-Mail Benachrichtigungen setzen und zuruecksetzen (E-mail notifications Set & Reset)
-  
+  @UC76
   Scenario Outline: <TestCase>
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"

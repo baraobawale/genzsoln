@@ -1,5 +1,5 @@
 @Demo300919
-@UC9_10
+@UC9_10 @report
 Feature: UC_9_10_UeberweisungLimit
 
   #Executable : Ueberweisungslimit Aendern (mit Fehlermeldungen)

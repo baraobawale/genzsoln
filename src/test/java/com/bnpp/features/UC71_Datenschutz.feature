@@ -1,4 +1,4 @@
-@UC71
+@UC71 @report
 Feature: UC71_Datenschutz
 
   # Datenschutz andern - Non Executable

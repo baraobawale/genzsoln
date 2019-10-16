@@ -1,4 +1,4 @@
-@Demo300919 
+@Demo300919 @report
 Feature: UC62_63_CFDHandel
 
   #Executable : Inhaber Einzelkonto Eroeffnet Depot-CFD  (Neues/BestehendesKonto)

@@ -1,4 +1,4 @@
-
+@report
 Feature: UC34_35_36_37_NeukundenTagesgeld
 
   #Neukunden Tagesgeld Anlegen

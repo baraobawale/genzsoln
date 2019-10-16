@@ -1,4 +1,4 @@
-@Demo300919
+@Demo300919 @UC4
 Feature: UC4_Terminueberweisungen
 
   #Executable - Terminueberweisungen anlegen,Andern,loeschen
@@ -18,7 +18,7 @@ Feature: UC4_Terminueberweisungen
     And User select checkbox "Als_Vorlage_speichern" in "AlsVorlageSpeichern_TerminAnlegen"
     And User enters "Vorlagenname" in "Vorlagenname_TerminAnlegen"
     And User clicks on "WeiterZurTANEingabe_TerminAnlegen"
-    And User submits generated TAN number in "TAN_field_TerminAnlegen"
+    #And User submits generated TAN number in "TAN_field_TerminAnlegen"
     And User clicks on "TerminueberweisungAnlegen_TerminAnlegen"
     And Capture entered details on TerminAnlegen
     And Capture Message on TerminAnlegen

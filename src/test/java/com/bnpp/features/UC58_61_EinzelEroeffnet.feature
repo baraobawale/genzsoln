@@ -3,7 +3,6 @@ Feature: UC58_61_EinzelEroeffnet
 
   #Executable - Inhaber Einzelkonto Eroeffnet Konto Depot /Tagesgeld Einzelkonto (Single account holder opens trading account/call to money account)
   #Eroeffnet Konto Depot
-  @UC58_61
   Scenario Outline: <TestCase>
     When User open an application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
