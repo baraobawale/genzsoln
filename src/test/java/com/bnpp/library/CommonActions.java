@@ -170,7 +170,11 @@ public class CommonActions {
 					|| getScenarioName().equals("SparplanEinzelkonto_Anlegen")
 					|| getScenarioName().equals("TagesgeldGemeinschaftskonto_Anlegen")
 					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto1GV_Anlegen")
-					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto2GV_Anlegen")) {
+					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto2GV_Anlegen")
+					|| getScenarioName().equals("DepotEinzelkonto_Anlegen")
+					|| getScenarioName().equals("DepotGemeinschaftskonto_Anlegen")
+					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
+) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();

@@ -12,13 +12,16 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
+
 import org.openqa.selenium.WebElement;
+
 import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
 import com.bnpp.mTANResources.MobileTan;
 import com.bnpp.utilities.Configurations;
 import com.bnpp.utilities.TANGenerator;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -30,6 +33,7 @@ import cucumber.api.java.en.When;
 public class GenericSteps {
 
 	CommonActions commonActions;
+
 	String Ueberweisungslimit_MaxLimit = "";
 	String Ueberweisungslimit_DecreaseMaxLimitByOne = "";
 	String Ueberweisungslimit_IncreaseMaxLimitByOne = "";
@@ -56,6 +60,7 @@ public class GenericSteps {
 	 * Description Closing the resources after execution of each scenario
 	 */
 	@After
+
 	public void after() {
 		commonActions.quit();
 	}
@@ -63,7 +68,7 @@ public class GenericSteps {
 	// ********Common step definitions ************//
 
 	@Given("^User launches consorsbank web application$")
-	public void User_launches_consorsbank_web_application(){
+	public void User_launches_consorsbank_web_application() {
 		try {
 			commonActions.launchBrowser();
 			Thread.sleep(10000);
@@ -73,7 +78,7 @@ public class GenericSteps {
 
 		}
 	}
-	
+
 	@When("^User open an application$")
 	public void User_Open_an_Application() throws MalformedURLException, InterruptedException {
 		try {
@@ -222,6 +227,11 @@ public class GenericSteps {
 				System.out.println("Value of loactorkey-----------" + locatorKey);
 				commonActions.pressTab();
 				commonActions.click(locatorKey);
+
+			} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
+				commonActions.click(locatorKey);
+				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
+				commonActions.moveScrollDown();
 
 			} else if (locatorKey.equals("Handelsplatz_Tradegate")
 					&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Anleihe")) {
@@ -406,7 +416,7 @@ public class GenericSteps {
 					&& commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 				commonActions.click(locatorKey);
 				commonActions.click(locatorKey);
-			}else if(commonActions.getFeatureName().equals("UC71_Datenschutz")) {
+			} else if (commonActions.getFeatureName().equals("UC71_Datenschutz")) {
 				String str1 = commonActions.getValueFromJson(dataKey);
 				commonActions.clearCheckBox(locatorKey);
 				if (str1.equals("null")) {
@@ -414,8 +424,7 @@ public class GenericSteps {
 				} else {
 					commonActions.click(locatorKey);
 				}
-			}
-			else if (commonActions.getFeatureName().equals("UC78_79_Aboservice")) {
+			} else if (commonActions.getFeatureName().equals("UC78_79_Aboservice")) {
 				String str1 = commonActions.getValueFromJson(dataKey);
 				System.out.println("Value of str1   " + str1);
 
@@ -441,13 +450,14 @@ public class GenericSteps {
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
+
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
 		String token = TANGenerator.requestTan();
 		try {
 			if (TanKey.equals("TAN_field_Login")) {
 				// commonActions.enterTokenTan(TanKey, token);
 				commonActions.enterNewMobileTan(TanKey, token);
-//				commonActions.logInfoStatus("Info | Token used : " + token);
+				// commonActions.logInfoStatus("Info | Token used : " + token);
 				// commonActions.enterTokenTan(TanKey,"931272");
 				commonActions.click("BestaetigenButton");
 				if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
@@ -460,11 +470,13 @@ public class GenericSteps {
 							commonActions.click("BestaetigenButton");
 							if (commonActions.isElementPresent("UsedTanMessage"))
 								commonActions.logAssert_Fail("Unable to login due to reused tan.");
-//							commonActions.logInfoStatus("Info | Token used : " + token);
+							// commonActions.logInfoStatus("Info | Token used :
+							// " + token);
 							commonActions.takeSceenShot();
 
 						}
 					}
+
 				}
 			} else if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
 				commonActions.pressTab();
@@ -489,6 +501,7 @@ public class GenericSteps {
 			} else {
 				commonActions.enterNewMobileTan(TanKey, token);
 			}
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -501,7 +514,7 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		if(commonActions.getFeatureName().equals("UC69_70_Risikoklasse")){
+		if (commonActions.getFeatureName().equals("UC69_70_Risikoklasse")) {
 			commonActions.mouseover("logInButton");
 			commonActions.click("logInButton");
 			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
@@ -510,22 +523,21 @@ public class GenericSteps {
 			commonActions.logInfoStatus(
 					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 			commonActions.takeSceenShot();
-		}else if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
+		} else if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
 				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")) {
 			// commonActions.movetoChildWindow();
-		}else if(commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+		} else if (commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
 			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 			commonActions.enterText(PIN_Password, "PIN_Password");
 			click("Einloggen");
 			commonActions.logInfoStatus(
 					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 			commonActions.takeSceenShot();
-		}
-		else {
+		} else {
 			commonActions.launchBrowser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1"))
 				commonActions.waitForVisibilityofElement("LoginToWait");
-			else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")){
+			else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
 				commonActions.waitForVisibilityofElement("LogintoWait_Env2");
 			}
 			commonActions.mouseover("logInButton");
@@ -537,10 +549,8 @@ public class GenericSteps {
 					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 			commonActions.takeSceenShot();
 		}
-				
-		
+
 	}
-	
 
 	@When("User \"(.*?)\" in \"(.*?)\" field")
 	public void user_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {
@@ -570,7 +580,8 @@ public class GenericSteps {
 
 	@When("User submits generated Mobile TAN number")
 	public void user_submits_generated_Mobile_TAN_number_in()
-			throws InterruptedException, ParserConfigurationException, SAXException, Throwable {
+
+			throws InterruptedException, ParserConfigurationException, SAXException, IOException {
 
 		// Loading property files and its values
 		Properties prop = new Properties();
@@ -579,10 +590,10 @@ public class GenericSteps {
 		FileInputStream fis = new FileInputStream(
 				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
 		prop.load(fis);
-		// String customerId = prop.getProperty("userID");
-		String customerId = commonActions.getValueFromJson("UserID_Kontonummer");
-		String customerPin = commonActions.getValueFromJson("PIN_Password");
-		// String customerPin = prop.getProperty("pin");
+
+		String customerId = prop.getProperty("userID");
+		String customerPin = prop.getProperty("pin");
+
 		String cafeUser = prop.getProperty("cafeUserID");
 		String cafePin = prop.getProperty("cafePin");
 
