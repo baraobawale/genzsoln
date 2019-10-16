@@ -922,7 +922,7 @@ public class CommonActions {
 
 		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
 		if (tanKey.equals("mobile_TAN_field") || tanKey.equals("TAN_Depotuebertrag")
-				|| tanKey.equals("TAN_field_PersoenlicheEinstellungen") || tanKey.equals("TAN_field_Risikoklasse")) {
+				|| tanKey.equals("TAN_field_PersoenlicheEinstellungen") || tanKey.equals("TAN_field_Risikoklasse") || tanKey.equals("TAN_field_Benachrichtigungen") || tanKey.equals("TAN_field_NewsLetter") || tanKey.equals("TAN_field_NewsletterMeineAbos")){
 			click("MobileTan_anfordern");
 		} else if (tanKey.equals("TAN_field_OrderErteilen"))
 			click("MobileTAN_link_UC17");

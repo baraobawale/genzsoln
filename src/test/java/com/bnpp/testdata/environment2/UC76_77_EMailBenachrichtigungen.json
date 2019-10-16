@@ -10,7 +10,7 @@
 			"Ablauf_Gueltigkeit": "Null",
 			"CFD_Margin_Call": "Null",
 			"Hinweis_Benachrichtigungsservice": "Null",
-			"Messages" : "Hinweis: Bitte best�tigen Sie durch Setzen des Hakens, dass Sie den Hinweis zur Kenntnis genommen haben."
+			"Messages" : "Hinweis: Bitte bestaetigen Sie durch Setzen des Hakens, dass Sie den Hinweis zur Kenntnis genommen haben."
 			
 		},
 
@@ -23,7 +23,7 @@
 			"Ablauf_Gueltigkeit": "Check",
 			"CFD_Margin_Call": "Check",
 			"Hinweis_Benachrichtigungsservice": "Check",
-			"Message": "Ihre aktuell gewählten E-Mailbenachrichtigungen",
+			"Message": "Ihre aktuell gewaehlten E-Mailbenachrichtigungen",
 			"Status" : "Checked"
 		},
 		"EMail_Benachrichtigungen_Unselect": 
@@ -35,7 +35,7 @@
 			"Ablauf_Gueltigkeit": "Uncheck",
 			"CFD_Margin_Call": "Uncheck",
 			"Hinweis_Benachrichtigungsservice": "Check",
-			"Message": "Ihre aktuell gewählten E-Mailbenachrichtigungen",
+			"Message": "Ihre aktuell gewaehlten E-Mailbenachrichtigungen",
 			"Status" : "Unchecked"
 		}
 	}

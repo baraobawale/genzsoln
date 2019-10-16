@@ -31,7 +31,7 @@
 			"Erklaerung_zu_Risiken_bei_Finanztermingeschaeften": "Select",
 			"Besondere_Merkmale_und_Risikoerklaerung": "Select",
 			"Einverstaendnis_mit_PRIIP_Verordnung": "Select",
-			"Message": "Danke für Ihren Antrag. Sie haben es fast geschafft."
+			"Message": "Danke fuer Ihren Antrag. Sie haben es fast geschafft."
 		},
 		"Einzelkonto_DepotCFD_BestehendesKonto": {
 			"Kunde_bei_der_Consorsbank": "Ja",
@@ -47,7 +47,7 @@
 			"Zulassung_zum_Handel_Finanztermingeschaeften": "Select",
 			"Erklaerung_zu_Risiken_bei_Finanztermingeschaeften": "Select",
 			"Besondere_Merkmale_und_Risikoerklaerung": "Select",
-			"Message": "Danke für Ihren Antrag"
+			"Message": "Danke fuer Ihren Antrag"
 		}
 	}
 }

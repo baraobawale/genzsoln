@@ -30,7 +30,7 @@
 			"Branche": "Finanzdienstleistung, Versicherung",
 			"Jahreseinkommen_Netto": "40.001 bis 60.000 Euro",
 			"Verfuegbares_Vermoegen": " 30.001 bis 60.000 Euro",
-			"Message": "Danke für Ihren Antrag. Sie haben es fast geschafft."
+			"Message": "Danke fuer Ihren Antrag. Sie haben es fast geschafft."
 		},
 
 		"TagesgeldGemeinschaftskonto_Anlegen": 
@@ -87,7 +87,7 @@
 			"Branche_2": "Finanzdienstleistung, Versicherung",
 			"Jahreseinkommen_Netto_2": "40.001 bis 60.000 Euro",
 			"Verfuegbares_Vermoegen_2": "30.001 bis 60.000 Euro",
-			"Message": " Danke f�r Ihren Antrag. Sie haben es fast geschafft."
+			"Message": " Danke fuer Ihren Antrag. Sie haben es fast geschafft."
 		},
 
 		"TagesgeldMinderjaehrigenkonto1GV_Anlegen": 
@@ -140,7 +140,7 @@
 			"Beruf_2": "Angestellte(r)",
 			"Branche_2": "Finanzdienstleistung, Versicherung",
 			" Hiermit_bestaetige_ich": "Select",
-			"Message": "Danke f�r Ihren Antrag. Sie haben es fast geschafft."
+			"Message": "Danke fuer Ihren Antrag. Sie haben es fast geschafft."
 		},
 
 		"TagesgeldMinderjaehrigenkonto2GV_Anlegen": 
@@ -214,7 +214,7 @@
 			"Telefon_privat_3": "123456789",
 			"Beruf_3": "Angestellte(r)",
 			"Branche_3": "Finanzdienstleistung, Versicherung",
-			"Message": "Danke f�r Ihren Antrag. Sie haben es fast geschafft."
+			"Message": "Danke fuer Ihren Antrag. Sie haben es fast geschafft."
 		}
 	}
 }

@@ -8,9 +8,9 @@
 			"Ort": "",
 			"Branche": "Bitte auswaehlen",
 			"ErrorMesssages": {
-				"BrancheError": "Branche: Bitte w‰hlen Sie die Branche, in der Sie arbeiten, aus.",
+				"BrancheError": "Branche: Bitte waehlen Sie die Branche, in der Sie arbeiten, aus.",
 				"PLZError": "PLZ: Dieses Feld muss angegeben werden.",
-				"StrabeError": "Straﬂe, Hausnr.: Dieses Feld muss angegeben werden.",
+				"StrabeError": "Stra√üe, Hausnr.: Dieses Feld muss angegeben werden.",
 				"OrtError": "Ort: Dieses Feld muss angegeben werden."
 			}
 		},

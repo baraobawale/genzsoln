@@ -43,16 +43,10 @@ public class UC76_77_EMailBenachrichtigungen {
 			   String ScenarioName = commonActions.getScenarioName();
                System.out.println("ScenarioName"+ScenarioName);
 	             if(ScenarioName.equals("EMail_Benachrichtigungen_Select")){
-	            	  if (commonActions.getText("Message_Select").equals(commonActions.getValueFromJson("Message"))) 
-	            		  commonActions.logPassStatus("Pass | Valid message displayed ");
+	            	  if (commonActions.getText("Message_Benachrichtigungen").equals(commonActions.getValueFromJson("Message"))) 
+	            		  commonActions.logPassStatus("Pass | Valid message displayed: "+commonActions.getText("Message_Benachrichtigungen"));
 	 	          else
-	 	        	 commonActions.logFailStatus("Fail | Valid message display failed ");
-	             }
-	             if(ScenarioName.equals("EMail_Benachrichtigungen_Unselect")) {
-	            	 if (commonActions.getText("Message_Unselect").equals(commonActions.getValueFromJson("Message"))) 
-	            	 commonActions.logPassStatus("Pass | Valid message displayed ");
-	            else
-	            	commonActions.logPassStatus("Pass | Valid message display failed ");
+	 	        	 commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("Message_Benachrichtigungen"));
 	             }
 			}
 		}
