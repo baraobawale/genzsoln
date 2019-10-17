@@ -190,7 +190,7 @@ Feature: UC31_32_33_NeukundenDepot
     And User clicks on "kontoEroeffnen__KontoverwendungPage"
     And Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen
     And User clicks on "EroeffnungsunterlagenHerunterladen_KostenlosesWertpapierdepotMinderjaehrigen"
-    Then Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen
+    Then Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen_3
     And Download PDF generated in New Tab
 
     Examples: 

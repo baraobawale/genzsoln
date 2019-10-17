@@ -81,7 +81,7 @@ public class UC31_32_33_NeukundenDepot {
 	}
 	}
 
-	@Then("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen")
+	@Then("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen_3")
 	public void verify_captured_Vorgangsnummer_Message_from_KostenlosesWertpapierdepotMinderjaehrigen() {
 		try {
 			

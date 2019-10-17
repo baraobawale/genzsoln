@@ -1,4 +1,4 @@
-@UC42
+
 Feature: UC42_43_44_NeukundenSparplan
 
   #Executable - Neukunden Sparplan Anlegen
@@ -130,6 +130,7 @@ Feature: UC42_43_44_NeukundenSparplan
       | SparplanGemeinschaftskonto_Anlegen |
 
   #Minderjaehrigenkonto_2GV Anlegen
+  @UC42
   Scenario Outline: <TestCase>
     When User open the application
     When User navigates to "Sparplaene" in "Sparen_Anlegen"
@@ -218,7 +219,7 @@ Feature: UC42_43_44_NeukundenSparplan
     And User clicks on "kontoEroeffnen__KontoverwendungPage"
     And Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen_2GV
     And User clicks on "EroeffnungsunterlagenHerunterladen_KostenlosesWertpapierdepotMinderjaehrigen_2GV"
-    Then Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen_2GV
+    Then Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen_42
     And Download PDF generated in New Tab
 
     Examples: 

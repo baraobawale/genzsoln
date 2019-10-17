@@ -447,7 +447,7 @@ public class GenericSteps {
 		}
 
 	}
-
+//	User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 
@@ -524,9 +524,13 @@ public class GenericSteps {
 					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 			commonActions.takeSceenShot();
 		} else if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
-				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")) {
+				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")
+				
+) {
 			// commonActions.movetoChildWindow();
-		} else if (commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
+		} else if (commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")
+				|| commonActions.getScenarioName().equals("Gemkonto_Kontodepot")
+				|| commonActions.getScenarioName().equals("Gemkonto_Tagesgeldkonto")) {
 			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 			commonActions.enterText(PIN_Password, "PIN_Password");
 			click("Einloggen");
@@ -645,7 +649,7 @@ public class GenericSteps {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail();
+			commonActions.logAssert_Fail("Exception has been thrown");
 		}
 
 	}

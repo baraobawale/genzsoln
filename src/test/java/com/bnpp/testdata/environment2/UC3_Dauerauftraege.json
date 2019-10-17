@@ -1,7 +1,7 @@
 {
 	"UC3_Dauerauftraege": {
 		"Dauerauftraege_Anlegen": {
-			"UserID_Kontonummer": "880550990",
+			"UserID_Kontonummer": "880551009",
 			"PIN_Password": "12345",
 			"Account_Type": "Verrechnungskonto",
 			"Name": "DELTA BUERICZUEK",
@@ -9,7 +9,7 @@
 			"Betrag": "1",
 			"Intervall": "monatlich",
 			"Immer_am": "10.des.Monats",
-			"Startdatum": "10.10.2019",
+			"Startdatum": "20.10.2019",
 			"Unbegrenzt_gültig": "select",
 			"Als_Vorlage_speichern": "select",
 			"Vorlagenname": "003 DELTA BUERICZUEK",

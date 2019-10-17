@@ -108,8 +108,8 @@ public class UC42_43_44_NeukundenSparplan {
 		}
 	}
 
-	@Then("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen_{int}GV")
-	public void verify_captured_Vorgangsnummer_Message_from_KostenlosesWertpapierdepotMinderjaehrigen__GV(Integer int1) {
+	@Then("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen_42")
+	public void verify_captured_Vorgangsnummer_Message_from_KostenlosesWertpapierdepotMinderjaehrigen__GV() {
 		try {
 			if (CapturedKostenlosesWertpapierdepotMinderjaehrigen.equals(commonActions.getValueFromJson("Message"))) {
 				commonActions.logPassStatus("Pass | Valid message displayed -"+CapturedKostenlosesWertpapierdepotMinderjaehrigen);
