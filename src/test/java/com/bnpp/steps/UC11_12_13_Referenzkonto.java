@@ -263,7 +263,7 @@ public class UC11_12_13_Referenzkonto {
 			}
 			else{
 				System.out.println("Fail | Can not delete. Need at least two rows.");
-				commonActions.logFailStatus("Fail | Can not delete. Need at least two templates.");
+				commonActions.logAssert_Fail("Fail | Can not delete. Need at least two templates.");
 
 			}
 		} catch (Exception e) {
