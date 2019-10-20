@@ -2,6 +2,8 @@
 Feature: UC67_68_Stammdaten
 
   Scenario Outline: <TestCase>
+   Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
@@ -18,6 +20,8 @@ Feature: UC67_68_Stammdaten
       | Stammdaten_Verify_Errors |
 
   Scenario Outline: <TestCase>
+   Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
@@ -30,8 +34,8 @@ Feature: UC67_68_Stammdaten
     And User selects "Beruf" in "Beruf_PersoenlicheEinstellungen"
     And User selects "Branche" in "Branche_PersoenlicheEinstellungen"
     And User clicks on "Weiter_PersoenlicheEinstellungen"
-    And User submits generated TAN number in "TAN_field_PersoenlicheEinstellungen"
-    And User clicks on "Bestaetigen_PersoenlicheEinstellungen"
+    And User submits generated TAN number using "MobileTanLink_PersoenlicheEinstellungen" on "TAN_field_PersoenlicheEinstellungen"
+        And User clicks on "Bestaetigen_PersoenlicheEinstellungen"
     Then verify changed data shown on bestaetigung page
 
     Examples: 

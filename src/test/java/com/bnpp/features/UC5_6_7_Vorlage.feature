@@ -1,7 +1,11 @@
+
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create - IBAN
+  @Voralge
   Scenario Outline: <TestCase>
+ 		Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -14,7 +18,7 @@ Feature: UC5_6_7_Vorlage
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_VorlageAnlegen"
     And User enters "Betrag" in "Betrag_VorlageAnlegen"
     And User clicks on "WeiterZurTANEingabe_VorlageAnlegen"
-    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungsvorlageAnlegen_VorlageAnlegen"
     And Capture entered details on VorlageAnlegen
     And Capture Message on VorlageAnlegen
@@ -28,6 +32,8 @@ Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create-KontoBLZ
   Scenario Outline: <TestCase>
+   Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -41,7 +47,7 @@ Feature: UC5_6_7_Vorlage
     And User enters "BLZ" in "BLZ_VorlageAnlegen"
     And User enters "Betrag" in "Betrag_VorlageAnlegen"
     And User clicks on "WeiterZurTANEingabe_VorlageAnlegen"
-    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungsvorlageAnlegen_VorlageAnlegen"
     And Capture entered details on VorlageAnlegen
     And Capture Message on VorlageAnlegen
@@ -55,6 +61,8 @@ Feature: UC5_6_7_Vorlage
 
   #Aendern/Change-IBAN/KontoBLZ
   Scenario Outline: <TestCase>
+   Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -64,7 +72,7 @@ Feature: UC5_6_7_Vorlage
     And User click on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
     And User enters "Betrag" in "Betrag_VorlageAendern"
     And User clicks on "WeiterZurTANEingabe_VorlageAendern"
-    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungVorlageSpeichern_VorlageAendern"
     Then Verify Message,details on VorlageAendern
 
@@ -76,6 +84,8 @@ Feature: UC5_6_7_Vorlage
   #Loeschen/Delete-IBAN/KontoBLZ
   @Delete
   Scenario Outline: <TestCase>
+   Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -83,11 +93,11 @@ Feature: UC5_6_7_Vorlage
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
     And User click on "Delete" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
-    And User submits generated TAN number in "TAN_field_Vorlageloeschen"
-    And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_Vorlageloeschen"
+   	And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
     Then Verify Message on Vorlageloeschen
 
     Examples: 
       | TestCase                   |
       | Vorlagen_loeschen_IBAN     |
-   		 | Vorlagen_loeschen_kontoBLZ |
+   		| Vorlagen_loeschen_kontoBLZ |

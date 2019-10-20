@@ -5,8 +5,8 @@ Feature: UC42_43_44_NeukundenSparplan
   #Sparplan Einzelkonto Anlegen
   
   Scenario Outline: <TestCase>
-    When User open the application
-    And User navigates to "Sparplaene" in "Sparen_Anlegen"
+   Given User launches consorsbank web application
+   And User navigates to "Sparplaene" in "Sparen_Anlegen"
     And User clicks on "NeuenSparplanAnlegen_Sparplan"
     And User clicks on "DepotEroeffnen_Sparplan"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
@@ -53,9 +53,10 @@ Feature: UC42_43_44_NeukundenSparplan
       | SparplanEinzelkonto_Anlegen |
 
   #Gemeinschaftskonto Anlegen
+  @Spark
   Scenario Outline: <TestCase>
-    When User open the application
-    When User navigates to "Sparplaene" in "Sparen_Anlegen"
+   Given User launches consorsbank web application
+ 		    When User navigates to "Sparplaene" in "Sparen_Anlegen"
     And User clicks on "NeuenSparplanAnlegen_Sparplan"
     And User clicks on "DepotEroeffnen_Sparplan"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
@@ -89,7 +90,8 @@ Feature: UC42_43_44_NeukundenSparplan
     And User selects "Jahreseinkommen_Netto_1" in "JahreseinkommenNetto1_Kontoinhaber1"
     And User selects "Verfuegbares_Vermoegen_1" in "VerfuegbaresVermoegen1_Kontoinhaber1"
     And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_1" in "ErfahrungenImBereichWertpapierhandel_Kontoinhaber1"
-    And user clicks on "Zu_Kontoinhaber_2" in "ZuKontoinhaber2_Kontoinhaber1"
+   
+    And User clicks on "Zu_Kontoinhaber_2"
     And User selects radiobutton "Anrede_2" in "Anrede2_Kontoinhaber2"
     And User enters "Vorname_2" in "Vorname2_Kontoinhaber2"
     And User enters "Nachname_2" in "Nachname2_Kontoinhaber2"
@@ -132,8 +134,8 @@ Feature: UC42_43_44_NeukundenSparplan
   #Minderjaehrigenkonto_2GV Anlegen
   @UC42
   Scenario Outline: <TestCase>
-    When User open the application
-    When User navigates to "Sparplaene" in "Sparen_Anlegen"
+Given User launches consorsbank web application
+ 		 When User navigates to "Sparplaene" in "Sparen_Anlegen"
     And User clicks on "NeuenSparplanAnlegen_Sparplan"
     And User clicks on "DepotEroeffnen_Sparplan"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"

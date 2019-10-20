@@ -5,7 +5,8 @@ Feature: UC69_70_Risikoklasse
   # Risikoklasse/FTG Setzen Fehlermeldungen
   @UC69
   Scenario Outline: <TestCase>
-  	Given User launches consorsbank web application
+ Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
@@ -25,6 +26,7 @@ Feature: UC69_70_Risikoklasse
   
   Scenario Outline: <TestCase>
    Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
@@ -35,7 +37,7 @@ Feature: UC69_70_Risikoklasse
     And User selects "Wertpapierkaeufe" in "WertpapierkaeufeInDenLetztenZweiJahren_RisikoklasseFinanztermingeschaefte"
     And User clicks on "Weiter_RisikoklasseFinanztermingeschaefte"
     And User clicks on checkbox "TAN_bestaetigung" in "TANBestaetigung_RisikoklasseFinanztermingeschaefte"
-    And User submits generated TAN number in "mobile_TAN_field"
+    And User submits generated TAN number using "MobileTanLink_RisikoklasseFinanztermingeschaefte" on "TAN_field_RisikoklasseFinanztermingeschaefte"
     And User clicks on "Bestaetigen_RisikoklasseFinanztermingeschaefte"
     Then verify success message shown on bestaetigung page
 

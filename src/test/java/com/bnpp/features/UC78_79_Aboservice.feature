@@ -5,6 +5,8 @@ Feature: UC78_79_Aboservice
   # Verify Error - Aboservice
   
   Scenario Outline: <TestCase>
+   Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Aboservice" in "Mein_Konto_Depot"
@@ -21,14 +23,16 @@ Feature: UC78_79_Aboservice
 
 @AB
  Scenario Outline: <TestCase>
+  Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Aboservice" in "Mein_Konto_Depot"
     And User clicks on "NewsLetter_Aboservice"
     And User selects checkbox "Abonnieren" in "Abonnieren_NewsLetter"
     And User clicks on "Weiter_NewsLetter"
-    And User submits generated TAN number in "TAN_field_NewsLetter"
-    And User clicks on "KostenpflichtigAbonnieren_NewsLetter"
+    And User submits generated TAN number using "MobileTanLink_NewsLetter" on "TAN_field_NewsLetter"
+       And User clicks on "KostenpflichtigAbonnieren_NewsLetter"
     Then Verify Message on NewsLetter
     And Verify "Abonnement" in "Abonnement_Newsletter"
     And Verify "Nutzungsart" in "Nutzungsart_Newsletter"
@@ -41,12 +45,15 @@ Feature: UC78_79_Aboservice
   #Zuruecksetzen/Reset subscription
   
   Scenario Outline: <TestCase>
+   Given User launches consorsbank web application
+ 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Aboservice" in "Mein_Konto_Depot"
     And User clicks on "MeineAbos_Aboservice"
     And User selects checkbox "Abo_kuendigen" in "Abokuendigen_NewsletterMeineAbos"
     And User clicks on "Weiter_NewsletterMeineAbos"
+    And User submits generated TAN number using "MobileTanLink_NewsletterMeineAbos" on "TAN_field_NewsletterMeineAbos"
     And User submits generated TAN number in "TAN_field_NewsletterMeineAbos"
     And User clicks on "Kuendigen_NewsletterMeineAbos"
     And Capture Message on NewsletterMeineAbos

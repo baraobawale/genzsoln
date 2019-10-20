@@ -393,7 +393,7 @@ public class CommonActions {
 	 *            Description Type Tan no
 	 * @throws InterruptedException
 	 */
-	public void enterTokenTan(String objectKey, String strValue) throws InterruptedException {
+	public void enterTan(String objectKey, String strValue) throws InterruptedException {
 		// TODO Auto-generated method stub
 		try {
 			Thread.sleep(2000);
@@ -925,24 +925,12 @@ public class CommonActions {
 		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
 
 		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		if (tanKey.equals("mobile_TAN_field") || tanKey.equals("TAN_Depotuebertrag")
-				|| tanKey.equals("TAN_field_PersoenlicheEinstellungen") || tanKey.equals("TAN_field_Risikoklasse") || tanKey.equals("TAN_field_Benachrichtigungen") || tanKey.equals("TAN_field_NewsLetter") || tanKey.equals("TAN_field_NewsletterMeineAbos")){
-			click("MobileTan_anfordern");
-		} else if (tanKey.equals("TAN_field_OrderErteilen"))
-			click("MobileTAN_link_UC17");
-		else if (tanKey.equals("TAN_field_OrderAendern")||tanKey.equals("TAN_field_OrderLoeschen"))
-			click("MobileTan_UC17");
-		else {
-			click("MobileTAN_link_Login");
-		}
-
+		click("MobileTAN_link_Login");
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
 		// System.out.println("mTAN is -" + mTAN);
+		
 		Thread.sleep(3000);
-		enterTokenTan(tanKey, mTAN);
-		if (tanKey.equals("TAN_field_Ueberweisungslimit")) {
-			pressTab();
-		}
+		enterTan(tanKey, mTAN);
 		if (tanKey.equals("TAN_field_AngabenZurPerson")) {
 			click("TAN_field_AngabenZurPerson_Button");
 		}
@@ -980,4 +968,33 @@ public class CommonActions {
         return e.size();
 	
 	}	
+	public void clickonMobiletanLinkandEnterTan(String mobiletanlink,String tanfield) throws ClientProtocolException, IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException{
+	Properties prop = new Properties();
+	// FileInputStream fis = new
+	// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
+	FileInputStream fis = new FileInputStream(
+			System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+	prop.load(fis);
+
+	String customerId = getValueFromJson("UserID_Kontonummer");
+	String customerPin = getValueFromJson("PIN_Password");
+	String cafeUser = prop.getProperty("cafeUserID");
+	String cafePin = prop.getProperty("cafePin");
+
+	// Redirecting Mobile TAN
+	MobileTan mt = new MobileTan();
+	mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+
+	// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+	click(mobiletanlink);
+
+	String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+	System.out.println("mTAN is -" + mTAN);
+	enterTan(tanfield, mTAN);
+	pressTab();
+	if (tanfield.equals("TAN_field_AngabenZurPerson")) {
+		click("TAN_field_AngabenZurPerson_Button");
+	}
+	logInfoStatus("Info | Token used : " + mTAN);
+}
 }

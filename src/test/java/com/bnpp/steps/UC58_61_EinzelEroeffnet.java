@@ -71,7 +71,7 @@ public class UC58_61_EinzelEroeffnet {
 			InterruptedException, ParserConfigurationException, SAXException {
 		try {
 			String token = TANGenerator.requestTan();
-			commonActions.enterNewMobileTan(TanKey, token);
+			commonActions.clickonMobiletanLinkandEnterTan(TanKey, token);
 			commonActions.click("BestaetigenButtonNewCustomer");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

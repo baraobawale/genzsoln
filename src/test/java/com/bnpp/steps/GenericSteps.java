@@ -79,20 +79,8 @@ public class GenericSteps {
 		}
 	}
 
-	@When("^User open an application$")
-	public void User_Open_an_Application() throws MalformedURLException, InterruptedException {
-		try {
-			commonActions.launchBrowser();
-			Thread.sleep(10000);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		}
-	}
-
 	@And("^User enters \"(.*?)\" in \"(.*?)\"$")
-	public void type(String dataKey, String locatorKey)
+	public void User_enters(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 
@@ -102,6 +90,7 @@ public class GenericSteps {
 				// Move the focus out of field to handle the error displayed on
 				// clearing the field.
 				commonActions.pressTab();
+				// Different step definition for tab.
 			} else if (locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
 				if (commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
 					WebElement text = commonActions.getElement("Max_limit");
@@ -124,6 +113,7 @@ public class GenericSteps {
 					// on
 					// clearing the field.
 					commonActions.pressTab();
+					/// Make scenarios different
 				} else if (locatorKey.equals("Limit_OrderErteilen")
 						&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
 					locatorKey = "Stop_OrderErteilen";
@@ -145,7 +135,7 @@ public class GenericSteps {
 	}
 
 	@And("^User clears \"(.*?)\"$")
-	public void clear(String locatorKey) {
+	public void User_clears(String locatorKey) {
 
 		try {
 			commonActions.clearfield(locatorKey);
@@ -158,25 +148,31 @@ public class GenericSteps {
 
 	// @And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
 	@And("^User clicks on \"(.*)\"$")
-	public void click(String locatorKey) throws InterruptedException, Exception, IOException {
+	public void User_clicks_on(String locatorKey) throws InterruptedException, Exception, IOException {
 		try {
-			if ((commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")
-					&& locatorKey.equals("Handelsplatz_OrderErteilen"))
-					|| (commonActions.getScenarioName().equals("KaufOrder_Anendern_Aktie")
-							&& locatorKey.equals("Limithandel_OrderErteilen"))
-					|| (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Fonds1")
-							&& locatorKey.equals("Handelsplatz_OrderErteilen"))) {
-				if (commonActions.isElementPresent("RiskoclassePopup")) {
-					commonActions.click("Riskocheckbox");
-					commonActions.click("Riskocalssebutton");
-				}
-			}
+			// if
+			// ((commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")
+			// && locatorKey.equals("Handelsplatz_OrderErteilen"))
+			// ||
+			// (commonActions.getScenarioName().equals("KaufOrder_Anendern_Aktie")
+			// && locatorKey.equals("Limithandel_OrderErteilen"))
+			// ||
+			// (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Fonds1")
+			// && locatorKey.equals("Handelsplatz_OrderErteilen"))) {
+			// if (commonActions.isElementPresent("RiskoclassePopup")) {
+			// commonActions.click("Riskocheckbox");
+			// commonActions.click("Riskocalssebutton");
+			// }
+			// }
+
 			if (locatorKey.equals("Aendern")
+					// User clicks with scroll
 					|| locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
 					|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
 				commonActions.moveScrollDown();
 				commonActions.waitForVisibilityofElement(locatorKey);
 				commonActions.click(locatorKey);
+				// Add statement for delete template
 			} else if (locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
 				commonActions.click(locatorKey);
 				commonActions.moveScrollDown();
@@ -199,6 +195,7 @@ public class GenericSteps {
 					commonActions.logInfoStatus("Deleting the template");
 					commonActions.click("DeleteKontoBLZ");
 					String token = TANGenerator.requestTan();
+					// Use new mobile tan and rename function entertokentan
 					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
 					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
@@ -232,7 +229,7 @@ public class GenericSteps {
 				commonActions.click(locatorKey);
 				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
 				commonActions.moveScrollDown();
-
+				// Check for select drop down
 			} else if (locatorKey.equals("Handelsplatz_Tradegate")
 					&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Anleihe")) {
 				commonActions.pressEnter();
@@ -277,7 +274,7 @@ public class GenericSteps {
 	}
 
 	@And("^User navigates to \"(.*?)\" in \"(.*?)\"$")
-	public void User_mouseOvers_and_navigates_to(String clickElementKey, String mouseoverelementKey)
+	public void User_mouseovers_and_navigates_to(String clickElementKey, String mouseoverelementKey)
 			throws InterruptedException {
 		try {
 			Thread.sleep(5000);
@@ -286,13 +283,13 @@ public class GenericSteps {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Fail | USer navigates to failed -" + clickElementKey);
+			commonActions.logAssert_Fail("Fail | User navigates to failed -" + clickElementKey);
 		}
 
 	}
 
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
-	public void select(String dataKey, String locatorKey) throws Exception {
+	public void User_selects(String dataKey, String locatorKey) throws Exception {
 		try {
 			if (locatorKey.equals("Handelsplatz_OrderErteilen")
 					&& commonActions.getFeatureName().equals("UC82_Authorization")) {
@@ -327,6 +324,7 @@ public class GenericSteps {
 				commonActions.click("Handelsplatz_OrderErteilen_1");
 				Thread.sleep(2000);
 				commonActions.click("Handelsplatz_OrderErteilen_2");
+				// Make different functions of Select
 			} else if (dataKey.equals("Account_Type")) {
 				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 			} else if (dataKey.equals("FromDepot_Nr")) {
@@ -348,48 +346,8 @@ public class GenericSteps {
 		}
 	}
 
-	// @And("User selects checkbox {string} in {string}")
-	// public void User_selects_checkbox_in_field(String dataKey, String
-	// locatorKey)
-	// throws FileNotFoundException, IOException, ParseException,
-	// InterruptedException {
-	// <<<<<<< HEAD
-	// String str = commonActions.getValueFromJson(dataKey);
-	// System.out.println("str for dataKey"+str+" "+dataKey);
-	//// if (!locatorKey.equals("Unbegrenzt_gültig"))
-	//// commonActions.click(locatorKey);
-	// if(dataKey.equals("Mit_sehr_hohem_Risiko") &&
-	// commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto"))
-	// {
-	// commonActions.click(locatorKey);
-	// }
-	// if (str.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-	// =======
-	//
-	// if (!locatorKey.equals("Unbegrenzt_gültig")) {
-	// >>>>>>> a213edc5d7e63dcc3358109c95d3cd0e538d6bfb
-	// commonActions.click(locatorKey);
-	// }
-	// if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
-	// String str1 = commonActions.getValueFromJson(dataKey);
-	// if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-	// commonActions.click(locatorKey);
-	// }
-	// } else
-	// commonActions.click(locatorKey);
-	// if
-	// (locatorKey.equals("IchhabediesenHinweiszurKenntnisgenommen_Positionwaehlen"))
-	// commonActions.click(locatorKey);
-	// if (locatorKey.equals("Einverstaendnis_mit_PRIIP_Verordnung")
-	// ||
-	// locatorKey.equals("EinverstaendnisMitPRIIPVerordnung_AngabenZurPerson"))
-	// {
-	// commonActions.click(locatorKey);
-	// }
-	// }
-
 	@And("User selects checkbox {string} in {string}")
-	public void User_selects_checkbox_in_field(String dataKey, String locatorKey)
+	public void User_selects_checkbox(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
 
 		try {
@@ -447,117 +405,49 @@ public class GenericSteps {
 		}
 
 	}
-//	User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
+
+	// User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on
+	// "TAN_field_VorlageAnlegen"
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_in(String TanKey)
 
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
-		String token = TANGenerator.requestTan();
 		try {
-			if (TanKey.equals("TAN_field_Login")) {
-				// commonActions.enterTokenTan(TanKey, token);
-				commonActions.enterNewMobileTan(TanKey, token);
-				// commonActions.logInfoStatus("Info | Token used : " + token);
-				// commonActions.enterTokenTan(TanKey,"931272");
-				commonActions.click("BestaetigenButton");
-				if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
-					if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
-						if (commonActions.isElementPresent("UsedTanMessage")) {
-							commonActions.clearfield(TanKey);
-							Thread.sleep(60000);
-							// commonActions.enterTokenTan(TanKey, token);
-							commonActions.enterNewMobileTan(TanKey, token);
-							commonActions.click("BestaetigenButton");
-							if (commonActions.isElementPresent("UsedTanMessage"))
-								commonActions.logAssert_Fail("Unable to login due to reused tan.");
-							// commonActions.logInfoStatus("Info | Token used :
-							// " + token);
-							commonActions.takeSceenShot();
-
-						}
+			commonActions.clickonMobiletanLinkandEnterTan(TanKey, "MobileTAN_link_Login");
+			commonActions.click("BestaetigenButton");
+			if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
+				if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
+					if (commonActions.isElementPresent("UsedTanMessage")) {
+						commonActions.clearfield(TanKey);
+						Thread.sleep(60000);
+						commonActions.clickonMobiletanLinkandEnterTan(TanKey, "MobileTAN_link_Login");
+						commonActions.click("BestaetigenButton");
+						if (commonActions.isElementPresent("UsedTanMessage"))
+							commonActions.logAssert_Fail("Unable to login due to reused tan.");
+						commonActions.takeSceenShot();
 					}
-
 				}
-			} else if (TanKey.equals("TAN_field_Ueberweisungslimit")) {
-				commonActions.pressTab();
-				commonActions.enterNewMobileTan(TanKey, token);
-			} else if (TanKey.equals("TAN_field_Benachrichtigungen")) {
-				// commonActions.enterTokenTan(TanKey,
-				// TANGenerator.requestTan());
-				commonActions.enterNewMobileTan(TanKey, token);
-			} else if (TanKey.equals("TAN_SessionTANAktivieren")) {
-				// Env 1
-				// commonActions.enterTokenTan(TanKey,
-				// TANGenerator.requestTan());
-				// Env 2
-				commonActions.enterNewMobileTan(TanKey, token);
-			} else if (TanKey.equals("TAN_field_NewsLetter") || TanKey.equals("TAN_field_NewsletterMeineAbos")) {
-				// commonActions.enterTokenTan(TanKey,
-				// TANGenerator.requestTan());
-				// else if (TanKey.equals("TAN_field_NewsletterMeineAbos"))
-				// commonActions.enterTokenTan(TanKey,
-				// TANGenerator.requestTan());
-				commonActions.enterNewMobileTan(TanKey, token);
-			} else {
-				commonActions.enterNewMobileTan(TanKey, token);
 			}
-
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Login failed due to reused tan");
-
 		}
-
 	}
 
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		if (commonActions.getFeatureName().equals("UC69_70_Risikoklasse")) {
-			commonActions.mouseover("logInButton");
-			commonActions.click("logInButton");
-			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
-			commonActions.enterText(PIN_Password, "PIN_Password");
-			click("Einloggen");
-			commonActions.logInfoStatus(
-					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
-			commonActions.takeSceenShot();
-		} else if (commonActions.getScenarioName().equals("Einzelkonto_KontoDepot")
-				|| commonActions.getScenarioName().equals("Einzelkonto_Tagesgeld")
-				
-) {
-			// commonActions.movetoChildWindow();
-		} else if (commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")
-				|| commonActions.getScenarioName().equals("Gemkonto_Kontodepot")
-				|| commonActions.getScenarioName().equals("Gemkonto_Tagesgeldkonto")) {
-			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
-			commonActions.enterText(PIN_Password, "PIN_Password");
-			click("Einloggen");
-			commonActions.logInfoStatus(
-					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
-			commonActions.takeSceenShot();
-		} else {
-			commonActions.launchBrowser();
-			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1"))
-				commonActions.waitForVisibilityofElement("LoginToWait");
-			else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
-				commonActions.waitForVisibilityofElement("LogintoWait_Env2");
-			}
-			commonActions.mouseover("logInButton");
-			commonActions.click("logInButton");
-			commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
-			commonActions.enterText(PIN_Password, "PIN_Password");
-			click("Einloggen");
-			commonActions.logInfoStatus(
-					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
-			commonActions.takeSceenShot();
-		}
+		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
+		commonActions.enterText(PIN_Password, "PIN_Password");
+		commonActions.click("Einloggen");
+		commonActions.logInfoStatus(
+				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+		commonActions.takeSceenShot();
 
 	}
 
 	@When("User \"(.*?)\" in \"(.*?)\" field")
-	public void user_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {
+	public void User_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {
 		try {
 			// System.out.println(check);
 			String str1 = commonActions.getValueFromJson(check);
@@ -582,51 +472,8 @@ public class GenericSteps {
 	}
 	/// New Mobile Tan generation
 
-	@When("User submits generated Mobile TAN number")
-	public void user_submits_generated_Mobile_TAN_number_in()
-
-			throws InterruptedException, ParserConfigurationException, SAXException, IOException {
-
-		// Loading property files and its values
-		Properties prop = new Properties();
-		// FileInputStream fis = new
-		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
-		FileInputStream fis = new FileInputStream(
-				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
-		prop.load(fis);
-
-		String customerId = prop.getProperty("userID");
-		String customerPin = prop.getProperty("pin");
-
-		String cafeUser = prop.getProperty("cafeUserID");
-		String cafePin = prop.getProperty("cafePin");
-
-		// Redirecting Mobile TAN
-		MobileTan mt = new MobileTan();
-		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
-
-		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		commonActions.click("MobileTAN_link_Login");
-
-		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-		System.out.println("mTAN is -" + mTAN);
-		commonActions.enterTokenTan("TAN_field_Login", mTAN);
-		// commonActions.click("BestaetigenButton");
-
-	}
-
-	@When("User open the application")
-	public void user_open_the_application() throws MalformedURLException {
-		try {
-			commonActions.launchBrowser();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-
 	@When("User selects radiobutton {string} in {string}")
-	public void user_selects_radiobutton_in(String dataKey, String locatorKey) {
+	public void User_selects_radiobutton_in(String dataKey, String locatorKey) {
 		try {
 			String str = commonActions.getValueFromJson(dataKey);
 			System.out.println("str for datakey:" + str + " " + dataKey);
@@ -654,15 +501,15 @@ public class GenericSteps {
 
 	}
 
-	@When("user clicks on {string} in {string}")
-	public void user_clicks_on_in(String locatorKey, String string) {
-		try {
-			commonActions.click(locatorKey);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	@When("user clicks on {string} in {string}")
+//	public void User_clicks_on_in(String locatorKey, String string) {
+//		try {
+//			commonActions.click(locatorKey);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 }
