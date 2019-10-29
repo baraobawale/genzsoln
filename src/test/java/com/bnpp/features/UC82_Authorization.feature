@@ -4,13 +4,11 @@ Feature: UC82_Authorization
   #Executable : Activate & Deactivate Session TAN
   # Session-TAN aktivieren & Deaktivieren
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    And User submits generated TAN number in "TAN_field_Login"
+   And User submits generated TAN number in "TAN_field_Login"    
     And User clicks on "SessionTANAktivieren_MeinKontoDepot"
     And User select in checkbox "Ja_Mir_Sind" in "JaMirSind_SessionTANAktivieren"
-    And User submits generated TAN number using "MobileTanLink_SessionTANAktivieren" on "TAN_SessionTANAktivieren"
+   And User submits generated TAN number using "MobileTanLink_SessionTANAktivieren" on "TAN_SessionTANAktivieren"
     And User clicks on "SessionTANAktivieren_SessionTANAktivieren"
     And User clicks on "CloseWindow_SessionTANAktivieren"
     And User navigates to "Mein_Konto_Depot" in "Mein_Konto_Depot"

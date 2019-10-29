@@ -5,8 +5,6 @@ Feature: UC76_77_EMailBenachrichtigungen
   Errors - E-Mail Benachrichtigungen (Fehlermeldungen)
 
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Benachrichtigungen" in "Mein_Konto_Depot"
@@ -26,8 +24,6 @@ Feature: UC76_77_EMailBenachrichtigungen
   #E-Mail Benachrichtigungen setzen und zuruecksetzen (E-mail notifications Set & Reset)
   @UC76
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Benachrichtigungen" in "Mein_Konto_Depot"

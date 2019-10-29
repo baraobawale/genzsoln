@@ -5,7 +5,7 @@ Feature: UC62_63_CFDHandel
   #Eroeffnet Depot-CFD Neues Konto
   @demotest
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
+    When User open the application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"
     And User clicks on "CFDKontoEroeffnen_CFDHandel"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_CFDKontoEroeffnen"
@@ -55,7 +55,7 @@ Feature: UC62_63_CFDHandel
   #Eroeffnet Depot-CFD Bestehendes Konto
    @demotest @CF_Handel
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
+    When User open the application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"
     And User clicks on "CFDKontoEroeffnen_CFDHandel"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_CFDKontoEroeffnen"
@@ -76,8 +76,8 @@ Feature: UC62_63_CFDHandel
     And User selects checkbox "Besondere_Merkmale_und_Risikoerklaerung" in "BesondereMerkmaleundRisikoerklaerung_AngabenZurPerson"
     And User clicks on "Weiter_AngabenZurPerson"
     And User clicks on "KontoEroeffnen_AngabenZurPerson"
-    And User submits generated TAN number using "MobileTanLink_AngabenZurPerson" on "TAN_field_AngabenZurPerson"
-		And Capture Vorgangsnummer,Message on CFDKontoEinzel
+		 And User submits generated TAN number using "MobileTanLink_AngabenZurPerson" on "TAN_field_AngabenZurPerson"
+    And Capture Vorgangsnummer,Message on CFDKontoEinzel
     Then Verify captured Vorgangsnummer,Message from CFDKontoEinzel
 
     Examples: 

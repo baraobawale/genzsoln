@@ -1,15 +1,14 @@
-@Demo300919 @UC3
+@Demo300919
+@UC3
 Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen
-  #Anlegen/Creation
+  #Anlegen/Creation  
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
-    And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
+  	 And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Dauerauftraege_UmsaetzeZahlungsverkehr"
     And User clicks on "NeuesDauerauftraegeAnlengen_UmsaetzeZahlungsverkehr"
@@ -22,7 +21,7 @@ Feature: UC3_Dauerauftraege
     And User selects checkbox "Unbegrenzt_gültig" in "UnbegrenztGultig_DauerauftrageAnlegen"
     And User selects checkbox "Als_Vorlage_speichern" in "AlsVorlageSpeichern_DauerauftrageAnlegen"
     And User enters "Vorlagenname" in "Vorlagenname_DauerauftrageAnlegen"
-    And User clicks on "WeiterZurTANEingabe_DauerauftrageAnlegen"
+     And User clicks on "WeiterZurTANEingabe_DauerauftrageAnlegen"
     And User submits generated TAN number using "MobileTanLink_DauerauftrageAnlegen" on "TAN_field_DauerauftrageAnlegen"
     And User clicks on "DauerauftraegeAnlegen_DauerauftrageAnlegen"
     And Capture entered details on DauerauftrageAnlegen
@@ -36,13 +35,12 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Anlegen |
 
   #Andern/Updation
+
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
-    And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
+   # And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Dauerauftraege_UmsaetzeZahlungsverkehr"
     And User click on "Edit_Dauerauftraege" of "Created_Dauerauftraege" in "CreatedDauerauftraege_UmsaetzeZahlungsverkehr"
@@ -57,14 +55,12 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Andern |
 
   #Loeschen/Deletion
-  @UC3
+
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
-    And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
+   # And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Dauerauftraege_UmsaetzeZahlungsverkehr"
     And User click on "Delete_Dauerauftraege" of "Created_Dauerauftraege" in "CreatedDauerauftraege_UmsaetzeZahlungsverkehr"

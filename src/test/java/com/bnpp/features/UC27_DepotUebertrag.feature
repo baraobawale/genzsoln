@@ -5,8 +5,7 @@ Feature: UC27_DepotUebertrag
   #The depot account should have open position not transfered.!!
   # Depot Uebertrag
   Scenario Outline: <TestCase>
-  Given User launches consorsbank web application
- 		And User clicks on "Login"
+   Given User launches consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "DepotUebertrag" in "Mein_Konto_Depot"
@@ -23,7 +22,7 @@ Feature: UC27_DepotUebertrag
     And User selects checkbox "Ich_habe_diesen_Hinweis_zur_Kenntnis_genommen" in "IchhabediesenHinweiszurKenntnisgenommen_Positionwaehlen"
     And User clicks on "Weiter_Positionwaehlen"
     And Capture entered details on Depotuebertrag
-   	And User submits generated TAN number using "MobileTanLink_Depotuebertrag" on "TAN_Depotuebertrag"
+    And User submits generated TAN number using "MobileTanLink_Depotuebertrag" on "TAN_Depotuebertrag"
     And User clicks on "Bestaetign_Depotuebertrag"
     Then Verify the message
     And Verify the captured details from Depotuebertrag

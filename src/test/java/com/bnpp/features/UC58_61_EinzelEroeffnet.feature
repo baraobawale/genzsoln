@@ -4,8 +4,8 @@ Feature: UC58_61_EinzelEroeffnet
   #Executable - Inhaber Einzelkonto Eroeffnet Konto Depot /Tagesgeld Einzelkonto (Single account holder opens trading account/call to money account)
   #Eroeffnet Konto Depot
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
- 		And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
+    When User open the application
+    And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
     And User clicks on "Wertpapierdepot_eroeffnen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
     And User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -31,8 +31,8 @@ Feature: UC58_61_EinzelEroeffnet
 
   #Eroeffnet Tagesgeld Einzelkonto
   Scenario Outline: <TestCase>
-     Given User launches consorsbank web application
- 		 And User navigates to "Tagesgeld" in "Sparen_Anlegen"
+    When User open an application
+    And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
     And User Logs in with "UserID_Kontonummer","PIN_Password"

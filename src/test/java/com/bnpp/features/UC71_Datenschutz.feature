@@ -1,11 +1,9 @@
-@UC71 @report
+@UC71
 Feature: UC71_Datenschutz
 
   # Datenschutz andern - Non Executable
-  Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
-    When User Logs in with "UserID_Kontonummer","PIN_Password"
+  Scenario Outline: <TestCase>  
+    And User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Mein_Datenschutz" in "Mein_Konto_Depot"
     And User selects checkbox "E-Mail_informiert" in "EMailInformiert_MeinDatenschutzAndern"

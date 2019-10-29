@@ -3,11 +3,7 @@ package com.bnpp.steps;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
-import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
 
@@ -60,12 +56,5 @@ public class UC27_DepotUebertrag {
 	public void Verify_Captured_details() {
 
 	}
-	@And("^User submits generated TAN number using \"(.*?)\" on \"(.*?)\"$")
-	public void User_Submits_generated_TAN_number_using(String mobiletanlink,String tanfield) throws InterruptedException, ClientProtocolException, IOException, ParserConfigurationException, SAXException, ParseException{
-		commonActions.clickonMobiletanLinkandEnterTan(mobiletanlink, tanfield);
-		
-	}
-			
-	
 
 }

@@ -3,12 +3,13 @@ package com.bnpp.utilities;
 public class Configurations {
 
 	//DriverPaths and Run on browser parameter
-	public static final String ExecutionEnvnmt="env2";
+	public static final String ExecutionEnvnmt="load";
 	public static final String BrowserName="Chrome";
 	public final static String chromeDriverPath = ".\\src\\test\\Resources\\Drivers\\chromedriver77.exe";
 	public final static String ieDriverPath=".\\src\\test\\Resources\\Drivers\\IEDriverServer.exe"; 
 	
 	//Application URL
+	public final static String AppurlLoad = "https://load1-de.consorsbank.de/home";
 	public final static String AppurlEnv2 = "https://int-acc-ewev-2.consorsbank.de/home";
 	public final static String AppurlEnv1 = "https://int-acc-ewev.consorsbank.de/home";
 	//Test Data source path

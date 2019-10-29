@@ -5,7 +5,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
   #Einzelkonto Anlegen
   
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
+    When User open the application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -51,7 +51,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
   #Gemeinschaftskonto Anlegen
   @NKT
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
+    When User open the application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -124,8 +124,8 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
 
   # 1 Minderjaehrigenkonto Anlegen
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 	    And User navigates to "Tagesgeld" in "Sparen_Anlegen"
+    When User open the application
+    And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
     And User selects radiobutton "Gemeinschaftskonto_eroeffnen" in "GemeinschaftskontoEroeffnen_TagesgeldkontoEroeffnen"
@@ -193,8 +193,8 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
 
   # 2 Minderjaehrigenkonto Anlegen
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User navigates to "Tagesgeld" in "Sparen_Anlegen"
+    When User open the application
+    And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
     And User selects radiobutton "Gemeinschaftskonto_eroeffnen" in "GemeinschaftskontoEroeffnen_TagesgeldkontoEroeffnen"

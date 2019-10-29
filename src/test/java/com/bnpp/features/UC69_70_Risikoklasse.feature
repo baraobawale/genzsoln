@@ -5,8 +5,7 @@ Feature: UC69_70_Risikoklasse
   # Risikoklasse/FTG Setzen Fehlermeldungen
   @UC69
   Scenario Outline: <TestCase>
- Given User launches consorsbank web application
- 		And User clicks on "Login"
+  	Given User launches consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
@@ -26,7 +25,6 @@ Feature: UC69_70_Risikoklasse
   
   Scenario Outline: <TestCase>
    Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"

@@ -5,8 +5,8 @@ Feature: UC55_57_GemKontoEroeffnet
   #Executable - Inhaber auf Gem.konto er�ffnet Konto Depot(Joint account holder opens a trading account/depot)
   #Gemeinschaftskonto depot Anlegen
   Scenario Outline: <TestCase>
-     Given User launches consorsbank web application
- 		 And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
+    When User open the application
+    And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
     And User clicks on "Wertpapierdepot_eroeffnen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
     And User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -62,8 +62,8 @@ Feature: UC55_57_GemKontoEroeffnet
   
  
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
- 	  And User navigates to "Tagesgeld" in "Sparen_Anlegen"
+    When User open the application
+    And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
     And User Logs in with "UserID_Kontonummer","PIN_Password"

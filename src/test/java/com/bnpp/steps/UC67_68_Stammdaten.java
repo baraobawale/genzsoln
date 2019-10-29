@@ -21,7 +21,7 @@ public class UC67_68_Stammdaten {
 	public void verify_error_messsages_are_displayed(String ErrorMesssages)
 			throws FileNotFoundException, IOException, ParseException {
 
-		try {
+		
 			if (commonActions.verifyErrorMessage("BrancheError").equals(commonActions.getText("Branchie_errorMessage")))
 				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("Branchie_errorMessage"));
 			else
@@ -42,11 +42,7 @@ public class UC67_68_Stammdaten {
 			else
 				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("OrtError"));
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			commonActions.logAssert_Fail("Message verification failed ");
-		}
+		
 	}
 
 	@Then("^verify changed data shown on bestaetigung page$")

@@ -408,26 +408,27 @@ public class GenericSteps {
 
 	// User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on
 	// "TAN_field_VorlageAnlegen"
-	@And("^User submits generated TAN number in \"(.*?)\"$")
-	public void user_submits_the_generated_TAN_number_in(String TanKey)
+	@And("^User submits generated TAN number using \"(.*?)\" on \"(.*?)\"$")
+	public void user_submits_the_generated_TAN_number_using(String mobileTanlink,String tanField)
 
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
 		try {
-			commonActions.clickonMobiletanLinkandEnterTan(TanKey, "MobileTAN_link_Login");
-			commonActions.click("BestaetigenButton");
-			if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
-				if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
-					if (commonActions.isElementPresent("UsedTanMessage")) {
-						commonActions.clearfield(TanKey);
-						Thread.sleep(60000);
-						commonActions.clickonMobiletanLinkandEnterTan(TanKey, "MobileTAN_link_Login");
-						commonActions.click("BestaetigenButton");
-						if (commonActions.isElementPresent("UsedTanMessage"))
-							commonActions.logAssert_Fail("Unable to login due to reused tan.");
-						commonActions.takeSceenShot();
-					}
-				}
-			}
+			//commonActions.clickonMobiletanLinkandEnterTan(mobileTanlink, tanField);
+			commonActions.enterLoadenvironmentTan(tanField,"12345678");
+//			commonActions.click("BestaetigenButton");
+//			if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
+//				if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
+//					if (commonActions.isElementPresent("UsedTanMessage")) {
+//						commonActions.clearfield(TanKey);
+//						Thread.sleep(60000);
+//						commonActions.clickonMobiletanLinkandEnterTan(TanKey, "MobileTAN_link_Login");
+//						commonActions.click("BestaetigenButton");
+//						if (commonActions.isElementPresent("UsedTanMessage"))
+//							commonActions.logAssert_Fail("Unable to login due to reused tan.");
+//						commonActions.takeSceenShot();
+//					}
+//				}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Login failed due to reused tan");
@@ -437,6 +438,9 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
+		commonActions.launchBrowser();
+		Thread.sleep(10000);
+		commonActions.click("Login");
 		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 		commonActions.enterText(PIN_Password, "PIN_Password");
 		commonActions.click("Einloggen");
@@ -511,5 +515,11 @@ public class GenericSteps {
 //		}
 //
 //	}
+	
+	@And("^User submits generated TAN number in \"(.*?)\"$")
+	public void User_submit_tan(String tankey) throws InterruptedException{
+		commonActions.enterTexttoken(tankey, "12345678");
+		commonActions.click("BestaetigenButton");
+	}
 
 }

@@ -6,8 +6,6 @@ Feature: UC_9_10_UeberweisungLimit
   #Verify Error
   
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
@@ -24,8 +22,6 @@ Feature: UC_9_10_UeberweisungLimit
 
   #Errors - Limit more than max limit
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
@@ -46,8 +42,6 @@ Feature: UC_9_10_UeberweisungLimit
   #Aendern
   @EmailSelect
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
- 		And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
@@ -57,7 +51,7 @@ Feature: UC_9_10_UeberweisungLimit
     And User selects "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
     And User clicks on "WeiterZurTanEingabe_Ueberweisungslimit"
     And User submits generated TAN number using "MobileTanLink_Ueberweisungslimit" on "TAN_field_Ueberweisungslimit"
-     And User clicks on "UeberweisungslimitAendern_Ueberweisungslimit"
+    And User clicks on "UeberweisungslimitAendern_Ueberweisungslimit"
     And Capture entered details on Ueberweisungslimit
     And Capture Message on Ueberweisungslimit
     And User clicks on "ZuDenKontoDetails_Ueberweisungslimit"

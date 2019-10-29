@@ -127,12 +127,16 @@ public class CommonActions {
 			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
 				driver.get(Configurations.AppurlEnv1);
-				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv2);
+				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv1);
 			}
 
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
 				driver.get(Configurations.AppurlEnv2);
 				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv2);
+			}
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+				driver.get(Configurations.AppurlLoad);
+				logInfoStatus("Info | Environment Name: " + Configurations.AppurlLoad);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -173,8 +177,7 @@ public class CommonActions {
 					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto2GV_Anlegen")
 					|| getScenarioName().equals("DepotEinzelkonto_Anlegen")
 					|| getScenarioName().equals("DepotGemeinschaftskonto_Anlegen")
-					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
-) {
+					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();
@@ -299,8 +302,9 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
-//			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
-//			Thread.sleep(500); 
+			// ((JavascriptExecutor)
+			// driver).executeScript("arguments[0].scrollIntoView(true);", e);
+			// Thread.sleep(500);
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -566,7 +570,8 @@ public class CommonActions {
 		js.executeScript("window.scrollBy(0,500)");
 
 	}
-	public void moveScrollUp(){
+
+	public void moveScrollUp() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,-500)");
 	}
@@ -612,6 +617,7 @@ public class CommonActions {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 	}
 
 	/**
@@ -625,8 +631,6 @@ public class CommonActions {
 		softAssertions.assertThat(false);
 		takeSceenShot();
 		throw new NoSuchFieldError();
-
-		// assertEquals(false, true);
 	}
 
 	/**
@@ -733,6 +737,21 @@ public class CommonActions {
 
 			}
 			// pair.getValue().toString());
+		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+			JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+					".\\src\\test\\java\\com\\bnpp\\TestData\\loadenvironment\\" + featurename + ".json"));
+			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+			Iterator it = getScenarioName.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				if (pair.getKey().toString().equals(dataKey)) {
+					data = pair.getValue().toString();
+					break;
+				}
+				// System.out.println(pair.getKey() + ":" +
+
+			}
 		}
 		return data;
 
@@ -759,6 +778,22 @@ public class CommonActions {
 					// pair.getValue().toString());
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						".\\src\\test\\java\\com\\bnpp\\TestData\\environment2\\" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
+				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
+				Iterator it = getmessagename.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(messageKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+					// pair.getValue().toString());
+				}
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
 						".\\src\\test\\java\\com\\bnpp\\TestData\\environment2\\" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
@@ -928,7 +963,7 @@ public class CommonActions {
 		click("MobileTAN_link_Login");
 		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
 		// System.out.println("mTAN is -" + mTAN);
-		
+
 		Thread.sleep(3000);
 		enterTan(tanKey, mTAN);
 		if (tanKey.equals("TAN_field_AngabenZurPerson")) {
@@ -964,37 +999,49 @@ public class CommonActions {
 	 * Description Count no of elements
 	 */
 	public int noofelement(String objectKey) {
-        List<WebElement> e = driver.findElements(By.xpath(properties.getProperty(objectKey)));
-        return e.size();
-	
-	}	
-	public void clickonMobiletanLinkandEnterTan(String mobiletanlink,String tanfield) throws ClientProtocolException, IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException{
-	Properties prop = new Properties();
-	// FileInputStream fis = new
-	// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
-	FileInputStream fis = new FileInputStream(
-			System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
-	prop.load(fis);
+		List<WebElement> e = driver.findElements(By.xpath(properties.getProperty(objectKey)));
+		return e.size();
 
-	String customerId = getValueFromJson("UserID_Kontonummer");
-	String customerPin = getValueFromJson("PIN_Password");
-	String cafeUser = prop.getProperty("cafeUserID");
-	String cafePin = prop.getProperty("cafePin");
-
-	// Redirecting Mobile TAN
-	MobileTan mt = new MobileTan();
-	mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
-
-	// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-	click(mobiletanlink);
-
-	String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-	System.out.println("mTAN is -" + mTAN);
-	enterTan(tanfield, mTAN);
-	pressTab();
-	if (tanfield.equals("TAN_field_AngabenZurPerson")) {
-		click("TAN_field_AngabenZurPerson_Button");
 	}
-	logInfoStatus("Info | Token used : " + mTAN);
-}
+
+	public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String tanfield) throws ClientProtocolException,
+			IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException {
+		Properties prop = new Properties();
+		// FileInputStream fis = new
+		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
+		FileInputStream fis = new FileInputStream(
+				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+		prop.load(fis);
+
+		String customerId = getValueFromJson("UserID_Kontonummer");
+		String customerPin = getValueFromJson("PIN_Password");
+		String cafeUser = prop.getProperty("cafeUserID");
+		String cafePin = prop.getProperty("cafePin");
+
+		// Redirecting Mobile TAN
+		MobileTan mt = new MobileTan();
+		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+
+		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+		click(mobiletanlink);
+
+		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+		System.out.println("mTAN is -" + mTAN);
+		enterTan(tanfield, mTAN);
+		pressTab();
+		if (tanfield.equals("TAN_field_AngabenZurPerson")) {
+			click("TAN_field_AngabenZurPerson_Button");
+		}
+		logInfoStatus("Info | Token used : " + mTAN);
+	}
+
+	public void enterTexttoken(String tankey, String string) {
+		// TODO Auto-generated method stub
+		getElement(tankey).sendKeys(string);
+	}
+
+	public void enterLoadenvironmentTan(String tanField, String string) {
+		// TODO Auto-generated method stub
+		getElement(tanField).sendKeys(string);
+	}
 }
