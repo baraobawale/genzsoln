@@ -1,7 +1,8 @@
-
 Feature: UC67_68_Stammdaten
-@UC67
+
+  @UC67
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
@@ -18,6 +19,7 @@ Feature: UC67_68_Stammdaten
       | Stammdaten_Verify_Errors |
 
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"

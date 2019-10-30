@@ -454,18 +454,6 @@ public class CommonActions {
 
 	}
 
-	public void selectDepot(String objectKey, String datakey) throws Exception {
-		Select s = new Select(getElement(objectKey));
-		String myData = getValueFromJson(datakey);
-		myData = getValueFromJson(datakey) + " (Depot)";
-		try {
-			s.selectByVisibleText(myData);
-		} catch (Exception e) {
-			logAssert_Fail("Select by visble text failed on: " + objectKey);
-		}
-
-	}
-
 	public void selectAccountType(String dataKey, String locatorKey) throws Exception, IOException, Exception {
 		Select s = new Select(getElement(locatorKey));
 		String myData = getValueFromJson(dataKey);
@@ -611,13 +599,13 @@ public class CommonActions {
 		// take screenshot and put in repots
 		// fail in cucumber as well
 		Assert.fail();
-		try {
-			throw new NoSuchFieldException();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+//		try {
+//			throw new NoSuchFieldException();
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
 	}
 
 	/**
@@ -630,7 +618,11 @@ public class CommonActions {
 		scenario.log(Status.FAIL, msg);
 		softAssertions.assertThat(false);
 		takeSceenShot();
+		try{
 		throw new NoSuchFieldError();
+		}catch(Exception e){
+		
+	}
 	}
 
 	/**

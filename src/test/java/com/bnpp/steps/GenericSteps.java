@@ -67,7 +67,7 @@ public class GenericSteps {
 
 	// ********Common step definitions ************//
 
-	@Given("^User launches consorsbank web application$")
+	@Given("^User launches Consorsbank web application$")
 	public void User_launches_consorsbank_web_application() {
 		try {
 			commonActions.launchBrowser();
@@ -327,8 +327,7 @@ public class GenericSteps {
 				// Make different functions of Select
 			} else if (dataKey.equals("Account_Type")) {
 				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
-			} else if (dataKey.equals("FromDepot_Nr")) {
-				commonActions.selectDepot(locatorKey, dataKey);
+			
 
 			} else if (dataKey.equals("Ordertyp")) {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
@@ -438,9 +437,19 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		commonActions.launchBrowser();
-		Thread.sleep(10000);
 		commonActions.click("Login");
+		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
+		commonActions.enterText(PIN_Password, "PIN_Password");
+		commonActions.click("Einloggen");
+		commonActions.logInfoStatus(
+				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+		commonActions.takeSceenShot();
+
+	}
+	
+	@And("^User is redirected to login page to login with \"(.*?)\",\"(.*?)\"$")
+	public void User_is_redirected_to_login_page(String UserID_Kontonummer, String PIN_Password)
+			throws Exception, InterruptedException, IOException, ParseException {
 		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
 		commonActions.enterText(PIN_Password, "PIN_Password");
 		commonActions.click("Einloggen");

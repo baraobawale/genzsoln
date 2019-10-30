@@ -1,11 +1,11 @@
 @Risikoklasse @report
 Feature: UC69_70_Risikoklasse
 
-#Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)
+  #Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)
   # Risikoklasse/FTG Setzen Fehlermeldungen
   @UC69
   Scenario Outline: <TestCase>
-  	Given User launches consorsbank web application
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
@@ -22,9 +22,8 @@ Feature: UC69_70_Risikoklasse
       | Risikoklasse_Verify_Errors |
 
   # Risikoklasse/FTG Setzen
-  
   Scenario Outline: <TestCase>
-   Given User launches consorsbank web application
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"

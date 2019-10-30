@@ -3,9 +3,8 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
 
   #Neukunden Tagesgeld Anlegen
   #Einzelkonto Anlegen
-  
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -51,7 +50,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
   #Gemeinschaftskonto Anlegen
   @NKT
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -124,7 +123,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
 
   # 1 Minderjaehrigenkonto Anlegen
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -193,7 +192,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
 
   # 2 Minderjaehrigenkonto Anlegen
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"

@@ -1,11 +1,10 @@
-@Demo300919
-@UC9_10 @report
+@Demo300919 @UC9_10 @report
 Feature: UC_9_10_UeberweisungLimit
 
   #Executable : Ueberweisungslimit Aendern (mit Fehlermeldungen)
   #Verify Error
-  
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
@@ -22,6 +21,7 @@ Feature: UC_9_10_UeberweisungLimit
 
   #Errors - Limit more than max limit
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
@@ -42,6 +42,7 @@ Feature: UC_9_10_UeberweisungLimit
   #Aendern
   @EmailSelect
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"

@@ -1,11 +1,9 @@
-
 Feature: UC42_43_44_NeukundenSparplan
 
   #Executable - Neukunden Sparplan Anlegen
   #Sparplan Einzelkonto Anlegen
-  
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Sparplaene" in "Sparen_Anlegen"
     And User clicks on "NeuenSparplanAnlegen_Sparplan"
     And User clicks on "DepotEroeffnen_Sparplan"
@@ -54,7 +52,7 @@ Feature: UC42_43_44_NeukundenSparplan
 
   #Gemeinschaftskonto Anlegen
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     When User navigates to "Sparplaene" in "Sparen_Anlegen"
     And User clicks on "NeuenSparplanAnlegen_Sparplan"
     And User clicks on "DepotEroeffnen_Sparplan"
@@ -132,7 +130,7 @@ Feature: UC42_43_44_NeukundenSparplan
   #Minderjaehrigenkonto_2GV Anlegen
   @UC42
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     When User navigates to "Sparplaene" in "Sparen_Anlegen"
     And User clicks on "NeuenSparplanAnlegen_Sparplan"
     And User clicks on "DepotEroeffnen_Sparplan"

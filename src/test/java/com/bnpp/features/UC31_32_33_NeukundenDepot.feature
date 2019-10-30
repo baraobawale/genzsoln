@@ -4,7 +4,7 @@ Feature: UC31_32_33_NeukundenDepot
   #Executable - Neukunden Depot Anlegen
   #Einzelkonto Anlegen
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
     And User clicks on "WertpapierdepotEroeffnen_Wertpapierdepot"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
@@ -52,7 +52,7 @@ Feature: UC31_32_33_NeukundenDepot
 
   #Gemeinschaftskonto Anlegen
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
     And User clicks on "Wertpapierdepot_eroeffnen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
@@ -128,7 +128,7 @@ Feature: UC31_32_33_NeukundenDepot
 
   #Minderjaehrigenkonto Anlegen
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
     And User clicks on "Wertpapierdepot_eroeffnen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"

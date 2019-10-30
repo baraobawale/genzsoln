@@ -56,5 +56,9 @@ public class UC27_DepotUebertrag {
 	public void Verify_Captured_details() {
 
 	}
+	@And("^User selects first option \"(.*?)\" in \"(.*?)\"$")
+	public void User_selects_first_option(String dataKey,String locatorKey) throws Exception{
+		commonActions.selectDropDownByIndex(locatorKey, "0");
+	}
 
 }

@@ -1,9 +1,9 @@
-
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create - IBAN
   @Voralge
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     Given User launches consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -31,7 +31,7 @@ Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create-KontoBLZ
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
+    Given User launches Consorsbank web application
     And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -60,7 +60,7 @@ Feature: UC5_6_7_Vorlage
 
   #Aendern/Change-IBAN/KontoBLZ
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
+    Given User launches Consorsbank web application
     And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -71,7 +71,7 @@ Feature: UC5_6_7_Vorlage
     And User click on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
     And User enters "Betrag" in "Betrag_VorlageAendern"
     And User clicks on "WeiterZurTANEingabe_VorlageAendern"
-   And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungVorlageSpeichern_VorlageAendern"
     Then Verify Message,details on VorlageAendern
 
@@ -83,7 +83,7 @@ Feature: UC5_6_7_Vorlage
   #Loeschen/Delete-IBAN/KontoBLZ
   @Delete
   Scenario Outline: <TestCase>
-    Given User launches consorsbank web application
+    Given User launches Consorsbank web application
     And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
