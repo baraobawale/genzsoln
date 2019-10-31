@@ -194,5 +194,30 @@ public class UC4_Terminueberweisungen {
 			commonActions.logAssert_Fail("Data save fail for TerminAendern");
 		}
 	}
+	@And("^User deletes existing templates on Terminueberweisungen_UmsaetzeZahlungsverkehr$")
+	public void user_delete_existing_templates_on_Terminueberweisungen_UmsaetzeZahlungsverkehr() throws InterruptedException{
+//	if (locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")) {
+//		commonActions.moveScrollDown();
+//		commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
+		if (commonActions.isElementPresent("TerminoUberWise_03")) {
+			commonActions.click("DeleteTerminoUberwise_03");
+//			String token = TANGenerator.requestTan();
+//			commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+			commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
+			commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+			commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+//			commonActions.moveScrollDown();
+		}
+		if (commonActions.isElementPresent("TerminoUberWise_04")) {
+			commonActions.click("DeleteTerminoUberwise_04");
+//			String token = TANGenerator.requestTan();
+//			commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
+			commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
+			commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+			commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+			Thread.sleep(3000);
+		}
+		commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
+	}
 
 }

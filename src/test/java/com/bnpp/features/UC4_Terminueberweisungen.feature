@@ -1,8 +1,9 @@
-@Demo300919 @UC4
+
 Feature: UC4_Terminueberweisungen
 
   #Executable - Terminueberweisungen anlegen,Andern,loeschen
   #Anlegen/Creation
+  @UC44
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -11,7 +12,8 @@ Feature: UC4_Terminueberweisungen
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Terminueberweisungen_UmsaetzeZahlungsverkehr"
-    And User clicks on "NeuesTerminueberweisungenAnlengen_UmsaetzeZahlungsverkehr"
+  	And User deletes existing templates on Terminueberweisungen_UmsaetzeZahlungsverkehr
+	  And User clicks on "NeuesTerminueberweisungenAnlengen_UmsaetzeZahlungsverkehr"
     And User enters "Name" in "Name_TerminAnlegen"
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_TerminAnlegen"
     And User enters "Betrag" in "Betrag_TerminAnlegen"

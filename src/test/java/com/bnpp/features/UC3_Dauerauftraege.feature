@@ -11,6 +11,7 @@ Feature: UC3_Dauerauftraege
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Dauerauftraege_UmsaetzeZahlungsverkehr"
+    And User deletes existing templates on Dauerauftraege_UmsaetzeZahlungsverkehr
     And User clicks on "NeuesDauerauftraegeAnlengen_UmsaetzeZahlungsverkehr"
     And User enters "Name" in "Name_DauerauftrageAnlegen"
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_DauerauftrageAnlegen"

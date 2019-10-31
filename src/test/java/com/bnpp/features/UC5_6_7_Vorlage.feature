@@ -1,16 +1,17 @@
+@UC5_6_7
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create - IBAN
   @Voralge
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
-    Given User launches consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
+    And User deletes existing templates on Vorlagen_UmsaetzeZahlungsverkehr
     And User clicks on "NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr"
     And User enters "Vorlagenname" in "Vorlagenname_VorlageAnlegen"
     And User enters "Name" in "Name_VorlageAnlegen"
@@ -32,7 +33,6 @@ Feature: UC5_6_7_Vorlage
   #Anlegen/Create-KontoBLZ
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
-    And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -61,7 +61,6 @@ Feature: UC5_6_7_Vorlage
   #Aendern/Change-IBAN/KontoBLZ
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
-    And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -81,10 +80,9 @@ Feature: UC5_6_7_Vorlage
       | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-IBAN/KontoBLZ
-  @Delete
+  @DeleteUC5
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
-    And User clicks on "Login"
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -92,8 +90,7 @@ Feature: UC5_6_7_Vorlage
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
     And User click on "Delete" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
-    And User submits generated TAN number in "TAN_field_Vorlageloeschen"
-    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_Vorlageloeschen"
+   And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_Vorlageloeschen"
     And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
     Then Verify Message on Vorlageloeschen
 

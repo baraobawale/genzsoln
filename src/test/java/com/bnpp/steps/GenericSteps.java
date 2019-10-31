@@ -118,10 +118,14 @@ public class GenericSteps {
 						&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
 					locatorKey = "Stop_OrderErteilen";
 					commonActions.enterText(locatorKey, dataKey);
-				} else {
+				}else {
 					commonActions.enterText(locatorKey, dataKey);
 					commonActions.pressTab();
 				}
+			}else if(locatorKey.equals("Datum_TerminAnlegen")) {
+				String noOfDays=commonActions.getKeyFromJson("Datum");
+				String inputDate=commonActions.enterFutureDateAddingDays(noOfDays);
+				commonActions.enterText(locatorKey,inputDate);
 			}
 
 			else
@@ -164,60 +168,17 @@ public class GenericSteps {
 			// commonActions.click("Riskocalssebutton");
 			// }
 			// }
-
-			if (locatorKey.equals("Aendern")
-					// User clicks with scroll
-					|| locatorKey.equals("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr")
-					|| locatorKey.equals("Dauerauftraege_UmsaetzeZahlungsverkehr")) {
-				commonActions.moveScrollDown();
-				commonActions.waitForVisibilityofElement(locatorKey);
-				commonActions.click(locatorKey);
-				// Add statement for delete template
-			} else if (locatorKey.equals("Vorlagen_UmsaetzeZahlungsverkehr")) {
-				commonActions.click(locatorKey);
-				commonActions.moveScrollDown();
-				if (commonActions.isElementPresent("CustomerNameIBAN")
-						&& commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")) {
-					commonActions.logInfoStatus("Vorlagename '001 DELTA BUERICZUEK' template already exists.");
-					commonActions.logInfoStatus("Deleting the template");
-					commonActions.click("DeleteIBAN");
-					String token = TANGenerator.requestTan();
-					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
-					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-					commonActions.moveScrollDown();
-					// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
-				}
-
-				if (commonActions.getScenarioName().equals("KontoBLZVorlagen_Anlegen")
-						&& commonActions.isElementPresent("CustomerNameKontoBLZ")) {
-					commonActions.logInfoStatus("Vorlagename '002 DELTA BUERICZUEK' template already exists.");
-					commonActions.logInfoStatus("Deleting the template");
-					commonActions.click("DeleteKontoBLZ");
-					String token = TANGenerator.requestTan();
-					// Use new mobile tan and rename function entertokentan
-					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
-					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-					commonActions.moveScrollDown();
-					// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
-				}
+			// Add statement for delete template
+			
 
 				// Add code to revert to vorlage template display page if
 				// not
-			} else if (locatorKey.equals("UeberweisungsvorlageAnlegen_VorlageAnlegen")) {
-				commonActions.click(locatorKey);
-				if (commonActions.isElementPresent("New_mobile_tan")) {
-					// commonActions.enterTokenTan("TAN_field_VorlageAnlegen",
-					// TANGenerator.requestTan());
-					commonActions.enterNewMobileTan("TAN_field_VorlageAnlegen", TANGenerator.requestTan());
-					commonActions.click(locatorKey);
-				}
-			} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
-				commonActions.click(locatorKey);
-				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
-				commonActions.moveScrollDown();
-			} else if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
+			
+//			if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
+//				commonActions.click(locatorKey);
+//				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
+//			//	commonActions.moveScrollDown();
+			 if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
 				commonActions.click(locatorKey);
 				commonActions.pressTab();
 			} else if (locatorKey.equals("Bestaetigen_Benachrichtigungen")) {
@@ -228,7 +189,7 @@ public class GenericSteps {
 			} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
 				commonActions.click(locatorKey);
 				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
-				commonActions.moveScrollDown();
+				//commonActions.moveScrollDown();
 				// Check for select drop down
 			} else if (locatorKey.equals("Handelsplatz_Tradegate")
 					&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Anleihe")) {
@@ -241,26 +202,7 @@ public class GenericSteps {
 				Thread.sleep(5000);
 				commonActions.refreshPage();
 				Thread.sleep(5000);
-			} else if (locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")) {
-				commonActions.moveScrollDown();
-				commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
-				if (commonActions.isElementPresent("TerminoUberWise_03")) {
-					commonActions.click("DeleteTerminoUberwise_03");
-					String token = TANGenerator.requestTan();
-					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
-					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-					commonActions.moveScrollDown();
-				}
-				if (commonActions.isElementPresent("TerminoUberWise_04")) {
-					commonActions.click("DeleteTerminoUberwise_04");
-					String token = TANGenerator.requestTan();
-					commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
-					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-					Thread.sleep(3000);
-				}
-				commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
+			
 			} else if (locatorKey.equals("WeiterTANEingabe_OrderErteilen")) {
 				Thread.sleep(10000);
 				commonActions.click(locatorKey);

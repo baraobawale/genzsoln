@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -177,7 +179,10 @@ public class CommonActions {
 					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto2GV_Anlegen")
 					|| getScenarioName().equals("DepotEinzelkonto_Anlegen")
 					|| getScenarioName().equals("DepotGemeinschaftskonto_Anlegen")
-					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")) {
+					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
+                    || getScenarioName().equals("GVDepotBestehendesKind_Anlegen")
+                    || getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen"))  
+ {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();
@@ -305,6 +310,8 @@ public class CommonActions {
 			// ((JavascriptExecutor)
 			// driver).executeScript("arguments[0].scrollIntoView(true);", e);
 			// Thread.sleep(500);
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+			Thread.sleep(1000); 
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -555,7 +562,7 @@ public class CommonActions {
 	public void moveScrollDown() {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,500)");
+		js.executeScript("window.scrollBy(0,250)");
 
 	}
 
@@ -1035,5 +1042,18 @@ public class CommonActions {
 	public void enterLoadenvironmentTan(String tanField, String string) {
 		// TODO Auto-generated method stub
 		getElement(tanField).sendKeys(string);
+	}
+	public String enterFutureDateAddingDays(String noofDaysToAdd) throws java.text.ParseException, ParseException{
+		String oldDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date()).toString();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		Calendar c = Calendar.getInstance();
+		c.setTime(sdf.parse(oldDate));
+		   //Number of Days to add
+		c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(noofDaysToAdd));  
+		//Date after adding the days to the given date
+		String newDate = sdf.format(c.getTime());  
+		//Displaying the new Date after addition of Days
+		System.out.println(newDate);
+		return newDate;
 	}
 }

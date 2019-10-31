@@ -205,4 +205,8 @@ public class UC3_Dauerauftraege {
 		}
 
 	}
+	@And("^User deletes existing templates on Dauerauftraege_UmsaetzeZahlungsverkehr$")
+	public void user_delete_existing_templates_on_Dauerauftraege_UmsaetzeZahlungsverkehr(){
+		
+	}
 }
