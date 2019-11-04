@@ -12,7 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
-
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import org.xml.sax.SAXException;
@@ -370,9 +370,9 @@ public class GenericSteps {
 //					}
 //				}
 //			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Login failed due to reused tan");
+			commonActions.logAssert_Fail("Enter tan failed");
 		}
 	}
 
@@ -468,9 +468,12 @@ public class GenericSteps {
 //	}
 	
 	@And("^User submits generated TAN number in \"(.*?)\"$")
-	public void User_submit_tan(String tankey) throws InterruptedException{
+	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException{
 		commonActions.enterTexttoken(tankey, "12345678");
 		commonActions.click("BestaetigenButton");
 	}
+	
+		
+	}
 
-}
+
