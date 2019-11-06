@@ -80,7 +80,7 @@ public class UC4_Terminueberweisungen {
 		commonActions.moveScrollDown();
 		try {
 			String txtVerify1 = commonActions.getAttribute("VerifyName", "innerHTML");
-			String txtVerify2 = commonActions.getAttribute("VerifyAusfuehrung_AmTerm", "innerText");
+			String txtVerify2 = commonActions.getText("VerifyAusfuehrung_AmTerm");
 
 			System.out.println("Verify txtVerify1:" + txtVerify1);
 			System.out.println("Verify JSON NAME." + commonActions.getValueFromJson("Name"));
@@ -93,6 +93,12 @@ public class UC4_Terminueberweisungen {
 			} else {
 				commonActions
 						.logFailStatus("Fail | Valid name display failed - " + commonActions.getValueFromJson("Name"));
+			}
+			if (txtVerify2.equals(CapturedDatum)) {
+				commonActions.logPassStatus("Pass | Valid Date displayed - " + txtVerify2);
+			} else {
+				commonActions
+						.logFailStatus("Fail | Valid Date display failed - " + txtVerify2);
 			}
 
 		} catch (Exception e) {
@@ -123,7 +129,7 @@ public class UC4_Terminueberweisungen {
 			} else {
 				commonActions.logFailStatus("Fail | Valid Betrag display failed - " + CapturedBetrag);
 			}
-			if (CapturedDatum.equals(commonActions.getValueFromJson("Datum"))) {
+			if (CapturedDatum.equals(commonActions.getText("VerifyAusfuehrung_AmTerm"))) {
 				commonActions.logPassStatus("Pass | Valid Datum displayed - " + CapturedDatum);
 			} else {
 				commonActions.logFailStatus("Fail | Valid Datum display failed - " + CapturedDatum);
@@ -194,30 +200,38 @@ public class UC4_Terminueberweisungen {
 			commonActions.logAssert_Fail("Data save fail for TerminAendern");
 		}
 	}
-	@And("^User deletes existing templates on Terminueberweisungen_UmsaetzeZahlungsverkehr$")
-	public void user_delete_existing_templates_on_Terminueberweisungen_UmsaetzeZahlungsverkehr() throws InterruptedException{
-//	if (locatorKey.equals("Terminueberweisungen_UmsaetzeZahlungsverkehr")) {
-//		commonActions.moveScrollDown();
-//		commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
-		if (commonActions.isElementPresent("TerminoUberWise_03")) {
-			commonActions.click("DeleteTerminoUberwise_03");
-//			String token = TANGenerator.requestTan();
-//			commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-			commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
-			commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
-			commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-//			commonActions.moveScrollDown();
-		}
+	@And("^User clicks on NeuesTerminueberweisungenAnlengen_UmsaetzeZahlungsverkehr to create template$")
+	public void user_delete_existing_templates_on_Terminueberweisungen_UmsaetzeZahlungsverkehr()
+			throws InterruptedException {
 		if (commonActions.isElementPresent("TerminoUberWise_04")) {
 			commonActions.click("DeleteTerminoUberwise_04");
-//			String token = TANGenerator.requestTan();
-//			commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen", token);
-			commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
+			// String token = TANGenerator.requestTan();
+			// commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen",
+			// token);
+			commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen", "12345678");
 			commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 			commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-			Thread.sleep(3000);
+			commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
+			if(commonActions.isElementPresent("TerminoUberWise_04OnVorlagen")){
+				commonActions.click("TerminoUberWise_04OnVorlagenDelete");
+				commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
+				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+				commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+				Thread.sleep(5000);
+				commonActions.moveScrollDown();
+				commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
+			}
+			Thread.sleep(5000);
+			commonActions.moveScrollDown();
+			
 		}
 		commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
+		commonActions.click("NeuesTerminueberweisungenAnlengen_UmsaetzeZahlungsverkehr");
 	}
-
+	@And("^User enters future date in Datum_TerminAnlegen$")
+	public void user_selects_future_date() throws InterruptedException{
+		commonActions.click("Datum_TerminAnlegen");
+		commonActions.click("Future_date_Datum_TerminAnlegen");
+		Thread.sleep(2000);
+	}
 }

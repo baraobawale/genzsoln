@@ -122,13 +122,7 @@ public class GenericSteps {
 					commonActions.enterText(locatorKey, dataKey);
 					commonActions.pressTab();
 				}
-			}else if(locatorKey.equals("Datum_TerminAnlegen")) {
-				String noOfDays=commonActions.getKeyFromJson("Datum");
-				String inputDate=commonActions.enterFutureDateAddingDays(noOfDays);
-				commonActions.enterText(locatorKey,inputDate);
-			}
-
-			else
+			}	else
 				commonActions.enterText(locatorKey, dataKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
