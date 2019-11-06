@@ -706,7 +706,7 @@ public class CommonActions {
 		JSONParser parser = new JSONParser();
 		if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\environment1\\" + featurename + ".json"));
+					new FileReader(".\\src\\test\\java\\com\\bnpp\\testData\\intacc1\\" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -722,7 +722,7 @@ public class CommonActions {
 
 		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\environment2\\" + featurename + ".json"));
+					new FileReader(".\\src\\test\\java\\com\\bnpp\\testData\\intacc2\\" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -738,7 +738,7 @@ public class CommonActions {
 			// pair.getValue().toString());
 		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-					".\\src\\test\\java\\com\\bnpp\\TestData\\loadenvironment\\" + featurename + ".json"));
+					".\\src\\test\\java\\com\\bnpp\\testData\\loadenvironment\\" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -762,7 +762,7 @@ public class CommonActions {
 			JSONParser parser = new JSONParser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						".\\src\\test\\java\\com\\bnpp\\TestData\\environment1\\" + featurename + ".json"));
+						".\\src\\test\\java\\com\\bnpp\\testData\\intacc1\\" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -778,7 +778,7 @@ public class CommonActions {
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						".\\src\\test\\java\\com\\bnpp\\TestData\\environment2\\" + featurename + ".json"));
+						".\\src\\test\\java\\com\\bnpp\\testData\\intacc2\\" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -794,7 +794,7 @@ public class CommonActions {
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						".\\src\\test\\java\\com\\bnpp\\TestData\\environment2\\" + featurename + ".json"));
+						".\\src\\test\\java\\com\\bnpp\\testData\\loadenvironment\\" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
