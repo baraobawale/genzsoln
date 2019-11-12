@@ -216,6 +216,7 @@ public class UC3_Dauerauftraege {
 			commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
 			commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 			commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+		}
 			commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
 			if(commonActions.isElementPresent("Dauerauftraege_03OnVorlagen")){
 				commonActions.click("Dauerauftraege_03OnVorlagenDelete");
@@ -227,7 +228,6 @@ public class UC3_Dauerauftraege {
 			}
 			Thread.sleep(5000);
 			commonActions.moveScrollDown();
-		}
 		commonActions.click("NeuesDauerauftraegeAnlengen_UmsaetzeZahlungsverkehr");
 	}
 	@And("^User selects future date in Startdatum_DauerauftrageAnlegen$")

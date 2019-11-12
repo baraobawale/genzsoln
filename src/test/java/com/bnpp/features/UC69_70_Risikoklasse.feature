@@ -1,4 +1,4 @@
-@Risikoklasse @report
+
 Feature: UC69_70_Risikoklasse
 
   #Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)

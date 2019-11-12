@@ -1,3 +1,4 @@
+@TradeKauf
 Feature: UC17_18_19_20_21_TradingKauf
 
   #Executable - Aktie,Fonds,Anleihe - Anlegen, Aendern, loeschen (Zertifikat & Optionsschein Data pending)

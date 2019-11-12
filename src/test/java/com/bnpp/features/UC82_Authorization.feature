@@ -1,4 +1,4 @@
-@Demo14.10.2019 @UC_82
+
 Feature: UC82_Authorization
 
   #Executable : Activate & Deactivate Session TAN

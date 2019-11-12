@@ -35,9 +35,9 @@
 		},
 		"Einzelkonto_DepotCFD_BestehendesKonto": {
 			"Kunde_bei_der_Consorsbank": "Ja",
-			"UserID_Kontonummer": "880551009",
+			"UserID_Kontonummer": "880804000",
 			"PIN_Password": "12345",
-			"Depot": "Depot | 888551001",
+			"Depot": "Depot | 888804002",
 			"USA_Steuerpflichtig": "Nein",
 			"Ansaessigkeit_ausserhalb_Deutschlands_USA": "Nein",
 			"EMail":"echo.burger@test.de",

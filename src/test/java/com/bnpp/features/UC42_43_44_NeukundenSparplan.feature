@@ -1,7 +1,9 @@
+
 Feature: UC42_43_44_NeukundenSparplan
 
   #Executable - Neukunden Sparplan Anlegen
   #Sparplan Einzelkonto Anlegen
+  @radio
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Sparplaene" in "Sparen_Anlegen"

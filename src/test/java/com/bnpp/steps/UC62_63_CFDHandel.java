@@ -55,6 +55,12 @@ public class UC62_63_CFDHandel {
 //			commonActions.logAssert_Fail("text not found");
 		}
 	}
+	
+	@And("User submits generated TAN number using MobileTanLink_AngabenZurPerson on TAN_field_AngabenZurPerson$")
+	public void Submit_TAN_for_CFHandle() throws InterruptedException{
+		commonActions.enterLoadenvironmentTan("TAN_field_AngabenZurPerson", "12345678");
+		commonActions.click("BestigenCFHandle");
+	}
 
 
 }

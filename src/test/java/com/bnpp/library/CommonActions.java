@@ -738,7 +738,7 @@ public class CommonActions {
 			// pair.getValue().toString());
 		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-					".\\src\\test\\java\\com\\bnpp\\testData\\loadenvironment\\" + featurename + ".json"));
+					".\\src\\test\\java\\com\\bnpp\\testData\\load\\" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -794,7 +794,7 @@ public class CommonActions {
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						".\\src\\test\\java\\com\\bnpp\\testData\\loadenvironment\\" + featurename + ".json"));
+						".\\src\\test\\java\\com\\bnpp\\testData\\load\\" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -866,24 +866,6 @@ public class CommonActions {
 	public String getFeatureName() {
 		return featurename;
 	}
-
-	// public void deleteExistingTemplates(String DeleteTemplates) throws
-	// Exception {
-	// List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));
-	// try {
-	// if (isElementPresent(DeleteTemplates)) {
-	// for (int i = 0; i < ele.size(); i++) {
-	// click(DeleteTemplates);
-	// enterTokenTan("Mobile_TAN_field_Bhavini", TANGenerator.requestTan());
-	// click("Delete_confirmation");
-	// System.out.println("Deleting element" + ele.get(0));
-	// }
-	// }
-	// } catch (Exception e) {
-	// // TODO Auto-generated catch block
-	// System.out.println("All existing templates cleared");
-	// }
-	// }
 
 	public void clearCheckBox(String objectKey) {
 		WebElement e;

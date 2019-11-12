@@ -1,4 +1,4 @@
-@Demo300919 @report
+@UC_82
 Feature: UC62_63_CFDHandel
 
   #Executable : Inhaber Einzelkonto Eroeffnet Depot-CFD  (Neues/BestehendesKonto)
@@ -76,7 +76,7 @@ Feature: UC62_63_CFDHandel
     And User selects checkbox "Besondere_Merkmale_und_Risikoerklaerung" in "BesondereMerkmaleundRisikoerklaerung_AngabenZurPerson"
     And User clicks on "Weiter_AngabenZurPerson"
     And User clicks on "KontoEroeffnen_AngabenZurPerson"
-    And User submits generated TAN number using "MobileTanLink_AngabenZurPerson" on "TAN_field_AngabenZurPerson"
+    And User submits generated TAN number using MobileTanLink_AngabenZurPerson on TAN_field_AngabenZurPerson
     And Capture Vorgangsnummer,Message on CFDKontoEinzel
     Then Verify captured Vorgangsnummer,Message from CFDKontoEinzel
 

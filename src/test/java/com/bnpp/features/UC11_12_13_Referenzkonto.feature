@@ -26,7 +26,6 @@ Feature: UC11_12_13_Referenzkonto
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
-    #And User submits generated Mobile TAN number
     And User navigates to "Referenz_konton" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_ReferenzKonton"
     And User clicks on "NeuesReferenzKontonAnlengen_ReferenzKonton"

@@ -1,4 +1,4 @@
-@report
+
 Feature: UC78_79_Aboservice
 
   #Executable : Aboservice setzen und zuruecksetzen(mit Fehlermeldungen)

@@ -1,4 +1,4 @@
-@Demo300919 @report
+
 Feature: UC76_77_EMailBenachrichtigungen
   
   Executable - E-Mail Benachrichtigungen setzen (mit Fehlermeldungen)

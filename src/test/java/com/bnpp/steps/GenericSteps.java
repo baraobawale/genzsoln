@@ -148,30 +148,7 @@ public class GenericSteps {
 	@And("^User clicks on \"(.*)\"$")
 	public void User_clicks_on(String locatorKey) throws InterruptedException, Exception, IOException {
 		try {
-			// if
-			// ((commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")
-			// && locatorKey.equals("Handelsplatz_OrderErteilen"))
-			// ||
-			// (commonActions.getScenarioName().equals("KaufOrder_Anendern_Aktie")
-			// && locatorKey.equals("Limithandel_OrderErteilen"))
-			// ||
-			// (commonActions.getScenarioName().equals("KaufOrder_Anlegen_Fonds1")
-			// && locatorKey.equals("Handelsplatz_OrderErteilen"))) {
-			// if (commonActions.isElementPresent("RiskoclassePopup")) {
-			// commonActions.click("Riskocheckbox");
-			// commonActions.click("Riskocalssebutton");
-			// }
-			// }
-			// Add statement for delete template
-			
-
-				// Add code to revert to vorlage template display page if
-				// not
-			
-//			if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
-//				commonActions.click(locatorKey);
-//				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
-//			//	commonActions.moveScrollDown();
+		
 			 if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
 				commonActions.click(locatorKey);
 				commonActions.pressTab();
@@ -224,122 +201,6 @@ public class GenericSteps {
 
 	}
 
-	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
-	public void User_selects(String dataKey, String locatorKey) throws Exception {
-		try {
-			if (locatorKey.equals("Handelsplatz_OrderErteilen")
-					&& commonActions.getFeatureName().equals("UC82_Authorization")) {
-				if (commonActions.isElementPresent("RiskoclassePopup")) {
-					commonActions.click("Riskocheckbox");
-					commonActions.click("Riskocalssebutton");
-				}
-			}
-			if (dataKey.equals("Hinweis_gelesen") || dataKey.equals("Kenntnisse_vorhanden")
-					|| dataKey.equals("Wertpapierkaeufe") || dataKey.equals("Orderart")) {
-
-				String str1 = commonActions.getValueFromJson(dataKey);
-				commonActions.clearCheckBox(locatorKey);
-				if (str1.equalsIgnoreCase("Null")) {
-					// System.out.println("checkbox is unchecked");
-				} else {
-					commonActions.click(locatorKey);
-				}
-			} else if (dataKey.equals("Name_WKN_ISIN")) {
-				commonActions.enterText(locatorKey, dataKey);
-				Thread.sleep(3000);
-				commonActions.click("NameWKN");
-			} else if (dataKey.equals("Ich_bestaetige")) {
-				String str1 = commonActions.getValueFromJson(dataKey);
-				commonActions.clearCheckBox(locatorKey);
-				if (str1.equals("null")) {
-					// System.out.println("checkbox is unchecked");
-				} else {
-					commonActions.click(locatorKey);
-				}
-			} else if (dataKey.equals("Handelsplatz")) {
-				commonActions.click("Handelsplatz_OrderErteilen_1");
-				Thread.sleep(2000);
-				commonActions.click("Handelsplatz_OrderErteilen_2");
-				// Make different functions of Select
-			} else if (dataKey.equals("Account_Type")) {
-				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
-			
-
-			} else if (dataKey.equals("Ordertyp")) {
-				commonActions.selectFromDropDown(locatorKey, dataKey);
-			} else if (dataKey.equals("Beruf_1")) {
-				commonActions.selectFromDropDown(locatorKey, dataKey);
-			} else if (dataKey.equals("Branche_1")) {
-				commonActions.selectFromDropDown(locatorKey, dataKey);
-
-			} else {
-				commonActions.selectFromDropDown(locatorKey, dataKey);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@And("User selects checkbox {string} in {string}")
-	public void User_selects_checkbox(String dataKey, String locatorKey)
-			throws FileNotFoundException, IOException, ParseException, InterruptedException {
-
-		try {
-			if (commonActions.getFeatureName().equals("UC3_Dauerauftraege")) {
-				if (locatorKey.equals("Unbegrenzt_gültig")) {
-					// commonActions.click(locatorKey);
-				}
-
-				String str1 = commonActions.getValueFromJson(dataKey);
-				if (str1.equals("select") && dataKey.equals("Als_Vorlage_speichern")) {
-					commonActions.click(locatorKey);
-				}
-			} else if (commonActions.getFeatureName().equals("UC76_77_EMailBenachrichtigungen")) {
-				String str1 = commonActions.getValueFromJson(dataKey);
-				System.out.println("Value of str1   " + str1);
-
-				if (str1.equals("Check")) {
-					commonActions.clearRadioButton(locatorKey);
-					commonActions.click(locatorKey);
-				} else {
-					commonActions.clearRadioButton(locatorKey);
-				}
-			} else if (dataKey.equals("Mit_sehr_hohem_Risiko")
-					&& commonActions.getScenarioName().equals("Einzelkonto_DepotCFD_BestehendesKonto")) {
-				commonActions.click(locatorKey);
-				commonActions.click(locatorKey);
-			} else if (commonActions.getFeatureName().equals("UC71_Datenschutz")) {
-				String str1 = commonActions.getValueFromJson(dataKey);
-				commonActions.clearCheckBox(locatorKey);
-				if (str1.equals("null")) {
-					// System.out.println("checkbox is unchecked");
-				} else {
-					commonActions.click(locatorKey);
-				}
-			} else if (commonActions.getFeatureName().equals("UC78_79_Aboservice")) {
-				String str1 = commonActions.getValueFromJson(dataKey);
-				System.out.println("Value of str1   " + str1);
-
-				if (str1.equals("Null")) {
-
-				} else if (str1.equals("Select")) {
-					commonActions.click(locatorKey);
-
-				} else {
-					commonActions.click(locatorKey);
-				}
-			}
-
-			else
-				commonActions.click(locatorKey);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			commonActions.logAssert_Fail("Clicking failed on: " + locatorKey);
-		}
-
-	}
 
 	// User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on
 	// "TAN_field_VorlageAnlegen"
@@ -414,13 +275,6 @@ public class GenericSteps {
 
 	}
 
-	@Then("{string} is present")
-	public void is_present(String objectKey) {
-		commonActions.getElement(objectKey);
-
-	}
-	/// New Mobile Tan generation
-
 	@When("User selects radiobutton {string} in {string}")
 	public void User_selects_radiobutton_in(String dataKey, String locatorKey) {
 		try {
@@ -450,19 +304,39 @@ public class GenericSteps {
 
 	}
 
-//	@When("user clicks on {string} in {string}")
-//	public void User_clicks_on_in(String locatorKey, String string) {
-//		try {
-//			commonActions.click(locatorKey);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	}
-	
+	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
+	public void User_selects(String dataKey, String locatorKey) throws Exception {
+		try {
+		    if (dataKey.equals("Account_Type")) {
+				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
+			} else {
+				commonActions.selectFromDropDown(locatorKey, dataKey);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@And("User selects checkbox {string} in {string}")
+	public void User_selects_checkbox(String dataKey, String locatorKey)
+			throws FileNotFoundException, IOException, ParseException, InterruptedException {
+		try {
+				String str = commonActions.getValueFromJson(dataKey);
+				System.out.println("Value of str " + str);
+				commonActions.clearRadioButton(locatorKey);
+				if (str.equals("Check") || str.equalsIgnoreCase("Select")) {
+					commonActions.click(locatorKey);
+				} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Clicking failed on: " + locatorKey);
+		}
+
+	}
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException{
+		commonActions.click("SecurePlusLink");
 		commonActions.enterTexttoken(tankey, "12345678");
 		commonActions.click("BestaetigenButton");
 	}
