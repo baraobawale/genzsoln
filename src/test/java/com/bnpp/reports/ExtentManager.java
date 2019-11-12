@@ -6,6 +6,7 @@ import java.util.Date;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.bnpp.utilities.Configurations;
 
 public class ExtentManager {
     
@@ -16,14 +17,19 @@ public class ExtentManager {
                 if (extent == null){
                                 // generate report folder
                                 String fileName="Report.html";
+                                String folderName;
                                 Date d = new Date();
-                                String folderName=d.toString().replace(":", "_");
-                                
+                                if ((Configurations.RunOnBrowserStack).equals("Y")) {
+                                	folderName=d.toString().replace(":", "_")+"_"+System.getProperty("browser");
+                                }
+                                else {
+                                    folderName=d.toString().replace(":", "_")+"_chrome";
+                					}
                                 // directory of the report folder
-                                new File(reportPath+folderName+"//screenshots").mkdirs();
+                                new File(reportPath+folderName+"/screenshots").mkdirs();
                                 
-                                reportPath=reportPath+folderName+"//";
-                                screenshotFolderPath=reportPath+"screenshots//";
+                                reportPath=reportPath+folderName+"/";
+                                screenshotFolderPath=reportPath+"screenshots/";
                                 //System.out.println(reportPath+fileName);
                                 createInstance(reportPath+fileName);
                 }

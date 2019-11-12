@@ -77,7 +77,7 @@ public class CommonActions {
 			try {
 				properties = new Properties();
 				fis = new FileInputStream(
-						System.getProperty("user.dir") + "\\src\\test\\resources\\ObjectRepository\\Object.properties");
+						System.getProperty("user.dir") + "/src/test/resources/ObjectRepository/Object.properties");
 				properties.load(fis);
 				softAssertions = new SoftAssertions();
 			} catch (Exception e) {
@@ -95,29 +95,10 @@ public class CommonActions {
 	public void launchBrowser() throws MalformedURLException {
 		try {
 			if ((Configurations.RunOnBrowserStack).equals("Y")) {
-				DesiredCapabilities caps = new DesiredCapabilities();
-				System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
-				System.getProperties().put("https.proxyPort", "8080");
-				caps.setCapability("browser", "Chrome");
-				caps.setCapability("browser_version", "75.0");
-				caps.setCapability("os", "Windows");
-				caps.setCapability("os_version", "10");
-				caps.setCapability("resolution", "1024x768");
-				caps.setCapability("name", "BNPP 25.09 UC69_70_Risikoklasse");
-				caps.setCapability("browserstack.local", "true");
-				System.out.println(Configurations.URL_BS);
-				driver = new RemoteWebDriver(new URL(Configurations.URL_BS), caps);
+				setUp();
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
 					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath);
-					// String browser_version = null;
-					// Capabilities cap = ((RemoteWebDriver)
-					// driver).getCapabilities();
-					// String browsername = cap.getBrowserName();
-					// String browserName = cap.getBrowserName();
-					// String browserVersion = cap.getVersion();
-					// System.out.println(browserName+" "+browserVersion);
-					//
 					driver = new ChromeDriver(loadChromeOptions());
 					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
@@ -126,7 +107,7 @@ public class CommonActions {
 				}
 			}
 			driver.manage().window().maximize();
-			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
 				driver.get(Configurations.AppurlEnv1);
 				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv1);
@@ -646,7 +627,7 @@ public class CommonActions {
 
 				// get the dynamic folder name
 				FileUtils.copyFile(srcFile, new File(ExtentManager.screenshotFolderPath + screenshotFile));
-				String PathofScreenShot = System.getProperty("user.dir") + "\\" + ExtentManager.screenshotFolderPath
+				String PathofScreenShot = System.getProperty("user.dir") + "/" + ExtentManager.screenshotFolderPath
 						+ screenshotFile;
 				// put screenshot file in reports
 				scenario.info("Screenshot", MediaEntityBuilder.createScreenCaptureFromPath(PathofScreenShot).build());
@@ -706,7 +687,7 @@ public class CommonActions {
 		JSONParser parser = new JSONParser();
 		if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader(".\\src\\test\\java\\com\\bnpp\\testData\\intacc1\\" + featurename + ".json"));
+					new FileReader("./src/test/java/com/bnpp/testdata/environment1/" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -722,7 +703,7 @@ public class CommonActions {
 
 		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader(".\\src\\test\\java\\com\\bnpp\\testData\\intacc2\\" + featurename + ".json"));
+					new FileReader("./src/test/java/com/bnpp/testdata/environment2/" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -738,7 +719,7 @@ public class CommonActions {
 			// pair.getValue().toString());
 		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-					".\\src\\test\\java\\com\\bnpp\\testData\\load\\" + featurename + ".json"));
+					"./src/test/java/com/bnpp/testdata/loadenvironment/" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -762,7 +743,7 @@ public class CommonActions {
 			JSONParser parser = new JSONParser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						".\\src\\test\\java\\com\\bnpp\\testData\\intacc1\\" + featurename + ".json"));
+						"./src/test/java/com/bnpp/testdata/environment1/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -778,7 +759,7 @@ public class CommonActions {
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						".\\src\\test\\java\\com\\bnpp\\testData\\intacc2\\" + featurename + ".json"));
+						"./src/test/java/com/bnpp/testdata/environment2/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -794,7 +775,7 @@ public class CommonActions {
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						".\\src\\test\\java\\com\\bnpp\\testData\\load\\" + featurename + ".json"));
+						"./src/test/java/com/bnpp/testdata/environment2/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -928,7 +909,7 @@ public class CommonActions {
 		// FileInputStream fis = new
 		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
 		FileInputStream fis = new FileInputStream(
-				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+				System.getProperty("user.dir") + "/src/test/java/com/bnpp/mTANResources/data.properties");
 		prop.load(fis);
 		// String customerId = prop.getProperty("userID");
 		String customerId = getValueFromJson("UserID_Kontonummer");
@@ -1038,4 +1019,59 @@ public class CommonActions {
 		System.out.println(newDate);
 		return newDate;
 	}
+	
+	 public void setUp() throws Exception {
+	    	
+	        DesiredCapabilities capabilities = new DesiredCapabilities();
+
+	        System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
+	        System.getProperties().put("https.proxyPort", "8080");
+	        System.out.println(System.getProperty("browser"));
+	        if(System.getProperty("browser").equals("chrome")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","75.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	        else if(System.getProperty("browser").equals("firefox")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","69.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	        else if(System.getProperty("browser").equals("safari")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","7.1");
+	        	capabilities.setCapability("os", "OS X");
+	        	capabilities.setCapability("os_version", "Mavericks");
+	        }
+	        else if(System.getProperty("browser").equals("IE")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","11.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	     
+	        Thread.sleep(2000);
+	        String username = "chetana19";
+	        String accessKey = "5tW8jrFVdPxbpgUSvssc";
+
+//	        if(capabilities.getCapability("browserstack.local") != null && capabilities.getCapability("browserstack.local") == "true"){
+//	            l = new Local();
+//	            Map<String, String> options = new HashMap<String, String>();
+//	            options.put("key", accessKey);
+//	            l.start(options);
+//	        }
+	        capabilities.setCapability("browserstack.local", "true");
+	        capabilities.setCapability("name", getScenarioName());
+	        capabilities.setCapability("acceptSslCerts", "true");
+	        capabilities.setCapability("browserstack.debug","true");
+
+	        driver = new RemoteWebDriver(new URL("https://"+username+":"+accessKey+"@hub.browserstack.com/wd/hub"), capabilities);
+	    }    
+
+	    @After
+	    public void tearDown() throws Exception {
+	        driver.quit();
+	    }
 }

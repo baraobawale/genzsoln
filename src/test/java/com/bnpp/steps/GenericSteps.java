@@ -51,7 +51,10 @@ public class GenericSteps {
 	 */
 	@Before
 	public void before(Scenario s) throws Exception {
-		commonActions.initReports(s.getName());
+		if ((Configurations.RunOnBrowserStack).equals("Y")) {
+			commonActions.initReports(s.getName()+"_"+System.getProperty("browser"));
+		}
+		commonActions.initReports(s.getName()+"_"+"chrome");
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
 
 	}
