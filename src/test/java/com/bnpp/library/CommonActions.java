@@ -1069,9 +1069,4 @@ public class CommonActions {
 
 	        driver = new RemoteWebDriver(new URL("https://"+username+":"+accessKey+"@hub.browserstack.com/wd/hub"), capabilities);
 	    }    
-
-	    @After
-	    public void tearDown() throws Exception {
-	        driver.quit();
-	    }
 }
