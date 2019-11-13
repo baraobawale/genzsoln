@@ -98,7 +98,7 @@ public class CommonActions {
 				setUp();
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
-					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath);
+					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath77);
 					driver = new ChromeDriver(loadChromeOptions());
 					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
@@ -108,12 +108,12 @@ public class CommonActions {
 			}
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
 				driver.get(Configurations.AppurlEnv1);
 				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv1);
 			}
 
-			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
 				driver.get(Configurations.AppurlEnv2);
 				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv2);
 			}
@@ -161,9 +161,8 @@ public class CommonActions {
 					|| getScenarioName().equals("DepotEinzelkonto_Anlegen")
 					|| getScenarioName().equals("DepotGemeinschaftskonto_Anlegen")
 					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
-                    || getScenarioName().equals("GVDepotBestehendesKind_Anlegen")
-                    || getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen"))  
- {
+					|| getScenarioName().equals("GVDepotBestehendesKind_Anlegen")
+					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();
@@ -177,6 +176,7 @@ public class CommonActions {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		return ops;
 	}
@@ -191,7 +191,7 @@ public class CommonActions {
 			getElement(objectKey).sendKeys(datakey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 
 		}
 	}
@@ -222,7 +222,7 @@ public class CommonActions {
 			// scenario.debug(Configurations.downloadPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -233,15 +233,20 @@ public class CommonActions {
 	 *             Description Common action select from combo box by value text
 	 */
 	public void selectFromDropDownByValue(String objectKey, String datakey) throws Exception {
-		Select s = new Select(getElement(objectKey));
-		String myData = getValueFromJson(datakey);
-		if (datakey.equals("Account_Type")) {
-			myData = getValueFromJson("UserID_Kontonummer");
-		}
 		try {
-			s.selectByValue(myData);
+			Select s = new Select(getElement(objectKey));
+			String myData = getValueFromJson(datakey);
+			if (datakey.equals("Account_Type")) {
+				myData = getValueFromJson("UserID_Kontonummer");
+			}
+			try {
+				s.selectByValue(myData);
+			} catch (Exception e) {
+				logAssert_Fail("Select by value failed " + objectKey);
+			}
 		} catch (Exception e) {
-			logAssert_Fail("Select by value failed " + objectKey);
+			// TODO Auto-generated catch block
+			throw e;
 		}
 
 	}
@@ -263,7 +268,6 @@ public class CommonActions {
 			wait.until(ExpectedConditions.visibilityOf(getElement(ObjectKey)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logAssert_Fail("Element not visible within given time limit: " + ObjectKey);
 		}
 	}
@@ -274,8 +278,8 @@ public class CommonActions {
 			wait.until(ExpectedConditions.invisibilityOf(getElement(ObjectKey)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logAssert_Fail("Element still visible within given time limit: " + ObjectKey);
+			throw e;
 		}
 	}
 
@@ -292,7 +296,7 @@ public class CommonActions {
 			// driver).executeScript("arguments[0].scrollIntoView(true);", e);
 			// Thread.sleep(500);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
-			Thread.sleep(1000); 
+			Thread.sleep(1000);
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -345,7 +349,7 @@ public class CommonActions {
 			logInfoStatus("Info | Clicked on : " + objectKey);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -358,22 +362,26 @@ public class CommonActions {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public void enterText(String objectKey, String datakey)
+	public void enterText(String objectKey, String textToEnter)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			getElement(objectKey).clear();
-			// getElement(objectKey).sendKeys(getValueFromJson(datakey));
-			String text = getValueFromJson(datakey);
-			if (text.equals("null")) {
-				// do nothing
-			} else {
-				getElement(objectKey).sendKeys(text);
-			}
-			if (objectKey.equals("Steueridentifikationsnummer"))
-				getElement("Weiter").click();
-		} catch (Exception e) {
+			getElement(objectKey).sendKeys(textToEnter);
+			} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
+		}
+
+	}
+	
+	public void enterTextToLogin(String objectKey, String dataKey)
+			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
+		try {
+			getElement(objectKey).clear();
+			getElement(objectKey).sendKeys(getKeyFromJson(dataKey));
+			} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
 		}
 
 	}
@@ -406,7 +414,8 @@ public class CommonActions {
 			getElement(objectKey).clear();
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -438,6 +447,7 @@ public class CommonActions {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
 			logAssert_Fail("Select by visble text failed on: " + objectKey);
+			throw e;
 		}
 
 	}
@@ -451,6 +461,7 @@ public class CommonActions {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
 			logAssert_Fail("Select by visble text failed on: " + locatorKey);
+			throw e;
 		}
 
 	}
@@ -489,20 +500,25 @@ public class CommonActions {
 	 *             Description Common action select from combo box by Index
 	 */
 	public void selectDropDownByIndex(String objectKey, String data) throws Exception {
-		Select s = new Select(getElement(objectKey));
-		if (data.equals("Intervall")) {
-			Thread.sleep(3000);
-			s.selectByIndex(2);
-			System.out.println("dropdown condition success-MONATLICH selected");
-		} else if (data.equals("Immer_am")) {
-			System.out.println("dropdown condition success");
-			Thread.sleep(3000);
-			s.selectByIndex(9);
-			System.out.println("dropdown condition success-10. des montas selected");
-		} else {
+		try {
+			Select s = new Select(getElement(objectKey));
+			if (data.equals("Intervall")) {
+				Thread.sleep(3000);
+				s.selectByIndex(2);
+				System.out.println("dropdown condition success-MONATLICH selected");
+			} else if (data.equals("Immer_am")) {
+				System.out.println("dropdown condition success");
+				Thread.sleep(3000);
+				s.selectByIndex(9);
+				System.out.println("dropdown condition success-10. des montas selected");
+			} else {
 
-			Thread.sleep(5000);
-			s.selectByIndex(Integer.parseInt(data));
+				Thread.sleep(5000);
+				s.selectByIndex(Integer.parseInt(data));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
 		}
 
 	}
@@ -587,13 +603,13 @@ public class CommonActions {
 		// take screenshot and put in repots
 		// fail in cucumber as well
 		Assert.fail();
-//		try {
-//			throw new NoSuchFieldException();
-//		} catch (Exception e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		
+		// try {
+		// throw new NoSuchFieldException();
+		// } catch (Exception e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
+		//
 	}
 
 	/**
@@ -606,11 +622,11 @@ public class CommonActions {
 		scenario.log(Status.FAIL, msg);
 		softAssertions.assertThat(false);
 		takeSceenShot();
-		try{
-		throw new NoSuchFieldError();
-		}catch(Exception e){
-		
-	}
+		try {
+			throw new NoSuchFieldError();
+		} catch (Exception e) {
+
+		}
 	}
 
 	/**
@@ -678,6 +694,7 @@ public class CommonActions {
 			e.printStackTrace();
 			logAssert_Fail(dataKeyInJson + " :ObjectKey not present in json file");
 		}
+		
 		return datakey;
 	}
 
@@ -685,9 +702,9 @@ public class CommonActions {
 
 		String data = null;
 		JSONParser parser = new JSONParser();
-		if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
+		if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader("./src/test/java/com/bnpp/testdata/environment1/" + featurename + ".json"));
+					new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -701,9 +718,9 @@ public class CommonActions {
 
 			}
 
-		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
+		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
 			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader("./src/test/java/com/bnpp/testdata/environment2/" + featurename + ".json"));
+					new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -718,8 +735,9 @@ public class CommonActions {
 			}
 			// pair.getValue().toString());
 		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+
 			JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-					"./src/test/java/com/bnpp/testdata/loadenvironment/" + featurename + ".json"));
+					"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
 			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 			Iterator it = getScenarioName.entrySet().iterator();
@@ -741,9 +759,10 @@ public class CommonActions {
 		String data = null;
 		try {
 			JSONParser parser = new JSONParser();
-			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env1")) {
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
+
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						"./src/test/java/com/bnpp/testdata/environment1/" + featurename + ".json"));
+						"./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -757,9 +776,10 @@ public class CommonActions {
 					// System.out.println(pair.getKey() + ":" +
 					// pair.getValue().toString());
 				}
-			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("env2")) {
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
+
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						"./src/test/java/com/bnpp/testdata/environment2/" + featurename + ".json"));
+						"./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -775,7 +795,7 @@ public class CommonActions {
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						"./src/test/java/com/bnpp/testdata/environment2/" + featurename + ".json"));
+						"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -818,13 +838,12 @@ public class CommonActions {
 					data = data.replace("Oe", "Ö");
 				if (data.contains("Ue"))
 					data = data.replace("Ue", "Ü");
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
+			
 		}
-
 		return data;
 
 	}
@@ -853,16 +872,12 @@ public class CommonActions {
 
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey + "_checkbox")));// present
-			System.out.println(e.isSelected());
 			if (e.isSelected()) {
 				Thread.sleep(1000);
-				System.out.println("checkbox was selected");
 				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
-			} else {
-				System.out.println("checkbox was unselected");
 			}
 		} catch (Exception ex) {
-
+			logAssert_Fail("Clear checkbox failed");
 		}
 	}
 
@@ -944,16 +959,12 @@ public class CommonActions {
 
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
-			System.out.println(e.isSelected());
 			if (e.isSelected()) {
 				Thread.sleep(1000);
-				System.out.println("checkbox was selected");
 				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
-			} else {
-				System.out.println("checkbox was unselected");
 			}
 		} catch (Exception ex) {
-
+			logAssert_Fail("Clear radio button failed");
 		}
 	}
 
@@ -1006,16 +1017,17 @@ public class CommonActions {
 		// TODO Auto-generated method stub
 		getElement(tanField).sendKeys(string);
 	}
-	public String enterFutureDateAddingDays(String noofDaysToAdd) throws java.text.ParseException, ParseException{
+
+	public String enterFutureDateAddingDays(String noofDaysToAdd) throws java.text.ParseException, ParseException {
 		String oldDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date()).toString();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar c = Calendar.getInstance();
 		c.setTime(sdf.parse(oldDate));
-		   //Number of Days to add
-		c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(noofDaysToAdd));  
-		//Date after adding the days to the given date
-		String newDate = sdf.format(c.getTime());  
-		//Displaying the new Date after addition of Days
+		// Number of Days to add
+		c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(noofDaysToAdd));
+		// Date after adding the days to the given date
+		String newDate = sdf.format(c.getTime());
+		// Displaying the new Date after addition of Days
 		System.out.println(newDate);
 		return newDate;
 	}

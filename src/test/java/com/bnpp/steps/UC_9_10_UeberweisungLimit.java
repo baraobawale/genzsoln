@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import com.bnpp.library.CommonActions;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -16,6 +17,9 @@ public class UC_9_10_UeberweisungLimit {
 	String CaptureErrorMsg = "";
 	String Ueberweisungslimit_details = "";
 	String Ueberweisungslimit_message = "";
+	String Ueberweisungslimit_MaxLimit = "";
+	String Ueberweisungslimit_DecreaseMaxLimitByOne = "";
+	String Ueberweisungslimit_IncreaseMaxLimitByOne = "";
 
 	public UC_9_10_UeberweisungLimit(CommonActions commonActions) {
 		this.commonActions = commonActions;
@@ -134,5 +138,43 @@ public class UC_9_10_UeberweisungLimit {
 		}
 	}
 	
-
+	@And("User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit")
+	public void User_enters_Uberweisunglimmit(){
+	try {
+		String locatorKey="Uberweisungslimit_Ueberweisungslimit";
+		String dataKey="Uberweisungslimit";
+		if (locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
+			if (commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
+				WebElement text = commonActions.getElement("Max_limit");
+				Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+				int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+				cnt = cnt + 1;
+				commonActions.setText(locatorKey, String.valueOf(cnt));
+				// Move the focus out of field to handle the error displayed
+				// on
+				// clearing the field.
+				commonActions.pressTab();
+			} else if (commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
+				WebElement text = commonActions.getElement("Max_limit");
+				Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
+				int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
+				cnt = cnt - 1;
+				commonActions.setText(locatorKey, String.valueOf(cnt));
+				commonActions.logPassStatus("Ueberweisungslimit is set to" + cnt);
+				// Move the focus out of field to handle the error displayed
+				// on
+				// clearing the field.
+				commonActions.pressTab();
+				/// Make scenarios different
+			} else {
+				commonActions.enterText(locatorKey, dataKey);
+				commonActions.pressTab();
+			}
+		}
+	
+		}catch(Exception e){
+			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+" failed");
+		}
+	}
 }

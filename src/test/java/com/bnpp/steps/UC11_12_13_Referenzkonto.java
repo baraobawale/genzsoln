@@ -135,11 +135,6 @@ public class UC11_12_13_Referenzkonto {
 				commonActions.logAssert_Fail("Fail | Valid values display failed");
 			}}
 
-
-
-
-
-
 	@And("Capture Message on ReferenzKontonAnlengen")
 	public void capture_Message_on_ReferenzKontonAnlengen() {
 		try{

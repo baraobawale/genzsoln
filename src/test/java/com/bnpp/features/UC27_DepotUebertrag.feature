@@ -1,4 +1,4 @@
-@Demo06112019
+@UC27
 Feature: UC27_DepotUebertrag
 
   #Executable - Depot Transfer Internally

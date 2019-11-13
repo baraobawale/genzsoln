@@ -67,28 +67,21 @@ public class UC69_70_Risikoklasse {
 
 	}
 
-	@And("User clicks on checkbox {string} in {string}")
-	public void User_clicks_on_checkbox(String objectKey, String data) throws InterruptedException {
-		try {
-			commonActions.click(objectKey);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	@Then("verify success message shown on bestaetigung page")
 	public void verify_success_message_shown_on_bestaetigung_page() throws InterruptedException {
 		// commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
 
 		try {
 			if (commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
-				commonActions.logPassStatus("Pass | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+				commonActions.logPassStatus(
+						"Pass | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
 			else
-				commonActions.logFailStatus("Fail | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display failed");
+				commonActions.logFailStatus(
+						"Fail | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display failed");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail("verify success message shown on bestaetigung page failed");
 		}
 
 	}

@@ -1,4 +1,4 @@
-@Demo
+@UC_9_10
 Feature: UC_9_10_UeberweisungLimit
 
   #Executable : Ueberweisungslimit Aendern (mit Fehlermeldungen)
@@ -11,7 +11,7 @@ Feature: UC_9_10_UeberweisungLimit
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Andern_Kontodetails"
-    And User enters "Uberweisungslimit" in "Uberweisungslimit_Ueberweisungslimit"
+    And User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit
     And User selects checkbox "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
     And User clicks on "WeiterZurTanEingabe_Ueberweisungslimit"
     Then Verify displayed ErrorMesssages on Ueberweisungslimit
@@ -28,7 +28,7 @@ Feature: UC_9_10_UeberweisungLimit
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Andern_Kontodetails"
-    And User enters "Uberweisungslimit" in "Uberweisungslimit_Ueberweisungslimit"
+    And User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit
     And User selects checkbox "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
     And User clicks on "WeiterZurTanEingabe_Ueberweisungslimit"
     And Capture Error Message on Ueberweisungslimit
@@ -49,7 +49,7 @@ Feature: UC_9_10_UeberweisungLimit
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Andern_Kontodetails"
-    And User enters "Uberweisungslimit" in "Uberweisungslimit_Ueberweisungslimit"
+    And User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit
     And User selects checkbox "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
     And User clicks on "WeiterZurTanEingabe_Ueberweisungslimit"
     And User submits generated TAN number using "MobileTanLink_Ueberweisungslimit" on "TAN_field_Ueberweisungslimit"

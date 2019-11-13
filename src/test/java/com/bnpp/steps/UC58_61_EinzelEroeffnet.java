@@ -70,8 +70,7 @@ public class UC58_61_EinzelEroeffnet {
 	public void submit_tan_for_new_customer(String TanKey) throws ClientProtocolException, IOException,
 			InterruptedException, ParserConfigurationException, SAXException {
 		try {
-			String token = TANGenerator.requestTan();
-			commonActions.enterNewMobileTan(TanKey, token);
+			commonActions.enterLoadenvironmentTan(TanKey, "12345678");
 			commonActions.click("BestaetigenButtonNewCustomer");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

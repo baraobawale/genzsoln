@@ -34,9 +34,7 @@ public class GenericSteps {
 
 	CommonActions commonActions;
 
-	String Ueberweisungslimit_MaxLimit = "";
-	String Ueberweisungslimit_DecreaseMaxLimitByOne = "";
-	String Ueberweisungslimit_IncreaseMaxLimitByOne = "";
+	
 
 	public GenericSteps(CommonActions con) {
 		this.commonActions = con;
@@ -85,48 +83,13 @@ public class GenericSteps {
 	@And("^User enters \"(.*?)\" in \"(.*?)\"$")
 	public void User_enters(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
-		try {
-
-			if (locatorKey.equals("Steueridentifikationsnummer_PersoenlicheEinstellungen")
-					|| locatorKey.equals("TelefonPrivat_AngabenZurPerson") || locatorKey.equals("Ort1_Kontoinhaber")) {
-				commonActions.enterText(locatorKey, dataKey);
-				// Move the focus out of field to handle the error displayed on
-				// clearing the field.
-				commonActions.pressTab();
-				// Different step definition for tab.
-			} else if (locatorKey.equals("Uberweisungslimit_Ueberweisungslimit")) {
-				if (commonActions.getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")) {
-					WebElement text = commonActions.getElement("Max_limit");
-					Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
-					int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
-					cnt = cnt + 1;
-					commonActions.setText(locatorKey, String.valueOf(cnt));
-					// Move the focus out of field to handle the error displayed
-					// on
-					// clearing the field.
-					commonActions.pressTab();
-				} else if (commonActions.getScenarioName().equals("Ueberweisungslimit_Aendern")) {
-					WebElement text = commonActions.getElement("Max_limit");
-					Ueberweisungslimit_MaxLimit = text.getAttribute("data-evr-max-limit");
-					int cnt = Integer.parseInt(Ueberweisungslimit_MaxLimit);
-					cnt = cnt - 1;
-					commonActions.setText(locatorKey, String.valueOf(cnt));
-					commonActions.logPassStatus("Ueberweisungslimit is set to" + cnt);
-					// Move the focus out of field to handle the error displayed
-					// on
-					// clearing the field.
-					commonActions.pressTab();
-					/// Make scenarios different
-				} else if (locatorKey.equals("Limit_OrderErteilen")
-						&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Aktie")) {
-					locatorKey = "Stop_OrderErteilen";
-					commonActions.enterText(locatorKey, dataKey);
-				}else {
-					commonActions.enterText(locatorKey, dataKey);
-					commonActions.pressTab();
-				}
-			}	else
-				commonActions.enterText(locatorKey, dataKey);
+		try{
+			String textToEnter = commonActions.getValueFromJson(dataKey);
+			if(textToEnter.equals("")){
+				commonActions.clearfield(locatorKey);
+			}else
+			commonActions.enterText(locatorKey, textToEnter);
+			commonActions.pressTab();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,40 +111,12 @@ public class GenericSteps {
 	}
 
 	// @And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
-	@And("^User clicks on \"(.*)\"$")
+	@And("User clicks on {string}")
 	public void User_clicks_on(String locatorKey) throws InterruptedException, Exception, IOException {
 		try {
-		
-			 if (locatorKey.equals("WeiterZurTanEingabe_Ueberweisungslimit")) {
-				commonActions.click(locatorKey);
-				commonActions.pressTab();
-			} else if (locatorKey.equals("Bestaetigen_Benachrichtigungen")) {
-				System.out.println("Value of loactorkey-----------" + locatorKey);
-				commonActions.pressTab();
-				commonActions.click(locatorKey);
-
-			} else if (locatorKey.equals("ZumZahlungsverkehr_VorlageAnlegen")) {
-				commonActions.click(locatorKey);
-				commonActions.isElementPresent("Vorlagen_UmsaetzeZahlungsverkehr");
-				//commonActions.moveScrollDown();
-				// Check for select drop down
-			} else if (locatorKey.equals("Handelsplatz_Tradegate")
-					&& commonActions.getScenarioName().equals("KaufOrder_Anlegen_Anleihe")) {
-				commonActions.pressEnter();
-
-			} else if (locatorKey.equals("Handelsplatz"))
-				commonActions.waitForVisibilityofElement(locatorKey);
-			else if (locatorKey.equals("CloseWindow_SessionTANAktivieren")) {
-				// commonActions.click(locatorKey);
-				Thread.sleep(5000);
-				commonActions.refreshPage();
-				Thread.sleep(5000);
-			
-			} else if (locatorKey.equals("WeiterTANEingabe_OrderErteilen")) {
-				Thread.sleep(10000);
-				commonActions.click(locatorKey);
-			} else
-				commonActions.click(locatorKey);
+			commonActions.pressTab();
+			commonActions.click(locatorKey);
+			commonActions.pressTab();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -204,31 +139,35 @@ public class GenericSteps {
 
 	}
 
-
 	// User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on
 	// "TAN_field_VorlageAnlegen"
 	@And("^User submits generated TAN number using \"(.*?)\" on \"(.*?)\"$")
-	public void user_submits_the_generated_TAN_number_using(String mobileTanlink,String tanField)
+	public void user_submits_the_generated_TAN_number_using(String mobileTanlink, String tanField)
 
 			throws ClientProtocolException, IOException, InterruptedException, Exception, SAXException {
 		try {
-			//commonActions.clickonMobiletanLinkandEnterTan(mobileTanlink, tanField);
-			commonActions.enterLoadenvironmentTan(tanField,"12345678");
-//			commonActions.click("BestaetigenButton");
-//			if (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet")) {
-//				if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
-//					if (commonActions.isElementPresent("UsedTanMessage")) {
-//						commonActions.clearfield(TanKey);
-//						Thread.sleep(60000);
-//						commonActions.clickonMobiletanLinkandEnterTan(TanKey, "MobileTAN_link_Login");
-//						commonActions.click("BestaetigenButton");
-//						if (commonActions.isElementPresent("UsedTanMessage"))
-//							commonActions.logAssert_Fail("Unable to login due to reused tan.");
-//						commonActions.takeSceenShot();
-//					}
-//				}
-//			}
-		}catch (Exception e) {
+			// commonActions.clickonMobiletanLinkandEnterTan(mobileTanlink,
+			// tanField);
+			commonActions.enterLoadenvironmentTan(tanField, "12345678");
+			// commonActions.click("BestaetigenButton");
+			// if
+			// (!commonActions.getFeatureName().equals("UC58_61_EinzelEroeffnet"))
+			// {
+			// if (!commonActions.isElementPresent("Mein_Konto_Depot")) {
+			// if (commonActions.isElementPresent("UsedTanMessage")) {
+			// commonActions.clearfield(TanKey);
+			// Thread.sleep(60000);
+			// commonActions.clickonMobiletanLinkandEnterTan(TanKey,
+			// "MobileTAN_link_Login");
+			// commonActions.click("BestaetigenButton");
+			// if (commonActions.isElementPresent("UsedTanMessage"))
+			// commonActions.logAssert_Fail("Unable to login due to reused
+			// tan.");
+			// commonActions.takeSceenShot();
+			// }
+			// }
+			// }
+		} catch (Exception e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Enter tan failed");
 		}
@@ -238,20 +177,20 @@ public class GenericSteps {
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
 		commonActions.click("Login");
-		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
-		commonActions.enterText(PIN_Password, "PIN_Password");
+		commonActions.enterTextToLogin(UserID_Kontonummer, "UserID_Kontonummer");
+		commonActions.enterTextToLogin(PIN_Password, "PIN_Password");
 		commonActions.click("Einloggen");
 		commonActions.logInfoStatus(
 				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 		commonActions.takeSceenShot();
 
 	}
-	
+
 	@And("^User is redirected to login page to login with \"(.*?)\",\"(.*?)\"$")
 	public void User_is_redirected_to_login_page(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
-		commonActions.enterText(PIN_Password, "PIN_Password");
+		commonActions.enterTextToLogin(UserID_Kontonummer, "UserID_Kontonummer");
+		commonActions.enterTextToLogin(PIN_Password, "PIN_Password");
 		commonActions.click("Einloggen");
 		commonActions.logInfoStatus(
 				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
@@ -259,34 +198,32 @@ public class GenericSteps {
 
 	}
 
-	@When("User \"(.*?)\" in \"(.*?)\" field")
-	public void User_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {
-		try {
-			// System.out.println(check);
-			String str1 = commonActions.getValueFromJson(check);
-			commonActions.clearCheckBox(locatorKey);
-			if (str1.equals("null")) {
-				// System.out.println("checkbox is unchecked");
-			} else {
-				commonActions.click(locatorKey);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Assert.fail();
-		}
-
-	}
+//	@When("User \"(.*?)\" in \"(.*?)\" field")
+//	public void User_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {
+//		try {
+//			// System.out.println(check);
+//			String str1 = commonActions.getValueFromJson(check);
+//			commonActions.clearCheckBox(locatorKey);
+//			if (str1.equals("null")) {
+//				// System.out.println("checkbox is unchecked");
+//			} else {
+//				commonActions.click(locatorKey);
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			Assert.fail();
+//		}
+//
+//	}
 
 	@When("User selects radiobutton {string} in {string}")
-	public void User_selects_radiobutton_in(String dataKey, String locatorKey) {
+	public void User_selects_radiobutton(String dataKey, String locatorKey) {
 		try {
 			String str = commonActions.getValueFromJson(dataKey);
-			System.out.println("str for datakey:" + str + " " + dataKey);
-			commonActions.clearRadioButton(locatorKey);
-			if (str.equals("Nein")) {
+			if (str.equalsIgnoreCase("Nein")) {
 				commonActions.click(locatorKey + "_Nein");
-			} else if (str.equals("Ja")) {
+			} else if (str.equalsIgnoreCase("Ja")) {
 				commonActions.click(locatorKey + "_Ja");
 			} else if (dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig")
 					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_1")
@@ -294,11 +231,15 @@ public class GenericSteps {
 					|| dataKey.equals("DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber")
 					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_2")
 					|| dataKey.equals("Die_eingegebene_Adresse_ist_nicht_eindeutig_3")) {
-				commonActions.pressTab();
+
 				Thread.sleep(2000);
 				commonActions.click(locatorKey);
+			} else if (str.equals("")) {
+
 			} else {
+				commonActions.pressTab();
 				commonActions.click(locatorKey);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -310,7 +251,7 @@ public class GenericSteps {
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void User_selects(String dataKey, String locatorKey) throws Exception {
 		try {
-		    if (dataKey.equals("Account_Type")) {
+			if (dataKey.equals("Account_Type")) {
 				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 			} else {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
@@ -318,6 +259,7 @@ public class GenericSteps {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail("User selects failed");
 		}
 	}
 
@@ -325,26 +267,27 @@ public class GenericSteps {
 	public void User_selects_checkbox(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
 		try {
-				String str = commonActions.getValueFromJson(dataKey);
-				System.out.println("Value of str " + str);
-				commonActions.clearRadioButton(locatorKey);
-				if (str.equals("Check") || str.equalsIgnoreCase("Select")) {
-					commonActions.click(locatorKey);
-				} 
+			String str = commonActions.getValueFromJson(dataKey);
+			commonActions.clearRadioButton(locatorKey);
+			if (str.equals("Check") || str.equalsIgnoreCase("Select")) {
+				commonActions.click(locatorKey);
+			} else if (str.equals("")) {
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Clicking failed on: " + locatorKey);
 		}
 
 	}
+
 	@And("^User submits generated TAN number in \"(.*?)\"$")
-	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException{
-		commonActions.click("SecurePlusLink");
+	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
+		if (commonActions.isElementPresent("SecurePlusLink")) {
+			commonActions.click("SecurePlusLink");
+		}
 		commonActions.enterTexttoken(tankey, "12345678");
 		commonActions.click("BestaetigenButton");
 	}
-	
-		
-	}
 
-
+}

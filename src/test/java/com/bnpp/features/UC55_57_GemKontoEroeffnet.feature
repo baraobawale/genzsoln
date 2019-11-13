@@ -1,4 +1,4 @@
-@NG11
+@UC55_57
 Feature: UC55_57_GemKontoEroeffnet
 
   #Testable in int acc2 - test data added for int acc 2

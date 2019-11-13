@@ -3,10 +3,11 @@ package com.bnpp.utilities;
 public class Configurations {
 
 	//DriverPaths and Run on browser parameter
-	public static final String ExecutionEnvnmt="load";
+	public static final String ExecutionEnvnmt="load"; //Valid values: intacc1, intacc2, load
 	public static final String BrowserName="Chrome";
 	
 	public final static String chromeDriverPath = "./src/test/Resources/Drivers/chromedriver.exe";
+	public final static String chromeDriverPath77 = "./src/test/Resources/Drivers/chromedriver77.exe";
 	public final static String ieDriverPath="./src/test/Resources/Drivers/IEDriverServer.exe"; 
 	
 	//Application URL
