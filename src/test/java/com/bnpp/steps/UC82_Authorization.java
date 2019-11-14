@@ -55,6 +55,25 @@ public class UC82_Authorization {
 				}
 
 		}
+	//SVG elements not supported by Selenium, so for feature file UC82_Authorization step 
+	//"And User clicks on CloseWindow_SessionTANAktivieren" has been made unique and we will navigate back
+	//to close the SVG popup window"
+	@And("User clicks on CloseWindow_SessionTANAktivieren")
+	public void User_clicks_on_closewindow_sessionTANAtivieren(){
+		commonActions.navigateBack();
+	}
+	
+	@And("User selects Handelsplatz in Handelsplatz_OrderErteilen")
+	public void User_selects_Handelsplatz() throws InterruptedException{
+		try {
+			commonActions.click("Handelsplatz_OrderErteilen");
+			commonActions.click("Handelsplatz_Fondsgesellschaft");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("User_selects_Handelsplatz failed");
+		}
+	}
 	
 	
 }

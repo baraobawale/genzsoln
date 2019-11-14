@@ -49,7 +49,7 @@ public class UC11_12_13_Referenzkonto {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		} 
 		try {
 			if (commonActions.isElementPresent("ReferenzKontoAnlengen2")) {
@@ -61,7 +61,7 @@ public class UC11_12_13_Referenzkonto {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		} 
 		try {
 			if (commonActions.isElementPresent("ReferenzKontoAnlengen3")) {
@@ -73,7 +73,7 @@ public class UC11_12_13_Referenzkonto {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		} 
 	}
 
@@ -132,7 +132,7 @@ public class UC11_12_13_Referenzkonto {
 			}} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				commonActions.logAssert_Fail("Fail | Valid values display failed");
+				commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 			}}
 
 	@And("Capture Message on ReferenzKontonAnlengen")
@@ -143,7 +143,7 @@ public class UC11_12_13_Referenzkonto {
 			System.out.println("Captured Message:" + CapturedMessage);
 		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Fail | Get text for M is failed");
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 
@@ -203,7 +203,7 @@ public class UC11_12_13_Referenzkonto {
 
 		catch (Exception e) {
 			e.printStackTrace();
-			//			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 	@Then("Verify captured details,Message from ReferenzKontonAnlengen")

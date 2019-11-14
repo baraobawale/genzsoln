@@ -1,9 +1,10 @@
-@UC55_57
+
 Feature: UC55_57_GemKontoEroeffnet
 
   #Testable in int acc2 - test data added for int acc 2
   #Executable - Inhaber auf Gem.konto er�ffnet Konto Depot(Joint account holder opens a trading account/depot)
   #Gemeinschaftskonto depot Anlegen
+  @UC55_57
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"

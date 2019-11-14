@@ -40,6 +40,7 @@ public class UC_9_10_UeberweisungLimit {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	
 	}
@@ -52,8 +53,8 @@ public class UC_9_10_UeberweisungLimit {
 			CaptureErrorMsg = text.getText();
 			System.out.println("CaptureErrorMsg "+CaptureErrorMsg);
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 	
@@ -74,7 +75,8 @@ public class UC_9_10_UeberweisungLimit {
 			}    
 		}
 		catch(Exception e) {
-			throw new cucumber.api.PendingException();
+			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 	
@@ -84,9 +86,10 @@ public class UC_9_10_UeberweisungLimit {
 			WebElement text = commonActions.getElement("Ueberweisungslimit_value");
 			Ueberweisungslimit_details = text.getAttribute("value");
 			System.out.println("Ueberweisungslimit_details "+Ueberweisungslimit_details);
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 
@@ -97,8 +100,8 @@ public class UC_9_10_UeberweisungLimit {
 			Ueberweisungslimit_message = text.getText();
 			System.out.println("Ueberweisungslimit_message "+Ueberweisungslimit_message);
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 
@@ -125,7 +128,8 @@ public class UC_9_10_UeberweisungLimit {
 			}    
 		}
 		catch(Exception e) {
-			throw new cucumber.api.PendingException();
+			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 	@Then("Download PDF generated in New Tab")
@@ -135,6 +139,7 @@ public class UC_9_10_UeberweisungLimit {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			//commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 	

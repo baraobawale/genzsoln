@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
@@ -90,10 +91,12 @@ public class GenericSteps {
 			}else
 			commonActions.enterText(locatorKey, textToEnter);
 			commonActions.pressTab();
-		} catch (Exception e) {
+		} catch(ElementNotInteractableException e){
+			commonActions.logAssert_Fail("Enter text failed on:- "+locatorKey+" :Please check element is visible on the page");
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Fail | Enter text failed -" + locatorKey);
+			commonActions.logAssert_Fail("Fail | Enter text failed on -" +locatorKey+":"+dataKey);
 		}
 
 	}
@@ -103,24 +106,27 @@ public class GenericSteps {
 
 		try {
 			commonActions.clearfield(locatorKey);
+		}catch(ElementNotInteractableException e){
+			commonActions.logAssert_Fail("Please check element is visible on the page");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Fail | Clear text failed -" + locatorKey);
+			commonActions.logAssert_Fail("Fail | Clear text failed on -" + locatorKey);
 		}
 	}
 
-	// @And("^User clicks on \"([a-zA-Z0-9_]*)\"$")
 	@And("User clicks on {string}")
 	public void User_clicks_on(String locatorKey) throws InterruptedException, Exception, IOException {
 		try {
 			commonActions.pressTab();
 			commonActions.click(locatorKey);
 			commonActions.pressTab();
+		}catch(ElementNotInteractableException e){
+			commonActions.logAssert_Fail("Clicking failed on:-"+locatorKey+" :Please check element is visible on the page-");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Fail | Clicking failed -" + locatorKey);
+			commonActions.logAssert_Fail("Fail | Clicking failed on -" + locatorKey);
 		}
 	}
 
@@ -128,9 +134,10 @@ public class GenericSteps {
 	public void User_mouseovers_and_navigates_to(String clickElementKey, String mouseoverelementKey)
 			throws InterruptedException {
 		try {
-			Thread.sleep(5000);
 			commonActions.mouseover(mouseoverelementKey);
 			commonActions.click(clickElementKey);
+		}catch(ElementNotInteractableException e){
+			commonActions.logAssert_Fail("Please check element is visible on the page: "+clickElementKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,8 +146,7 @@ public class GenericSteps {
 
 	}
 
-	// User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on
-	// "TAN_field_VorlageAnlegen"
+	//Currently mobile tan simulator not working 13.11.2019
 	@And("^User submits generated TAN number using \"(.*?)\" on \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_using(String mobileTanlink, String tanField)
 
@@ -167,34 +173,53 @@ public class GenericSteps {
 			// }
 			// }
 			// }
+		}catch(ElementNotInteractableException e){
+			commonActions.logAssert_Fail("Enter tan failed on:-"+tanField+" :Please check element is visible on the page: ");
 		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Enter tan failed");
+			commonActions.logAssert_Fail("Enter tan failed: "+tanField);
+			
 		}
 	}
-
+//13-11Ganesh B: This step defninition is 
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		commonActions.click("Login");
-		commonActions.enterTextToLogin(UserID_Kontonummer, "UserID_Kontonummer");
-		commonActions.enterTextToLogin(PIN_Password, "PIN_Password");
-		commonActions.click("Einloggen");
-		commonActions.logInfoStatus(
-				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
-		commonActions.takeSceenShot();
+		try {
+			commonActions.click("Login");
+			commonActions.enterTextToLogin(UserID_Kontonummer, "UserID_Kontonummer");
+			commonActions.enterTextToLogin(PIN_Password, "PIN_Password");
+			commonActions.click("Einloggen");
+			commonActions.logInfoStatus(
+					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+			commonActions.takeSceenShot();
+		}catch(ElementNotInteractableException e){
+			commonActions.logAssert_Fail("Please check element is visible on the page");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			commonActions.logAssert_Fail("Login failed");
+		}
 
 	}
 
 	@And("^User is redirected to login page to login with \"(.*?)\",\"(.*?)\"$")
 	public void User_is_redirected_to_login_page(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		commonActions.enterTextToLogin(UserID_Kontonummer, "UserID_Kontonummer");
-		commonActions.enterTextToLogin(PIN_Password, "PIN_Password");
-		commonActions.click("Einloggen");
-		commonActions.logInfoStatus(
-				"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
-		commonActions.takeSceenShot();
+		try {
+			commonActions.enterTextToLogin(UserID_Kontonummer, "UserID_Kontonummer");
+			commonActions.enterTextToLogin(PIN_Password, "PIN_Password");
+			commonActions.click("Einloggen");
+			commonActions.logInfoStatus(
+					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
+			commonActions.takeSceenShot();
+		}catch(ElementNotInteractableException e){
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Please check element is visible on the page");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("User is redirected login page failed");
+		}
 
 	}
 
@@ -234,6 +259,7 @@ public class GenericSteps {
 
 				Thread.sleep(2000);
 				commonActions.click(locatorKey);
+			//Check the steps in feature file
 			} else if (str.equals("")) {
 
 			} else {
@@ -241,9 +267,13 @@ public class GenericSteps {
 				commonActions.click(locatorKey);
 
 			}
-		} catch (Exception e) {
+		}catch(ElementNotInteractableException e){
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Exception has been thrown");
+			commonActions.logAssert_Fail("Please check element is visible on the page: " +locatorKey+":"+dataKey);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			commonActions.logAssert_Fail("User selects radio button failed: "+locatorKey+":"+dataKey);
 		}
 
 	}
@@ -256,38 +286,56 @@ public class GenericSteps {
 			} else {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
 			}
-		} catch (Exception e) {
+		} catch(ElementNotInteractableException e){
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Please check element is visible on the page: " +locatorKey+":"+dataKey);
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("User selects failed");
+			commonActions.logAssert_Fail("User selects failed: "+locatorKey+":"+dataKey);
 		}
 	}
 
+	
 	@And("User selects checkbox {string} in {string}")
 	public void User_selects_checkbox(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
 		try {
 			String str = commonActions.getValueFromJson(dataKey);
 			commonActions.clearRadioButton(locatorKey);
+//Make it uniform
 			if (str.equals("Check") || str.equalsIgnoreCase("Select")) {
 				commonActions.click(locatorKey);
+//check feature file steps for blank
 			} else if (str.equals("")) {
 
 			}
-		} catch (Exception e) {
+		} catch(ElementNotInteractableException e){
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Clicking failed on: " + locatorKey);
+			commonActions.logAssert_Fail("Please check element is visible on the page: " +locatorKey+":"+dataKey);
+		}catch (Exception e) {
+			e.printStackTrace();
+			commonActions.logAssert_Fail("User selects checkbox failed: " +locatorKey+":"+dataKey);
 		}
 
 	}
 
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
-		if (commonActions.isElementPresent("SecurePlusLink")) {
-			commonActions.click("SecurePlusLink");
+		try {
+			if (commonActions.isElementPresent("SecurePlusLink")) {
+				commonActions.click("SecurePlusLink");
+			}
+			commonActions.enterTexttoken(tankey, "12345678");
+			commonActions.click("BestaetigenButton");
+		}catch(ElementNotInteractableException e){
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Please check element is visible on the page");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("User submits generated TAN number failed: "+tankey);
 		}
-		commonActions.enterTexttoken(tankey, "12345678");
-		commonActions.click("BestaetigenButton");
 	}
 
 }

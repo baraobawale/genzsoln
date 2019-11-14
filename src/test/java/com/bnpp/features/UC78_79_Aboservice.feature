@@ -1,4 +1,4 @@
-
+@UC78_79
 Feature: UC78_79_Aboservice
 
   #Executable : Aboservice setzen und zuruecksetzen(mit Fehlermeldungen)
@@ -9,7 +9,6 @@ Feature: UC78_79_Aboservice
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Aboservice" in "Mein_Konto_Depot"
     And User clicks on "NewsLetter_Aboservice"
-    And User selects checkbox "Abonnieren" in "Abonnieren_Newsletter"
     And User clicks on "Weiter_NewsLetter"
     Then Verify displayed "ErrorMesssages"
 

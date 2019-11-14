@@ -123,7 +123,6 @@ public class CommonActions {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			System.out.println("Invalid browser name or configuration");
 			logAssert_Fail("Launching browser failed");
 		}
@@ -254,7 +253,7 @@ public class CommonActions {
 	/**
 	 * Description Refresh the page
 	 */
-	public void refreshPage() {
+	public void navigateBack() {
 		driver.navigate().back();
 	}
 
@@ -292,9 +291,6 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
-			// ((JavascriptExecutor)
-			// driver).executeScript("arguments[0].scrollIntoView(true);", e);
-			// Thread.sleep(500);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
 			Thread.sleep(1000);
 		} catch (IllegalArgumentException ex) {
@@ -347,7 +343,7 @@ public class CommonActions {
 			Thread.sleep(2000);
 			getElement(objectKey).click();
 			logInfoStatus("Info | Clicked on : " + objectKey);
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
 		}
@@ -398,9 +394,9 @@ public class CommonActions {
 		try {
 			Thread.sleep(2000);
 			getElement(objectKey).sendKeys(strValue);
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 
 	}
@@ -412,9 +408,8 @@ public class CommonActions {
 	public void clearfield(String objectKey) {
 		try {
 			getElement(objectKey).clear();
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
 			throw e;
 		}
 	}
@@ -424,13 +419,23 @@ public class CommonActions {
 	 * @return string Description Common action gettext
 	 */
 	public String getText(String objectKey) {
-		String str = "";
-		return str = getElement(objectKey).getText();
+		try {
+			String str = "";
+			return str = getElement(objectKey).getText();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	public String getAttribute(String objectKey, String attributeName) {
-		String str = "";
-		return str = getElement(objectKey).getAttribute(attributeName);
+		try {
+			String str = "";
+			return str = getElement(objectKey).getAttribute(attributeName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	/**
@@ -475,7 +480,7 @@ public class CommonActions {
 			act.sendKeys(Keys.TAB).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -488,7 +493,7 @@ public class CommonActions {
 			act.sendKeys(Keys.ENTER).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -548,7 +553,7 @@ public class CommonActions {
 			act.moveToElement(getElement(objectKey)).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -597,7 +602,7 @@ public class CommonActions {
 		// fail in extent reports
 
 		scenario.log(Status.FAIL, errMsg);
-		if ((Configurations.takeScreenshots).equals("Y")) {
+		if ((Configurations.takeScreenshots).equalsIgnoreCase("Y")) {
 			takeSceenShot();
 		}
 		// take screenshot and put in repots
@@ -661,8 +666,8 @@ public class CommonActions {
 	public void quit() {
 		if (report != null)
 			report.flush();
-		if (driver != null)
-			driver.quit();
+//		if (driver != null)
+//			driver.quit();
 		softAssertions.assertAll();
 		if ((softAssertions.errorsCollected().size()) != 0)
 			logAssert_Fail(scenarioname + " failed");
@@ -674,9 +679,14 @@ public class CommonActions {
 	 *            Description Common function to initialize the reports
 	 */
 	public void initReports(String scenarioName) {
-		report = ExtentManager.getInstance(Configurations.reportPath);
-		scenario = report.createTest(scenarioName);
-		scenario.log(Status.INFO, "Starting " + scenarioName);
+		try {
+			report = ExtentManager.getInstance(Configurations.reportPath);
+			scenario = report.createTest(scenarioName);
+			scenario.log(Status.INFO, "Starting " + scenarioName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	public String getValueFromJson(String dataKeyInJson) throws FileNotFoundException, IOException, ParseException {
@@ -687,12 +697,10 @@ public class CommonActions {
 			// System.out.println(dataKeyInJson + ":" + datakey);
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 			logAssert_Fail(featurename + " .json file not found");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logAssert_Fail(dataKeyInJson + " :ObjectKey not present in json file");
+			logAssert_Fail(dataKeyInJson + " : Please make sure ojectKey present in json file");
 		}
 		
 		return datakey;
@@ -700,58 +708,63 @@ public class CommonActions {
 
 	public String getKeyFromJson(String dataKey) throws FileNotFoundException, IOException, ParseException {
 
-		String data = null;
-		JSONParser parser = new JSONParser();
-		if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
-			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
-			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
-			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
-			Iterator it = getScenarioName.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				if (pair.getKey().toString().equals(dataKey)) {
-					data = pair.getValue().toString();
-					break;
+		try {
+			String data = null;
+			JSONParser parser = new JSONParser();
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(
+						new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+				Iterator it = getScenarioName.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(dataKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+
 				}
-				// System.out.println(pair.getKey() + ":" +
 
-			}
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(
+						new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+				Iterator it = getScenarioName.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(dataKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
 
-		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
-			JSONObject getFeatureName = (JSONObject) parser.parse(
-					new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
-			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
-			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
-			Iterator it = getScenarioName.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				if (pair.getKey().toString().equals(dataKey)) {
-					data = pair.getValue().toString();
-					break;
 				}
-				// System.out.println(pair.getKey() + ":" +
+				// pair.getValue().toString());
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 
-			}
-			// pair.getValue().toString());
-		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+				Iterator it = getScenarioName.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(dataKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
 
-			JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-					"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
-			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
-			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
-			Iterator it = getScenarioName.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				if (pair.getKey().toString().equals(dataKey)) {
-					data = pair.getValue().toString();
-					break;
 				}
-				// System.out.println(pair.getKey() + ":" +
-
 			}
+			return data;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
 		}
-		return data;
 
 	}
 
@@ -813,11 +826,9 @@ public class CommonActions {
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logAssert_Fail("Json file not found");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logAssert_Fail("Unable to read message data from json");
 		}
 		return data;
@@ -840,7 +851,7 @@ public class CommonActions {
 					data = data.replace("Ue", "Ü");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			throw e;
 			
 		}
@@ -881,25 +892,7 @@ public class CommonActions {
 		}
 	}
 
-	public void formXpathofRelativeEditElementandClickonit(String PersonNametitle) {
-		int index = 0;
-		String a = "//tr/td[";
-		// String counter="1";
-		String b = "]/div/a[@title='";
-		String d = "']";
-		String c = PersonNametitle;
-		// System.out.println((a+counter+b+c+d));
-		for (int counter = 0; counter <= 20; counter++) {
-			List<WebElement> lst = driver.findElements(By.xpath(a + counter + b + c + d));
-			if (lst.size() != 0)
-				index = counter;
-
-		}
-		String Xpath = "//tr[" + index + "]//div[1]/a[@title='Anzeigen und bearbeiten']";
-		// WebElement Editelement=driver.findElement(By.xpath(EditXpath));
-		driver.findElement(By.xpath(Xpath)).click();
-
-	}
+	
 
 	public boolean compareTextWithJsonDataKeyValue(String ObjectKey, String jsonDataKey)
 			throws FileNotFoundException, IOException, ParseException {
@@ -918,6 +911,7 @@ public class CommonActions {
 			return false;
 	}
 
+	//Not in use currently for load environement 13.11.2019
 	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, ParseException {
 		Properties prop = new Properties();
@@ -976,7 +970,7 @@ public class CommonActions {
 		return e.size();
 
 	}
-
+	//Not in use currently for load environement 13.11.2019
 	public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String tanfield) throws ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException {
 		Properties prop = new Properties();

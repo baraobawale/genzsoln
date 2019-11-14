@@ -20,7 +20,7 @@ public class Configurations {
 	//Browser Stack configuration
 	public static final String RunOnBrowserStack="N";
 	public static final String USERNAME = "chetana19";
-  public static final String AUTOMATE_KEY = "5tW8jrFVdPxbpgUSvssc";
+    public static final String AUTOMATE_KEY = "5tW8jrFVdPxbpgUSvssc";
 
     public static final String URL_BS = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     public static boolean cloud = false;
@@ -33,7 +33,7 @@ public class Configurations {
 
 	
     //Take screenshots on run parameter settings.
-	public static final String takeScreenshots="N";
+	public static final String takeScreenshots="Y";
 	
 }
 
