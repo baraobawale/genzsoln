@@ -12,6 +12,18 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.dab.qa</groupId>
+		      	<artifactId>XrayTools</artifactId>
+		      	<version>1.0</version>
+		      	<scope>system</scope>
+		      	<systemPath>${basedir}/lib/XrayTools-1.0.jar</systemPath>
+		</dependency>
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>1.2.17</version>
+		</dependency>
+		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.14.3</version>
