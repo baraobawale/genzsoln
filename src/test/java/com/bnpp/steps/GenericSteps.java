@@ -1,18 +1,28 @@
 package com.bnpp.steps;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import com.bnpp.utilities.Log;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
-
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import org.xml.sax.SAXException;
@@ -21,6 +31,12 @@ import com.bnpp.library.CommonActions;
 import com.bnpp.mTANResources.MobileTan;
 import com.bnpp.utilities.Configurations;
 import com.bnpp.utilities.TANGenerator;
+import com.dab.xray.XRAY_CONFIG;
+import com.dab.xray.Xray;
+
+//import com.dab.xray.XRAY_CONFIG;
+//import com.dab.xray.Xray;
+
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -37,6 +53,17 @@ public class GenericSteps {
 	String Ueberweisungslimit_MaxLimit = "";
 	String Ueberweisungslimit_DecreaseMaxLimitByOne = "";
 	String Ueberweisungslimit_IncreaseMaxLimitByOne = "";
+	String testStart = "";
+	String testFinish = "";
+	String XrayIssueKey = "";
+	
+	static String ExecutionID = com.dab.config.PropertiesHandler.getXrayTestExecutionKey();
+	
+	static {
+		System.setProperty("log-directory", Configurations.loggerPath);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+		System.setProperty("currenttime", dateFormat.format(new Date()));
+	}
 
 	public GenericSteps(CommonActions con) {
 		this.commonActions = con;
@@ -51,6 +78,13 @@ public class GenericSteps {
 	 */
 	@Before
 	public void before(Scenario s) throws Exception {
+		XrayIssueKey = getTestIdFromFileName(s.getId());
+
+		ZonedDateTime startDateTime = ZonedDateTime.now();
+		testStart = startDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		Log.info("Test Start Time: " + testStart); 
+	 	 
+		 
 		commonActions.initReports(s.getName());
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
 
@@ -58,14 +92,49 @@ public class GenericSteps {
 
 	/**
 	 * Description Closing the resources after execution of each scenario
+	 * @throws IOException 
 	 */
 	@After
-
-	public void after() {
+	public void after(Scenario s) throws IOException {
+		ZonedDateTime finishDateTime = ZonedDateTime.now();
+		testFinish = finishDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		
+		if (s.isFailed()) {
+			Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_FAIL, testStart,
+					testFinish);
+		} else {
+			Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS, testStart,
+					testFinish);
+		}
+		
+		WebDriver dr = commonActions.getDriver();
+		TakesScreenshot scrShot = ((TakesScreenshot)dr);
+		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+		File DestFile=new File("C:\\Bitbucket\\rta\\scrn.png");
+		FileUtils.copyFile(SrcFile, DestFile);
+		//byte[] data = FileUtils.readFileToByteArray(DestFile);
+		byte[] data = scrShot.getScreenshotAs(OutputType.BYTES);
+		String testName = s.getName();
+		System.out.println("data >>>>>>>>>>>>>>>>>>" +data);
+		s.embed(data,"image/png");
+		s.write(testName);
+		
 		commonActions.quit();
+
 	}
 
 	// ********Common step definitions ************//
+	
+	private String getTestIdFromFileName(String path) {
+		String result = "";
+		File f = new File(path);
+		//System.out.println("File Name1: " + f.getName().toString().toUpperCase().replace("_", "-").trim());
+		result = f.getName().toString().toUpperCase().replace("_", "-").trim().split(".FEATURE")[0];
+		System.out.println("File Name: " + result);
+		// result = f.getName().toString().toUpperCase().replace("_", "-").trim();
+		return result;
+	}
+
 
 	@Given("^User launches consorsbank web application$")
 	public void User_launches_consorsbank_web_application() {
@@ -438,7 +507,7 @@ public class GenericSteps {
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
-		commonActions.launchBrowser();
+		//commonActions.launchBrowser();
 		Thread.sleep(10000);
 		commonActions.click("Login");
 		commonActions.enterText(UserID_Kontonummer, "UserID_Kontonummer");
@@ -516,10 +585,23 @@ public class GenericSteps {
 //
 //	}
 	
-	@And("^User submits generated TAN number in \"(.*?)\"$")
-	public void User_submit_tan(String tankey) throws InterruptedException{
+//	@And("^User submits generated TAN number in \"(.*?)\"$")
+	/*public void User_submit_tan(String tankey) throws InterruptedException{
+		Thread.sleep(2000);
+		commonActions.click("SecurePlusLink");
 		commonActions.enterTexttoken(tankey, "12345678");
 		commonActions.click("BestaetigenButton");
 	}
+*/	
 
+	@And("^User enters generated TAN number in \"(.*?)\"$")
+	public void User_enters_tan(String tankey) throws InterruptedException{
+		//Thread.sleep(2000);
+		//commonActions.click("SecurePlusLink");
+		Thread.sleep(2000);
+		commonActions.enterTexttoken(tankey, "12345678");
+	}
+
+	
 }
+

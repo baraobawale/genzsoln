@@ -1,0 +1,321 @@
+2019-11-14 23:04:17.001INFO - Log configuration done. Log Dir:.\Logs
+2019-11-14 23:04:17.535INFO - Test Start Time: 2019-11-14T23:04:17+01:00
+2019-11-14 23:05:52.435INFO - saving results to Xray ...
+2019-11-14 23:05:52.581INFO - ***********************************************************
+2019-11-14 23:05:52.581INFO - Request:
+2019-11-14 23:05:52.582INFO - POST https://t-jira-consorsbank.is.echonet/rest/raven/1.0/import/execution
+2019-11-14 23:05:52.582INFO - HOST: t-jira-consorsbank.is.echonet
+2019-11-14 23:05:52.583INFO - Content-Type: Content-type: application/json
+2019-11-14 23:05:52.583INFO - Content-Length: null
+2019-11-14 23:05:53.320INFO - 
+2019-11-14 23:05:53.320INFO - Response:
+2019-11-14 23:05:53.320INFO - Content-Type: Content-Type: text/html;charset=UTF-8
+2019-11-14 23:05:53.321INFO - Content-Length: null
+2019-11-14 23:05:53.321INFO - Status : 403
+2019-11-14 23:05:53.321INFO - Content: 
+
+
+
+
+
+
+
+
+
+<html>
+
+<head>
+    <title>Forbidden (403)</title>
+    
+
+
+
+<!--[if IE]><![endif]-->
+<script type="text/javascript">
+    (function() {
+        var contextPath = '';
+        var eventBuffer = [];
+
+        function printDeprecatedMsg() {
+            if (console && console.warn) {
+                console.warn('DEPRECATED JS - contextPath global variable has been deprecated since 7.4.0. Use `wrm/context-path` module instead.');
+            }
+        }
+
+        function sendEvent(analytics, postfix) {
+            analytics.send({
+                name: 'js.globals.contextPath.' + postfix
+            });
+        }
+
+        function sendDeprecatedEvent(postfix) {
+            try {
+                var analytics = require('jira/analytics');
+                if (eventBuffer.length) {
+                    eventBuffer.forEach(function(value) {
+                        sendEvent(analytics, value);
+                    });
+                    eventBuffer = [];
+                }
+
+                if (postfix) {
+                    sendEvent(analytics, postfix);
+                }
+            } catch(ex) {
+                eventBuffer.push(postfix);
+                setTimeout(sendDeprecatedEvent, 1000);
+            }
+        }
+
+        Object.defineProperty(window, 'contextPath', {
+            get: function() {
+                printDeprecatedMsg();
+                sendDeprecatedEvent('get');
+                return contextPath;
+            },
+            set: function(value) {
+                printDeprecatedMsg();
+                sendDeprecatedEvent('set');
+                contextPath = value;
+            }
+        });
+    })();
+
+</script>
+<script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["com.atlassian.plugins.atlassian-plugins-webresource-plugin:context-path.context-path"]="\"\"";
+WRM._unparsedData["jira.webresources:feature-flags.feature-flag-data"]="{\"enabled-feature-keys\":[\"com.atlassian.jira.agile.darkfeature.editable.detailsview\",\"nps.survey.inline.dialog\",\"com.atlassian.jira.agile.darkfeature.edit.closed.sprint.enabled\",\"jira.plugin.devstatus.phasetwo\",\"jira.frother.reporter.field\",\"atlassian.rest.xsrf.legacy.enabled\",\"jira.issue.status.lozenge\",\"com.atlassian.jira.config.BIG_PIPE\",\"com.atlassian.jira.projects.issuenavigator\",\"com.atlassian.jira.config.PDL\",\"jira.plugin.devstatus.phasetwo.enabled\",\"atlassian.aui.raphael.disabled\",\"app-switcher.new\",\"frother.assignee.field\",\"com.atlassian.jira.projects.ProjectCentricNavigation.Switch\",\"sd.internal.base.off.thread.on.completion.events.enabled\",\"jira.onboarding.cyoa\",\"com.atlassian.jira.agile.darkfeature.kanplan.enabled\",\"sd.slavalue.record.updated.date.enabled\",\"com.atlassian.jira.config.ProjectConfig.MENU\",\"com.atlassian.jira.projects.sidebar.DEFER_RESOURCES\",\"com.atlassian.jira.agile.darkfeature.kanplan.epics.and.versions.enabled\",\"com.atlassian.jira.agile.darkfeature.sprint.goal.enabled\",\"jira.zdu.admin-updates-ui\",\"jira.zdu.jmx-monitoring\",\"sd.sla.improved.rendering.enabled\",\"sd.canned.responses.enabled\",\"jira.plugins.dnd.attachment\",\"sd.new.settings.sidebar.location.disabled\",\"jira.zdu.cluster-upgrade-state\",\"com.atlassian.jira.agile.darkfeature.splitissue\",\"com.atlassian.jira.config.CoreFeatures.LICENSE_ROLES_ENABLED\",\"jira.export.csv.enabled\"],\"feature-flag-states\":{\"sd.customer.profile.multi.languages\":true,\"sd.customer.portal.transitions\":true,\"sd.customer.portal.transitions.config\":true,\"sd.custom.email.stripping.rules\":false,\"sd.sla.lucene.issue.id.callback.performance\":true,\"sd.new.settings.sidebar.location\":true,\"sd.workload.report.paginator\":true,\"sd.customer.search.post.agent.filtering\":true,\"sd.customer.portal.help.center.agent.announcement\":true,\"sd.sla.improved.rendering\":false,\"sd.approvals.visibility\":true,\"sd.customer.feedback.validate.reporter.on.token\":true,\"sd.custom.email.notifications.utf8.csat.star\":true,\"sd.who.create.customers.by.email.setting\":true,\"com.atlassian.jira.issuetable.move.links.hidden\":true,\"jira.renderer.consider.variable.format\":true,\"sd.password.helper.dialog\":true,\"jira.priorities.per.project.jsd\":true,\"sd.email.attachment.stripping\":false,\"sd.canned.responses\":false,\"sd.portal.help.center.customer.signup.secondary.email\":true,\"com.atlassian.jira.sharedEntityEditRights\":true,\"sd.use.search.by.permissions\":true,\"sd.slavalue.record.updated.date\":false,\"sd.report.custom.date.range\":false,\"sd.kb.article.helpfulness.report\":false,\"jira.spectrum.m1b\":false,\"com.atlassian.jira.agile.darkfeature.sprint.goal\":false,\"sd.portal.help.center.customer.signup.secondary.email.fallback\":true,\"sd.workinghours.new.page.bulldog.1\":false,\"sd.customer.portal.two.step.login\":false,\"sd.automation.psmq.async.executor\":true,\"sd.customer.org.list.page.lazy.search\":true,\"sd.approval.requested.when.handler\":true,\"com.atlassian.jira.agile.darkfeature.sidebar.boards.list\":true,\"sd.request.type.field.rest.api.filtering.bugfix\":true,\"com.atlassian.jira.custom.csv.escaper\":true,\"sd.automation.then.action.auto.answer.approval\":true,\"sd.adgs.m1\":true,\"com.atlassian.jira.plugin.issuenavigator.filtersUxImprovment\":true,\"com.atlassian.jira.agile.darkfeature.kanplan.epics.and.versions\":false,\"sla.will.only.be.paused.if.they.are.already.started\":true,\"sd.approvals.notification.email.action\":true,\"com.atlassian.jira.upgrade.startup.fix.index\":true,\"sd.customer.notifications.suppress.welcome.email\":true,\"sd.portal.help.center.customer.signup\":true,\"sd.sla.agent.jql.security.restricted\":true,\"sd.test.feature.flag.x\":true,\"sd.test.feature.flag.y\":false,\"sd.cluster.safe.mail.channel.shutdown\":true,\"sd.email.channel.folders\":false,\"sd.email.analytics.open\":false,\"jira.spectrum.m1\":true,\"sd.workinghours.new.page\":false,\"sd.confluence.anonymous.permission.fix\":true,\"com.atlassian.jira.issuetable.draggable\":true,\"sd.customer.portal.project.agent.announcement\":true,\"sd.automation.audit.log\":true,\"com.atlassian.jira.agile.darkfeature.kanban.hide.old.done.issues\":true,\"jira.jql.suggestrecentfields\":false,\"sd.canned.responses.check.index.startup\":false,\"sd.sla.conditions.due.date\":true,\"sd.new.project.templates\":true,\"sd.custom.email.notifications.custom.rules.simple.ui\":false,\"sd.dismiss.all.misconfiguration.warnings.setting\":true,\"com.atlassian.jira.agile.darkfeature.optimistic.transitions\":true,\"sd.sla.configurations.export\":true,\"sd.canned.responses.variable.substitution\":true,\"com.atlassian.jira.agile.darkfeature.kanplan\":false,\"sd.internal.base.off.thread.on.completion.events\":false,\"sd.customer.portal.prioties.per.project.fix\":true,\"jira.instrumentation.laas\":false,\"sd.kb.self.service.report\":false,\"jira.customfields.paginated.ui\":true,\"sla.improved.request.handling\":true,\"sd.no.schedule.async.upgrade.tasks\":true,\"com.atlassian.jira.agile.darkfeature.edit.closed.sprint\":false,\"sd.email.outsider.comments\":true,\"jira.create.linked.issue\":true,\"jira.sal.host.connect.accessor.existing.transaction.will.create.transactions\":true,\"sd.approvals.light.weight\":false,\"sd.automation.then.webhook\":true,\"sd.priorities.per.project\":true,\"jira.quick.search\":true,\"com.atlassian.jira.projects.per.project.permission.query\":true,\"sd.respect.inline.edit.issue.off\":true,\"jira.jql.smartautoselectfirst\":false,\"sd.global.portal.search.atlassian.only.tracking\":false,\"com.atlassian.jira.projects.archiving\":true,\"sd.automation.if.condition.comment.primary.action\":true,\"index.use.snappy\":true,\"jira.priorities.per.project\":true,\"sd.inline.noformat.renderer\":true}}";
+WRM._unparsedData["jira.webresources:default-comment-security-level.DefaultCommentSecurityLevelHelpLink"]="{\"extraClasses\":\"default-comment-level-help\",\"title\":\"Commenting on an Issue\",\"url\":\"https://docs.atlassian.com/jira/jcore-docs-0713/Editing+and+collaborating+on+issues#Editingandcollaboratingonissues-restrictacomment\",\"isLocal\":false}";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:policy-update-init.policy-update-data-provider"]="false";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:programmatic-analytics-init.programmatic-analytics-data-provider"]="false";
+WRM._unparsedData["com.onresolve.jira.groovy.groovyrunner:web-item-response-renderer.web-item-actions-data-provider"]="[]";
+WRM._unparsedData["jira.webresources:dateFormatProvider.allFormats"]="{\"dateFormats\":{\"meridiem\":[\"AM\",\"PM\"],\"eras\":[\"BC\",\"AD\"],\"months\":[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],\"monthsShort\":[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sep\",\"Oct\",\"Nov\",\"Dec\"],\"weekdaysShort\":[\"Sun\",\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\",\"Sat\"],\"weekdays\":[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"]},\"lookAndFeelFormats\":{\"relativize\":\"true\",\"time\":\"HH:mm\",\"day\":\"EEEE HH:mm\",\"dmy\":\"dd.MM.yy\",\"complete\":\"dd.MM.yy HH:mm\"}}";
+WRM._unparsedData["com.atlassian.servicedesk.servicedesk-canned-responses-plugin:canned-responses-data-provider.data"]="{\"substitutionVariables\":{\"issue.summary\":\"Issue summary\",\"issue.description\":\"Issue description\",\"issue.key\":\"Issue key\",\"issue.reporter.name\":\"Issue reporter\",\"issue.resolution\":\"Issue resolution\",\"request.url\":\"Request URL\",\"request.status\":\"Request status\",\"request.details\":\"Request details\"}}";
+WRM._unparsedData["jira.webresources:avatar-picker.data"]="{}";
+WRM._unparsedData["com.atlassian.jira.jira-header-plugin:dismissedFlags.flags"]="{\"dismissed\":[]}";
+WRM._unparsedData["com.atlassian.jira.jira-header-plugin:newsletter-signup-tip-init.newsletterSignup"]="{\"signupDescription\":\"Get updates, inspiration and best practices from the team behind Jira.\",\"formUrl\":\"https://www.atlassian.com/apis/exact-target/{0}/subscribe?mailingListId=1401671\",\"signupTitle\":\"Sign up!\",\"signupId\":\"newsletter-signup-tip\",\"showNewsletterTip\":false}";
+WRM._unparsedData["com.atlassian.jira.project-templates-plugin:project-templates-plugin-resources.ptAnalyticsData"]="{\"instanceCreatedDate\":\"2010-06-23\"}";
+WRM._unparsedData["jira.webresources:jqlautocomplete.jql.autocomplete.recentFields"]="{\"key\":\"jqlValues\",\"value\":[\"affectedVersion\",\"assignee\",\"component\",\"description\",\"issue\",\"labels\",\"parent\",\"priority\",\"project\",\"reporter\",\"resolution\",\"status\",\"summary\",\"type\",\"watcher\"]}";
+WRM._unparsedData["com.atlassian.servicedesk.core-ui:util-help-links.help-links"]="{\"help\":{\"email.settings\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Receiving+requests+by+email\",\"managing.queues\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Setting+up+queues+for+your+team\",\"email.setup\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Receiving+requests+by+email\",\"request.settings.help.bubble\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Managing+access+to+your+service+desk\",\"email.settings.suitablerequest\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Receiving+requests+by+email#Receivingrequestsbyemail-suitablerequest\",\"sla.import.help\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Importing+SLAs\",\"documentation.home\":\"https://docs.atlassian.com/jira/jsd-docs-0316/JIRA+Service+Desk+Documentation\",\"default\":\"https://docs.atlassian.com/jira/jsd-docs-0316/\",\"create.space.help\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Knowledge+base+settings+and+permissions\",\"advanced.approval.notifications\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Approving+a+service+desk+request\",\"email.settings.troubleshooting\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Troubleshooting+issues+with+the+email+channel\",\"admin.notifications.config\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Managing+service+desk+notifications\",\"troubleshoot.requesttype\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Troubleshooting+issues+with+request+types\",\"approvals.configuration\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Configuring+JIRA+Service+Desk+approvals\",\"setting.up.reports\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Setting+up+service+desk+reports\",\"public.signup\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Configuring+public+signup\",\"knowledge.base\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Set+up+a+knowledge+base+for+self-service\",\"resolve.permission.scheme.errors\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Resolving+permission+scheme+errors\",\"getting.started\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Getting+started+with+JIRA+Service+Desk\",\"getting.started.agent\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Getting+started+for+service+desk+agents\",\"invite.customers\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Managing+access+to+your+service+desk\"},\"kb\":{\"default\":\"https://confluence.atlassian.com/display/SDKB/\",\"troubleshooting.user.management.issues\":\"https://confluence.atlassian.com/display/SDKB/Troubleshooting+issues+with+service+desk+user+management\",\"legacytransition\":\"https://confluence.atlassian.com/display/SDKB/Replacing+legacy+automatic+transitions+with+automation+rules\",\"umtroubleshoot\":\"https://confluence.atlassian.com/display/SDKB/Troubleshooting+issues+with+service+desk+user+management\"}}";
+WRM._unparsedData["com.atlassian.servicedesk.core-ui:util-base-url.base-url"]="\"https://t-jira-consorsbank.is.echonet\"";
+WRM._unparsedData["com.atlassian.jira.ext.calendar:tipDataProvider.tip"]="{\"suppressTip\":false}";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-wiki-editor:wiki-editor-thumbnails.thumbnails-allowed"]="true";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-wiki-editor:wiki-editor-resources.help-data"]="{\"showHelp\":true,\"editorDocumentationUrl\":[\"https://docs.atlassian.com/jira/jcore-docs-0713/Visual+editing\"],\"editorDocumentationTitle\":[\"Show me documentation for the visual editor\"]}";
+WRM._unparsedData["jira.webresources:user-message-flags.adminLockout"]="{}";
+WRM._unparsedData["com.atlassian.plugins.helptips.jira-help-tips:help-tip-manager.JiraHelpTipData"]="{\"anonymous\":true}";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<link type="text/css" rel="stylesheet" href="/s/cb65222ff3e3d8627cb803cfc0f879bd-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/484b2eaf39d005d2b73e70e754585289/_/download/contextbatch/css/_super/batch.css?spectrum=true" data-wrm-key="_super" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="/s/c0821f8e37e9ec316b87c5e2b8efcd42-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/98a893423f77715af2372707e9864d6f/_/download/contextbatch/css/atl.general,jira.general,jira.global,atl.global,-_super/batch.css?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;spectrum=true" data-wrm-key="atl.general,jira.general,jira.global,atl.global,-_super" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="/s/dbfa9160361595bf23a5d6c563868203-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/7.9.9/_/download/batch/com.atlassian.auiplugin:aui-labels/com.atlassian.auiplugin:aui-labels.css" data-wrm-key="com.atlassian.auiplugin:aui-labels" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/s/5b3fe2c681f2dd8486d6712ad323ba96-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/1.0/_/download/batch/jira.webresources:global-static-adgs/jira.webresources:global-static-adgs.css?spectrum=true" data-wrm-key="jira.webresources:global-static-adgs" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/s/ec9c9d9d4f0c820af4c20b26b175df51-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/1.0/_/download/batch/jira.webresources:global-static/jira.webresources:global-static.css" data-wrm-key="jira.webresources:global-static" data-wrm-batch-type="resource" media="all">
+<script type="text/javascript" src="/s/7ce6d22cb941f6f37b5169619a5ee923-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/484b2eaf39d005d2b73e70e754585289/_/download/contextbatch/js/_super/batch.js?locale=en-US&amp;spectrum=true" data-wrm-key="_super" data-wrm-batch-type="context" data-initially-rendered></script>
+<script type="text/javascript" src="/s/1c586bc065c2e640031064464ab33a85-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/98a893423f77715af2372707e9864d6f/_/download/contextbatch/js/atl.general,jira.general,jira.global,atl.global,-_super/batch.js?agile_global_admin_condition=true&amp;content-type=text%2Fjavascript&amp;is-server-instance=true&amp;jag=true&amp;locale=en-US&amp;spectrum=true" data-wrm-key="atl.general,jira.general,jira.global,atl.global,-_super" data-wrm-batch-type="context" data-initially-rendered></script>
+<script type="text/javascript" src="/s/1c586bc065c2e640031064464ab33a85-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/98a893423f77715af2372707e9864d6f/_/download/contextbatch/js/atl.general,jira.general,jira.global,atl.global,-_super/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;locale=en-US&amp;spectrum=true" data-wrm-key="atl.general,jira.general,jira.global,atl.global,-_super" data-wrm-batch-type="context" data-initially-rendered></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/1.7.1/_/download/resources/pro.behave.hosted:behave-pro-client-resources/client/pro.behave.jira.bundle.js?batch=false" data-wrm-key="pro.behave.hosted:behave-pro-client-resources" data-wrm-batch-type="resource" data-initially-rendered></script>
+<link type="text/css" rel="stylesheet" href="/s/47ad8d54e557c2fd7e130b1293f7af03-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/3b23274de602a75fde9e2a611fa7c2b6/_/download/contextbatch/css/jira.global.look-and-feel,-_super/batch.css?spectrum=true" data-wrm-key="jira.global.look-and-feel,-_super" data-wrm-batch-type="context" media="all">
+
+<script type="text/javascript" src="/rest/api/1.0/shortcuts/713003/eff6d48d6ceeedc7ad856d4a88aa4cf7/shortcuts.js"></script>
+
+
+    <meta name="application-name" content="JIRA" data-name="jira" data-version="7.13.3">
+</head>
+<body id="jira" class="aui-layout aui-style-default page-type-message"  data-version="7.13.3" >
+    <div class="aui-page-panel"><div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                    <header class="aui-page-header"><div class="aui-page-header-inner">
+                            <div class="aui-page-header-main">
+                                    <h1>Forbidden (403)</h1>
+                                </div><!-- .aui-page-header-main -->
+                        </div><!-- .aui-page-header-inner --></header><!-- .aui-page-header -->
+                    <div class="aui-message aui-message-warning warning">
+                            <p>Encountered a <code>&quot;403 - Forbidden&quot;</code> error while loading this page.</p>
+                            <p>Basic Authentication Failure - Reason : AUTHENTICATION_DENIED</p>
+                            <p><a href="/secure/MyJiraHome.jspa">Go to Jira home</a></p>
+                        </div>
+                </section><!-- .aui-page-panel-content -->
+        </div><!-- .aui-page-panel-inner --></div><!-- .aui-page-panel -->
+</body>
+</html>
+
+2019-11-14 23:05:53.362DEBUG- Couldn't find template in cache for "index.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.364DEBUG- TemplateLoader.findTemplateSource("index_en.ftl"): Not found
+2019-11-14 23:05:53.365DEBUG- TemplateLoader.findTemplateSource("index.ftl"): Found
+2019-11-14 23:05:53.366DEBUG- Loading template for "index.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/index.ftl"
+2019-11-14 23:05:53.613DEBUG- Couldn't find template in cache for "head.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.614DEBUG- TemplateLoader.findTemplateSource("head_en.ftl"): Not found
+2019-11-14 23:05:53.614DEBUG- TemplateLoader.findTemplateSource("head.ftl"): Found
+2019-11-14 23:05:53.615DEBUG- Loading template for "head.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/head.ftl"
+2019-11-14 23:05:53.623DEBUG- Couldn't find template in cache for "nav.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.624DEBUG- TemplateLoader.findTemplateSource("nav_en.ftl"): Not found
+2019-11-14 23:05:53.625DEBUG- TemplateLoader.findTemplateSource("nav.ftl"): Found
+2019-11-14 23:05:53.625DEBUG- Loading template for "nav.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/nav.ftl"
+2019-11-14 23:05:53.634DEBUG- Couldn't find template in cache for "test-view/test-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.635DEBUG- TemplateLoader.findTemplateSource("test-view/test-view_en.ftl"): Not found
+2019-11-14 23:05:53.635DEBUG- TemplateLoader.findTemplateSource("test-view/test-view.ftl"): Found
+2019-11-14 23:05:53.636DEBUG- Loading template for "test-view/test-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/test-view/test-view.ftl"
+2019-11-14 23:05:53.646DEBUG- Couldn't find template in cache for "test-view/test-view-charts.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.647DEBUG- TemplateLoader.findTemplateSource("test-view/test-view-charts_en.ftl"): Not found
+2019-11-14 23:05:53.648DEBUG- TemplateLoader.findTemplateSource("test-view/test-view-charts.ftl"): Found
+2019-11-14 23:05:53.648DEBUG- Loading template for "test-view/test-view-charts.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/test-view/test-view-charts.ftl"
+2019-11-14 23:05:53.665DEBUG- Couldn't find template in cache for "test-view/standard.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.666DEBUG- TemplateLoader.findTemplateSource("test-view/standard_en.ftl"): Not found
+2019-11-14 23:05:53.667DEBUG- TemplateLoader.findTemplateSource("test-view/standard.ftl"): Found
+2019-11-14 23:05:53.667DEBUG- Loading template for "test-view/standard.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/test-view/standard.ftl"
+2019-11-14 23:05:53.694DEBUG- Couldn't find template in cache for "category-view/category-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.695DEBUG- TemplateLoader.findTemplateSource("category-view/category-view_en.ftl"): Not found
+2019-11-14 23:05:53.696DEBUG- TemplateLoader.findTemplateSource("category-view/category-view.ftl"): Found
+2019-11-14 23:05:53.696DEBUG- Loading template for "category-view/category-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/category-view/category-view.ftl"
+2019-11-14 23:05:53.708DEBUG- Couldn't find template in cache for "author-view/author-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.709DEBUG- TemplateLoader.findTemplateSource("author-view/author-view_en.ftl"): Not found
+2019-11-14 23:05:53.710DEBUG- TemplateLoader.findTemplateSource("author-view/author-view.ftl"): Found
+2019-11-14 23:05:53.710DEBUG- Loading template for "author-view/author-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/author-view/author-view.ftl"
+2019-11-14 23:05:53.717DEBUG- Couldn't find template in cache for "exception-view/exception-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.718DEBUG- TemplateLoader.findTemplateSource("exception-view/exception-view_en.ftl"): Not found
+2019-11-14 23:05:53.718DEBUG- TemplateLoader.findTemplateSource("exception-view/exception-view.ftl"): Found
+2019-11-14 23:05:53.718DEBUG- Loading template for "exception-view/exception-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/exception-view/exception-view.ftl"
+2019-11-14 23:05:53.723DEBUG- Couldn't find template in cache for "dashboard-view/dashboard-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.724DEBUG- TemplateLoader.findTemplateSource("dashboard-view/dashboard-view_en.ftl"): Not found
+2019-11-14 23:05:53.725DEBUG- TemplateLoader.findTemplateSource("dashboard-view/dashboard-view.ftl"): Found
+2019-11-14 23:05:53.725DEBUG- Loading template for "dashboard-view/dashboard-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/dashboard-view/dashboard-view.ftl"
+2019-11-14 23:05:53.731DEBUG- Couldn't find template in cache for "logs-view/testrunner-logs-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-14 23:05:53.731DEBUG- TemplateLoader.findTemplateSource("logs-view/testrunner-logs-view_en.ftl"): Not found
+2019-11-14 23:05:53.732DEBUG- TemplateLoader.findTemplateSource("logs-view/testrunner-logs-view.ftl"): Found
+2019-11-14 23:05:53.732DEBUG- Loading template for "logs-view/testrunner-logs-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/logs-view/testrunner-logs-view.ftl"
+2019-11-14 23:06:00.074INFO - attaching html report to the xray issue ...
+2019-11-14 23:06:00.077INFO - Last Test Report Folder: .\Reports\Thu Nov 14 23_04_17 CET 2019
+2019-11-14 23:06:00.078INFO - Zipping files ...
+2019-11-14 23:06:00.133INFO - Files zipped successfully
+2019-11-14 23:06:03.874INFO - 
+2019-11-14 23:06:03.874INFO - Response:
+2019-11-14 23:06:03.874INFO - Content-Type: Content-Type: text/html;charset=UTF-8
+2019-11-14 23:06:03.874INFO - Content-Length: null
+2019-11-14 23:06:03.874INFO - Status : 403
+2019-11-14 23:06:03.874INFO - Content: 
+
+
+
+
+
+
+
+
+
+<html>
+
+<head>
+    <title>Forbidden (403)</title>
+    
+
+
+
+<!--[if IE]><![endif]-->
+<script type="text/javascript">
+    (function() {
+        var contextPath = '';
+        var eventBuffer = [];
+
+        function printDeprecatedMsg() {
+            if (console && console.warn) {
+                console.warn('DEPRECATED JS - contextPath global variable has been deprecated since 7.4.0. Use `wrm/context-path` module instead.');
+            }
+        }
+
+        function sendEvent(analytics, postfix) {
+            analytics.send({
+                name: 'js.globals.contextPath.' + postfix
+            });
+        }
+
+        function sendDeprecatedEvent(postfix) {
+            try {
+                var analytics = require('jira/analytics');
+                if (eventBuffer.length) {
+                    eventBuffer.forEach(function(value) {
+                        sendEvent(analytics, value);
+                    });
+                    eventBuffer = [];
+                }
+
+                if (postfix) {
+                    sendEvent(analytics, postfix);
+                }
+            } catch(ex) {
+                eventBuffer.push(postfix);
+                setTimeout(sendDeprecatedEvent, 1000);
+            }
+        }
+
+        Object.defineProperty(window, 'contextPath', {
+            get: function() {
+                printDeprecatedMsg();
+                sendDeprecatedEvent('get');
+                return contextPath;
+            },
+            set: function(value) {
+                printDeprecatedMsg();
+                sendDeprecatedEvent('set');
+                contextPath = value;
+            }
+        });
+    })();
+
+</script>
+<script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["com.atlassian.plugins.atlassian-plugins-webresource-plugin:context-path.context-path"]="\"\"";
+WRM._unparsedData["jira.webresources:feature-flags.feature-flag-data"]="{\"enabled-feature-keys\":[\"com.atlassian.jira.agile.darkfeature.editable.detailsview\",\"nps.survey.inline.dialog\",\"com.atlassian.jira.agile.darkfeature.edit.closed.sprint.enabled\",\"jira.plugin.devstatus.phasetwo\",\"jira.frother.reporter.field\",\"atlassian.rest.xsrf.legacy.enabled\",\"jira.issue.status.lozenge\",\"com.atlassian.jira.config.BIG_PIPE\",\"com.atlassian.jira.projects.issuenavigator\",\"com.atlassian.jira.config.PDL\",\"jira.plugin.devstatus.phasetwo.enabled\",\"atlassian.aui.raphael.disabled\",\"app-switcher.new\",\"frother.assignee.field\",\"com.atlassian.jira.projects.ProjectCentricNavigation.Switch\",\"sd.internal.base.off.thread.on.completion.events.enabled\",\"jira.onboarding.cyoa\",\"com.atlassian.jira.agile.darkfeature.kanplan.enabled\",\"sd.slavalue.record.updated.date.enabled\",\"com.atlassian.jira.config.ProjectConfig.MENU\",\"com.atlassian.jira.projects.sidebar.DEFER_RESOURCES\",\"com.atlassian.jira.agile.darkfeature.kanplan.epics.and.versions.enabled\",\"com.atlassian.jira.agile.darkfeature.sprint.goal.enabled\",\"jira.zdu.admin-updates-ui\",\"jira.zdu.jmx-monitoring\",\"sd.sla.improved.rendering.enabled\",\"sd.canned.responses.enabled\",\"jira.plugins.dnd.attachment\",\"sd.new.settings.sidebar.location.disabled\",\"jira.zdu.cluster-upgrade-state\",\"com.atlassian.jira.agile.darkfeature.splitissue\",\"com.atlassian.jira.config.CoreFeatures.LICENSE_ROLES_ENABLED\",\"jira.export.csv.enabled\"],\"feature-flag-states\":{\"sd.customer.profile.multi.languages\":true,\"sd.customer.portal.transitions\":true,\"sd.customer.portal.transitions.config\":true,\"sd.custom.email.stripping.rules\":false,\"sd.sla.lucene.issue.id.callback.performance\":true,\"sd.new.settings.sidebar.location\":true,\"sd.workload.report.paginator\":true,\"sd.customer.search.post.agent.filtering\":true,\"sd.customer.portal.help.center.agent.announcement\":true,\"sd.sla.improved.rendering\":false,\"sd.approvals.visibility\":true,\"sd.customer.feedback.validate.reporter.on.token\":true,\"sd.custom.email.notifications.utf8.csat.star\":true,\"sd.who.create.customers.by.email.setting\":true,\"com.atlassian.jira.issuetable.move.links.hidden\":true,\"jira.renderer.consider.variable.format\":true,\"sd.password.helper.dialog\":true,\"jira.priorities.per.project.jsd\":true,\"sd.email.attachment.stripping\":false,\"sd.canned.responses\":false,\"sd.portal.help.center.customer.signup.secondary.email\":true,\"com.atlassian.jira.sharedEntityEditRights\":true,\"sd.use.search.by.permissions\":true,\"sd.slavalue.record.updated.date\":false,\"sd.report.custom.date.range\":false,\"sd.kb.article.helpfulness.report\":false,\"jira.spectrum.m1b\":false,\"com.atlassian.jira.agile.darkfeature.sprint.goal\":false,\"sd.portal.help.center.customer.signup.secondary.email.fallback\":true,\"sd.workinghours.new.page.bulldog.1\":false,\"sd.customer.portal.two.step.login\":false,\"sd.automation.psmq.async.executor\":true,\"sd.customer.org.list.page.lazy.search\":true,\"sd.approval.requested.when.handler\":true,\"com.atlassian.jira.agile.darkfeature.sidebar.boards.list\":true,\"sd.request.type.field.rest.api.filtering.bugfix\":true,\"com.atlassian.jira.custom.csv.escaper\":true,\"sd.automation.then.action.auto.answer.approval\":true,\"sd.adgs.m1\":true,\"com.atlassian.jira.plugin.issuenavigator.filtersUxImprovment\":true,\"com.atlassian.jira.agile.darkfeature.kanplan.epics.and.versions\":false,\"sla.will.only.be.paused.if.they.are.already.started\":true,\"sd.approvals.notification.email.action\":true,\"com.atlassian.jira.upgrade.startup.fix.index\":true,\"sd.customer.notifications.suppress.welcome.email\":true,\"sd.portal.help.center.customer.signup\":true,\"sd.sla.agent.jql.security.restricted\":true,\"sd.test.feature.flag.x\":true,\"sd.test.feature.flag.y\":false,\"sd.cluster.safe.mail.channel.shutdown\":true,\"sd.email.channel.folders\":false,\"sd.email.analytics.open\":false,\"jira.spectrum.m1\":true,\"sd.workinghours.new.page\":false,\"sd.confluence.anonymous.permission.fix\":true,\"com.atlassian.jira.issuetable.draggable\":true,\"sd.customer.portal.project.agent.announcement\":true,\"sd.automation.audit.log\":true,\"com.atlassian.jira.agile.darkfeature.kanban.hide.old.done.issues\":true,\"jira.jql.suggestrecentfields\":false,\"sd.canned.responses.check.index.startup\":false,\"sd.sla.conditions.due.date\":true,\"sd.new.project.templates\":true,\"sd.custom.email.notifications.custom.rules.simple.ui\":false,\"sd.dismiss.all.misconfiguration.warnings.setting\":true,\"com.atlassian.jira.agile.darkfeature.optimistic.transitions\":true,\"sd.sla.configurations.export\":true,\"sd.canned.responses.variable.substitution\":true,\"com.atlassian.jira.agile.darkfeature.kanplan\":false,\"sd.internal.base.off.thread.on.completion.events\":false,\"sd.customer.portal.prioties.per.project.fix\":true,\"jira.instrumentation.laas\":false,\"sd.kb.self.service.report\":false,\"jira.customfields.paginated.ui\":true,\"sla.improved.request.handling\":true,\"sd.no.schedule.async.upgrade.tasks\":true,\"com.atlassian.jira.agile.darkfeature.edit.closed.sprint\":false,\"sd.email.outsider.comments\":true,\"jira.create.linked.issue\":true,\"jira.sal.host.connect.accessor.existing.transaction.will.create.transactions\":true,\"sd.approvals.light.weight\":false,\"sd.automation.then.webhook\":true,\"sd.priorities.per.project\":true,\"jira.quick.search\":true,\"com.atlassian.jira.projects.per.project.permission.query\":true,\"sd.respect.inline.edit.issue.off\":true,\"jira.jql.smartautoselectfirst\":false,\"sd.global.portal.search.atlassian.only.tracking\":false,\"com.atlassian.jira.projects.archiving\":true,\"sd.automation.if.condition.comment.primary.action\":true,\"index.use.snappy\":true,\"jira.priorities.per.project\":true,\"sd.inline.noformat.renderer\":true}}";
+WRM._unparsedData["jira.webresources:default-comment-security-level.DefaultCommentSecurityLevelHelpLink"]="{\"extraClasses\":\"default-comment-level-help\",\"title\":\"Commenting on an Issue\",\"url\":\"https://docs.atlassian.com/jira/jcore-docs-0713/Editing+and+collaborating+on+issues#Editingandcollaboratingonissues-restrictacomment\",\"isLocal\":false}";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:policy-update-init.policy-update-data-provider"]="false";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:programmatic-analytics-init.programmatic-analytics-data-provider"]="false";
+WRM._unparsedData["com.onresolve.jira.groovy.groovyrunner:web-item-response-renderer.web-item-actions-data-provider"]="[]";
+WRM._unparsedData["jira.webresources:dateFormatProvider.allFormats"]="{\"dateFormats\":{\"meridiem\":[\"AM\",\"PM\"],\"eras\":[\"BC\",\"AD\"],\"months\":[\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],\"monthsShort\":[\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sep\",\"Oct\",\"Nov\",\"Dec\"],\"weekdaysShort\":[\"Sun\",\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\",\"Sat\"],\"weekdays\":[\"Sunday\",\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\"]},\"lookAndFeelFormats\":{\"relativize\":\"true\",\"time\":\"HH:mm\",\"day\":\"EEEE HH:mm\",\"dmy\":\"dd.MM.yy\",\"complete\":\"dd.MM.yy HH:mm\"}}";
+WRM._unparsedData["com.atlassian.servicedesk.servicedesk-canned-responses-plugin:canned-responses-data-provider.data"]="{\"substitutionVariables\":{\"issue.summary\":\"Issue summary\",\"issue.description\":\"Issue description\",\"issue.key\":\"Issue key\",\"issue.reporter.name\":\"Issue reporter\",\"issue.resolution\":\"Issue resolution\",\"request.url\":\"Request URL\",\"request.status\":\"Request status\",\"request.details\":\"Request details\"}}";
+WRM._unparsedData["jira.webresources:avatar-picker.data"]="{}";
+WRM._unparsedData["com.atlassian.jira.jira-header-plugin:dismissedFlags.flags"]="{\"dismissed\":[]}";
+WRM._unparsedData["com.atlassian.jira.jira-header-plugin:newsletter-signup-tip-init.newsletterSignup"]="{\"signupDescription\":\"Get updates, inspiration and best practices from the team behind Jira.\",\"formUrl\":\"https://www.atlassian.com/apis/exact-target/{0}/subscribe?mailingListId=1401671\",\"signupTitle\":\"Sign up!\",\"signupId\":\"newsletter-signup-tip\",\"showNewsletterTip\":false}";
+WRM._unparsedData["com.atlassian.jira.project-templates-plugin:project-templates-plugin-resources.ptAnalyticsData"]="{\"instanceCreatedDate\":\"2010-06-23\"}";
+WRM._unparsedData["jira.webresources:jqlautocomplete.jql.autocomplete.recentFields"]="{\"key\":\"jqlValues\",\"value\":[\"affectedVersion\",\"assignee\",\"component\",\"description\",\"issue\",\"labels\",\"parent\",\"priority\",\"project\",\"reporter\",\"resolution\",\"status\",\"summary\",\"type\",\"watcher\"]}";
+WRM._unparsedData["com.atlassian.servicedesk.core-ui:util-help-links.help-links"]="{\"help\":{\"email.settings\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Receiving+requests+by+email\",\"managing.queues\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Setting+up+queues+for+your+team\",\"email.setup\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Receiving+requests+by+email\",\"request.settings.help.bubble\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Managing+access+to+your+service+desk\",\"email.settings.suitablerequest\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Receiving+requests+by+email#Receivingrequestsbyemail-suitablerequest\",\"sla.import.help\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Importing+SLAs\",\"documentation.home\":\"https://docs.atlassian.com/jira/jsd-docs-0316/JIRA+Service+Desk+Documentation\",\"default\":\"https://docs.atlassian.com/jira/jsd-docs-0316/\",\"create.space.help\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Knowledge+base+settings+and+permissions\",\"advanced.approval.notifications\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Approving+a+service+desk+request\",\"email.settings.troubleshooting\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Troubleshooting+issues+with+the+email+channel\",\"admin.notifications.config\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Managing+service+desk+notifications\",\"troubleshoot.requesttype\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Troubleshooting+issues+with+request+types\",\"approvals.configuration\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Configuring+JIRA+Service+Desk+approvals\",\"setting.up.reports\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Setting+up+service+desk+reports\",\"public.signup\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Configuring+public+signup\",\"knowledge.base\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Set+up+a+knowledge+base+for+self-service\",\"resolve.permission.scheme.errors\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Resolving+permission+scheme+errors\",\"getting.started\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Getting+started+with+JIRA+Service+Desk\",\"getting.started.agent\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Getting+started+for+service+desk+agents\",\"invite.customers\":\"https://docs.atlassian.com/jira/jsd-docs-0316/Managing+access+to+your+service+desk\"},\"kb\":{\"default\":\"https://confluence.atlassian.com/display/SDKB/\",\"troubleshooting.user.management.issues\":\"https://confluence.atlassian.com/display/SDKB/Troubleshooting+issues+with+service+desk+user+management\",\"legacytransition\":\"https://confluence.atlassian.com/display/SDKB/Replacing+legacy+automatic+transitions+with+automation+rules\",\"umtroubleshoot\":\"https://confluence.atlassian.com/display/SDKB/Troubleshooting+issues+with+service+desk+user+management\"}}";
+WRM._unparsedData["com.atlassian.servicedesk.core-ui:util-base-url.base-url"]="\"https://t-jira-consorsbank.is.echonet\"";
+WRM._unparsedData["com.atlassian.jira.ext.calendar:tipDataProvider.tip"]="{\"suppressTip\":false}";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-wiki-editor:wiki-editor-thumbnails.thumbnails-allowed"]="true";
+WRM._unparsedData["com.atlassian.jira.plugins.jira-wiki-editor:wiki-editor-resources.help-data"]="{\"showHelp\":true,\"editorDocumentationUrl\":[\"https://docs.atlassian.com/jira/jcore-docs-0713/Visual+editing\"],\"editorDocumentationTitle\":[\"Show me documentation for the visual editor\"]}";
+WRM._unparsedData["jira.webresources:user-message-flags.adminLockout"]="{}";
+WRM._unparsedData["com.atlassian.plugins.helptips.jira-help-tips:help-tip-manager.JiraHelpTipData"]="{\"anonymous\":true}";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<link type="text/css" rel="stylesheet" href="/s/cb65222ff3e3d8627cb803cfc0f879bd-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/484b2eaf39d005d2b73e70e754585289/_/download/contextbatch/css/_super/batch.css?spectrum=true" data-wrm-key="_super" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="/s/c0821f8e37e9ec316b87c5e2b8efcd42-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/98a893423f77715af2372707e9864d6f/_/download/contextbatch/css/atl.general,jira.general,jira.global,atl.global,-_super/batch.css?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;spectrum=true" data-wrm-key="atl.general,jira.general,jira.global,atl.global,-_super" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="/s/dbfa9160361595bf23a5d6c563868203-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/7.9.9/_/download/batch/com.atlassian.auiplugin:aui-labels/com.atlassian.auiplugin:aui-labels.css" data-wrm-key="com.atlassian.auiplugin:aui-labels" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/s/5b3fe2c681f2dd8486d6712ad323ba96-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/1.0/_/download/batch/jira.webresources:global-static-adgs/jira.webresources:global-static-adgs.css?spectrum=true" data-wrm-key="jira.webresources:global-static-adgs" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="/s/ec9c9d9d4f0c820af4c20b26b175df51-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/1.0/_/download/batch/jira.webresources:global-static/jira.webresources:global-static.css" data-wrm-key="jira.webresources:global-static" data-wrm-batch-type="resource" media="all">
+<script type="text/javascript" src="/s/7ce6d22cb941f6f37b5169619a5ee923-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/484b2eaf39d005d2b73e70e754585289/_/download/contextbatch/js/_super/batch.js?locale=en-US&amp;spectrum=true" data-wrm-key="_super" data-wrm-batch-type="context" data-initially-rendered></script>
+<script type="text/javascript" src="/s/1c586bc065c2e640031064464ab33a85-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/98a893423f77715af2372707e9864d6f/_/download/contextbatch/js/atl.general,jira.general,jira.global,atl.global,-_super/batch.js?agile_global_admin_condition=true&amp;content-type=text%2Fjavascript&amp;is-server-instance=true&amp;jag=true&amp;locale=en-US&amp;spectrum=true" data-wrm-key="atl.general,jira.general,jira.global,atl.global,-_super" data-wrm-batch-type="context" data-initially-rendered></script>
+<script type="text/javascript" src="/s/1c586bc065c2e640031064464ab33a85-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/98a893423f77715af2372707e9864d6f/_/download/contextbatch/js/atl.general,jira.general,jira.global,atl.global,-_super/batch.js?agile_global_admin_condition=true&amp;is-server-instance=true&amp;jag=true&amp;locale=en-US&amp;spectrum=true" data-wrm-key="atl.general,jira.general,jira.global,atl.global,-_super" data-wrm-batch-type="context" data-initially-rendered></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/1.7.1/_/download/resources/pro.behave.hosted:behave-pro-client-resources/client/pro.behave.jira.bundle.js?batch=false" data-wrm-key="pro.behave.hosted:behave-pro-client-resources" data-wrm-batch-type="resource" data-initially-rendered></script>
+<link type="text/css" rel="stylesheet" href="/s/47ad8d54e557c2fd7e130b1293f7af03-CDN/xtf8lx/713003/7e7951ae532d8f2e1d73f1213dd524d0/3b23274de602a75fde9e2a611fa7c2b6/_/download/contextbatch/css/jira.global.look-and-feel,-_super/batch.css?spectrum=true" data-wrm-key="jira.global.look-and-feel,-_super" data-wrm-batch-type="context" media="all">
+
+<script type="text/javascript" src="/rest/api/1.0/shortcuts/713003/eff6d48d6ceeedc7ad856d4a88aa4cf7/shortcuts.js"></script>
+
+
+    <meta name="application-name" content="JIRA" data-name="jira" data-version="7.13.3">
+</head>
+<body id="jira" class="aui-layout aui-style-default page-type-message"  data-version="7.13.3" >
+    <div class="aui-page-panel"><div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                    <header class="aui-page-header"><div class="aui-page-header-inner">
+                            <div class="aui-page-header-main">
+                                    <h1>Forbidden (403)</h1>
+                                </div><!-- .aui-page-header-main -->
+                        </div><!-- .aui-page-header-inner --></header><!-- .aui-page-header -->
+                    <div class="aui-message aui-message-warning warning">
+                            <p>Encountered a <code>&quot;403 - Forbidden&quot;</code> error while loading this page.</p>
+                            <p>Basic Authentication Failure - Reason : AUTHENTICATION_DENIED</p>
+                            <p><a href="/secure/MyJiraHome.jspa">Go to Jira home</a></p>
+                        </div>
+                </section><!-- .aui-page-panel-content -->
+        </div><!-- .aui-page-panel-inner --></div><!-- .aui-page-panel -->
+</body>
+</html>
+

@@ -77,6 +77,7 @@ public class UC69_70_Risikoklasse {
 		}
 	}
 
+	
 	@Then("verify success message shown on bestaetigung page")
 	public void verify_success_message_shown_on_bestaetigung_page() throws InterruptedException {
 		// commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
@@ -92,5 +93,6 @@ public class UC69_70_Risikoklasse {
 		}
 
 	}
+
 
 }

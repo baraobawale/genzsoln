@@ -84,7 +84,14 @@ public class CommonActions {
 			}
 		}
 	}
+	/**
+	 * 
+	 */
 
+	public WebDriver getDriver() {
+		
+		return driver;
+	}
 	/**
 	 * Description: Open the desired browser reading from properties file
 	 * 
@@ -107,6 +114,7 @@ public class CommonActions {
 				driver = new RemoteWebDriver(new URL(Configurations.URL_BS), caps);
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
+					//System.out.println("Common Actions - 110");
 					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath);
 					// String browser_version = null;
 					// Capabilities cap = ((RemoteWebDriver)
@@ -684,11 +692,11 @@ public class CommonActions {
 	}
 
 	public String getValueFromJson(String dataKeyInJson) throws FileNotFoundException, IOException, ParseException {
+		//System.out.println("dataKeyInJson >>>>" + dataKeyInJson);
 		String datakey = null;
 		try {
 			datakey = getKeyFromJson(dataKeyInJson);
-			datakey = checkGermanCharacters(datakey);
-			// System.out.println(dataKeyInJson + ":" + datakey);
+			datakey = checkGermanCharacters(datakey);		 
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -738,15 +746,19 @@ public class CommonActions {
 			}
 			// pair.getValue().toString());
 		} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+			
+			
 			JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-					".\\src\\test\\java\\com\\bnpp\\TestData\\loadenvironment\\" + featurename + ".json"));
-			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+					".\\src\\test\\java\\com\\bnpp\\testdata\\loadenvironment\\" + featurename + ".json"));
+			JSONObject featureName = (JSONObject) getFeatureName.get("Feature");
 			Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+			
 			Iterator it = getScenarioName.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry pair = (Map.Entry) it.next();
 				if (pair.getKey().toString().equals(dataKey)) {
 					data = pair.getValue().toString();
+					
 					break;
 				}
 				// System.out.println(pair.getKey() + ":" +
@@ -851,7 +863,7 @@ public class CommonActions {
 
 	public void setfaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
-		String[] d = featurename.split("/features/");
+		String[] d = featurename.split("/features_demo/");
 		// System.out.println(d[0] + " " + d[1]);
 		String[] d2 = d[1].split(".feature");
 		// System.out.println(d2[0]);
