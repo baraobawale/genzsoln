@@ -24,9 +24,9 @@ public class JunitRunner {
 
 	@BeforeClass
 	public static void setupBeforeClass() {
-		setLogger();
 
 		com.dab.config.PropertiesHandler.setConfigPath(Configurations.XrayConfigPath);
+		setLogger();
 
 		// exporting report should not be added at before tag, first FFs
 		// will be exported from JIRA to our system with the help of different command
