@@ -29,12 +29,14 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -173,12 +175,7 @@ public class CommonActions {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 		return ops;
 	}
@@ -193,12 +190,7 @@ public class CommonActions {
 			getElement(objectKey).sendKeys(datakey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 
 		}
 	}
@@ -229,12 +221,7 @@ public class CommonActions {
 			// scenario.debug(Configurations.downloadPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 	}
 
@@ -291,12 +278,7 @@ public class CommonActions {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logAssert_Fail("Element still visible within given time limit: " + ObjectKey);
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 	}
 
@@ -335,8 +317,8 @@ public class CommonActions {
 
 	/**
 	 * @param objectKey
-	 * @return true if element is present false if not found. Description: Check if
-	 *         element is present and used as a checkpoint. true - present
+	 * @return true if element is present false if not found. Description: Check
+	 *         if element is present and used as a checkpoint. true - present
 	 */
 	public boolean isElementPresent(String objectKey) {
 		List<WebElement> e = null;
@@ -363,12 +345,7 @@ public class CommonActions {
 			logInfoStatus("Info | Clicked on : " + objectKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 	}
 
@@ -386,31 +363,21 @@ public class CommonActions {
 		try {
 			getElement(objectKey).clear();
 			getElement(objectKey).sendKeys(textToEnter);
-		} catch (Exception e) {
+			} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 
 	}
-
+	
 	public void enterTextToLogin(String objectKey, String dataKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			getElement(objectKey).clear();
 			getElement(objectKey).sendKeys(getKeyFromJson(dataKey));
-		} catch (Exception e) {
+			} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 
 	}
@@ -429,12 +396,7 @@ public class CommonActions {
 			getElement(objectKey).sendKeys(strValue);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 
 	}
@@ -448,12 +410,7 @@ public class CommonActions {
 			getElement(objectKey).clear();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 	}
 
@@ -467,14 +424,7 @@ public class CommonActions {
 			return str = getElement(objectKey).getText();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			return "Error";
+			throw e;
 		}
 	}
 
@@ -484,13 +434,7 @@ public class CommonActions {
 			return str = getElement(objectKey).getAttribute(attributeName);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			return "Error";
+			throw e;
 		}
 	}
 
@@ -498,7 +442,8 @@ public class CommonActions {
 	 * @param objectKey
 	 * @param data
 	 * @throws Exception
-	 *             Description Common action select from combo box by visible text
+	 *             Description Common action select from combo box by visible
+	 *             text
 	 */
 	public void selectFromDropDown(String objectKey, String datakey) throws Exception {
 		Select s = new Select(getElement(objectKey));
@@ -535,12 +480,7 @@ public class CommonActions {
 			act.sendKeys(Keys.TAB).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 	}
 
@@ -553,12 +493,7 @@ public class CommonActions {
 			act.sendKeys(Keys.ENTER).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 	}
 
@@ -618,7 +553,7 @@ public class CommonActions {
 			act.moveToElement(getElement(objectKey)).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-
+			
 		}
 	}
 
@@ -660,7 +595,8 @@ public class CommonActions {
 
 	/**
 	 * @param errMsg
-	 *            Description Common function to fail the report and stop execution
+	 *            Description Common function to fail the report and stop
+	 *            execution
 	 */
 	public void logAssert_Fail(String errMsg) {
 		// fail in extent reports
@@ -749,12 +685,7 @@ public class CommonActions {
 			scenario.log(Status.INFO, "Starting " + scenarioName);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			throw e;
 		}
 	}
 
@@ -771,7 +702,7 @@ public class CommonActions {
 			// TODO Auto-generated catch block
 			logAssert_Fail(dataKeyInJson + " : Please make sure ojectKey present in json file");
 		}
-
+		
 		return datakey;
 	}
 
@@ -832,13 +763,7 @@ public class CommonActions {
 			return data;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			return "Error";
+			throw e;
 		}
 
 	}
@@ -926,14 +851,9 @@ public class CommonActions {
 					data = data.replace("Ue", "Ü");
 			}
 		} catch (Exception e) {
-
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
+			
+			throw e;
+			
 		}
 		return data;
 
@@ -972,6 +892,8 @@ public class CommonActions {
 		}
 	}
 
+	
+
 	public boolean compareTextWithJsonDataKeyValue(String ObjectKey, String jsonDataKey)
 			throws FileNotFoundException, IOException, ParseException {
 		if (getText(ObjectKey).equals(getValueFromJson(jsonDataKey)))
@@ -989,7 +911,7 @@ public class CommonActions {
 			return false;
 	}
 
-	// Not in use currently for load environement 13.11.2019
+	//Not in use currently for load environement 13.11.2019
 	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, ParseException {
 		Properties prop = new Properties();
@@ -1048,8 +970,7 @@ public class CommonActions {
 		return e.size();
 
 	}
-
-	// Not in use currently for load environement 13.11.2019
+	//Not in use currently for load environement 13.11.2019
 	public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String tanfield) throws ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException {
 		Properties prop = new Properties();
@@ -1104,53 +1025,54 @@ public class CommonActions {
 		System.out.println(newDate);
 		return newDate;
 	}
+	
+	 public void setUp() throws Exception {
+	    	
+	        DesiredCapabilities capabilities = new DesiredCapabilities();
 
-	public void setUp() throws Exception {
+	        System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
+	        System.getProperties().put("https.proxyPort", "8080");
+	        System.out.println(System.getProperty("browser"));
+	        if(System.getProperty("browser").equals("chrome")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","75.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	        else if(System.getProperty("browser").equals("firefox")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","69.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	        else if(System.getProperty("browser").equals("safari")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","7.1");
+	        	capabilities.setCapability("os", "OS X");
+	        	capabilities.setCapability("os_version", "Mavericks");
+	        }
+	        else if(System.getProperty("browser").equals("IE")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","11.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	     
+	        Thread.sleep(2000);
+	        String username = "chetana19";
+	        String accessKey = "5tW8jrFVdPxbpgUSvssc";
 
-		DesiredCapabilities capabilities = new DesiredCapabilities();
+//	        if(capabilities.getCapability("browserstack.local") != null && capabilities.getCapability("browserstack.local") == "true"){
+//	            l = new Local();
+//	            Map<String, String> options = new HashMap<String, String>();
+//	            options.put("key", accessKey);
+//	            l.start(options);
+//	        }
+	        capabilities.setCapability("browserstack.local", "true");
+	        capabilities.setCapability("name", getScenarioName());
+	        capabilities.setCapability("acceptSslCerts", "true");
+	        capabilities.setCapability("browserstack.debug","true");
 
-		System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
-		System.getProperties().put("https.proxyPort", "8080");
-		System.out.println(System.getProperty("browser"));
-		if (System.getProperty("browser").equals("chrome")) {
-			capabilities.setCapability("browser", System.getProperty("browser"));
-			capabilities.setCapability("browser_version", "75.0");
-			capabilities.setCapability("os", "Windows");
-			capabilities.setCapability("os_version", "10");
-		} else if (System.getProperty("browser").equals("firefox")) {
-			capabilities.setCapability("browser", System.getProperty("browser"));
-			capabilities.setCapability("browser_version", "69.0");
-			capabilities.setCapability("os", "Windows");
-			capabilities.setCapability("os_version", "10");
-		} else if (System.getProperty("browser").equals("safari")) {
-			capabilities.setCapability("browser", System.getProperty("browser"));
-			capabilities.setCapability("browser_version", "7.1");
-			capabilities.setCapability("os", "OS X");
-			capabilities.setCapability("os_version", "Mavericks");
-		} else if (System.getProperty("browser").equals("IE")) {
-			capabilities.setCapability("browser", System.getProperty("browser"));
-			capabilities.setCapability("browser_version", "11.0");
-			capabilities.setCapability("os", "Windows");
-			capabilities.setCapability("os_version", "10");
-		}
-
-		Thread.sleep(2000);
-		String username = "chetana19";
-		String accessKey = "5tW8jrFVdPxbpgUSvssc";
-
-		// if(capabilities.getCapability("browserstack.local") != null &&
-		// capabilities.getCapability("browserstack.local") == "true"){
-		// l = new Local();
-		// Map<String, String> options = new HashMap<String, String>();
-		// options.put("key", accessKey);
-		// l.start(options);
-		// }
-		capabilities.setCapability("browserstack.local", "true");
-		capabilities.setCapability("name", getScenarioName());
-		capabilities.setCapability("acceptSslCerts", "true");
-		capabilities.setCapability("browserstack.debug", "true");
-
-		driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"),
-				capabilities);
-	}
+	        driver = new RemoteWebDriver(new URL("https://"+username+":"+accessKey+"@hub.browserstack.com/wd/hub"), capabilities);
+	    }    
 }
