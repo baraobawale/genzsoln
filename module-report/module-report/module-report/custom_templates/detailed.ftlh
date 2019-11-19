@@ -436,8 +436,11 @@
                                                 </#if>
                                                 <#list step.getScreenShotLocations() as screenshot>
                                                     <tr class="${step.getResult().getStatus()}">
-                                                        <td colspan="2"><img src="${screenshot}"
-                                                                    width="${screenShotWidth}"/></td>
+                                                        <td colspan="2">
+																	<a "${screenShotWidth}" href="${screenshot}" target="_blank" rel="noopener noreferrer">
+                                                						<img src="${screenshot}" width="${screenShotWidth}">
+                                            						</a>
+														</td>
                                                     </tr>
                                                 </#list>
                                                 <#if step.getOutput()?has_content>

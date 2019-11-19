@@ -4,7 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
 import com.bnpp.library.CommonActions;
+
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,6 +22,13 @@ public class UC69_70_Risikoklasse {
 
 	public UC69_70_Risikoklasse(CommonActions commonActions) {
 		this.commonActions = commonActions;
+	}
+
+	Scenario sc;
+
+	@Before
+	public void before(Scenario scenario) {
+		sc = scenario;
 	}
 
 	@When("User navigates to {string}")
@@ -77,22 +90,27 @@ public class UC69_70_Risikoklasse {
 		}
 	}
 
-	
 	@Then("verify success message shown on bestaetigung page")
 	public void verify_success_message_shown_on_bestaetigung_page() throws InterruptedException {
 		// commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
 
 		try {
+			byte[] data = ((TakesScreenshot) (commonActions.getDriver())).getScreenshotAs(OutputType.BYTES);
+			String testName = sc.getName();
+			sc.embed(data, "image/png");
+			sc.write(testName);
+
 			if (commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
-				commonActions.logPassStatus("Pass | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+				commonActions.logPassStatus(
+						"Pass | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
 			else
-				commonActions.logFailStatus("Fail | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display failed");
+				commonActions.logFailStatus(
+						"Fail | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display failed");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-
 
 }

@@ -1,8 +1,7 @@
-Feature: TA-131
+Feature: TA-163
 Scenario Outline: <TestCase>
 Given User launches consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    #And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
     And User clicks on "Risikoklasse/Finanztermingeschaefte_PersoenlicheEinstellungen"
     And User clicks on "RisikoklasseJetztAendern_RisikoklasseFinanztermingeschaefte"

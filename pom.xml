@@ -183,7 +183,6 @@
 								<tag>@important,@billing</tag> </tags -->
 							<!-- Generate TestNG runners instead of JUnit ones. -->
 							<useTestNG>false</useTestNG>
-
 						</configuration>
 					</execution>
 				</executions>
