@@ -56,9 +56,9 @@ public class GenericSteps {
 
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
 			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
+		} else {
+			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
-
-		commonActions.initReports(s.getName() + "_" + "chrome");
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
 
 	}
