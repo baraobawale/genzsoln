@@ -10,8 +10,6 @@ import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
-import com.bnpp.utilities.TANGenerator;
-
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 
@@ -75,7 +73,7 @@ public class UC58_61_EinzelEroeffnet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Input new mobile tan step failed");
+			commonActions.logAssert_Fail("User submits generated TAN number failed for new customer");
 		}
 	}
 

@@ -10,7 +10,7 @@
 			"Intervall": "monatlich",
 			"Immer_am": "10.des.Monats",
 			"Startdatum": "05.11.2020",
-			"Unbegrenzt_gültig": "select",
+			"Unbegrenzt_gueltig": "select",
 			"Als_Vorlage_speichern": "select",
 			"Vorlagenname": "003 DELTA BUERICZUEK",
 			"Message": "Ihr Dauerauftrag wurde angenommen"

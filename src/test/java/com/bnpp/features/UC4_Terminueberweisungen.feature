@@ -1,8 +1,9 @@
-
+@UC4
 Feature: UC4_Terminueberweisungen
 
   #Executable - Terminueberweisungen anlegen,Andern,loeschen
   #Anlegen/Creation
+  
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -16,7 +17,7 @@ Feature: UC4_Terminueberweisungen
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_TerminAnlegen"
     And User enters "Betrag" in "Betrag_TerminAnlegen"
     And User enters future date in Datum_TerminAnlegen
-    And User select checkbox "Als_Vorlage_speichern" in "AlsVorlageSpeichern_TerminAnlegen"
+    And User selects checkbox "Als_Vorlage_speichern" in "AlsVorlageSpeichern_TerminAnlegen"
     And User enters "Vorlagenname" in "Vorlagenname_TerminAnlegen"
     And User clicks on "WeiterZurTANEingabe_TerminAnlegen"
     And User submits generated TAN number using "MobileTanLink_TerminAnlegen" on "TAN_field_TerminAnlegen"

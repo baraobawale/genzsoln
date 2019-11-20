@@ -29,14 +29,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -98,7 +96,7 @@ public class CommonActions {
 				setUp();
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
-					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath77);
+					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath78);
 					driver = new ChromeDriver(loadChromeOptions());
 					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
@@ -362,6 +360,7 @@ public class CommonActions {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			getElement(objectKey).clear();
+			Thread.sleep(1000);
 			getElement(objectKey).sendKeys(textToEnter);
 			} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -666,8 +665,8 @@ public class CommonActions {
 	public void quit() {
 		if (report != null)
 			report.flush();
-//		if (driver != null)
-//			driver.quit();
+//	if (driver != null)
+//		driver.quit();
 		softAssertions.assertAll();
 		if ((softAssertions.errorsCollected().size()) != 0)
 			logAssert_Fail(scenarioname + " failed");
@@ -698,8 +697,11 @@ public class CommonActions {
 
 		} catch (FileNotFoundException e) {
 			logAssert_Fail(featurename + " .json file not found");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch(NullPointerException e){
+			throw e;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 			logAssert_Fail(dataKeyInJson + " : Please make sure ojectKey present in json file");
 		}
 		
@@ -947,8 +949,9 @@ public class CommonActions {
 
 	/**
 	 * Description Common function for checked or unchecked the radio button
+	 * @throws Exception 
 	 */
-	public void clearRadioButton(String objectKey) {
+	public void clearRadioButton(String objectKey) throws Exception {
 		WebElement e;
 
 		try {
@@ -958,7 +961,7 @@ public class CommonActions {
 				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
 			}
 		} catch (Exception ex) {
-			logAssert_Fail("Clear radio button failed");
+			throw ex;
 		}
 	}
 
@@ -1007,8 +1010,14 @@ public class CommonActions {
 		getElement(tankey).sendKeys(string);
 	}
 
-	public void enterLoadenvironmentTan(String tanField, String string) {
+	public void enterLoadenvironmentTan(String tanField, String string) throws InterruptedException  {
 		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 		getElement(tanField).sendKeys(string);
 	}
 

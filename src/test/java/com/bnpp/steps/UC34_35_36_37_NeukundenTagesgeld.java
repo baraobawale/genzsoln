@@ -1,10 +1,5 @@
 package com.bnpp.steps;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import org.json.simple.parser.ParseException;
-import org.openqa.selenium.WebElement;
-
 import com.bnpp.library.CommonActions;
 
 import cucumber.api.java.en.Then;
@@ -30,12 +25,10 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 			CaptureMsgTagesgeldkontoEinzel = commonActions.getText("TagesgeldkontoEinzel");
 			CaptureMsgVorgangsnummer = commonActions.getText("CaptureVorgangsnummer");
 			
-			System.out.println("CaptureMsgTagesgeldkontoEinzel:" + CaptureMsgTagesgeldkontoEinzel);
-		
-		}
+			}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on TagesgeldkontoEinzel failed");
 		}
 	}
 	
@@ -43,7 +36,7 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 	public void verify_captured_Vorgangsnummer_message_from_TagesgeldkontoEinzel() {
 		try {
 			
-			if (CaptureMsgTagesgeldkontoEinzel.equals(commonActions.getValueFromJson("Message"))) {
+			if (CaptureMsgTagesgeldkontoEinzel.trim().equals(commonActions.getValueFromJson("Message"))) {
 				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMsgTagesgeldkontoEinzel);
 			} else {
 				commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureMsgTagesgeldkontoEinzel);
@@ -56,7 +49,7 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,message from TagesgeldkontoEinzel failed");
 		}
 	}
 	
@@ -71,14 +64,14 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on TagesgeldkontoGemeinschafts");
 		}
 	}
 
 	@Then("Verify captured Vorgangsnummer,Message from TagesgeldkontoGemeinschafts")
 	public void verify_captured_Vorgangsnummer_Message_from_TagesgeldkontoGemeinschafts() {
 		try {
-			if (CaptureMsgTagesgeldkontoGemeinschafts2.equals(commonActions.getValueFromJson("Message"))) {
+			if (CaptureMsgTagesgeldkontoGemeinschafts2.trim().equals(commonActions.getValueFromJson("Message"))) {
 				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMsgTagesgeldkontoGemeinschafts2);
 	
 			} else {
@@ -91,7 +84,7 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from TagesgeldkontoGemeinschafts failed");
 		}
 	}
 	@When("Capture Vorgangsnummer,Message on TagesgeldkontoMinderjaehrigen{int}")
@@ -105,14 +98,14 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on TagesgeldkontoMinderjaehrigen failed");
 		}
 	}
 
 	@Then("Verify captured Vorgangsnummer,Message from TagesgeldkontoMinderjaehrigen{int}")
 	public void verify_captured_Vorgangsnummer_Message_from_TagesgeldkontoMinderjaehrigen(Integer int1) {
 		try {
-			if (CaptureMsgTagesgeldkontoMinderjaehrigen.equals(commonActions.getValueFromJson("Message"))) {
+			if (CaptureMsgTagesgeldkontoMinderjaehrigen.trim().equals(commonActions.getValueFromJson("Message"))) {
 				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMsgTagesgeldkontoMinderjaehrigen);
 				
 			} else {
@@ -126,7 +119,7 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from TagesgeldkontoMinderjaehrigen failed");
 		}
 	}
 }

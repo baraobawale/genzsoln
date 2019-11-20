@@ -1,9 +1,9 @@
-@UC_9_10
+
 Feature: UC_9_10_UeberweisungLimit
 
   #Executable : Ueberweisungslimit Aendern (mit Fehlermeldungen)
   #Verify Error
-  
+ 
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -21,6 +21,7 @@ Feature: UC_9_10_UeberweisungLimit
       | Ueberweisungslimit_Verify_Errors |
 
   #Errors - Limit more than max limit
+   @UC_9_10
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

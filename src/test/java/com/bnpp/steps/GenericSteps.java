@@ -1,41 +1,26 @@
 package com.bnpp.steps;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.List;
-import java.util.Properties;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
-import org.junit.Assert;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
-
 import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
-import com.bnpp.mTANResources.MobileTan;
 import com.bnpp.utilities.Configurations;
-import com.bnpp.utilities.TANGenerator;
-
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class GenericSteps {
 
 	CommonActions commonActions;
-
-	
 
 	public GenericSteps(CommonActions con) {
 		this.commonActions = con;
@@ -51,9 +36,9 @@ public class GenericSteps {
 	@Before
 	public void before(Scenario s) throws Exception {
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
-			commonActions.initReports(s.getName()+"_"+System.getProperty("browser"));
+			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
 		}
-		commonActions.initReports(s.getName()+"_"+"chrome");
+		commonActions.initReports(s.getName() + "_" + "chrome");
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
 
 	}
@@ -84,19 +69,20 @@ public class GenericSteps {
 	@And("^User enters \"(.*?)\" in \"(.*?)\"$")
 	public void User_enters(String dataKey, String locatorKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
-		try{
+		try {
 			String textToEnter = commonActions.getValueFromJson(dataKey);
-			if(textToEnter.equals("")){
+			if (textToEnter.equals("")) {
 				commonActions.clearfield(locatorKey);
-			}else
-			commonActions.enterText(locatorKey, textToEnter);
+			} else
+				commonActions.enterText(locatorKey, textToEnter);
 			commonActions.pressTab();
-		} catch(ElementNotInteractableException e){
-			commonActions.logAssert_Fail("Enter text failed on:- "+locatorKey+" :Please check element is visible on the page");
-		}catch (Exception e) {
+		} catch (ElementNotInteractableException e) {
+			commonActions.logAssert_Fail(
+					"Enter text failed on:- " + locatorKey + " :Please check element is visible on the page");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Fail | Enter text failed on -" +locatorKey+":"+dataKey);
+			commonActions.logAssert_Fail("Fail | Enter text failed on -" + locatorKey + ":" + dataKey);
 		}
 
 	}
@@ -106,7 +92,7 @@ public class GenericSteps {
 
 		try {
 			commonActions.clearfield(locatorKey);
-		}catch(ElementNotInteractableException e){
+		} catch (ElementNotInteractableException e) {
 			commonActions.logAssert_Fail("Please check element is visible on the page");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -121,8 +107,9 @@ public class GenericSteps {
 			commonActions.pressTab();
 			commonActions.click(locatorKey);
 			commonActions.pressTab();
-		}catch(ElementNotInteractableException e){
-			commonActions.logAssert_Fail("Clicking failed on:-"+locatorKey+" :Please check element is visible on the page-");
+		} catch (ElementNotInteractableException e) {
+			commonActions.logAssert_Fail(
+					"Clicking failed on:-" + locatorKey + " :Please check element is visible on the page-");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,8 +123,8 @@ public class GenericSteps {
 		try {
 			commonActions.mouseover(mouseoverelementKey);
 			commonActions.click(clickElementKey);
-		}catch(ElementNotInteractableException e){
-			commonActions.logAssert_Fail("Please check element is visible on the page: "+clickElementKey);
+		} catch (ElementNotInteractableException e) {
+			commonActions.logAssert_Fail("Please check element is visible on the page: " + clickElementKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -146,7 +133,7 @@ public class GenericSteps {
 
 	}
 
-	//Currently mobile tan simulator not working 13.11.2019
+	// Currently mobile tan simulator not working 13.11.2019
 	@And("^User submits generated TAN number using \"(.*?)\" on \"(.*?)\"$")
 	public void user_submits_the_generated_TAN_number_using(String mobileTanlink, String tanField)
 
@@ -154,6 +141,7 @@ public class GenericSteps {
 		try {
 			// commonActions.clickonMobiletanLinkandEnterTan(mobileTanlink,
 			// tanField);
+
 			commonActions.enterLoadenvironmentTan(tanField, "12345678");
 			// commonActions.click("BestaetigenButton");
 			// if
@@ -173,15 +161,19 @@ public class GenericSteps {
 			// }
 			// }
 			// }
-		}catch(ElementNotInteractableException e){
-			commonActions.logAssert_Fail("Enter tan failed on:-"+tanField+" :Please check element is visible on the page: ");
+		} catch (ElementNotInteractableException e) {
+			commonActions.logAssert_Fail(
+					"Enter tan failed on:-" + tanField + " :Please check element is visible on the page: ");
+		} catch (StaleElementReferenceException e) {
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Enter tan failed: "+tanField);
-			
+			commonActions.logAssert_Fail("Enter tan failed: " + tanField);
+
 		}
 	}
-//13-11Ganesh B: This step defninition is 
+
+	// 13-11Ganesh B: This step defninition is
 	@And("^User Logs in with \"(.*?)\",\"(.*?)\"$")
 	public void User_Logs_in_with(String UserID_Kontonummer, String PIN_Password)
 			throws Exception, InterruptedException, IOException, ParseException {
@@ -193,7 +185,7 @@ public class GenericSteps {
 			commonActions.logInfoStatus(
 					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 			commonActions.takeSceenShot();
-		}catch(ElementNotInteractableException e){
+		} catch (ElementNotInteractableException e) {
 			commonActions.logAssert_Fail("Please check element is visible on the page");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -212,7 +204,7 @@ public class GenericSteps {
 			commonActions.logInfoStatus(
 					"Info | Login with Account Number : " + commonActions.getValueFromJson("UserID_Kontonummer"));
 			commonActions.takeSceenShot();
-		}catch(ElementNotInteractableException e){
+		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Please check element is visible on the page");
 		} catch (Exception e) {
@@ -223,24 +215,25 @@ public class GenericSteps {
 
 	}
 
-//	@When("User \"(.*?)\" in \"(.*?)\" field")
-//	public void User_unchecked_in_checkbox(String check, String locatorKey) throws InterruptedException {
-//		try {
-//			// System.out.println(check);
-//			String str1 = commonActions.getValueFromJson(check);
-//			commonActions.clearCheckBox(locatorKey);
-//			if (str1.equals("null")) {
-//				// System.out.println("checkbox is unchecked");
-//			} else {
-//				commonActions.click(locatorKey);
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			Assert.fail();
-//		}
-//
-//	}
+	// @When("User \"(.*?)\" in \"(.*?)\" field")
+	// public void User_unchecked_in_checkbox(String check, String locatorKey)
+	// throws InterruptedException {
+	// try {
+	// // System.out.println(check);
+	// String str1 = commonActions.getValueFromJson(check);
+	// commonActions.clearCheckBox(locatorKey);
+	// if (str1.equals("null")) {
+	// // System.out.println("checkbox is unchecked");
+	// } else {
+	// commonActions.click(locatorKey);
+	// }
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// Assert.fail();
+	// }
+	//
+	// }
 
 	@When("User selects radiobutton {string} in {string}")
 	public void User_selects_radiobutton(String dataKey, String locatorKey) {
@@ -259,7 +252,7 @@ public class GenericSteps {
 
 				Thread.sleep(2000);
 				commonActions.click(locatorKey);
-			//Check the steps in feature file
+				// Check the steps in feature file
 			} else if (str.equals("")) {
 
 			} else {
@@ -267,13 +260,12 @@ public class GenericSteps {
 				commonActions.click(locatorKey);
 
 			}
-		}catch(ElementNotInteractableException e){
+		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Please check element is visible on the page: " +locatorKey+":"+dataKey);
-		}
-		catch (Exception e) {
+			commonActions.logAssert_Fail("Please check element is visible on the page: " + locatorKey + ":" + dataKey);
+		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("User selects radio button failed: "+locatorKey+":"+dataKey);
+			commonActions.logAssert_Fail("User selects radio button failed: " + locatorKey + ":" + dataKey);
 		}
 
 	}
@@ -286,36 +278,60 @@ public class GenericSteps {
 			} else {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
 			}
-		} catch(ElementNotInteractableException e){
+		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Please check element is visible on the page: " +locatorKey+":"+dataKey);
-		}catch (Exception e) {
+			commonActions.logAssert_Fail("Please check element is visible on the page: " + locatorKey + ":" + dataKey);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("User selects failed: "+locatorKey+":"+dataKey);
+			commonActions.logAssert_Fail("User selects failed: " + locatorKey + ":" + dataKey);
 		}
 	}
 
-	
+	@When("User selects value {string} in {string}")
+	public void user_selects_value_in(String valueKey, String DropdownKey) {
+		try {
+			commonActions.click(DropdownKey);
+			Thread.sleep(2000);
+			commonActions.click(valueKey);
+			Thread.sleep(1000);
+			commonActions.pressTab();
+			System.out.println("Element selected");
+		} catch (ElementClickInterceptedException e) {
+			e.printStackTrace();
+			// System.out.println("Element could not be selected");
+
+		} catch (ElementNotInteractableException e) {
+			e.printStackTrace();
+			// System.out.println("Element could not be selected");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Element could not be selected");
+			// commonActions.logAssert_Fail("Element could not be selected");
+		}
+
+	}
+
 	@And("User selects checkbox {string} in {string}")
 	public void User_selects_checkbox(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
 		try {
 			String str = commonActions.getValueFromJson(dataKey);
 			commonActions.clearRadioButton(locatorKey);
-//Make it uniform
-			if (str.equals("Check") || str.equalsIgnoreCase("Select")) {
+			// Make it uniform
+			if (str.equalsIgnoreCase("Select")) {
 				commonActions.click(locatorKey);
-//check feature file steps for blank
-			} else if (str.equals("")) {
-
+				// check feature file steps for blank
+			} else {
 			}
-		} catch(ElementNotInteractableException e){
+
+		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Please check element is visible on the page: " +locatorKey+":"+dataKey);
-		}catch (Exception e) {
+			commonActions.logAssert_Fail("Please check element is visible on the page: " + locatorKey + ":" + dataKey);
+		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("User selects checkbox failed: " +locatorKey+":"+dataKey);
+			commonActions.logAssert_Fail("User selects checkbox failed: " + locatorKey + ":" + dataKey);
 		}
 
 	}
@@ -323,18 +339,20 @@ public class GenericSteps {
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
 		try {
-			if (commonActions.isElementPresent("SecurePlusLink")) {
-				commonActions.click("SecurePlusLink");
-			}
-			commonActions.enterTexttoken(tankey, "12345678");
-			commonActions.click("BestaetigenButton");
-		}catch(ElementNotInteractableException e){
+
+			// if (commonActions.isElementPresent("SecurePlusLink")) {
+			// commonActions.click("SecurePlusLink");
+			// }
+			// commonActions.enterTexttoken(tankey, "12345678");
+			// commonActions.click("BestaetigenButton");
+
+		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Please check element is visible on the page");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logAssert_Fail("User submits generated TAN number failed: "+tankey);
+			commonActions.logAssert_Fail("User submits generated TAN number failed: " + tankey);
 		}
 	}
 

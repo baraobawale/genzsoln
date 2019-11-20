@@ -1,9 +1,9 @@
-@UC62_63
+
 Feature: UC62_63_CFDHandel
 
   #Executable : Inhaber Einzelkonto Eroeffnet Depot-CFD  (Neues/BestehendesKonto)
   #Eroeffnet Depot-CFD Neues Konto
-  @demotest
+  @UC62_63
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"
@@ -26,8 +26,8 @@ Feature: UC62_63_CFDHandel
     And User enters "PLZ" in "PLZ_AngabenZurPerson"
     And User enters "Ort" in "Ort_AngabenZurPerson"
     And User selects "Land" in "Land_AngabenZurPerson"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig" in "DieEingegebeneAdresseIstNichtEindeutig_AngabenZurPerson"
-    And User clicks on "Uebernehmen_AngabenZurPerson"
+    #And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig" in "DieEingegebeneAdresseIstNichtEindeutig_AngabenZurPerson"
+    #And User clicks on "Uebernehmen_AngabenZurPerson"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA" in "AnsaessigkeitAusserhalbDeutschlandsUSA_AngabenZurPerson"
     And User enters "EMail" in "EMail_AngabenZurPerson"
     And User enters "EMail_wiederholen" in "EMailWiederholen_AngabenZurPerson"

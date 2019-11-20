@@ -23,14 +23,10 @@ public class UC49_50_53_54_GVKontoKind {
 		try {
 			CaptureMsgKostenlosesWertpapierdepotBestehendesKind = commonActions.getText("Capture_Message_KostenlosesWertpapierdepotBestehendesKind");
 			CaptureVorgangsnummerKostenlosesWertpapierdepotBestehendesKind = commonActions.getText("Capture_Vorgangsnummer_KostenlosesWertpapierdepotBestehendesKind");
-
-			System.out.println("CaptureMsgKostenlosesWertpapierdepotBestehendesKind: " + CaptureMsgKostenlosesWertpapierdepotBestehendesKind);
-			System.out.println("CaptureVorgangsnummerKostenlosesWertpapierdepotBestehendesKind: " + CaptureVorgangsnummerKostenlosesWertpapierdepotBestehendesKind);
-
-		}
+			}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotBestehendesKind failed");
 		}
 	}
 
@@ -50,7 +46,7 @@ public class UC49_50_53_54_GVKontoKind {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotBestehendesKind failed");
 		}
 	}
 
@@ -68,7 +64,7 @@ public class UC49_50_53_54_GVKontoKind {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on TagesgeldkontoBestehendes failed");
 		}
 	}
 
@@ -89,7 +85,7 @@ public class UC49_50_53_54_GVKontoKind {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from TagesgeldkontoBestehendes failed");
 		}
 	}
 

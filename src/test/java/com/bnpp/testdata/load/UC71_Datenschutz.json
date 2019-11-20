@@ -3,9 +3,6 @@
 		"Datenschutz_select_All_Unselected": {
 			"UserID_Kontonummer": "880804000",
 			"PIN_Password": "12345",
-			"E-Mail_informiert": "null",
-			"telefonisch_informiert": "null",
-			"meine_Bewegungen": "null",
 			"ErrorMesssages": {
 				"EmailMessage": "kostenlose E-Mail-Benachrichtigungen über Produkte und Services zu erhalten",
 				"TelephoneMessage": "kostenlose Telefon-Benachrichtigungen über Produkte und Services zu erhalten",
@@ -15,9 +12,9 @@
 		"Datenschutz_select_All_Selected": {
 			"UserID_Kontonummer": "880804000",
 			"PIN_Password": "12345",
-			"E-Mail_informiert": "check",
-			"telefonisch_informiert": "check",
-			"meine_Bewegungen": "check",
+			"E-Mail_informiert": "Select",
+			"telefonisch_informiert": "Select",
+			"meine_Bewegungen": "Select",
 			"ErrorMesssages": {
 				"EmailMessage": "kostenlose E-Mail-Benachrichtigungen über Produkte und Services zu erhalten",
 				"TelephoneMessage": "kostenlose Telefon-Benachrichtigungen über Produkte und Services zu erhalten",

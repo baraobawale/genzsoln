@@ -1,8 +1,9 @@
-@UC11
+
 Feature: UC11_12_13_Referenzkonto
 
   #Executable - Referenzkonto anlegen,loeschen
   # Verify Error
+  
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -12,7 +13,7 @@ Feature: UC11_12_13_Referenzkonto
     And User clicks on "NeuesReferenzKontonAnlengen_ReferenzKonton"
     And User enters "Empfanger_name" in "EmpfangerName_ReferenzKontoAnlengen"
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_ReferenzKontoAnlengen"
-    And User selects "Ich_bestaetige" in "IchBestaetige_ReferenzKontoAnlengen"
+    And User selects checkbox "Ich_bestaetige" in "IchBestaetige_ReferenzKontoAnlengen"
     And User clicks on "WeiterZurTanEingabe_ReferenzKontoAnlengen"
     Then Verify displayed "ErrorMesssages" on ReferenzKontoAnlengen
 
@@ -21,7 +22,7 @@ Feature: UC11_12_13_Referenzkonto
       | Referenzkonto_Verify_Errors |
 
   #Create/Anlegen IBAN Referenzkonto
-  @UC11
+  @UC11_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -46,7 +47,7 @@ Feature: UC11_12_13_Referenzkonto
       | Referenzkonto_Anlegen_IBAN |
 
   #Create/Anlegen konto-BLZ Referenzkonto
-  @UC11
+  @UC11_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -72,7 +73,7 @@ Feature: UC11_12_13_Referenzkonto
       | Referenzkonto_Anlegen_BLZ |
 
   #Deletion/loeschen
-  @UC11
+  @UC11_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

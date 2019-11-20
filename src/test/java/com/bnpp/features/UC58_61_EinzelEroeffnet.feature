@@ -3,6 +3,7 @@ Feature: UC58_61_EinzelEroeffnet
 
   #Executable - Inhaber Einzelkonto Eroeffnet Konto Depot /Tagesgeld Einzelkonto (Single account holder opens trading account/call to money account)
   #Eroeffnet Konto Depot
+    
     Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
@@ -30,7 +31,7 @@ Feature: UC58_61_EinzelEroeffnet
       | Einzelkonto_KontoDepot |
 
   #Eroeffnet Tagesgeld Einzelkonto
-  
+
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"

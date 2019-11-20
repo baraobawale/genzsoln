@@ -4,8 +4,8 @@
 			"UserID_Kontonummer": "880804000",
 			"PIN_Password": "12345",
 			"Account_Type": "Verrechnungskonto",
-			"Uberweisungslimit": "null",
-			"Ich_bestaetige": "null",
+			"Uberweisungslimit": "",
+			"Ich_bestaetige": "",
 			"ErrorMesssages": {
 				"UberweisungslimitMessage": "Bitte fuellen Sie das Pflichtfeld aus",
 				"IchBestaetigeMessage": "Bitte bestaetigen Sie, dass Sie die Hinweise gelesen haben"

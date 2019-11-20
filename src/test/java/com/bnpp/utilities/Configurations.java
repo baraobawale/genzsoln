@@ -8,6 +8,7 @@ public class Configurations {
 	
 	public final static String chromeDriverPath = "./src/test/Resources/Drivers/chromedriver.exe";
 	public final static String chromeDriverPath77 = "./src/test/Resources/Drivers/chromedriver77.exe";
+	public final static String chromeDriverPath78 = "./src/test/Resources/Drivers/chromedriver78.exe";
 	public final static String ieDriverPath="./src/test/Resources/Drivers/IEDriverServer.exe"; 
 	
 	//Application URL

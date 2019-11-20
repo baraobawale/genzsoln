@@ -2,7 +2,7 @@
 	"UC58_61_EinzelEroeffnet": {
 		"Einzelkonto_KontoDepot": {
 			"Kunde_bei_der_Consorsbank": "Ja",
-			"UserID_Kontonummer": "880804316",
+			"UserID_Kontonummer": "880804017",
 			"PIN_Password": "12345",
 			"Gemeinschaftskonto_eroeffnen": "Nein",
 			"minderjaehriges_Kind_eroeffnen": "Nein",
@@ -16,7 +16,7 @@
 		},
 		"Einzelkonto_Tagesgeld": {
 			"Kunde_bei_der_Consorsbank": "Ja",
-			"UserID_Kontonummer": "880804316",
+			"UserID_Kontonummer": "253255767",
 			"PIN_Password": "12345",
 			"Gemeinschaftskonto_eroeffnen": "Nein",
 			"minderjaehriges_Kind_eroeffnen": "Nein",

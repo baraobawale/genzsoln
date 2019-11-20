@@ -1,4 +1,4 @@
-@UC42_43
+@UC3
 Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen
@@ -19,7 +19,6 @@ Feature: UC3_Dauerauftraege
     And User selects "Intervall" in "Intervall_DauerauftrageAnlegen" field
     And User selects "Immer_am" in "ImmerAm_DauerauftrageAnlegen" field
     And User selects future date in Startdatum_DauerauftrageAnlegen
-    And User selects checkbox "Unbegrenzt_gültig" in "UnbegrenztGultig_DauerauftrageAnlegen"
     And User selects checkbox "Als_Vorlage_speichern" in "AlsVorlageSpeichern_DauerauftrageAnlegen"
     And User enters "Vorlagenname" in "Vorlagenname_DauerauftrageAnlegen"
     And User clicks on "WeiterZurTANEingabe_DauerauftrageAnlegen"

@@ -18,15 +18,7 @@ public class UC27_DepotUebertrag {
 
 	@And("^Capture entered details on Depotuebertrag$")
 	public void capture_entered_details() throws FileNotFoundException, IOException, ParseException {
-		System.out.println("ABC:::" + commonActions.getText("Uebertrag_von"));
-		// System.out.println("ToDepot_Nr
-		// :"+commonActions.getText("Bankleitzahl"));
-
-		if (commonActions.getText("Uebertrag_von").contains(commonActions.getValueFromJson("FromDepot_Nr")))
-			commonActions.logPassStatus("Pass | Valid FromDepotNr displayed "+commonActions.getText("Uebertrag_von"));
-		else
-			commonActions.logFailStatus("Fail | Valid FromDepotNr display failed "+commonActions.getText("Uebertrag_von"));
-
+		
 		String forename = commonActions.getValueFromJson("Depotinhaber_Vorname");
 		String surname = commonActions.getValueFromJson("Depotinhaber_Nachname");
 
@@ -41,10 +33,15 @@ public class UC27_DepotUebertrag {
 		else
 			commonActions.logFailStatus("Fail | Depot-Nr display fail");
 		
-		if (commonActions.getText("Stuecke").equals(commonActions.getValueFromJson("zu_uebertragende_Stueke")+" "))
+		if (commonActions.getText("Stuecke").trim().equals(commonActions.getValueFromJson("zu_uebertragende_Stueke")))
 			commonActions.logPassStatus("Pass | zu_uebertragende_Stueke display success");
 		else
 			commonActions.logFailStatus("Fail | zu_uebertragende_Stueke display fail");
+		
+		if (commonActions.getText("Uebertrag_von").contains(commonActions.getValueFromJson("FromDepot_Nr")))
+			commonActions.logPassStatus("Pass | Valid FromDepotNr displayed "+commonActions.getText("Uebertrag_von"));
+		else
+			commonActions.logFailStatus("Fail | Valid FromDepotNr display failed "+commonActions.getText("Uebertrag_von"));		
 	}
 
 	@And("^Verify the message$")
@@ -53,8 +50,8 @@ public class UC27_DepotUebertrag {
 	}
 
 	@And("^Verify the captured details from Depotuebertrag$")
-	public void Verify_Captured_details() {
-
+	public void Verify_Captured_details() throws FileNotFoundException, IOException, ParseException {
+		
 	}
 	@And("^User selects first option \"(.*?)\" in \"(.*?)\"$")
 	public void User_selects_first_option(String dataKey,String locatorKey) throws Exception{

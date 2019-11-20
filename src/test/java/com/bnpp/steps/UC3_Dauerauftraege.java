@@ -1,6 +1,5 @@
 package com.bnpp.steps;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebElement;
@@ -228,6 +227,7 @@ public class UC3_Dauerauftraege {
 			}
 			Thread.sleep(5000);
 			commonActions.moveScrollDown();
+			commonActions.click("Dauerauftraege_UmsaetzeZahlungsverkehr");
 		commonActions.click("NeuesDauerauftraegeAnlengen_UmsaetzeZahlungsverkehr");
 	}
 	@And("^User selects future date in Startdatum_DauerauftrageAnlegen$")

@@ -10,7 +10,7 @@
 			"Handelsplatz": "Tradegate",
 			"NominalStueck_Betrag": "1000,000",
 			"Ordertyp": "Limit",
-			"Limit": "90",
+			"Limit": "90,00",
 			"Gueltigkeit": "Keine Angabe",
 			"Message": "Die Order wurde erfolgreich angelegt."
 			
@@ -29,18 +29,6 @@
 			"Message": "Die Order wurde erfolgreich angelegt."
 			
 		},
-		"KaufOrder_Anendern_Aktie": 
-		{
-			"UserID_Kontonummer": "880804000",
-		    "PIN_Password": "12345",
-			"Created_WKN": "703000",
-			"Status": "Offen",
-			"NominalStueck_Betrag": "1",
-			"Limit": "122,73",
-			"Message": " Ihre Orderaenderung wurde erfolgreich entgegengenommen."
-			
-		},
-		
 		"KaufOrder_Anlegen_Fonds1": 
 		{
 			"UserID_Kontonummer": "880804000",
@@ -70,7 +58,16 @@
 			"Message": "Die Order wurde erfolgreich angelegt."
 			
 		},
-		
+		"KaufOrder_Anendern_Aktie": 
+		{
+			"UserID_Kontonummer": "880804000",
+		    "PIN_Password": "12345",
+			"Created_WKN": "703000",
+			"Status": "Offen",
+			"Limit": "122,73",
+			"Message": " Ihre Orderänderung wurde erfolgreich entgegengenommen."
+			
+		},
 		"KaufOrder_Loeschen_Aktie": 
 		{
 			"UserID_Kontonummer": "880804000",
