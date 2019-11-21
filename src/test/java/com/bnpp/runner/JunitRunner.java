@@ -1,6 +1,9 @@
 package com.bnpp.runner;
 
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -20,12 +23,13 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 
 @CucumberOptions(monochrome = true, features = "src/test/java/com/bnpp/features/", dryRun = false, glue = {
-		"com/bnpp/steps/" }, tags = "", plugin = { "json:target/cucumber.json" })
+		"com/bnpp/steps/" }, tags = "@TA-120", plugin = { "json:target/cucumber.json" })
 public class JunitRunner {
 
 	public static String currentXrayIssueKey = "";
 	public static boolean featureTestPassed = true;
 	public static String ExecutionID = "";
+	public static String testStart = "";
 
 	@BeforeClass
 	public static void setupBeforeClass() {
@@ -33,6 +37,10 @@ public class JunitRunner {
 		com.dab.config.PropertiesHandler.setConfigPath(Configurations.XrayConfigPath);
 		ExecutionID = XrayHelper.getExecKey();
 		setLogger();
+
+		ZonedDateTime startDateTime = ZonedDateTime.now();
+		testStart = startDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		Log.info("Test Start Time: " + testStart);
 
 		// exporting report should not be added at before tag, first FFs
 		// will be exported from JIRA to our system with the help of different command

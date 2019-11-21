@@ -1,7 +1,5 @@
 package com.bnpp.steps;
 
-import static org.junit.Assert.fail;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -31,7 +29,7 @@ import cucumber.api.java.en.When;
 public class GenericSteps {
 
 	CommonActions commonActions;
-	String testStart = "";
+	// String testStart = "";
 	String testFinish = "";
 	String XrayIssueKey = "";
 
@@ -49,10 +47,6 @@ public class GenericSteps {
 	@Before
 	public void before(Scenario s) throws Exception {
 
-		ZonedDateTime startDateTime = ZonedDateTime.now();
-		testStart = startDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-		Log.info("Test Start Time: " + testStart);
-
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
 			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
 		} else {
@@ -68,12 +62,10 @@ public class GenericSteps {
 			if (!JunitRunner.featureTestPassed) {
 				JunitRunner.featureTestPassed = true;
 
-				fail("Feature failed. Scenario not executed!");
+				// fail("Feature failed. Scenario not executed!");
 			}
 
 		}
-
-		commonActions.initReports(s.getName() + "_" + "chrome");
 
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
 
@@ -95,11 +87,11 @@ public class GenericSteps {
 			Log.error("Test Failed!");
 			JunitRunner.featureTestPassed = false;
 			Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_FAIL,
-					testStart, testFinish);
+					JunitRunner.testStart, testFinish);
 		} else {
 			Log.info("Test Passed!");
 			Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS,
-					testStart, testFinish);
+					JunitRunner.testStart, testFinish);
 		}
 
 	}
