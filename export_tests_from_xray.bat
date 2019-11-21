@@ -1,3 +1,3 @@
 
 
-mvn exec:java -D exec.mainClass=com.bnpp.utilities.ExportTests
+mvn -X clean install exec:java -Dexec.mainClass="com.bnpp.utilities.ExportTests" -Dexec.classpathScope=test -e -DskipTests

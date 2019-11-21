@@ -18,7 +18,7 @@ public class Configurations {
 	public final static String testDataResourcePath = "../src/test/java/com/bnpp/TestData/";
 
 	// Browser Stack configuration
-	public static final String RunOnBrowserStack = "N";
+	public static final String RunOnBrowserStack = "Y";
 	public static final String USERNAME = "chetana19";
 	public static final String AUTOMATE_KEY = "5tW8jrFVdPxbpgUSvssc";
 

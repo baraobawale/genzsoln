@@ -1,5 +1,7 @@
 package com.bnpp.steps;
 
+import static org.junit.Assert.fail;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -12,6 +14,7 @@ import org.openqa.selenium.ElementNotInteractableException;
 import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
+import com.bnpp.runner.JunitRunner;
 import com.bnpp.utilities.Configurations;
 import com.bnpp.utilities.Log;
 import com.bnpp.utilities.XrayHelper;
@@ -32,8 +35,6 @@ public class GenericSteps {
 	String testFinish = "";
 	String XrayIssueKey = "";
 
-	static String ExecutionID = XrayHelper.getExecKey();
-
 	public GenericSteps(CommonActions con) {
 		this.commonActions = con;
 	}
@@ -48,14 +49,26 @@ public class GenericSteps {
 	@Before
 	public void before(Scenario s) throws Exception {
 
-		XrayIssueKey = XrayHelper.getTestIdFromFileName(s.getId());
-
 		ZonedDateTime startDateTime = ZonedDateTime.now();
 		testStart = startDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 		Log.info("Test Start Time: " + testStart);
 
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
 			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
+		}
+
+		XrayIssueKey = XrayHelper.getTestIdFromFileName(s.getId());
+
+		if (!JunitRunner.currentXrayIssueKey.contains(XrayIssueKey)) {
+			System.out.println("The is a new FF");
+			JunitRunner.currentXrayIssueKey = XrayIssueKey;
+		} else {
+			if (!JunitRunner.featureTestPassed) {
+				JunitRunner.featureTestPassed = true;
+
+				fail("Feature failed. Scenario not executed!");
+			}
+
 		}
 
 		commonActions.initReports(s.getName() + "_" + "chrome");
@@ -77,12 +90,13 @@ public class GenericSteps {
 
 		if (s.isFailed()) {
 			Log.error("Test Failed!");
-			Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_FAIL, testStart,
-					testFinish);
+			JunitRunner.featureTestPassed = false;
+			Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_FAIL,
+					testStart, testFinish);
 		} else {
 			Log.info("Test Passed!");
-			Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS, testStart,
-					testFinish);
+			Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS,
+					testStart, testFinish);
 		}
 
 	}

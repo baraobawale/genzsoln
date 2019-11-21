@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 
 import com.bnpp.utilities.Configurations;
 import com.bnpp.utilities.Log;
+import com.bnpp.utilities.XrayHelper;
 import com.dab.config.PropertiesHandler;
 import com.dab.xray.Xray;
 
@@ -19,13 +20,18 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 
 @CucumberOptions(monochrome = true, features = "src/test/java/com/bnpp/features/", dryRun = false, glue = {
-		"com/bnpp/steps/" }, tags = "@TA-120", plugin = { "json:target/cucumber.json" })
+		"com/bnpp/steps/" }, tags = "", plugin = { "json:target/cucumber.json" })
 public class JunitRunner {
+
+	public static String currentXrayIssueKey = "";
+	public static boolean featureTestPassed = true;
+	public static String ExecutionID = "";
 
 	@BeforeClass
 	public static void setupBeforeClass() {
 
 		com.dab.config.PropertiesHandler.setConfigPath(Configurations.XrayConfigPath);
+		ExecutionID = XrayHelper.getExecKey();
 		setLogger();
 
 		// exporting report should not be added at before tag, first FFs
