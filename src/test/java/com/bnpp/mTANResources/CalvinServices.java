@@ -17,7 +17,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -37,7 +36,7 @@ public class CalvinServices {
 		String sBaseURL = prop.getProperty("baseURL_Calvin");
 		
 		String endpoint = sBaseURL + "/ws/Login_v2";
-		System.out.println("checking value!!!!!");
+		//System.out.println("checking value!!!!!");
 		File requestFile = new File(System.getProperty("user.dir")+"\\src\\test\\java\\com\\bnpp\\mTANResources\\Login_v2.xml");
 				
 		HttpClient client = HttpClientBuilder.create().build();

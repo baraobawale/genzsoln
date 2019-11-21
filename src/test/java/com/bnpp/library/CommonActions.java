@@ -1,7 +1,5 @@
 package com.bnpp.library;
 
-import static org.testng.Assert.assertEquals;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,7 +18,11 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.assertj.core.api.SoftAssertions;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,7 +34,7 @@ import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Platform;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,16 +48,19 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.xml.sax.SAXException;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-
+import com.bnpp.mTANResources.MobileTan;
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
-import com.bnpp.utilities.TANGenerator;
 
 public class CommonActions {
 	WebDriver driver;
+	Exception e;
 	public ExtentReports report;
 	public ExtentTest scenario;
 	Properties properties;
@@ -68,7 +75,7 @@ public class CommonActions {
 			try {
 				properties = new Properties();
 				fis = new FileInputStream(
-						System.getProperty("user.dir") + "\\src\\test\\resources\\ObjectRepository\\Object.properties");
+						System.getProperty("user.dir") + "/src/test/resources/ObjectRepository/Object.properties");
 				properties.load(fis);
 				softAssertions = new SoftAssertions();
 			} catch (Exception e) {
@@ -86,31 +93,36 @@ public class CommonActions {
 	public void launchBrowser() throws MalformedURLException {
 		try {
 			if ((Configurations.RunOnBrowserStack).equals("Y")) {
-				DesiredCapabilities capability = DesiredCapabilities.chrome();
-				capability.setPlatform(Platform.WINDOWS);
-				capability.setCapability("name", "Bstack-[Java] JUnit Single Test");
-				capability.setCapability("build", "JUnit - Sample");
-				capability.setCapability("browserstack.local", "true");
-				System.out.println(Configurations.URL_BS);
-				driver = new RemoteWebDriver(new URL(Configurations.URL_BS), capability);
+				setUp();
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
-					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath);
+					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath78);
 					driver = new ChromeDriver(loadChromeOptions());
+					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
 					System.setProperty("webdriver.ie.driver", properties.getProperty("ieDriverPath"));
 					driver = new InternetExplorerDriver();
 				}
-				driver.manage().window().maximize();
-				driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-				driver.get(Configurations.Appurl);
+			}
+			driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
+				driver.get(Configurations.AppurlEnv1);
+				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv1);
+			}
 
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
+				driver.get(Configurations.AppurlEnv2);
+				logInfoStatus("Info | Environment Name: " + Configurations.AppurlEnv2);
+			}
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+				driver.get(Configurations.AppurlLoad);
+				logInfoStatus("Info | Environment Name: " + Configurations.AppurlLoad);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			System.out.println("Invalid browser name or configuration");
-			Assert.fail();
+			logAssert_Fail("Launching browser failed");
 		}
 	}
 
@@ -124,23 +136,123 @@ public class CommonActions {
 			ops.addArguments("disable-infobars");
 			ops.addArguments("--start-maximized");
 			ops.setExperimentalOption("useAutomationExtension", false);
+			ops.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+
 			// Setting new download directory path
 			Map<String, Object> prefs = new HashMap<String, Object>();
 			// prefs.put("download.default_directory",
 			// System.getProperty("user.dir") + "\\Downloads");
+			prefs.put("plugins.plugins_disabled", new String[] { "Chrome PDF Viewer" });
+			prefs.put("plugins.always_open_pdf_externally", true);
+			prefs.put("profile.default_content_settings.popups", 0);
+			// below condition is for creating download folder only in case of
+			// scenario with PDF download feature
+			if (getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")
+					|| getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")
+					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen")
+					|| getScenarioName().equals("SparplanGemeinschaftskonto_Anlegen")
+					|| getScenarioName().equals("SparplanEinzelkonto_Anlegen")
+					|| getScenarioName().equals("TagesgeldGemeinschaftskonto_Anlegen")
+					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto1GV_Anlegen")
+					|| getScenarioName().equals("TagesgeldMinderjaehrigenkonto2GV_Anlegen")
+					|| getScenarioName().equals("DepotEinzelkonto_Anlegen")
+					|| getScenarioName().equals("DepotGemeinschaftskonto_Anlegen")
+					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
+					|| getScenarioName().equals("GVDepotBestehendesKind_Anlegen")
+					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")) {
+				Date d = new Date();
+				String folderName = d.toString().replace(":", "_");
+				new File(Configurations.downloadPath).mkdirs();
+				Configurations.downloadPath = Configurations.downloadPath + folderName;
+
+				// directory of the report folder
+				new File(Configurations.downloadPath).mkdirs();
+				prefs.put("download.default_directory", Configurations.downloadPath);
+			}
 			ops.setExperimentalOption("prefs", prefs);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		return ops;
 	}
 
 	/**
+	 * Description set text to the field
+	 */
+	public void setText(String objectKey, String datakey)
+			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
+		try {
+			getElement(objectKey).clear();
+			getElement(objectKey).sendKeys(datakey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+
+		}
+	}
+
+	/**
+	 * @param objectKey
+	 *            Description Common verify file is Present
+	 * @throws InterruptedException
+	 */
+	public void VerifyifFilePresent() throws InterruptedException {
+		try {
+			Thread.sleep(10000);
+			File Files = new File(Configurations.downloadPath);
+			System.out.println("download path" + Configurations.downloadPath);
+			int Count = Files.list().length;
+			System.out.println("No. Of Files: " + Count);
+			if (Count == 1) {
+				// logPassStatus("PDF is downloaded successfully at
+				// "+Configurations.downloadPath);
+				logPassStatus("Pass | PDF is downloaded successfully at - " + Configurations.downloadPath);
+
+			} else {
+				logFailStatus("Error | PDF download failed, PLease check");
+
+				logFailStatus("Pdf is not downloaded");
+			}
+			// put download file path in reports
+			// scenario.debug(Configurations.downloadPath);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+	}
+
+	/**
+	 * @param objectKey
+	 * @param data
+	 * @throws Exception
+	 *             Description Common action select from combo box by value text
+	 */
+	public void selectFromDropDownByValue(String objectKey, String datakey) throws Exception {
+		try {
+			Select s = new Select(getElement(objectKey));
+			String myData = getValueFromJson(datakey);
+			if (datakey.equals("Account_Type")) {
+				myData = getValueFromJson("UserID_Kontonummer");
+			}
+			try {
+				s.selectByValue(myData);
+			} catch (Exception e) {
+				logAssert_Fail("Select by value failed " + objectKey);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+
+	}
+
+	/**
 	 * Description Refresh the page
 	 */
-	public void refreshPage() {
-		driver.navigate().refresh();
+	public void navigateBack() {
+		driver.navigate().back();
 	}
 
 	/**
@@ -149,11 +261,10 @@ public class CommonActions {
 
 	public void waitForVisibilityofElement(String ObjectKey) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 50);
+			WebDriverWait wait = new WebDriverWait(driver, 20);
 			wait.until(ExpectedConditions.visibilityOf(getElement(ObjectKey)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logAssert_Fail("Element not visible within given time limit: " + ObjectKey);
 		}
 	}
@@ -164,8 +275,8 @@ public class CommonActions {
 			wait.until(ExpectedConditions.invisibilityOf(getElement(ObjectKey)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			logAssert_Fail("Element still visible within given time limit: " + ObjectKey);
+			throw e;
 		}
 	}
 
@@ -178,6 +289,8 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+			Thread.sleep(1000);
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -227,9 +340,10 @@ public class CommonActions {
 		try {
 			Thread.sleep(2000);
 			getElement(objectKey).click();
-		} catch (IllegalArgumentException e) {
+			logInfoStatus("Info | Clicked on : " + objectKey);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -242,12 +356,28 @@ public class CommonActions {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public void enterText(String objectKey, String datakey)
+	public void enterText(String objectKey, String textToEnter)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
-		getElement(objectKey).clear();
-		getElement(objectKey).sendKeys(getValueFromJson(datakey));
-		if (objectKey.equals("Steueridentifikationsnummer"))
-			getElement("Weiter").click();
+		try {
+			getElement(objectKey).clear();
+			Thread.sleep(1000);
+			getElement(objectKey).sendKeys(textToEnter);
+			} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+
+	}
+	
+	public void enterTextToLogin(String objectKey, String dataKey)
+			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
+		try {
+			getElement(objectKey).clear();
+			getElement(objectKey).sendKeys(getKeyFromJson(dataKey));
+			} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 
 	}
 
@@ -258,10 +388,15 @@ public class CommonActions {
 	 *            Description Type Tan no
 	 * @throws InterruptedException
 	 */
-	public void enterTokenTan(String objectKey, String strValue) throws InterruptedException {
+	public void enterTan(String objectKey, String strValue) throws InterruptedException {
 		// TODO Auto-generated method stub
-		Thread.sleep(2000);
-		getElement(objectKey).sendKeys(strValue);
+		try {
+			Thread.sleep(2000);
+			getElement(objectKey).sendKeys(strValue);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 
 	}
 
@@ -270,7 +405,12 @@ public class CommonActions {
 	 *            Description Common action clear
 	 */
 	public void clearfield(String objectKey) {
-		getElement(objectKey).clear();
+		try {
+			getElement(objectKey).clear();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	/**
@@ -278,13 +418,23 @@ public class CommonActions {
 	 * @return string Description Common action gettext
 	 */
 	public String getText(String objectKey) {
-		String str = "";
-		return str = getElement(objectKey).getText();
+		try {
+			String str = "";
+			return str = getElement(objectKey).getText();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	public String getAttribute(String objectKey, String attributeName) {
-		String str = "";
-		return str = getElement(objectKey).getAttribute(attributeName);
+		try {
+			String str = "";
+			return str = getElement(objectKey).getAttribute(attributeName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	/**
@@ -301,30 +451,49 @@ public class CommonActions {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
 			logAssert_Fail("Select by visble text failed on: " + objectKey);
+			throw e;
 		}
 
 	}
-	
-	public void selectAccountType(String dataKey, String locatorKey) throws Exception, IOException, Exception{
+
+	public void selectAccountType(String dataKey, String locatorKey) throws Exception, IOException, Exception {
 		Select s = new Select(getElement(locatorKey));
 		String myData = getValueFromJson(dataKey);
-		myData=myData+" "+"| "+getKeyFromJson("UserID_Kontonummer");
-		System.out.println(myData);
+		myData = myData + " " + "| " + getKeyFromJson("UserID_Kontonummer");
+		// System.out.println(myData);
 		try {
 			s.selectByVisibleText(myData);
 		} catch (Exception e) {
 			logAssert_Fail("Select by visble text failed on: " + locatorKey);
+			throw e;
 		}
 
 	}
-	
 
 	/**
 	 * Description Press escape key
 	 */
 	public void pressTab() {
-		Actions act = new Actions(driver);
-		act.sendKeys(Keys.TAB).build().perform();
+		try {
+			Actions act = new Actions(driver);
+			act.sendKeys(Keys.TAB).build().perform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+	}
+
+	/**
+	 * Description Press enter key
+	 */
+	public void pressEnter() {
+		try {
+			Actions act = new Actions(driver);
+			act.sendKeys(Keys.ENTER).build().perform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	/**
@@ -335,9 +504,27 @@ public class CommonActions {
 	 *             Description Common action select from combo box by Index
 	 */
 	public void selectDropDownByIndex(String objectKey, String data) throws Exception {
-		Select s = new Select(getElement(objectKey));
-		Thread.sleep(5000);
-		s.selectByIndex(Integer.parseInt(data));
+		try {
+			Select s = new Select(getElement(objectKey));
+			if (data.equals("Intervall")) {
+				Thread.sleep(3000);
+				s.selectByIndex(2);
+				System.out.println("dropdown condition success-MONATLICH selected");
+			} else if (data.equals("Immer_am")) {
+				System.out.println("dropdown condition success");
+				Thread.sleep(3000);
+				s.selectByIndex(9);
+				System.out.println("dropdown condition success-10. des montas selected");
+			} else {
+
+				Thread.sleep(5000);
+				s.selectByIndex(Integer.parseInt(data));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+
 	}
 
 	/**
@@ -365,7 +552,7 @@ public class CommonActions {
 			act.moveToElement(getElement(objectKey)).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -375,12 +562,14 @@ public class CommonActions {
 
 	public void moveScrollDown() {
 
-		// Actions act=new Actions(driver);
-		// act.moveByOffset(-100,-100).build().perform();
-
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,500)");
+		js.executeScript("window.scrollBy(0,250)");
 
+	}
+
+	public void moveScrollUp() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,-500)");
 	}
 
 	/**
@@ -399,6 +588,7 @@ public class CommonActions {
 		scenario.log(Status.PASS, msg);
 
 		softAssertions.assertThat(true);
+
 		// assertEquals(true, true);
 	}
 
@@ -409,13 +599,21 @@ public class CommonActions {
 	 */
 	public void logAssert_Fail(String errMsg) {
 		// fail in extent reports
+
 		scenario.log(Status.FAIL, errMsg);
-		if ((Configurations.takeScreenshots).equals("Y")) {
+		if ((Configurations.takeScreenshots).equalsIgnoreCase("Y")) {
 			takeSceenShot();
 		}
 		// take screenshot and put in repots
 		// fail in cucumber as well
 		Assert.fail();
+		// try {
+		// throw new NoSuchFieldException();
+		// } catch (Exception e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
+		//
 	}
 
 	/**
@@ -428,8 +626,11 @@ public class CommonActions {
 		scenario.log(Status.FAIL, msg);
 		softAssertions.assertThat(false);
 		takeSceenShot();
+		try {
+			throw new NoSuchFieldError();
+		} catch (Exception e) {
 
-		// assertEquals(false, true);
+		}
 	}
 
 	/**
@@ -439,17 +640,20 @@ public class CommonActions {
 	public void takeSceenShot() {
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			Date d = new Date();
-			String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
-			// take screenshot
-			File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			try {
+				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
+				// take screenshot
+				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
 				// get the dynamic folder name
 				FileUtils.copyFile(srcFile, new File(ExtentManager.screenshotFolderPath + screenshotFile));
+				String PathofScreenShot = System.getProperty("user.dir") + "/" + ExtentManager.screenshotFolderPath
+						+ screenshotFile;
 				// put screenshot file in reports
-				scenario.log(Status.DEBUG, "Screenshot-> "
-						+ scenario.addScreenCaptureFromPath(ExtentManager.screenshotFolderPath + screenshotFile));
+				scenario.info("Screenshot", MediaEntityBuilder.createScreenCaptureFromPath(PathofScreenShot).build());
 			} catch (IOException e) {
 				e.printStackTrace();
+				Assert.fail();
 			}
 		}
 
@@ -461,9 +665,11 @@ public class CommonActions {
 	public void quit() {
 		if (report != null)
 			report.flush();
+//	if (driver != null)
+//		driver.quit();
 		softAssertions.assertAll();
-		if (driver != null)
-			driver.quit();
+		if ((softAssertions.errorsCollected().size()) != 0)
+			logAssert_Fail(scenarioname + " failed");
 	}
 
 	/**
@@ -472,9 +678,14 @@ public class CommonActions {
 	 *            Description Common function to initialize the reports
 	 */
 	public void initReports(String scenarioName) {
-		report = ExtentManager.getInstance(Configurations.reportPath);
-		scenario = report.createTest(scenarioName);
-		scenario.log(Status.INFO, "Starting " + scenarioName);
+		try {
+			report = ExtentManager.getInstance(Configurations.reportPath);
+			scenario = report.createTest(scenarioName);
+			scenario.log(Status.INFO, "Starting " + scenarioName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 	}
 
 	public String getValueFromJson(String dataKeyInJson) throws FileNotFoundException, IOException, ParseException {
@@ -482,34 +693,80 @@ public class CommonActions {
 		try {
 			datakey = getKeyFromJson(dataKeyInJson);
 			datakey = checkGermanCharacters(datakey);
-			System.out.println(dataKeyInJson + ":" + datakey);
+			// System.out.println(dataKeyInJson + ":" + datakey);
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logAssert_Fail(dataKeyInJson + " :ObjectKey not present in json file");
+		} catch (FileNotFoundException e) {
+			logAssert_Fail(featurename + " .json file not found");
+		} catch(NullPointerException e){
+			throw e;
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			logAssert_Fail(dataKeyInJson + " : Please make sure ojectKey present in json file");
+		}
+		
 		return datakey;
 	}
 
 	public String getKeyFromJson(String dataKey) throws FileNotFoundException, IOException, ParseException {
 
-		String data = null;
-		JSONParser parser = new JSONParser();
-		JSONObject getFeatureName = (JSONObject) parser
-				.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
-		JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
-		Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
-		Iterator it = getScenarioName.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			if (pair.getKey().toString().equals(dataKey)) {
-				data = pair.getValue().toString();
-				break;
+		try {
+			String data = null;
+			JSONParser parser = new JSONParser();
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(
+						new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+				Iterator it = getScenarioName.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(dataKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+
+				}
+
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(
+						new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+				Iterator it = getScenarioName.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(dataKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+
+				}
+				// pair.getValue().toString());
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+				Iterator it = getScenarioName.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(dataKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+
+				}
 			}
-			System.out.println(pair.getKey() + ":" + pair.getValue().toString());
+			return data;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
 		}
-		return data;
 
 	}
 
@@ -517,25 +774,64 @@ public class CommonActions {
 		String data = null;
 		try {
 			JSONParser parser = new JSONParser();
-			JSONObject getFeatureName = (JSONObject) parser
-					.parse(new FileReader(".\\src\\test\\java\\com\\bnpp\\TestData\\" + featurename + ".json"));
-			JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
-			JSONObject scenario = (JSONObject) featureName.get(scenarioname);
-			Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
-			Iterator it = getmessagename.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				if (pair.getKey().toString().equals(messageKey)) {
-					data = pair.getValue().toString();
-					break;
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
+
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						"./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
+				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
+				Iterator it = getmessagename.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(messageKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+					// pair.getValue().toString());
 				}
-				System.out.println(pair.getKey() + ":" + pair.getValue().toString());
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
+
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						"./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
+				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
+				Iterator it = getmessagename.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(messageKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+					// pair.getValue().toString());
+				}
+			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
+						"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
+				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
+				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
+				Iterator it = getmessagename.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					if (pair.getKey().toString().equals(messageKey)) {
+						data = pair.getValue().toString();
+						break;
+					}
+					// System.out.println(pair.getKey() + ":" +
+					// pair.getValue().toString());
+				}
 			}
 
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			logAssert_Fail("Json file not found");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Assert.fail();
+			logAssert_Fail("Unable to read message data from json");
 		}
 		return data;
 	}
@@ -545,54 +841,43 @@ public class CommonActions {
 			if (!data.equals("")) {
 				if (data.contains("ae"))
 					data = data.replace("ae", "ä");
-				else if (data.contains("oe"))
+				if (data.contains("oe"))
 					data = data.replace("oe", "ö");
-				else if (data.contains("ue"))
+				if (data.contains("ue"))
 					data = data.replace("ue", "ü");
-
+				if (data.contains("Ae"))
+					data = data.replace("Ae", "Ä");
+				if (data.contains("Oe"))
+					data = data.replace("Oe", "Ö");
+				if (data.contains("Ue"))
+					data = data.replace("Ue", "Ü");
 			}
-
 		} catch (Exception e) {
-			e.printStackTrace();
+			
+			throw e;
+			
 		}
-
 		return data;
 
 	}
-	
-	
 
 	public void setfaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
 		String[] d = featurename.split("/features/");
-		System.out.println(d[0] + " " + d[1]);
+		// System.out.println(d[0] + " " + d[1]);
 		String[] d2 = d[1].split(".feature");
-		System.out.println(d2[0]);
+		// System.out.println(d2[0]);
 		featurename = d2[0];
 		scenarioname = name;
 
 	}
-	
+
 	public String getScenarioName() {
-        return scenarioname;
-  }
+		return scenarioname;
+	}
 
-
-	public void deleteExistingTemplates(String DeleteTemplates) throws Exception {
-		List<WebElement> ele = driver.findElements(By.xpath(DeleteTemplates));
-		try {
-			if (isElementPresent(DeleteTemplates)) {
-				for (int i = 0; i < ele.size(); i++) {
-					click(DeleteTemplates);
-					enterTokenTan("Mobile_TAN_field_Bhavini", TANGenerator.requestTan());
-					click("Delete_confirmation");
-					System.out.println("Deleting element" + ele.get(0));
-				}
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("All existing templates cleared");
-		}
+	public String getFeatureName() {
+		return featurename;
 	}
 
 	public void clearCheckBox(String objectKey) {
@@ -600,37 +885,203 @@ public class CommonActions {
 
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey + "_checkbox")));// present
-			System.out.println(e.isSelected());
 			if (e.isSelected()) {
 				Thread.sleep(1000);
-				System.out.println("checkbox was selected");
 				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
-			} else {
-				System.out.println("checkbox was unselected");
 			}
 		} catch (Exception ex) {
-
+			logAssert_Fail("Clear checkbox failed");
 		}
 	}
 
-	public void formXpathofRelativeEditElementandClickonit(String PersonNametitle) {
-		int index = 0;
-		String a = "//tr/td[";
-		// String counter="1";
-		String b = "]/div/a[@title='";
-		String d = "']";
-		String c = PersonNametitle;
-		// System.out.println((a+counter+b+c+d));
-		for (int counter = 0; counter <= 20; counter++) {
-			List<WebElement> lst = driver.findElements(By.xpath(a + counter + b + c + d));
-			if (lst.size() != 0)
-				index = counter;
+	
 
-		}
-		String Xpath = "//tr[" + index + "]//div[1]/a[@title='Anzeigen und bearbeiten']";
-		// WebElement Editelement=driver.findElement(By.xpath(EditXpath));
-		driver.findElement(By.xpath(Xpath)).click();
+	public boolean compareTextWithJsonDataKeyValue(String ObjectKey, String jsonDataKey)
+			throws FileNotFoundException, IOException, ParseException {
+		if (getText(ObjectKey).equals(getValueFromJson(jsonDataKey)))
+			return true;
+		else
+			return false;
 
 	}
 
+	public boolean compareAtrributeWithJson(String ObjectKey, String AttributeName, String jsonDataKey)
+			throws FileNotFoundException, IOException, ParseException {
+		if (getAttribute(ObjectKey, AttributeName).equals(getValueFromJson(jsonDataKey)))
+			return true;
+		else
+			return false;
+	}
+
+	//Not in use currently for load environement 13.11.2019
+	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
+			IOException, ParserConfigurationException, SAXException, ParseException {
+		Properties prop = new Properties();
+		// FileInputStream fis = new
+		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
+		FileInputStream fis = new FileInputStream(
+				System.getProperty("user.dir") + "/src/test/java/com/bnpp/mTANResources/data.properties");
+		prop.load(fis);
+		// String customerId = prop.getProperty("userID");
+		String customerId = getValueFromJson("UserID_Kontonummer");
+		String customerPin = getValueFromJson("PIN_Password");
+		String cafeUser = prop.getProperty("cafeUserID");
+		String cafePin = prop.getProperty("cafePin");
+
+		// Redirecting Mobile TAN
+		MobileTan mt = new MobileTan();
+		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+
+		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+		click("MobileTAN_link_Login");
+		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+		// System.out.println("mTAN is -" + mTAN);
+
+		Thread.sleep(3000);
+		enterTan(tanKey, mTAN);
+		if (tanKey.equals("TAN_field_AngabenZurPerson")) {
+			click("TAN_field_AngabenZurPerson_Button");
+		}
+		logInfoStatus("Info | Token used : " + token);
+
+		// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
+	}
+
+	/**
+	 * Description Common function for checked or unchecked the radio button
+	 * @throws Exception 
+	 */
+	public void clearRadioButton(String objectKey) throws Exception {
+		WebElement e;
+
+		try {
+			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
+			if (e.isSelected()) {
+				Thread.sleep(1000);
+				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	/*
+	 * Description Count no of elements
+	 */
+	public int noofelement(String objectKey) {
+		List<WebElement> e = driver.findElements(By.xpath(properties.getProperty(objectKey)));
+		return e.size();
+
+	}
+	//Not in use currently for load environement 13.11.2019
+	public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String tanfield) throws ClientProtocolException,
+			IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException {
+		Properties prop = new Properties();
+		// FileInputStream fis = new
+		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
+		FileInputStream fis = new FileInputStream(
+				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+		prop.load(fis);
+
+		String customerId = getValueFromJson("UserID_Kontonummer");
+		String customerPin = getValueFromJson("PIN_Password");
+		String cafeUser = prop.getProperty("cafeUserID");
+		String cafePin = prop.getProperty("cafePin");
+
+		// Redirecting Mobile TAN
+		MobileTan mt = new MobileTan();
+		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+
+		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+		click(mobiletanlink);
+
+		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+		System.out.println("mTAN is -" + mTAN);
+		enterTan(tanfield, mTAN);
+		pressTab();
+		if (tanfield.equals("TAN_field_AngabenZurPerson")) {
+			click("TAN_field_AngabenZurPerson_Button");
+		}
+		logInfoStatus("Info | Token used : " + mTAN);
+	}
+
+	public void enterTexttoken(String tankey, String string) {
+		// TODO Auto-generated method stub
+		getElement(tankey).sendKeys(string);
+	}
+
+	public void enterLoadenvironmentTan(String tanField, String string) throws InterruptedException  {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+		getElement(tanField).sendKeys(string);
+	}
+
+	public String enterFutureDateAddingDays(String noofDaysToAdd) throws java.text.ParseException, ParseException {
+		String oldDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date()).toString();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		Calendar c = Calendar.getInstance();
+		c.setTime(sdf.parse(oldDate));
+		// Number of Days to add
+		c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(noofDaysToAdd));
+		// Date after adding the days to the given date
+		String newDate = sdf.format(c.getTime());
+		// Displaying the new Date after addition of Days
+		System.out.println(newDate);
+		return newDate;
+	}
+	
+	 public void setUp() throws Exception {
+	    	
+	        DesiredCapabilities capabilities = new DesiredCapabilities();
+
+	        System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
+	        System.getProperties().put("https.proxyPort", "8080");
+	        System.out.println(System.getProperty("browser"));
+	        if(System.getProperty("browser").equals("chrome")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","75.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	        else if(System.getProperty("browser").equals("firefox")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","69.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	        else if(System.getProperty("browser").equals("safari")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","7.1");
+	        	capabilities.setCapability("os", "OS X");
+	        	capabilities.setCapability("os_version", "Mavericks");
+	        }
+	        else if(System.getProperty("browser").equals("IE")) {
+	        	capabilities.setCapability("browser", System.getProperty("browser"));
+	        	capabilities.setCapability("browser_version","11.0");
+	        	capabilities.setCapability("os", "Windows");
+	        	capabilities.setCapability("os_version", "10");
+	        }
+	     
+	        Thread.sleep(2000);
+	        String username = "chetana19";
+	        String accessKey = "5tW8jrFVdPxbpgUSvssc";
+
+//	        if(capabilities.getCapability("browserstack.local") != null && capabilities.getCapability("browserstack.local") == "true"){
+//	            l = new Local();
+//	            Map<String, String> options = new HashMap<String, String>();
+//	            options.put("key", accessKey);
+//	            l.start(options);
+//	        }
+	        capabilities.setCapability("browserstack.local", "true");
+	        capabilities.setCapability("name", getScenarioName());
+	        capabilities.setCapability("acceptSslCerts", "true");
+	        capabilities.setCapability("browserstack.debug","true");
+
+	        driver = new RemoteWebDriver(new URL("https://"+username+":"+accessKey+"@hub.browserstack.com/wd/hub"), capabilities);
+	    }    
 }

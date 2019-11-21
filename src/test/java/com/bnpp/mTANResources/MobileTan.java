@@ -1,30 +1,17 @@
 package com.bnpp.mTANResources;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.TimeZone;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
-
-import com.google.common.util.concurrent.Service;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import java.io.File;
 
 public class MobileTan  {
 
@@ -64,7 +51,7 @@ public class MobileTan  {
 		Request_LogoutV1 reqLogout = new Request_LogoutV1();
 		reqLogout.requestLogoutV1();
 				
-		System.out.println("MTan is - "+mTan);
+		//System.out.println("MTan is - "+mTan);
 		return mTan;	
 	}
 	
@@ -86,7 +73,7 @@ public class MobileTan  {
 		//Call MTanRedirectionInq and check the status of 'active = true' and 'mTanStatus'
 		CalvinServices calServ = new CalvinServices();
 		String mtanStatus = calServ.requestMTanRedirectionInq_v1();
-		System.out.println("MTan status - "+mtanStatus);
+		//System.out.println("MTan status - "+mtanStatus);
 		//int status = 0;
 		String sStatus = "";
 		
@@ -99,7 +86,7 @@ public class MobileTan  {
 			int status = calServ.requestMTanRedirectionAdd_v1();
 			sStatus =  "MTan redirection added with HTTP status -" + Integer.toString(status);
 			
-			System.out.println("MTan redirection Add status - " + status);
+			//System.out.println("MTan redirection Add status - " + status);
 		}
 		else sStatus = "MTan redirection already active for the user: "+customerId ;
 		return sStatus;

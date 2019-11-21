@@ -4,12 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
-
 import com.bnpp.library.CommonActions;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.CucumberException;
@@ -24,10 +19,15 @@ public class UC69_70_Risikoklasse {
 
 	@When("User navigates to {string}")
 	public void user_navigates_to(String string) throws InterruptedException {
-		commonActions.mouseover("Mein_Konto_Depot");
-		System.out.println(string);
-		Thread.sleep(5000);
-		commonActions.click(string);
+		try {
+			commonActions.mouseover("Mein_Konto_Depot");
+			System.out.println(string);
+			Thread.sleep(5000);
+			commonActions.click(string);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -43,43 +43,46 @@ public class UC69_70_Risikoklasse {
 	}
 
 	@Then("^Verify displayed ErrorMesssages on RisikoklasseFinanztermingeschaefte$")
-	public void Verify_displayed()
-			throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
-		// commonActions.getElement("HeadingError");
-		// commonActions.getElement("Hinweis_gelesenError");
-		// commonActions.getElement("ProduktgruppeError");
-		//
+	public void Verify_displayed() throws FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		try {
 			if (commonActions.isElementPresent("HeadingError"))
-				commonActions.logPassStatus("HeadingError message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed HeadingError");
 			else
-				commonActions.logFailStatus("HeadingError message display fail");
+				commonActions.logFailStatus("Fail | Valid message display failed HeadingError");
 			if (commonActions.isElementPresent("Hinweis_gelesenError"))
-				commonActions.logPassStatus("Hinweis_gelesenError message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed Hinweis_gelesenError");
 			else
-				commonActions.logFailStatus("Hinweis_gelesenError message display fail");
+				commonActions.logFailStatus("Fail | Valid message display failed Hinweis_gelesenError");
 			if (commonActions.isElementPresent("ProduktgruppeError"))
-				commonActions.logPassStatus("ProduktgruppeError message display success");
+				commonActions.logPassStatus("Pass | Valid message displayed ProduktgruppeError");
 			else
-				commonActions.logFailStatus("ProduktgruppeError message display fail");
+				commonActions.logFailStatus("Pass | Valid message display failed ProduktgruppeError");
 		} catch (CucumberException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			commonActions.logFailStatus("Check step definition and feature file configured correctly with respect to arguments ");
+			commonActions.logFailStatus(
+					"Fail | Valid check step definition and feature file configured correctly with respect to arguments ");
 		}
 
 	}
 
-	@And("User clicks on checkbox {string} in {string}")
-	public void User_clicks_on_checkbox(String objectKey, String data) throws InterruptedException {
-		commonActions.click(objectKey);
-	}
-
 	@Then("verify success message shown on bestaetigung page")
 	public void verify_success_message_shown_on_bestaetigung_page() throws InterruptedException {
-		//commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
-		if(commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
-			commonActions.logPassStatus("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+		// commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
+
+		try {
+			if (commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
+				commonActions.logPassStatus(
+						"Pass | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");
+			else
+				commonActions.logFailStatus(
+						"Fail | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display failed");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			commonActions.logAssert_Fail("verify success message shown on bestaetigung page failed");
+		}
+
 	}
 
 }

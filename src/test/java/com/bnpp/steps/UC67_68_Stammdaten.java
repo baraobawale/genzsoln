@@ -2,15 +2,10 @@ package com.bnpp.steps;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import org.json.simple.parser.ParseException;
-import org.junit.Assert;
-
 import com.bnpp.library.CommonActions;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-
 
 public class UC67_68_Stammdaten {
 
@@ -25,21 +20,26 @@ public class UC67_68_Stammdaten {
 	@Then("^Verify displayed \"(.*?)\" on PersoenlicheEinstellungen$")
 	public void verify_error_messsages_are_displayed(String ErrorMesssages)
 			throws FileNotFoundException, IOException, ParseException {
-
-		try {
-			commonActions.verifyErrorMessage("BrancheError").equals(commonActions.getText("Branchie_errorMessage"));
-			commonActions.logPassStatus("Branchie message displayed successfully");
-			commonActions.verifyErrorMessage("PLZError").equals(commonActions.getText("plz_errorMessage"));
-			commonActions.logPassStatus("PLZ message displayed successfully");
-			commonActions.verifyErrorMessage("StrabeError").equals(commonActions.getText("StraBe_errorMessage"));
-			commonActions.logPassStatus("Strasse message displayed successfully");
-			commonActions.verifyErrorMessage("OrtError").equals(commonActions.getText("Ort_errorMessage"));
-			commonActions.logPassStatus("Ort message displayed successfully");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Assert.fail();
-		}
+				
+			if (commonActions.verifyErrorMessage("PLZError").equals(commonActions.getText("plz_errorMessage")))
+				commonActions.logPassStatus("Pass | Valid PLZ message displayed "+commonActions.getText("plz_errorMessage"));
+			else
+				commonActions.logFailStatus("Fail | Valid PLZ message display fail "+commonActions.getText("plz_errorMessage"));
+			
+			if (commonActions.verifyErrorMessage("StrabeError").equals(commonActions.getText("StraBe_errorMessage")))
+				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("StraBe_errorMessage"));
+			else
+				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("StraBe_errorMessage"));
+			
+			if (commonActions.verifyErrorMessage("OrtError").equals(commonActions.getText("Ort_errorMessage")))
+				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("Ort_errorMessage"));
+			else
+				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("OrtError"));
+			if (commonActions.verifyErrorMessage("BrancheError").equals(commonActions.getText("Branchie_errorMessage")))
+				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("Branchie_errorMessage"));
+			else
+				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("Branchie_errorMessage"));
+		
 	}
 
 	@Then("^verify changed data shown on bestaetigung page$")
@@ -49,25 +49,25 @@ public class UC67_68_Stammdaten {
 			String[] txtVerify = commonActions.getText("PLZ_txtVerify").split("\\s+");
 			System.out.println(commonActions.getValueFromJson("PLZ"));
 			if (txtVerify[0].equals(commonActions.getValueFromJson("PLZ")))
-				commonActions.logPassStatus("Data save success for PLZ");
+				commonActions.logPassStatus("Pass | Data save success for PLZ");
 			else
-				commonActions.logFailStatus("Data save fail for PLZ");
+				commonActions.logFailStatus("Fail | Data save fail for PLZ");
 
 			if (txtVerify[1].equals(commonActions.getValueFromJson("Ort")))
-				commonActions.logPassStatus("Data save success for Ort");
+				commonActions.logPassStatus("Pass | Data save success for Ort");
 			else
-				commonActions.logFailStatus("Data save fail for Ort");
+				commonActions.logFailStatus("Fail | Data save fail for Ort");
 
 			if (commonActions.getText("Land_txtVerify").equals(commonActions.getValueFromJson("Land")))
-				commonActions.logPassStatus("Data save success for Land");
+				commonActions.logPassStatus("Pass | Data save success for Land");
 			else
-				commonActions.logFailStatus("Data save fail for Land");
+				commonActions.logFailStatus("Fail | Data save fail for Land");
 
 			if (commonActions.getText("Steueridentifikationsnummer_txtVerify")
 					.equals(commonActions.getValueFromJson("Steueridentifikationsnummer")))
-				commonActions.logPassStatus("Data save success for Steueridentifikationsnummer");
+				commonActions.logPassStatus("Pass | Data save success for Steueridentifikationsnummer");
 			else
-				commonActions.logFailStatus("Data save fail for Steueridentifikationsnummer");
+				commonActions.logFailStatus("Fail | Data save fail for Steueridentifikationsnummer");
 
 		} catch (Exception e) {
 			e.printStackTrace();
