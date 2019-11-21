@@ -16,11 +16,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-<<<<<<< Updated upstream
-					<value>&lt;project&gt;/.externalToolBuilders/cucumber.eclipse.steps.jdt.stepsBuilder (4).launch</value>
-=======
 					<value>&lt;project&gt;/.externalToolBuilders/cucumber.eclipse.steps.jdt.stepsBuilder (1).launch</value>
->>>>>>> Stashed changes
 				</dictionary>
 			</arguments>
 		</buildCommand>
