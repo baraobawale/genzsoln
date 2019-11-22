@@ -26,10 +26,10 @@ public class UC69_70_Risikoklasse {
 
 	Scenario sc;
 
-	@Before
-	public void before(Scenario scenario) {
-		sc = scenario;
-	}
+//	@Before
+//	public void before(Scenario scenario) {
+//		sc = scenario;
+//	}
 
 	@When("User navigates to {string}")
 	public void user_navigates_to(String string) throws InterruptedException {
@@ -95,11 +95,6 @@ public class UC69_70_Risikoklasse {
 		// commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
 
 		try {
-			byte[] data = ((TakesScreenshot) (commonActions.getDriver())).getScreenshotAs(OutputType.BYTES);
-			String testName = sc.getName();
-			sc.embed(data, "image/png");
-			sc.write(testName);
-
 			if (commonActions.isElementPresent("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet"))
 				commonActions.logPassStatus(
 						"Pass | Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet message display success");

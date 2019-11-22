@@ -1,0 +1,61 @@
+2019-11-21 20:16:22.285INFO - Log configuration done. Log Dir:.\Logs
+2019-11-21 20:16:22.668INFO - Test Start Time: 2019-11-21T20:16:22+01:00
+2019-11-21 20:17:44.919INFO - saving results to Xray ...
+2019-11-21 20:17:45.080INFO - ***********************************************************
+2019-11-21 20:17:45.081INFO - Request:
+2019-11-21 20:17:45.081INFO - POST https://t-jira-consorsbank.is.echonet/rest/raven/1.0/import/execution
+2019-11-21 20:17:45.081INFO - HOST: t-jira-consorsbank.is.echonet
+2019-11-21 20:17:45.082INFO - Content-Type: Content-type: application/json
+2019-11-21 20:17:45.082INFO - Content-Length: null
+2019-11-21 20:17:45.393INFO - 
+2019-11-21 20:17:45.393INFO - Response:
+2019-11-21 20:17:45.393INFO - Content-Type: Content-Type: application/json;charset=UTF-8
+2019-11-21 20:17:45.393INFO - Content-Length: null
+2019-11-21 20:17:45.394INFO - Status : 400
+2019-11-21 20:17:45.394INFO - Content: Test issue with key TA-172 not found.
+
+2019-11-21 20:17:46.155DEBUG- Couldn't find template in cache for "index.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.156DEBUG- TemplateLoader.findTemplateSource("index_en.ftl"): Not found
+2019-11-21 20:17:46.159DEBUG- TemplateLoader.findTemplateSource("index.ftl"): Found
+2019-11-21 20:17:46.160DEBUG- Loading template for "index.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/index.ftl"
+2019-11-21 20:17:46.348DEBUG- Couldn't find template in cache for "head.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.349DEBUG- TemplateLoader.findTemplateSource("head_en.ftl"): Not found
+2019-11-21 20:17:46.350DEBUG- TemplateLoader.findTemplateSource("head.ftl"): Found
+2019-11-21 20:17:46.350DEBUG- Loading template for "head.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/head.ftl"
+2019-11-21 20:17:46.353DEBUG- Couldn't find template in cache for "nav.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.354DEBUG- TemplateLoader.findTemplateSource("nav_en.ftl"): Not found
+2019-11-21 20:17:46.355DEBUG- TemplateLoader.findTemplateSource("nav.ftl"): Found
+2019-11-21 20:17:46.355DEBUG- Loading template for "nav.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/nav.ftl"
+2019-11-21 20:17:46.364DEBUG- Couldn't find template in cache for "test-view/test-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.364DEBUG- TemplateLoader.findTemplateSource("test-view/test-view_en.ftl"): Not found
+2019-11-21 20:17:46.365DEBUG- TemplateLoader.findTemplateSource("test-view/test-view.ftl"): Found
+2019-11-21 20:17:46.365DEBUG- Loading template for "test-view/test-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/test-view/test-view.ftl"
+2019-11-21 20:17:46.376DEBUG- Couldn't find template in cache for "test-view/test-view-charts.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.376DEBUG- TemplateLoader.findTemplateSource("test-view/test-view-charts_en.ftl"): Not found
+2019-11-21 20:17:46.377DEBUG- TemplateLoader.findTemplateSource("test-view/test-view-charts.ftl"): Found
+2019-11-21 20:17:46.377DEBUG- Loading template for "test-view/test-view-charts.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/test-view/test-view-charts.ftl"
+2019-11-21 20:17:46.393DEBUG- Couldn't find template in cache for "test-view/standard.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.393DEBUG- TemplateLoader.findTemplateSource("test-view/standard_en.ftl"): Not found
+2019-11-21 20:17:46.394DEBUG- TemplateLoader.findTemplateSource("test-view/standard.ftl"): Found
+2019-11-21 20:17:46.394DEBUG- Loading template for "test-view/standard.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/test-view/standard.ftl"
+2019-11-21 20:17:46.415DEBUG- Couldn't find template in cache for "category-view/category-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.415DEBUG- TemplateLoader.findTemplateSource("category-view/category-view_en.ftl"): Not found
+2019-11-21 20:17:46.416DEBUG- TemplateLoader.findTemplateSource("category-view/category-view.ftl"): Found
+2019-11-21 20:17:46.416DEBUG- Loading template for "category-view/category-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/category-view/category-view.ftl"
+2019-11-21 20:17:46.420DEBUG- Couldn't find template in cache for "author-view/author-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.421DEBUG- TemplateLoader.findTemplateSource("author-view/author-view_en.ftl"): Not found
+2019-11-21 20:17:46.422DEBUG- TemplateLoader.findTemplateSource("author-view/author-view.ftl"): Found
+2019-11-21 20:17:46.422DEBUG- Loading template for "author-view/author-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/author-view/author-view.ftl"
+2019-11-21 20:17:46.427DEBUG- Couldn't find template in cache for "exception-view/exception-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.428DEBUG- TemplateLoader.findTemplateSource("exception-view/exception-view_en.ftl"): Not found
+2019-11-21 20:17:46.429DEBUG- TemplateLoader.findTemplateSource("exception-view/exception-view.ftl"): Found
+2019-11-21 20:17:46.429DEBUG- Loading template for "exception-view/exception-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/exception-view/exception-view.ftl"
+2019-11-21 20:17:46.435DEBUG- Couldn't find template in cache for "dashboard-view/dashboard-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.436DEBUG- TemplateLoader.findTemplateSource("dashboard-view/dashboard-view_en.ftl"): Not found
+2019-11-21 20:17:46.436DEBUG- TemplateLoader.findTemplateSource("dashboard-view/dashboard-view.ftl"): Found
+2019-11-21 20:17:46.437DEBUG- Loading template for "dashboard-view/dashboard-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/dashboard-view/dashboard-view.ftl"
+2019-11-21 20:17:46.445DEBUG- Couldn't find template in cache for "logs-view/testrunner-logs-view.ftl"("en", UTF-8, parsed); will try to load it.
+2019-11-21 20:17:46.446DEBUG- TemplateLoader.findTemplateSource("logs-view/testrunner-logs-view_en.ftl"): Not found
+2019-11-21 20:17:46.447DEBUG- TemplateLoader.findTemplateSource("logs-view/testrunner-logs-view.ftl"): Found
+2019-11-21 20:17:46.447DEBUG- Loading template for "logs-view/testrunner-logs-view.ftl"("en", UTF-8, parsed) from "jar:file:/C:/Users/cs8286/.m2/repository/com/aventstack/extentreports/3.1.2/extentreports-3.1.2.jar!/com/aventstack/extentreports/view/html-report/logs-view/testrunner-logs-view.ftl"
+2019-11-21 20:17:57.588INFO - attaching html report to the xray issue ...

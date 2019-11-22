@@ -58,6 +58,8 @@ import com.bnpp.mTANResources.MobileTan;
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
 
+import cucumber.api.Scenario;
+
 public class CommonActions {
 	WebDriver driver;
 	Exception e;
@@ -68,7 +70,9 @@ public class CommonActions {
 	public static String featurename;
 	public static String scenarioname;
 	public SoftAssertions softAssertions;
-
+	
+	public Scenario sc;
+	
 	public CommonActions() {
 
 		if (properties == null) {
@@ -83,14 +87,25 @@ public class CommonActions {
 				Assert.fail();
 			}
 		}
+		
 	}
-	/**
-	 * 
-	 */
-
+	
 	public WebDriver getDriver() {
 		
 		return driver;
+	}
+	
+	public void screenCapture() {
+		byte[] data = ((TakesScreenshot) (getDriver())).getScreenshotAs(OutputType.BYTES);
+		String testName = sc.getName();
+		sc.embed(data, "image/png");
+		sc.write(testName);
+	}
+	
+	
+	public void setScenario(Scenario s)
+	{
+		sc = s;
 	}
 	/**
 	 * Description: Open the desired browser reading from properties file
@@ -645,10 +660,11 @@ public class CommonActions {
 	 * Description Common function to take the screenshots of failure steps
 	 */
 
-	public void takeSceenShot() {
+	public void takeSceenShot1() {
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			Date d = new Date();
 			try {
+							
 				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
 				// take screenshot
 				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -667,14 +683,52 @@ public class CommonActions {
 
 	}
 
+//	public void takeSceenShot_NewReport() {
+	public void takeSceenShot() {
+		if ((Configurations.takeScreenshots).equals("Y")) {
+			Date d = new Date();
+			try {
+				/**
+				 * Screen capture for new report
+				 */
+				//screenCapture();
+				byte[] data = ((TakesScreenshot) (getDriver())).getScreenshotAs(OutputType.BYTES);
+				String testName = sc.getName();
+				sc.embed(data, "image/png");
+				sc.write(testName);
+				
+				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
+				// take screenshot
+				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+				// get the dynamic folder name
+				FileUtils.copyFile(srcFile, new File(ExtentManager.screenshotFolderPath + screenshotFile));
+				String PathofScreenShot = System.getProperty("user.dir") + "\\" + ExtentManager.screenshotFolderPath
+						+ screenshotFile;
+				// put screenshot file in reports
+				scenario.info("Screenshot", MediaEntityBuilder.createScreenCaptureFromPath(PathofScreenShot).build());
+			} catch (IOException e) {
+				e.printStackTrace();
+				Assert.fail();
+			}
+		}
+
+	}
 	/**
 	 * Description Common function for quitting the browser and reports.
 	 */
 	public void quit() {
+		takeSceenShot();
 		if (report != null)
 			report.flush();
 		if (driver != null)
 			driver.quit();
+		try {
+			Runtime.getRuntime().exec("sh ./module-report \"../../../../target/cucumber.json\" \"RTA\" \"../custom_templates/templates.json\" ");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		softAssertions.assertAll();
 		if ((softAssertions.errorsCollected().size()) != 0)
 			logAssert_Fail(scenarioname + " failed");
@@ -1058,4 +1112,6 @@ public class CommonActions {
 		// TODO Auto-generated method stub
 		getElement(tanField).sendKeys(string);
 	}
+	
+
 }

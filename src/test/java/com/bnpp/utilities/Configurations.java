@@ -23,7 +23,7 @@ public class Configurations {
     public static boolean cloud = false;
 
     //Output Reports path
-    public static final String reportPath =".\\Reports\\";
+    public static final String reportPath ="C:\\Bitbucket\\rta\\Reports";
     public static final String loggerPath =".\\Logs";
     
   //download file path

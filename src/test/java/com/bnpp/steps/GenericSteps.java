@@ -56,6 +56,7 @@ public class GenericSteps {
 	String testStart = "";
 	String testFinish = "";
 	String XrayIssueKey = "";
+	Scenario sc;
 	
 	static String ExecutionID = com.dab.config.PropertiesHandler.getXrayTestExecutionKey();
 	
@@ -87,6 +88,8 @@ public class GenericSteps {
 		 
 		commonActions.initReports(s.getName());
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
+		//commonActions.takeSceenShot_NewReport(s);
+		commonActions.setScenario(s);
 
 	}
 
@@ -107,6 +110,7 @@ public class GenericSteps {
 					testFinish);
 		}
 		
+		/*
 		WebDriver dr = commonActions.getDriver();
 		TakesScreenshot scrShot = ((TakesScreenshot)dr);
 		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
@@ -115,10 +119,9 @@ public class GenericSteps {
 		//byte[] data = FileUtils.readFileToByteArray(DestFile);
 		byte[] data = scrShot.getScreenshotAs(OutputType.BYTES);
 		String testName = s.getName();
-		System.out.println("data >>>>>>>>>>>>>>>>>>" +data);
 		s.embed(data,"image/png");
 		s.write(testName);
-		
+		*/
 		commonActions.quit();
 
 	}
@@ -585,14 +588,14 @@ public class GenericSteps {
 //
 //	}
 	
-//	@And("^User submits generated TAN number in \"(.*?)\"$")
-	/*public void User_submit_tan(String tankey) throws InterruptedException{
+	@And("^User submits generated TAN number in \"(.*?)\"$")
+	public void User_submit_tan(String tankey) throws InterruptedException{
 		Thread.sleep(2000);
 		commonActions.click("SecurePlusLink");
 		commonActions.enterTexttoken(tankey, "12345678");
 		commonActions.click("BestaetigenButton");
 	}
-*/	
+	
 
 	@And("^User enters generated TAN number in \"(.*?)\"$")
 	public void User_enters_tan(String tankey) throws InterruptedException{
