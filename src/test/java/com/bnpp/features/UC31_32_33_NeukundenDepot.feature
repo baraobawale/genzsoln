@@ -3,6 +3,7 @@ Feature: UC31_32_33_NeukundenDepot
 
   #Executable - Neukunden Depot Anlegen
   #Einzelkonto Anlegen
+  @22.11
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"

@@ -315,8 +315,8 @@ public class CommonActions {
 
 	/**
 	 * @param objectKey
-	 * @return true if element is present false if not found. Description: Check
-	 *         if element is present and used as a checkpoint. true - present
+	 * @return true if element is present false if not found. Description: Check if
+	 *         element is present and used as a checkpoint. true - present
 	 */
 	public boolean isElementPresent(String objectKey) {
 		List<WebElement> e = null;
@@ -362,19 +362,19 @@ public class CommonActions {
 			getElement(objectKey).clear();
 			Thread.sleep(1000);
 			getElement(objectKey).sendKeys(textToEnter);
-			} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
 		}
 
 	}
-	
+
 	public void enterTextToLogin(String objectKey, String dataKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			getElement(objectKey).clear();
 			getElement(objectKey).sendKeys(getKeyFromJson(dataKey));
-			} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
 		}
@@ -441,8 +441,7 @@ public class CommonActions {
 	 * @param objectKey
 	 * @param data
 	 * @throws Exception
-	 *             Description Common action select from combo box by visible
-	 *             text
+	 *             Description Common action select from combo box by visible text
 	 */
 	public void selectFromDropDown(String objectKey, String datakey) throws Exception {
 		Select s = new Select(getElement(objectKey));
@@ -552,7 +551,7 @@ public class CommonActions {
 			act.moveToElement(getElement(objectKey)).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			
+
 		}
 	}
 
@@ -594,8 +593,7 @@ public class CommonActions {
 
 	/**
 	 * @param errMsg
-	 *            Description Common function to fail the report and stop
-	 *            execution
+	 *            Description Common function to fail the report and stop execution
 	 */
 	public void logAssert_Fail(String errMsg) {
 		// fail in extent reports
@@ -665,8 +663,8 @@ public class CommonActions {
 	public void quit() {
 		if (report != null)
 			report.flush();
-//	if (driver != null)
-//		driver.quit();
+		if (driver != null)
+			driver.quit();
 		softAssertions.assertAll();
 		if ((softAssertions.errorsCollected().size()) != 0)
 			logAssert_Fail(scenarioname + " failed");
@@ -697,14 +695,13 @@ public class CommonActions {
 
 		} catch (FileNotFoundException e) {
 			logAssert_Fail(featurename + " .json file not found");
-		} catch(NullPointerException e){
+		} catch (NullPointerException e) {
 			throw e;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			logAssert_Fail(dataKeyInJson + " : Please make sure ojectKey present in json file");
 		}
-		
+
 		return datakey;
 	}
 
@@ -714,8 +711,8 @@ public class CommonActions {
 			String data = null;
 			JSONParser parser = new JSONParser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
-				JSONObject getFeatureName = (JSONObject) parser.parse(
-						new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
+				JSONObject getFeatureName = (JSONObject) parser
+						.parse(new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 				Iterator it = getScenarioName.entrySet().iterator();
@@ -730,8 +727,8 @@ public class CommonActions {
 				}
 
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
-				JSONObject getFeatureName = (JSONObject) parser.parse(
-						new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
+				JSONObject getFeatureName = (JSONObject) parser
+						.parse(new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 				Iterator it = getScenarioName.entrySet().iterator();
@@ -747,8 +744,8 @@ public class CommonActions {
 				// pair.getValue().toString());
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 
-				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
+				JSONObject getFeatureName = (JSONObject) parser
+						.parse(new FileReader("./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
 				Iterator it = getScenarioName.entrySet().iterator();
@@ -776,8 +773,8 @@ public class CommonActions {
 			JSONParser parser = new JSONParser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
 
-				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						"./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
+				JSONObject getFeatureName = (JSONObject) parser
+						.parse(new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -793,8 +790,8 @@ public class CommonActions {
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
 
-				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						"./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
+				JSONObject getFeatureName = (JSONObject) parser
+						.parse(new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -809,8 +806,8 @@ public class CommonActions {
 					// pair.getValue().toString());
 				}
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
-				JSONObject getFeatureName = (JSONObject) parser.parse(new FileReader(
-						"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
+				JSONObject getFeatureName = (JSONObject) parser
+						.parse(new FileReader("./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
 				JSONObject scenario = (JSONObject) featureName.get(scenarioname);
 				Map<String, String> getmessagename = (Map<String, String>) scenario.get("ErrorMesssages");
@@ -853,9 +850,9 @@ public class CommonActions {
 					data = data.replace("Ue", "Ü");
 			}
 		} catch (Exception e) {
-			
+
 			throw e;
-			
+
 		}
 		return data;
 
@@ -894,8 +891,6 @@ public class CommonActions {
 		}
 	}
 
-	
-
 	public boolean compareTextWithJsonDataKeyValue(String ObjectKey, String jsonDataKey)
 			throws FileNotFoundException, IOException, ParseException {
 		if (getText(ObjectKey).equals(getValueFromJson(jsonDataKey)))
@@ -913,7 +908,7 @@ public class CommonActions {
 			return false;
 	}
 
-	//Not in use currently for load environement 13.11.2019
+	// Not in use currently for load environement 13.11.2019
 	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, ParseException {
 		Properties prop = new Properties();
@@ -949,7 +944,8 @@ public class CommonActions {
 
 	/**
 	 * Description Common function for checked or unchecked the radio button
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public void clearRadioButton(String objectKey) throws Exception {
 		WebElement e;
@@ -973,7 +969,8 @@ public class CommonActions {
 		return e.size();
 
 	}
-	//Not in use currently for load environement 13.11.2019
+
+	// Not in use currently for load environement 13.11.2019
 	public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String tanfield) throws ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException {
 		Properties prop = new Properties();
@@ -1010,7 +1007,7 @@ public class CommonActions {
 		getElement(tankey).sendKeys(string);
 	}
 
-	public void enterLoadenvironmentTan(String tanField, String string) throws InterruptedException  {
+	public void enterLoadenvironmentTan(String tanField, String string) throws InterruptedException {
 		// TODO Auto-generated method stub
 		try {
 			Thread.sleep(2000);
@@ -1034,54 +1031,53 @@ public class CommonActions {
 		System.out.println(newDate);
 		return newDate;
 	}
-	
-	 public void setUp() throws Exception {
-	    	
-	        DesiredCapabilities capabilities = new DesiredCapabilities();
 
-	        System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
-	        System.getProperties().put("https.proxyPort", "8080");
-	        System.out.println(System.getProperty("browser"));
-	        if(System.getProperty("browser").equals("chrome")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","75.0");
-	        	capabilities.setCapability("os", "Windows");
-	        	capabilities.setCapability("os_version", "10");
-	        }
-	        else if(System.getProperty("browser").equals("firefox")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","69.0");
-	        	capabilities.setCapability("os", "Windows");
-	        	capabilities.setCapability("os_version", "10");
-	        }
-	        else if(System.getProperty("browser").equals("safari")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","7.1");
-	        	capabilities.setCapability("os", "OS X");
-	        	capabilities.setCapability("os_version", "Mavericks");
-	        }
-	        else if(System.getProperty("browser").equals("IE")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","11.0");
-	        	capabilities.setCapability("os", "Windows");
-	        	capabilities.setCapability("os_version", "10");
-	        }
-	     
-	        Thread.sleep(2000);
-	        String username = "chetana19";
-	        String accessKey = "5tW8jrFVdPxbpgUSvssc";
+	public void setUp() throws Exception {
 
-//	        if(capabilities.getCapability("browserstack.local") != null && capabilities.getCapability("browserstack.local") == "true"){
-//	            l = new Local();
-//	            Map<String, String> options = new HashMap<String, String>();
-//	            options.put("key", accessKey);
-//	            l.start(options);
-//	        }
-	        capabilities.setCapability("browserstack.local", "true");
-	        capabilities.setCapability("name", getScenarioName());
-	        capabilities.setCapability("acceptSslCerts", "true");
-	        capabilities.setCapability("browserstack.debug","true");
+		DesiredCapabilities capabilities = new DesiredCapabilities();
 
-	        driver = new RemoteWebDriver(new URL("https://"+username+":"+accessKey+"@hub.browserstack.com/wd/hub"), capabilities);
-	    }    
+		System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
+		System.getProperties().put("https.proxyPort", "8080");
+		System.out.println(System.getProperty("browser"));
+		if (System.getProperty("browser").equals("chrome")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "75.0");
+			capabilities.setCapability("os", "Windows");
+			capabilities.setCapability("os_version", "10");
+		} else if (System.getProperty("browser").equals("firefox")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "69.0");
+			capabilities.setCapability("os", "Windows");
+			capabilities.setCapability("os_version", "10");
+		} else if (System.getProperty("browser").equals("safari")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "7.1");
+			capabilities.setCapability("os", "OS X");
+			capabilities.setCapability("os_version", "Mavericks");
+		} else if (System.getProperty("browser").equals("IE")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "11.0");
+			capabilities.setCapability("os", "Windows");
+			capabilities.setCapability("os_version", "10");
+		}
+
+		Thread.sleep(2000);
+		String username = "chetana19";
+		String accessKey = "5tW8jrFVdPxbpgUSvssc";
+
+		// if(capabilities.getCapability("browserstack.local") != null &&
+		// capabilities.getCapability("browserstack.local") == "true"){
+		// l = new Local();
+		// Map<String, String> options = new HashMap<String, String>();
+		// options.put("key", accessKey);
+		// l.start(options);
+		// }
+		capabilities.setCapability("browserstack.local", "true");
+		capabilities.setCapability("name", getScenarioName());
+		capabilities.setCapability("acceptSslCerts", "true");
+		capabilities.setCapability("browserstack.debug", "true");
+
+		driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"),
+				capabilities);
+	}
 }
