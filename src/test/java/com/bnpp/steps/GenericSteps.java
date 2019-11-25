@@ -1,7 +1,5 @@
 package com.bnpp.steps;
 
-import static org.junit.Assert.fail;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -55,23 +53,9 @@ public class GenericSteps {
 			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
 
-		XrayIssueKey = XrayHelper.getTestIdFromFileName(s.getId());
-
-		if (!JunitRunner.currentXrayIssueKey.contains(XrayIssueKey)) {
-			System.out.println("This is a new Feature!");
-			JunitRunner.currentXrayIssueKey = XrayIssueKey;
-		} else {
-			if (!JunitRunner.featureTestPassed) {
-				// if the last scenario failed
-
-				JunitRunner.featureTestPassed = true;
-
-				fail("Feature failed. Scenario not executed!");
-			}
-
-		}
-
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
+
+		checkNewTest(s);
 
 	}
 
@@ -83,6 +67,12 @@ public class GenericSteps {
 
 		commonActions.quit();
 
+		saveTestResultsToXray(s);
+
+	}
+
+	private void saveTestResultsToXray(Scenario s) {
+
 		ZonedDateTime finishDateTime = ZonedDateTime.now();
 		testFinish = finishDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 		Log.info("Test Finish Time: " + testFinish);
@@ -93,9 +83,22 @@ public class GenericSteps {
 			Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_FAIL,
 					JunitRunner.testStart, testFinish);
 		} else {
-			Log.info("Test Passed!");
-			Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS,
-					JunitRunner.testStart, testFinish);
+			if (JunitRunner.featureTestPassed == true) {
+				Log.info("Test Passed!");
+				Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS,
+						JunitRunner.testStart, testFinish);
+			}
+		}
+
+	}
+
+	private void checkNewTest(Scenario s) {
+		XrayIssueKey = XrayHelper.getTestIdFromFileName(s.getId());
+
+		if (!JunitRunner.currentXrayIssueKey.contains(XrayIssueKey)) {
+			System.out.println("This is a new Feature!");
+			JunitRunner.currentXrayIssueKey = XrayIssueKey;
+			JunitRunner.featureTestPassed = true;
 		}
 
 	}
