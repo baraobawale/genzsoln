@@ -1,5 +1,7 @@
 package com.bnpp.steps;
 
+import static org.junit.Assert.fail;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -56,13 +58,15 @@ public class GenericSteps {
 		XrayIssueKey = XrayHelper.getTestIdFromFileName(s.getId());
 
 		if (!JunitRunner.currentXrayIssueKey.contains(XrayIssueKey)) {
-			System.out.println("The is a new FF");
+			System.out.println("This is a new Feature!");
 			JunitRunner.currentXrayIssueKey = XrayIssueKey;
 		} else {
 			if (!JunitRunner.featureTestPassed) {
+				// if the last scenario failed
+
 				JunitRunner.featureTestPassed = true;
 
-				// fail("Feature failed. Scenario not executed!");
+				fail("Feature failed. Scenario not executed!");
 			}
 
 		}
