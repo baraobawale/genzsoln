@@ -20,18 +20,5 @@ public class XrayHelper {
 		return result;
 	}
 
-	public static String getExecKey() {
-		String result = "";
-
-		boolean create = false;
-
-		if (create) {
-			// create test execution
-		} else {
-			result = com.dab.config.PropertiesHandler.getXrayTestExecutionKey();
-		}
-
-		return result;
-	}
-
+	
 }

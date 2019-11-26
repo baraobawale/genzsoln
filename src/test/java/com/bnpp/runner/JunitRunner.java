@@ -15,6 +15,7 @@ import com.bnpp.utilities.Configurations;
 import com.bnpp.utilities.Log;
 import com.bnpp.utilities.XrayHelper;
 import com.dab.config.PropertiesHandler;
+import com.dab.xray.TestExecution;
 import com.dab.xray.Xray;
 
 import cucumber.api.CucumberOptions;
@@ -33,10 +34,11 @@ public class JunitRunner {
 
 	@BeforeClass
 	public static void setupBeforeClass() {
-
+		
 		com.dab.config.PropertiesHandler.setConfigPath(Configurations.XrayConfigPath);
-		ExecutionID = XrayHelper.getExecKey();
 		setLogger();
+		ExecutionID = TestExecution.getExecKey(); 
+		
 
 		ZonedDateTime startDateTime = ZonedDateTime.now();
 		testStart = startDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
@@ -56,8 +58,7 @@ public class JunitRunner {
 		TimeUnit.SECONDS.sleep(5);
 
 		// *** activating and deacivating in config.properties
-		Xray.attachFileToJiraIssue(Configurations.reportPath,
-				com.dab.config.PropertiesHandler.getXrayTestExecutionKey());
+		Xray.attachFileToJiraIssue(Configurations.reportPath, ExecutionID);
 
 	}
 
