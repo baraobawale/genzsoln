@@ -9,9 +9,6 @@ import org.openqa.selenium.TakesScreenshot;
 
 import com.bnpp.library.CommonActions;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.CucumberException;
@@ -23,13 +20,6 @@ public class UC69_70_Risikoklasse {
 	public UC69_70_Risikoklasse(CommonActions commonActions) {
 		this.commonActions = commonActions;
 	}
-
-	Scenario sc;
-
-//	@Before
-//	public void before(Scenario scenario) {
-//		sc = scenario;
-//	}
 
 	@When("User navigates to {string}")
 	public void user_navigates_to(String string) throws InterruptedException {
@@ -80,16 +70,6 @@ public class UC69_70_Risikoklasse {
 
 	}
 
-	@And("User clicks on checkbox {string} in {string}")
-	public void User_clicks_on_checkbox(String objectKey, String data) throws InterruptedException {
-		try {
-			commonActions.click(objectKey);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	@Then("verify success message shown on bestaetigung page")
 	public void verify_success_message_shown_on_bestaetigung_page() throws InterruptedException {
 		// commonActions.getElement("Ihre_Angaben_wurden_erfolgreich_gespeichert_und_ausgewertet");
@@ -104,6 +84,7 @@ public class UC69_70_Risikoklasse {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			commonActions.logAssert_Fail("verify success message shown on bestaetigung page failed");
 		}
 
 	}

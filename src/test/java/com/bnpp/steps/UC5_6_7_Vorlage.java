@@ -218,7 +218,6 @@ public class UC5_6_7_Vorlage {
 	@And("^Capture entered details on VorlageAnlegen$")
 	public void capture_details_on_VorlageAnlegen() throws Exception, IOException, ParseException {
 		try {
-			commonActions.moveScrollDown();
 			if (commonActions.getScenarioName().equals("IBANVorlagen_Anlegen")) {
 
 				if (commonActions.getText("VorlagenameIBANCaptureScreen")
@@ -316,6 +315,7 @@ public class UC5_6_7_Vorlage {
 			throws Exception, IOException, ParseException {
 
 		try {
+			commonActions.moveScrollDown();
 			String VorlagennameFromJson = commonActions.getKeyFromJson("Vorlagenname");
 			System.out.println("VorlagennameFromJson:" + VorlagennameFromJson);
 			System.out.println("VorlagennameFromPage:" + commonActions.getAttribute("CustomerNameIBAN", "title"));
@@ -384,6 +384,34 @@ public class UC5_6_7_Vorlage {
 	@And("^Verify captured details,Message from VorlageAnlegen$")
 	public void Verify_catured_details() {
 
+	}
+	
+	@And("^User clicks on NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr to create template$")
+		public void delete_existing_template() throws InterruptedException{
+			if (commonActions.isElementPresent("CustomerNameIBAN")){
+					commonActions.logInfoStatus("Vorlagename '001 DELTA BUERICZUEK' template already exists.");
+					commonActions.logInfoStatus("Deleting the template");
+					commonActions.click("DeleteIBAN");
+					commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					Thread.sleep(5000);
+					commonActions.moveScrollDown();
+					// commonActions.waitForVisibilityofElement("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
+				}
+
+				if (commonActions.isElementPresent("CustomerNameKontoBLZ")) {
+					commonActions.logInfoStatus("Vorlagename '002 DELTA BUERICZUEK' template already exists.");
+					commonActions.logInfoStatus("Deleting the template");
+					commonActions.click("DeleteKontoBLZ");
+					commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
+					// Use new mobile tan and rename function entertokentan
+					commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
+					commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
+					Thread.sleep(5000);
+					commonActions.moveScrollDown();
+					
+				}
 	}
 
 }

@@ -1,10 +1,5 @@
 package com.bnpp.steps;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import org.json.simple.parser.ParseException;
-import org.openqa.selenium.WebElement;
-
 import com.bnpp.library.CommonActions;
 
 import cucumber.api.java.en.Then;
@@ -31,7 +26,7 @@ public class UC31_32_33_NeukundenDepot {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotEinzel failed");
 		}
 	}
 
@@ -52,7 +47,7 @@ public class UC31_32_33_NeukundenDepot {
 	}
 	catch (Exception e) {
 		e.printStackTrace();
-		commonActions.logAssert_Fail("text not found");
+		commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotEinzel");
 	}
 	}
 	
@@ -77,7 +72,7 @@ public class UC31_32_33_NeukundenDepot {
 	}
 	catch (Exception e) {
 		e.printStackTrace();
-		commonActions.logAssert_Fail("text not found");
+		commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen failed");
 	}
 	}
 
@@ -98,7 +93,7 @@ public class UC31_32_33_NeukundenDepot {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen");
 		}
 	}
 }

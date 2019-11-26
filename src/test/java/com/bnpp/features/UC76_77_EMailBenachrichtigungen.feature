@@ -1,10 +1,11 @@
-@Demo300919 @report
+@UC76
 Feature: UC76_77_EMailBenachrichtigungen
 
-  Executable - E-Mail Benachrichtigungen setzen (mit Fehlermeldungen)
-  Errors - E-Mail Benachrichtigungen (Fehlermeldungen)
-
+  #Executable - E-Mail Benachrichtigungen setzen (mit Fehlermeldungen)
+  #Errors - E-Mail Benachrichtigungen (Fehlermeldungen)
+  @UC76_1
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Benachrichtigungen" in "Mein_Konto_Depot"
@@ -22,8 +23,9 @@ Feature: UC76_77_EMailBenachrichtigungen
       | EMail_Benachrichtigungen_Errors |
 
   #E-Mail Benachrichtigungen setzen und zuruecksetzen (E-mail notifications Set & Reset)
-  @UC76
+  @UC76_2
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Benachrichtigungen" in "Mein_Konto_Depot"

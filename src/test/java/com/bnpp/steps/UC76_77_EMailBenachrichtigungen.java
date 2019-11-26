@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import com.bnpp.library.CommonActions;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 
 public class UC76_77_EMailBenachrichtigungen {
@@ -42,6 +41,7 @@ public class UC76_77_EMailBenachrichtigungen {
 		public void verify_Message_Status_on_Benachrichtigungen() throws FileNotFoundException, IOException, ParseException {
 			   String ScenarioName = commonActions.getScenarioName();
                System.out.println("ScenarioName"+ScenarioName);
+               System.out.println("A:"+ commonActions.getText("Message_Benachrichtigungen")+"  "+"B: "+commonActions.getValueFromJson("Message"));
 	             if(ScenarioName.equals("EMail_Benachrichtigungen_Select")){
 	            	  if (commonActions.getText("Message_Benachrichtigungen").equals(commonActions.getValueFromJson("Message"))) 
 	            		  commonActions.logPassStatus("Pass | Valid message displayed: "+commonActions.getText("Message_Benachrichtigungen"));

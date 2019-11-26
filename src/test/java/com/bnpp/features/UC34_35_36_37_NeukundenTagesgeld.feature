@@ -1,11 +1,11 @@
-@report
+@UC34
 Feature: UC34_35_36_37_NeukundenTagesgeld
 
   #Neukunden Tagesgeld Anlegen
   #Einzelkonto Anlegen
-  
+  @UC34_1
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -28,8 +28,6 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "PLZ" in "PLZ_AngabenZurPerson"
     And User enters "Ort" in "Ort_AngabenZurPerson"
     And User selects "Land" in "Land_AngabenZurPerson"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig" in "DieEingegebeneAdresseIstNichtEindeutig_AngabenZurPerson"
-    And User clicks on "Uebernehmen_AngabenZurPerson"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA" in "AnsaessigkeitAusserhalbDeutschlandsUSA_AngabenZurPerson"
     And User enters "EMail" in "EMail_AngabenZurPerson"
     And User enters "EMail_wiederholen" in "EMailWiederholen_AngabenZurPerson"
@@ -49,9 +47,9 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
       | TagesgeldEinzelkonto_Anlegen |
 
   #Gemeinschaftskonto Anlegen
-  @NKT
+  @UC34_2
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -74,8 +72,6 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "PLZ_1" in "PLZ1_Kontoinhaber1"
     And User enters "Ort_1" in "Ort1_Kontoinhaber1"
     And User selects "Land_1" in "Land_1_Kontoinhaber1"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_1" in "DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber1"
-    And User clicks on "Uebernehmen_Kontoinhaber1"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_1" in "AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber1"
     And User enters "EMail_1" in "EMail1_Kontoinhaber1"
     And User enters "EMail_wiederholen_1" in "EMailWiederholen1_Kontoinhaber1"
@@ -100,9 +96,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "Strasse_Hausnummer_2" in "StrasseHausnummer2_Kontoinhaber2"
     And User enters "PLZ_2" in "PLZ2_Kontoinhaber2"
     And User enters "Ort_2" in "Ort2_Kontoinhaber2"
-    And User enters "Land_2" in "Land2_Kontoinhaber2"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_2" in "DieEingegebeneAdresseIstNichtEindeutig2_Kontoinhaber2"
-    And User clicks on "Uebernehmen_Kontoinhaber2"
+    And User selects "Land_2" in "Land2_Kontoinhaber2"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_2" in "AnsaessigkeitAusserhalbDeutschlandsUSA2_Kontoinhaber2"
     And User enters "EMail_2" in "EMail2_Kontoinhaber2"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_Kontoinhaber2"
@@ -123,8 +117,9 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
       | TagesgeldGemeinschaftskonto_Anlegen |
 
   # 1 Minderjaehrigenkonto Anlegen
+  @UC34_3
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -147,8 +142,6 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "PLZ_1" in "PLZ1_Kontoinhaber"
     And User enters "Ort_1" in "Ort1_Kontoinhaber"
     And User selects "Land_1" in "Land_1_Kontoinhaber"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_1" in "DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber"
-    And User clicks on "Uebernehmen_Kontoinhaber"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_1" in "AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber"
     And User enters "Telefon_privat_1" in "TelefonPrivat1_Kontoinhaber"
     And User selects "Beruf_1" in "Beruf1_Kontoinhaber"
@@ -172,8 +165,6 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "PLZ_2" in "PLZ2_GesetzlicherVertreter1"
     And User enters "Ort_2" in "Ort2_GesetzlicherVertreter1"
     And User selects "Land_2" in "Land2_GesetzlicherVertreter1"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_2" in "DieEingegebeneAdresseIstNichtEindeutig2_GesetzlicherVertreter1"
-    And User clicks on "Uebernehmen_GesetzlicherVertreter1"
     And User enters "EMail_2" in "EMail2_GesetzlicherVertreter1"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_GesetzlicherVertreter1"
     And User enters "Telefon_privat_2" in "TelefonPrivat2_GesetzlicherVertreter1"
@@ -192,8 +183,9 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
       | TagesgeldMinderjaehrigenkonto1GV_Anlegen |
 
   # 2 Minderjaehrigenkonto Anlegen
+  @UC34_4
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
@@ -216,8 +208,6 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "PLZ_1" in "PLZ1_Kontoinhaber"
     And User enters "Ort_1" in "Ort1_Kontoinhaber"
     And User selects "Land_1" in "Land_1_Kontoinhaber"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_1" in "DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber"
-    And User clicks on "Uebernehmen_Kontoinhaber"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_1" in "AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber"
     And User enters "Telefon_privat_1" in "TelefonPrivat1_Kontoinhaber"
     And User selects "Beruf_1" in "Beruf1_Kontoinhaber"
@@ -241,14 +231,12 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "PLZ_2" in "PLZ2_GesetzlicherVertreter1"
     And User enters "Ort_2" in "Ort2_GesetzlicherVertreter1"
     And User selects "Land_2" in "Land2_GesetzlicherVertreter1"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_2" in "DieEingegebeneAdresseIstNichtEindeutig2_GesetzlicherVertreter1"
-    And User clicks on "Uebernehmen_GesetzlicherVertreter1"
     And User enters "EMail_2" in "EMail2_GesetzlicherVertreter1"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_GesetzlicherVertreter1"
     And User enters "Telefon_privat_2" in "TelefonPrivat2_GesetzlicherVertreter1"
     And User selects "Beruf_2" in "Beruf2_GesetzlicherVertreter1"
     And User selects "Branche_2" in "Branche2_GesetzlicherVertreter1"
-    And User clicks on "Zum2GesetzlVertreter_Kontoinhaber"
+    And User clicks on Zum2GesetzlVertreter_Kontoinhaber
     And User selects radiobutton "Anrede_3" in "Anrede3_GesetzlicherVertreter2"
     And User enters "Vorname_3" in "Vorname3_GesetzlicherVertreter2"
     And User enters "Nachname_3" in "Nachname3_GesetzlicherVertreter2"
@@ -265,14 +253,12 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User enters "PLZ_3" in "PLZ3_GesetzlicherVertreter2"
     And User enters "Ort_3" in "Ort3_GesetzlicherVertreter2"
     And User selects "Land_3" in "Land3_GesetzlicherVertreter2"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_2" in "DieEingegebeneAdresseIstNichtEindeutig3_GesetzlicherVertreter2"
-    And User clicks on "Uebernehmen_GesetzlicherVertreter2"
     And User enters "EMail_3" in "EMail2_GesetzlicherVertreter"
     And User enters "EMail_wiederholen_3" in "EMailWiederholen3_GesetzlicherVertreter"
     And User enters "Telefon_privat_3" in "TelefonPrivat3_GesetzlicherVertreter2"
     And User selects "Beruf_3" in "Beruf3_GesetzlicherVertreter2"
     And User selects "Branche_3" in "Branche3_GesetzlicherVertreter2"
-    And User clicks on "Weiter_GesetzlicherVertreter2"
+    And User clicks on Weiter_GesetzlicherVertreter2
     And User clicks on "KontoEroeffnen_GesetzlicherVertreter2"
     And Capture Vorgangsnummer,Message on TagesgeldkontoMinderjaehrigen2
     And User clicks on "EroeffnungsunterlagenHerunterladen_TagesgeldkontoMinderjaehrigen2"

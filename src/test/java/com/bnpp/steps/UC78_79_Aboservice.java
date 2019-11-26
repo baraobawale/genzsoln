@@ -1,10 +1,5 @@
 package com.bnpp.steps;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import org.json.simple.parser.ParseException;
-import org.openqa.selenium.WebElement;
-
 import com.bnpp.library.CommonActions;
 
 import cucumber.api.java.en.Then;

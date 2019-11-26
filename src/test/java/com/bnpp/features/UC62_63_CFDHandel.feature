@@ -1,11 +1,11 @@
-@Demo300919 @report
+@UC62
 Feature: UC62_63_CFDHandel
 
   #Executable : Inhaber Einzelkonto Eroeffnet Depot-CFD  (Neues/BestehendesKonto)
   #Eroeffnet Depot-CFD Neues Konto
-  @demotest
+  @UC62_1
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"
     And User clicks on "CFDKontoEroeffnen_CFDHandel"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_CFDKontoEroeffnen"
@@ -26,8 +26,6 @@ Feature: UC62_63_CFDHandel
     And User enters "PLZ" in "PLZ_AngabenZurPerson"
     And User enters "Ort" in "Ort_AngabenZurPerson"
     And User selects "Land" in "Land_AngabenZurPerson"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig" in "DieEingegebeneAdresseIstNichtEindeutig_AngabenZurPerson"
-    And User clicks on "Uebernehmen_AngabenZurPerson"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA" in "AnsaessigkeitAusserhalbDeutschlandsUSA_AngabenZurPerson"
     And User enters "EMail" in "EMail_AngabenZurPerson"
     And User enters "EMail_wiederholen" in "EMailWiederholen_AngabenZurPerson"
@@ -53,13 +51,13 @@ Feature: UC62_63_CFDHandel
       | Einzelkonto_DepotCFD_NeuesKonto |
 
   #Eroeffnet Depot-CFD Bestehendes Konto
-   @demotest @CF_Handel
+  @UC62_2
   Scenario Outline: <TestCase>
-    When User open the application
+    Given User launches Consorsbank web application
     And User navigates to "CFD_Handel" in "Wertpapierhandel"
     And User clicks on "CFDKontoEroeffnen_CFDHandel"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_CFDKontoEroeffnen"
-    And User Logs in with "UserID_Kontonummer","PIN_Password"
+    And User is redirected to login page to login with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User clicks on "Weiter_CFDKontoEroeffnen"
     And User clicks on "WeiterZurAntragsstrecke_KundeninformationZumDatenschutz"
@@ -76,7 +74,7 @@ Feature: UC62_63_CFDHandel
     And User selects checkbox "Besondere_Merkmale_und_Risikoerklaerung" in "BesondereMerkmaleundRisikoerklaerung_AngabenZurPerson"
     And User clicks on "Weiter_AngabenZurPerson"
     And User clicks on "KontoEroeffnen_AngabenZurPerson"
-		 And User submits generated TAN number using "MobileTanLink_AngabenZurPerson" on "TAN_field_AngabenZurPerson"
+    And User submits generated TAN number using MobileTanLink_AngabenZurPerson on TAN_field_AngabenZurPerson
     And Capture Vorgangsnummer,Message on CFDKontoEinzel
     Then Verify captured Vorgangsnummer,Message from CFDKontoEinzel
 

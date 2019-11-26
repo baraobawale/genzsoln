@@ -1,0 +1,15 @@
+{
+	"Feature": 
+	{
+		"Risikoklasse_Verify_Save": 
+		{
+			"UserID_Kontonummer": "880804000",
+			"PIN_Password": "12345",
+			"Hinweis_gelesen": "select",
+			"Risikoklasse":" Produkte mit mittlerem Risiko (3)",
+			"Kenntnisse_vorhanden": "Ja",
+			"Wertpapierkaeufe": "mehr als 3",
+			"Message": "Ihre Angaben wurden erfolgreich gespeichert und ausgewertet. Ermittelte Risikoklasse: 5. Bitte beachten Sie, dass die eventuelle Änderung Ihrer Risikoklasse aus technischen Gründen erst am nächsten Tag wirksam wird."
+		}
+	}
+}

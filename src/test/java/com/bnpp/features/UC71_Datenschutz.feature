@@ -2,7 +2,9 @@
 Feature: UC71_Datenschutz
 
   # Datenschutz andern - Non Executable
-  Scenario Outline: <TestCase>  
+  @UC71_1
+  Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     And User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Mein_Datenschutz" in "Mein_Konto_Depot"

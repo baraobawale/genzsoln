@@ -1,18 +1,18 @@
-@Demo300919
-@UC9_10 @report
+@UC9
 Feature: UC_9_10_UeberweisungLimit
 
   #Executable : Ueberweisungslimit Aendern (mit Fehlermeldungen)
   #Verify Error
-  @UC9_101
+  @UC9_1
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     #And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Andern_Kontodetails"
-    And User enters "Uberweisungslimit" in "Uberweisungslimit_Ueberweisungslimit"
-    And User selects "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
+    And User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit
+    And User selects checkbox "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
     And User clicks on "WeiterZurTanEingabe_Ueberweisungslimit"
     Then Verify displayed ErrorMesssages on Ueberweisungslimit
 
@@ -21,14 +21,16 @@ Feature: UC_9_10_UeberweisungLimit
       | Ueberweisungslimit_Verify_Errors |
 
   #Errors - Limit more than max limit
+  @UC9_2
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Andern_Kontodetails"
-    And User enters "Uberweisungslimit" in "Uberweisungslimit_Ueberweisungslimit"
-    And User selects "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
+    And User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit
+    And User selects checkbox "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
     And User clicks on "WeiterZurTanEingabe_Ueberweisungslimit"
     And Capture Error Message on Ueberweisungslimit
     And User clicks on "UberweisungslimitErhoehen_Ueberweisungslimit"
@@ -40,15 +42,16 @@ Feature: UC_9_10_UeberweisungLimit
       | Ueberweisungslimit_MaxLimit_Error |
 
   #Aendern
-  @EmailSelect
+  @UC9_3
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Kontodetails" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Andern_Kontodetails"
-    And User enters "Uberweisungslimit" in "Uberweisungslimit_Ueberweisungslimit"
-    And User selects "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
+    And User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit
+    And User selects checkbox "Ich_bestaetige" in "IchBestaetige_Ueberweisungslimit"
     And User clicks on "WeiterZurTanEingabe_Ueberweisungslimit"
     And User submits generated TAN number using "MobileTanLink_Ueberweisungslimit" on "TAN_field_Ueberweisungslimit"
     And User clicks on "UeberweisungslimitAendern_Ueberweisungslimit"
