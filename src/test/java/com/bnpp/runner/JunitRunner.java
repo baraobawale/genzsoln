@@ -55,7 +55,7 @@ public class JunitRunner {
 		TimeUnit.SECONDS.sleep(5);
 		//Runtime.getRuntime().exec("cp -r ./Reports_RTA/ ./Reports");
 		Process p = Runtime.getRuntime().exec("cp -r ./Reports_"+fileName+"/ ./Reports");
-	
+		TimeUnit.SECONDS.sleep(5);
        
 		// *** activating and deacivating in config.properties
 		Xray.attachFileToJiraIssue(Configurations.reportPath,
