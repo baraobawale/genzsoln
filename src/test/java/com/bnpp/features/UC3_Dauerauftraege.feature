@@ -3,7 +3,7 @@ Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen
   #Anlegen/Creation
- 
+ @UC3_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -35,7 +35,7 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Anlegen |
 
   #Andern/Updation
-  
+  @UC3_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -56,7 +56,7 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Andern |
 
   #Loeschen/Deletion
-  @UC3 
+  @UC3_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

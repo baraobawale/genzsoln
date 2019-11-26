@@ -62,17 +62,17 @@ public class UC82_Authorization {
 		commonActions.navigateBack();
 	}
 	
-	@And("User selects Handelsplatz in Handelsplatz_OrderErteilen")
-	public void User_selects_Handelsplatz() throws InterruptedException{
-		try {
-			commonActions.click("Handelsplatz_OrderErteilen");
-			commonActions.click("Handelsplatz_Fondsgesellschaft");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			commonActions.logAssert_Fail("User_selects_Handelsplatz failed");
-		}
-	}
+//	@And("User selects Handelsplatz in Handelsplatz_OrderErteilen")
+//	public void User_selects_Handelsplatz() throws InterruptedException{
+//		try {
+//			commonActions.click("Handelsplatz_OrderErteilen");
+//			commonActions.click("Handelsplatz_Fondsgesellschaft");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			commonActions.logAssert_Fail("User_selects_Handelsplatz failed");
+//		}
+//	}
 	
 	
 }

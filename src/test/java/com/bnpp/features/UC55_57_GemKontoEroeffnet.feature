@@ -1,10 +1,10 @@
-
+@UC55
 Feature: UC55_57_GemKontoEroeffnet
 
   #Testable in int acc2 - test data added for int acc 2
   #Executable - Inhaber auf Gem.konto er�ffnet Konto Depot(Joint account holder opens a trading account/depot)
   #Gemeinschaftskonto depot Anlegen
-  
+  @UC55_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
@@ -37,8 +37,6 @@ Feature: UC55_57_GemKontoEroeffnet
     And User enters "PLZ_2" in "PLZ2_Kontoinhaber2"
     And User enters "Ort_2" in "Ort2_Kontoinhaber2"
     And User selects "Land_2" in "Land2_Kontoinhaber2"
-    #And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_2" in "DieEingegebeneAdresseIstNichtEindeutig2_Kontoinhaber2"
-    #And User clicks on "Uebernehmen_Kontoinhaber2"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_2" in "AnsaessigkeitAusserhalbDeutschlandsUSA2_Kontoinhaber2"
     And User enters "EMail_2" in "EMail2_Kontoinhaber2"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_Kontoinhaber2"
@@ -60,7 +58,7 @@ Feature: UC55_57_GemKontoEroeffnet
       | Gemkonto_Kontodepot |
 
   #Gemeinschaftskonto tagesgeldkonto Anlegen
-  @UC55_57
+  @UC55_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
@@ -92,8 +90,6 @@ Feature: UC55_57_GemKontoEroeffnet
     And User enters "PLZ_2" in "PLZ2_Kontoinhaber2"
     And User enters "Ort_2" in "Ort2_Kontoinhaber2"
     And User selects "Land_2" in "Land2_Kontoinhaber2"
-    #And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_2" in "DieEingegebeneAdresseIstNichtEindeutig2_Kontoinhaber2"
-    #And User clicks on "Uebernehmen_Kontoinhaber2"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_2" in "AnsaessigkeitAusserhalbDeutschlandsUSA2_Kontoinhaber2"
     And User enters "EMail_2" in "EMail2_Kontoinhaber2"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_Kontoinhaber2"

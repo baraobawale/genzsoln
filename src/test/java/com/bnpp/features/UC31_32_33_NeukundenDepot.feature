@@ -1,9 +1,9 @@
-
+@UC31
 Feature: UC31_32_33_NeukundenDepot
 
   #Executable - Neukunden Depot Anlegen
   #Einzelkonto Anlegen
-  @22.11
+  @UC31_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
@@ -50,7 +50,7 @@ Feature: UC31_32_33_NeukundenDepot
       | DepotEinzelkonto_Anlegen |
 
   #Gemeinschaftskonto Anlegen
-  
+  @UC31_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
@@ -102,8 +102,8 @@ Feature: UC31_32_33_NeukundenDepot
     And User enters "Ort_2" in "Ort2_Kontoinhaber2"
     And User selects "Land_2" in "Land2_Kontoinhaber2"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_2" in "AnsaessigkeitAusserhalbDeutschlandsUSA2_Kontoinhaber2"
-   And User enters "EMail_2" in "EMail2_Kontoinhaber2"
-   And User enters "EMail_wiederholen_2" in "EMailWiederholen2_Kontoinhaber2"
+    And User enters "EMail_2" in "EMail2_Kontoinhaber2"
+    And User enters "EMail_wiederholen_2" in "EMailWiederholen2_Kontoinhaber2"
     And User enters "Telefon_privat_2" in "TelefonPrivat2_Kontoinhaber2"
     And User selects "Beruf_2" in "Beruf2_Kontoinhaber2"
     And User selects "Branche_2" in "Branche2_Kontoinhaber2"
@@ -123,7 +123,7 @@ Feature: UC31_32_33_NeukundenDepot
       | DepotGemeinschaftskonto_Anlegen |
 
   #Minderjaehrigenkonto Anlegen
-  @UC31
+  @UC31_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
@@ -148,8 +148,6 @@ Feature: UC31_32_33_NeukundenDepot
     And User enters "PLZ_1" in "PLZ1_Kontoinhaber"
     And User enters "Ort_1" in "Ort1_Kontoinhaber"
     And User selects "Land_1" in "Land_1_Kontoinhaber"
-    #And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_1" in "DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber"
-    #And User clicks on "Uebernehmen_Kontoinhaber"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_1" in "AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber"
     And User enters "Telefon_privat_1" in "TelefonPrivat1_Kontoinhaber"
     And User selects "Beruf_1" in "Beruf1_Kontoinhaber"
@@ -173,8 +171,6 @@ Feature: UC31_32_33_NeukundenDepot
     And User enters "PLZ_2" in "PLZ2_GesetzlicherVertreter1Page"
     And User enters "Ort_2" in "Ort2_GesetzlicherVertreter1Page"
     And User selects "Land_2" in "Land2_GesetzlicherVertreter1Page"
-    #And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_2" in "DieEingegebeneAdresseIstNichtEindeutig2_GesetzlicherVertreter1Page"
-    #And User clicks on "Uebernehmen_GesetzlicherVertreter1Page"
     And User enters "EMail_2" in "EMail2_GesetzlicherVertreter1Page"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_GesetzlicherVertreter1Page"
     And User enters "Telefon_privat_2" in "TelefonPrivat2_GesetzlicherVertreter1Page"

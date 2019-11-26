@@ -3,7 +3,7 @@ Feature: UC69_70_Risikoklasse
 
   #Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)
   # Risikoklasse/FTG Setzen Fehlermeldungen
-  
+  @UC69_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -19,6 +19,7 @@ Feature: UC69_70_Risikoklasse
       | Risikoklasse_Verify_Errors |
 
   # Risikoklasse/FTG Setzen
+  @UC69_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

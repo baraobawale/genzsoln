@@ -11,7 +11,7 @@
 			"Name": "TestSpar_1",
 			"Sparintervall": "monatlich",
 			"Immer_am": "1.des Montas",
-			"Laufzeit_von": "01.11.2019",
+			"Laufzeit_von": "01.12.2019",
 			"Sparrate": "25",
 			"Dynamik": "5% p.a.",
 			"Zum_Date": "01",
@@ -27,7 +27,7 @@
 			"Aktionen": "Aenderung/Pause",
 			"Sparintervall": "zweimonatlich",
 			"Immer_am": "15.des Montas",
-			"Laufzeit_von": "15.11.2019",
+			"Laufzeit_von": "15.12.2019",
 			"Zum_Date": "15",
 			"Zum_Month": "Nov",
 			"Message": "Ihre Sparplanänderung im Überblick"
@@ -37,11 +37,11 @@
 			"PIN_Password": "12345",
 			"Created_Sparplan": "TestSpar_1",
 			"Aktionen": "Einmalzahlung",
-			"Betrag": "1,00",
-			"Ausfuhrung_am": "15.11.2019",
+			"Betrag": "25,00",
+			"Ausfuhrung_am": "15.12.2019",
 			"Kontodaten_angeben_mit": "IBAN",
-			"IBAN": "DE85 7603 0080 0880 5894 04",
-			"Message": "Ihre Einmalzahlung im �berblick"
+			"IBAN": "DE33 7603 0080 0880 8040 31",
+			"Message": "Ihre Einmalzahlung im Überblick"
 		},
 		"Sparplan_Einmalzahlung_Loeschen": {
 			"UserID_Kontonummer": "880804000",
@@ -49,7 +49,7 @@
 			"Created_Sparplan": "TestSpar_1",
 			"Aktionen": "Auftragsuebersicht",
 			"Ja_ich_moechte_sparplan_loeschen": "Select",
-			"Message": "Ihre L�schung im �berblick"
+			"Message": "Ihre Löschung im Überblick"
 		},
 		"Sparplan_Wertpapierwechsel": {
 			"UserID_Kontonummer": "880804000",

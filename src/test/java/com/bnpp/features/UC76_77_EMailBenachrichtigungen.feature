@@ -1,9 +1,9 @@
-
+@UC76
 Feature: UC76_77_EMailBenachrichtigungen
-  
-  Executable - E-Mail Benachrichtigungen setzen (mit Fehlermeldungen)
-  Errors - E-Mail Benachrichtigungen (Fehlermeldungen)
 
+  #Executable - E-Mail Benachrichtigungen setzen (mit Fehlermeldungen)
+  #Errors - E-Mail Benachrichtigungen (Fehlermeldungen)
+  @UC76_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -23,7 +23,7 @@ Feature: UC76_77_EMailBenachrichtigungen
       | EMail_Benachrichtigungen_Errors |
 
   #E-Mail Benachrichtigungen setzen und zuruecksetzen (E-mail notifications Set & Reset)
-  @UC76_77
+  @UC76_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -41,5 +41,5 @@ Feature: UC76_77_EMailBenachrichtigungen
 
     Examples: 
       | TestCase                          |
-    #  | EMail_Benachrichtigungen_Select   |
+      | EMail_Benachrichtigungen_Select   |
       | EMail_Benachrichtigungen_Unselect |

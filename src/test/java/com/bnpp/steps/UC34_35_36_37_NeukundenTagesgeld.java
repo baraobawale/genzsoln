@@ -1,7 +1,13 @@
 package com.bnpp.steps;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import com.bnpp.library.CommonActions;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -122,4 +128,30 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from TagesgeldkontoMinderjaehrigen failed");
 		}
 	}
+	@And("User clicks on Zum2GesetzlVertreter_Kontoinhaber")
+	public void User_clicks_on_Zum2GesetzlVertreter_Kontoinhaber() throws FileNotFoundException, IOException, ParseException, IllegalArgumentException, InterruptedException{
+		commonActions.click("Zum2GesetzlVertreter_Kontoinhaber");
+		commonActions.clearfield("maintaxrasidance");
+		String locatorKey="EMail2_GesetzlicherVertreter1";
+		String textToEnter = commonActions.getValueFromJson("EMail_2");
+		if (textToEnter.equals("")) {
+			commonActions.clearfield(locatorKey);
+		} else
+			commonActions.enterText(locatorKey, textToEnter);
+		commonActions.click("Zum2GesetzlVertreter_Kontoinhaber");
+	}
+	
+	@And("User clicks on Weiter_GesetzlicherVertreter2")
+	public void User_clicks_on_Weiter_GesetzlicherVertreter2() throws IllegalArgumentException, InterruptedException, IOException, ParseException{
+		commonActions.click("Weiter_GesetzlicherVertreter2");
+		commonActions.clearfield("maintaxrasidance2");
+		String locatorKey="EMail2_GesetzlicherVertreter";
+		String textToEnter = commonActions.getValueFromJson("EMail_3");
+		if (textToEnter.equals("")) {
+			commonActions.clearfield(locatorKey);
+		} else
+			commonActions.enterText(locatorKey, textToEnter);
+		commonActions.click("Weiter_GesetzlicherVertreter2");
+	}
+	
 }

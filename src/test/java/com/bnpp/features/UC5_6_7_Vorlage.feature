@@ -1,8 +1,8 @@
-@UC5_6_7
+@UC5
 Feature: UC5_6_7_Vorlage
 
   #Anlegen/Create - IBAN
-  @Voralge
+  @UC5_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -11,8 +11,7 @@ Feature: UC5_6_7_Vorlage
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User deletes existing templates on Vorlagen_UmsaetzeZahlungsverkehr
-    And User clicks on "NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr"
+   	And User clicks on NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr to create template
     And User enters "Vorlagenname" in "Vorlagenname_VorlageAnlegen"
     And User enters "Name" in "Name_VorlageAnlegen"
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_VorlageAnlegen"
@@ -31,6 +30,7 @@ Feature: UC5_6_7_Vorlage
       | IBANVorlagen_Anlegen |
 
   #Anlegen/Create-KontoBLZ
+  @UC5_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -59,6 +59,7 @@ Feature: UC5_6_7_Vorlage
       | KontoBLZVorlagen_Anlegen |
 
   #Aendern/Change-IBAN/KontoBLZ
+  @UC5_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -80,7 +81,7 @@ Feature: UC5_6_7_Vorlage
       | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-IBAN/KontoBLZ
-  @DeleteUC5
+  @UC5_4
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -90,7 +91,7 @@ Feature: UC5_6_7_Vorlage
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
     And User click on "Delete" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
-   And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_Vorlageloeschen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_Vorlageloeschen"
     And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
     Then Verify Message on Vorlageloeschen
 
