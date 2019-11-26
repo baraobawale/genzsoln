@@ -16,6 +16,7 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class GenericSteps {
@@ -353,6 +354,18 @@ public class GenericSteps {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			commonActions.logAssert_Fail("User submits generated TAN number failed: " + tankey);
+		}
+	}
+	
+	@Then("Download PDF generated in New Tab")
+	public void download_PDF_generated_in_New_Tab() throws InterruptedException {
+		try {
+			Thread.sleep(7000);
+			commonActions.VerifyifFilePresent();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			//commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 
