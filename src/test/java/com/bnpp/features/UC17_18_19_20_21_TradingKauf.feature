@@ -1,9 +1,8 @@
-
-@UC17_18_19
 Feature: UC17_18_19_20_21_TradingKauf
 
   #Executable - Aktie,Fonds,Anleihe - Anlegen, Aendern, loeschen (Zertifikat & Optionsschein Data pending)
   #Kauf Anlegen (Anleihe,Aktie) | Anleihe Limit - 90% & Aktie Limit - 105%
+  @UC17_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -32,6 +31,7 @@ Feature: UC17_18_19_20_21_TradingKauf
       | TestCase                  |
       | KaufOrder_Anlegen_Anleihe |
 
+  @UC17
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -49,7 +49,7 @@ Feature: UC17_18_19_20_21_TradingKauf
     And User selects "Gueltigkeit" in "Gueltigkeit_OrderErteilen"
     And User clicks on "WeiterTANEingabe_OrderErteilen"
     And User submits generated TAN number using "MobileTanLink_OrderErteilen" on "TAN_field_OrderErteilen"
-    And User clicks on KostenpflichtigKaufen_OrderErteilen
+    And User clicks on "KostenpflichtigKaufen_OrderErteilen"
     And Capture entered details on OrderErteilen
     And Capture Message on OrderErteilen
     And User clicks on "ZumOrderUebersicht_OrderErteilen"
@@ -61,6 +61,7 @@ Feature: UC17_18_19_20_21_TradingKauf
       | KaufOrder_Anlegen_Aktie |
 
   #Kauf Anlegen (Fonds - 632995) |
+  @UC17_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -86,6 +87,7 @@ Feature: UC17_18_19_20_21_TradingKauf
       | KaufOrder_Anlegen_Fonds1 |
 
   #Kauf Anlegen (Fonds - 984811) | STOP : 105%
+  @UC17_4
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -118,6 +120,7 @@ Feature: UC17_18_19_20_21_TradingKauf
       | KaufOrder_Anlegen_Fonds2 |
 
   #Kauf Andern (Aktie) | Order Status - Offen ,
+  @UC17_5
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -136,6 +139,7 @@ Feature: UC17_18_19_20_21_TradingKauf
       | KaufOrder_Anendern_Aktie |
 
   #Kauf loeschen (Aktie,Fond) | Order Status - Offen
+  @UC17_6
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

@@ -9,7 +9,7 @@
 			"Betrag": "1",
 			"Intervall": "monatlich",
 			"Immer_am": "10.des.Monats",
-			"Startdatum": "05.11.2020",
+			"Startdatum": "future date",
 			"Unbegrenzt_gueltig": "select",
 			"Als_Vorlage_speichern": "select",
 			"Vorlagenname": "003 DELTA BUERICZUEK",
@@ -23,7 +23,7 @@
 			"Betrag": "1,05",
 			"Intervall": "woechentlich",
 			"Immer_am": "Montag",
-			"Startdatum": "10.10.2019",
+			"Startdatum": "future date",
 			"Message": "Ihr Dauerauftrag wurde gespeichert"
 		},
 		"Dauerauftraege_loeschen": {

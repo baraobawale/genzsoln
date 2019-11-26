@@ -386,7 +386,7 @@ public class UC5_6_7_Vorlage {
 
 	}
 	
-	@And("^User deletes existing templates on Vorlagen_UmsaetzeZahlungsverkehr$")
+	@And("^User clicks on NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr to create template$")
 		public void delete_existing_template() throws InterruptedException{
 			if (commonActions.isElementPresent("CustomerNameIBAN")){
 					commonActions.logInfoStatus("Vorlagename '001 DELTA BUERICZUEK' template already exists.");

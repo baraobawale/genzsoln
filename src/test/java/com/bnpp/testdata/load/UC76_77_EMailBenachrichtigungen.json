@@ -18,11 +18,11 @@
 		{
 			"UserID_Kontonummer": "880804000",
 			"PIN_Password": "12345",
-			"Orderausfuehrung": "Select",
-			"Statusaenderung_Einer_Offenen_Order": "Select",
-			"Ablauf_Gueltigkeit": "Select",
-			"CFD_Margin_Call": "Select",
-			"Hinweis_Benachrichtigungsservice": "Select",
+			"Orderausfuehrung": "Check",
+			"Statusaenderung_Einer_Offenen_Order": "Check",
+			"Ablauf_Gueltigkeit": "Check",
+			"CFD_Margin_Call": "Check",
+			"Hinweis_Benachrichtigungsservice": "Check",
 			"Message": "Ihre aktuell gewaehlten E-Mailbenachrichtigungen",
 			"Status" : "Checked"
 		},

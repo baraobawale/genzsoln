@@ -3,6 +3,9 @@
 		"Risikoklasse_Verify_Errors": {
 			"UserID_Kontonummer": "880804000",
 			"PIN_Password": "12345",
+			"Hinweis_gelesen": "",
+			"Kenntnisse_vorhanden": "",
+			"Wertpapierkaeufe": "",
 			"ErrorMesssages": {
 				"HeadingError": "Bitte korrigieren Sie die folgenden Punkte:",
 				"Hinweis_gelesenError": "Hinweis: Bitte bestaetigen Sie durch Setzen des Hakens, dass Sie den untenstehenden Hinweis bezueglich gesetzlich geforderter Angaben zur Kenntnis genommen haben ",

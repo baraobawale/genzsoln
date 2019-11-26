@@ -1,8 +1,8 @@
 @UC82
 Feature: UC82_Authorization
-
   #Executable : Activate & Deactivate Session TAN
   # Session-TAN aktivieren & Deaktivieren
+  @UC82_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -16,8 +16,7 @@ Feature: UC82_Authorization
     And User clicks on "KaufenVerkaufen_kontouebersicht"
     And User enters "Name_WKN_ISIN" in "NameWKNISIN_OrderErteilen"
     And User clicks on "Uebernehmen_OrderErteilen"
-   # And User selects Handelsplatz in Handelsplatz_OrderErteilen
-    And User makes selection of Handelsplatz_Fondsgesellschaft in Handelsplatz_OrderErteilen
+    And User selects value "Handelsplatz_Fondsgesellschaft" in "Handelsplatz_OrderErteilen"
     And User enters "NominalStueck_Betrag" in "NominalBetrag_OrderErteilen"
     And User clicks on "Weiter_OrderErteilen"
     And User clicks on "KostenpflichtigKaufen_OrderErteilen"

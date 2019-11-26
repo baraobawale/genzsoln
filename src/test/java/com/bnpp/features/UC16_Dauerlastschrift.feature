@@ -3,11 +3,11 @@ Feature: UC16_Dauerlastschrift
 
   #Executable - Dauerlastschrift anlegen,Andern,loeschen
   #Anlegen/Creation
-  
+  @UC16_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-   # And User submits generated TAN number in "TAN_field_Login"
+    And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
@@ -33,10 +33,11 @@ Feature: UC16_Dauerlastschrift
       | Dauerlastschrift_Anlegen |
 
   #Andern/Updation
+  @UC16_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-  #  And User submits generated TAN number in "TAN_field_Login"
+    And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
@@ -56,10 +57,11 @@ Feature: UC16_Dauerlastschrift
       | Dauerlastschrift_Andern |
 
   #Loeschen/Deletion
+  @UC16_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
-    #And User submits generated TAN number in "TAN_field_Login"
+    And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"

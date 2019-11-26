@@ -20,8 +20,8 @@
 			"Account_Type": "Verechnungskonto",
 			"Art_der_Ueberweisung": "Auslandsueberweisung(SWIFT)",
 			"Name": "NEMO CAPONE",
-			"IBAN_oder_Kontonummer": "DE85760300800202421858",
-			"BIC": "DRESDEFF711",
+			"IBAN_oder_Kontonummer": "AT741420020010256551", 
+			"BIC": "EASYATW1XXX",
 			"Betrag": "1,00",
 			"Ausfuehrung": "naechstmoeglich",
 			"Gebuehrenregelung": "Entgeltteilung",
@@ -40,11 +40,11 @@
 		},
 		"Ueberweisung_Anlegen_TagesgeldToVerrechnungskonto": 
 		{
-			"UserID_Kontonummer": "253254191", #account needed with TG and VK
+			"UserID_Kontonummer": "880804017", 
 			"PIN_Password": "12345",
 			"Account_Type": "Tagesgeldkonto",
 			"Art_der_Ueberweisung": "Euro-Ueberweisang(SEPA)",
-			"Name": "Dr. DELTA BUERICZUEK-Verrechnungskonto|880589370",
+			"Name": "ALPHA BRILLE",
 			"Betrag": "1,05",
 			"Ausfuehrung": "naechstmoeglich",
 			"Message": "ihre Ueberweisung wurde angenommen"

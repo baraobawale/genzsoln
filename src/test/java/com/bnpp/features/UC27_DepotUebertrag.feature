@@ -4,6 +4,7 @@ Feature: UC27_DepotUebertrag
   #Executable - Depot Transfer Internally
   #The depot account should have open position not transfered.!!
   # Depot Uebertrag
+  @UC27_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
