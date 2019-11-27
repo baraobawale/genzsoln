@@ -2,6 +2,7 @@ package com.bnpp.steps;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -11,6 +12,7 @@ import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
 import com.bnpp.utilities.Configurations;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -38,8 +40,9 @@ public class GenericSteps {
 	public void before(Scenario s) throws Exception {
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
 			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
+		} else {
+			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
-		commonActions.initReports(s.getName() + "_" + "chrome");
 		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
 
 	}
@@ -72,12 +75,12 @@ public class GenericSteps {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			String textToEnter = commonActions.getValueFromJson(dataKey);
-/************ for testing purpose		*/	
-//			if(locatorKey.equals("EMail2_GesetzlicherVertreter1Page")) {
-// 			commonActions.click(locatorKey);
-//			}
-			
-/*******************************************/			
+			/************ for testing purpose */
+			// if(locatorKey.equals("EMail2_GesetzlicherVertreter1Page")) {
+			// commonActions.click(locatorKey);
+			// }
+
+			/*******************************************/
 			if (textToEnter.equals("")) {
 				commonActions.clearfield(locatorKey);
 			} else {
@@ -85,7 +88,7 @@ public class GenericSteps {
 				commonActions.enterText(locatorKey, textToEnter);
 			}
 			commonActions.pressTab();
-			
+
 		} catch (ElementNotInteractableException e) {
 			commonActions.logAssert_Fail(
 					"Enter text failed on:- " + locatorKey + " :Please check element is visible on the page");
@@ -365,7 +368,7 @@ public class GenericSteps {
 			commonActions.logAssert_Fail("User submits generated TAN number failed: " + tankey);
 		}
 	}
-	
+
 	@Then("Download PDF generated in New Tab")
 	public void download_PDF_generated_in_New_Tab() throws InterruptedException {
 		try {
@@ -374,7 +377,7 @@ public class GenericSteps {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
+			// commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
 
