@@ -1,5 +1,5 @@
 run_all_in_parallel:
-	make clean_it test_parallel
+	make clean_it test_chrome
 
 clean_it:
 	mvn clean 
