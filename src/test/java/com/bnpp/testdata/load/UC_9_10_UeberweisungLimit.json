@@ -17,7 +17,7 @@
 			"Account_Type": "Verrechnungskonto",
 			"Uberweisungslimit": "51000",
 			"Ich_bestaetige": "select",
-			"Message": "Eine Erhoehung des Ueberweisungslimits ist aus Sicherheitsgruenden nur schriftlich moeglich."
+			"Message": "Eine Erhöhung des Überweisungslimits ist aus Sicherheitsgründen nur schriftlich möglich."
 		},
 		"Ueberweisungslimit_Aendern": {
 			"UserID_Kontonummer": "880804000",
@@ -25,7 +25,7 @@
 			"Account_Type": "Verrechnungskonto",
 			"Uberweisungslimit": "49000",
 			"Ich_bestaetige": "select",
-			"Message": "Ihre Aenderung zum Ueberweisungslimit wurde angenommen"
+			"Message": "Ihre Änderung zum Überweisungslimit wurde angenommen"
 		}
 	}
 }

@@ -1,9 +1,8 @@
-@UC44
+@ExecuteAll199
 Feature: UC42_43_44_NeukundenSparplan
 
   #Executable - Neukunden Sparplan Anlegen
   #Sparplan Einzelkonto Anlegen
-  @UC44_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Sparplaene" in "Sparen_Anlegen"
@@ -51,7 +50,6 @@ Feature: UC42_43_44_NeukundenSparplan
       | SparplanEinzelkonto_Anlegen |
 
   #Gemeinschaftskonto Anlegen
-  @UC44_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User navigates to "Sparplaene" in "Sparen_Anlegen"
@@ -86,7 +84,7 @@ Feature: UC42_43_44_NeukundenSparplan
     And User selects "Jahreseinkommen_Netto_1" in "JahreseinkommenNetto1_Kontoinhaber1"
     And User selects "Verfuegbares_Vermoegen_1" in "VerfuegbaresVermoegen1_Kontoinhaber1"
     And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_1" in "ErfahrungenImBereichWertpapierhandel_Kontoinhaber1"
-    And User clicks on "Zu_Kontoinhaber_2"
+    And User clicks on "Zu_Kontoinhaber_2" 
     And User selects radiobutton "Anrede_2" in "Anrede2_Kontoinhaber2"
     And User enters "Vorname_2" in "Vorname2_Kontoinhaber2"
     And User enters "Nachname_2" in "Nachname2_Kontoinhaber2"
@@ -125,7 +123,6 @@ Feature: UC42_43_44_NeukundenSparplan
       | SparplanGemeinschaftskonto_Anlegen |
 
   #Minderjaehrigenkonto_2GV Anlegen
-  @UC44_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User navigates to "Sparplaene" in "Sparen_Anlegen"

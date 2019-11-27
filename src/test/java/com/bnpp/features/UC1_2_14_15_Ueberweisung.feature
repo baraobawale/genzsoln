@@ -1,5 +1,5 @@
 @UC1
-Feature: UC1_2_14_Ueberweisung
+Feature: UC1_2_14_15_Ueberweisung
 
   #Executable : Ueberweisung Anlegen (Euro-Ueberweisang(SEPA)/Auslandsueberweisung(SWIFT)/Refernzkonton)
   #Euro-Ueberweisang(SEPA)

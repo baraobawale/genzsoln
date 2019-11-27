@@ -838,7 +838,7 @@ public class CommonActions {
 
 	public String checkGermanCharacters(String data) {
 		try {
-			if (!data.equals("")) {
+			if (data.equals("")) {
 				if (data.contains("ae"))
 					data = data.replace("ae", "ä");
 				if (data.contains("oe"))

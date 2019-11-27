@@ -72,11 +72,20 @@ public class GenericSteps {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			String textToEnter = commonActions.getValueFromJson(dataKey);
+/************ for testing purpose		*/	
+//			if(locatorKey.equals("EMail2_GesetzlicherVertreter1Page")) {
+// 			commonActions.click(locatorKey);
+//			}
+			
+/*******************************************/			
 			if (textToEnter.equals("")) {
 				commonActions.clearfield(locatorKey);
-			} else
+			} else {
+				commonActions.click(locatorKey);
 				commonActions.enterText(locatorKey, textToEnter);
+			}
 			commonActions.pressTab();
+			
 		} catch (ElementNotInteractableException e) {
 			commonActions.logAssert_Fail(
 					"Enter text failed on:- " + locatorKey + " :Please check element is visible on the page");

@@ -123,7 +123,7 @@ Feature: UC31_32_33_NeukundenDepot
       | DepotGemeinschaftskonto_Anlegen |
 
   #Minderjaehrigenkonto Anlegen
-  @UC31_3
+@UC31_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"

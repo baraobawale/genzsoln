@@ -1,5 +1,5 @@
 {
-	"UC1_2_14_15Ueberweisung ": 
+	"UC1_2_14_15_Ueberweisung": 
 	{
 		"Ueberweisung_Anlegen_SEPA": 
 		{
@@ -11,7 +11,7 @@
 			"IBAN_oder_Kontonummer": "DE33760300800880804031",
 			"Betrag": "1,00",
 			"Ausfuehrung": "naechstmoeglich",
-			"Message": "Ihre Ueberweisung wurde angenommen"
+			"Message": "Ihre Überweisung wurde angenommen"
 		},
 		"Ueberweisung_Anlegen_SWIFT": 
 		{
@@ -36,7 +36,7 @@
 			"ReferenzName": "NEMO CAPONE",
 			"Betrag": "1,00",
 			"Ausfuehrung": "naechstmoeglich",
-			"Message": "ihre Ueberweisung wurde angenommen"
+			"Message": "Ihre Überweisung wurde angenommen"
 		},
 		"Ueberweisung_Anlegen_TagesgeldToVerrechnungskonto": 
 		{
@@ -47,7 +47,7 @@
 			"Name": "ALPHA BRILLE",
 			"Betrag": "1,05",
 			"Ausfuehrung": "naechstmoeglich",
-			"Message": "ihre Ueberweisung wurde angenommen"
+			"Message": "Ihre Überweisung wurde angenommen"
 		}
 	}
 }

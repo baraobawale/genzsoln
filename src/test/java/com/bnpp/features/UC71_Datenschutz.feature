@@ -17,4 +17,4 @@ Feature: UC71_Datenschutz
     Examples: 
       | TestCase                          |
       | Datenschutz_select_All_Unselected |
-      | Datenschutz_select_All_Selected   |
+    #  | Datenschutz_select_All_Selected   |
