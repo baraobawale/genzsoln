@@ -70,9 +70,9 @@ public class CommonActions {
 	public static String featurename;
 	public static String scenarioname;
 	public SoftAssertions softAssertions;
-	
+
 	public Scenario sc;
-	
+
 	public CommonActions() {
 
 		if (properties == null) {
@@ -87,26 +87,25 @@ public class CommonActions {
 				Assert.fail();
 			}
 		}
-		
+
 	}
-	
+
 	public WebDriver getDriver() {
-		
+
 		return driver;
 	}
-	
+
 	public void screenCapture() {
 		byte[] data = ((TakesScreenshot) (getDriver())).getScreenshotAs(OutputType.BYTES);
 		String testName = sc.getName();
 		sc.embed(data, "image/png");
 		sc.write(testName);
 	}
-	
-	
-	public void setScenario(Scenario s)
-	{
+
+	public void setScenario(Scenario s) {
 		sc = s;
 	}
+
 	/**
 	 * Description: Open the desired browser reading from properties file
 	 * 
@@ -660,7 +659,7 @@ public class CommonActions {
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			Date d = new Date();
 			try {
-							
+
 				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
 				// take screenshot
 				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -679,7 +678,7 @@ public class CommonActions {
 
 	}
 
-//	public void takeSceenShot_NewReport() {
+	// public void takeSceenShot_NewReport() {
 	public void takeSceenShot() {
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			Date d = new Date();
@@ -687,12 +686,12 @@ public class CommonActions {
 				/**
 				 * Screen capture for new report
 				 */
-				//screenCapture();
+				// screenCapture();
 				byte[] data = ((TakesScreenshot) (getDriver())).getScreenshotAs(OutputType.BYTES);
 				String testName = sc.getName();
 				sc.embed(data, "image/png");
 				sc.write(testName);
-				
+
 				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
 				// take screenshot
 				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -710,6 +709,7 @@ public class CommonActions {
 		}
 
 	}
+
 	/**
 	 * Description Common function for quitting the browser and reports.
 	 */
@@ -720,7 +720,8 @@ public class CommonActions {
 		if (driver != null)
 			driver.quit();
 		try {
-			Runtime.getRuntime().exec("sh ./module-report \"../../../../target/cucumber.json\" \"RTA\" \"../custom_templates/templates.json\" ");
+			Runtime.getRuntime().exec(
+					"sh ./module-report \"../../../../target/cucumber.json\" \"RTA\" \"../custom_templates/templates.json\" ");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -747,11 +748,11 @@ public class CommonActions {
 	}
 
 	public String getValueFromJson(String dataKeyInJson) throws FileNotFoundException, IOException, ParseException {
-		//System.out.println("dataKeyInJson >>>>" + dataKeyInJson);
+		// System.out.println("dataKeyInJson >>>>" + dataKeyInJson);
 		String datakey = null;
 		try {
 			datakey = getKeyFromJson(dataKeyInJson);
-			datakey = checkGermanCharacters(datakey);		 
+			datakey = checkGermanCharacters(datakey);
 
 		} catch (FileNotFoundException e) {
 			logAssert_Fail(featurename + " .json file not found");
@@ -917,22 +918,19 @@ public class CommonActions {
 
 	}
 
-	public void setfaturefilenameandsceanrio(String id, String name) {
+	public void setfeaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
-		String[] d = featurename.split("/features_demo/");
+		String[] d = featurename.split("/features/");
 		// System.out.println(d[0] + " " + d[1]);
 		String[] d2 = d[1].split(".feature");
 		// System.out.println(d2[0]);
 		featurename = d2[0];
 		scenarioname = name;
-
 	}
 
 	public String getScenarioName() {
 		return scenarioname;
 	}
-	
-	
 
 	public String getFeatureName() {
 		return featurename;
@@ -1078,7 +1076,7 @@ public class CommonActions {
 		}
 		getElement(tanField).sendKeys(string);
 	}
-	
+
 	public String enterFutureDateAddingDays(String noofDaysToAdd) throws java.text.ParseException, ParseException {
 		String oldDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date()).toString();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");

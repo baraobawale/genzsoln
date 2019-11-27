@@ -1,17 +1,18 @@
 package com.bnpp.steps;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.xml.sax.SAXException;
+
 import com.bnpp.library.CommonActions;
 import com.bnpp.utilities.Configurations;
-import com.bnpp.utilities.TANGenerator;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -39,62 +40,60 @@ public class GenericSteps {
 
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
 			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
-		}
-		else {
+		} else {
 			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
-		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
-		//commonActions.takeSceenShot_NewReport(s);
+		commonActions.setfeaturefilenameandsceanrio(s.getId(), s.getName());
+		// commonActions.takeSceenShot_NewReport(s);
 		commonActions.setScenario(s);
 
 	}
 
 	/**
 	 * Description Closing the resources after execution of each scenario
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
-	
+
 	@After
 	public void after(Scenario s) throws IOException {
-//		ZonedDateTime finishDateTime = ZonedDateTime.now();
-//		testFinish = finishDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-//		
-//		if (s.isFailed()) {
-//			Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_FAIL, testStart,
-//					testFinish);
-//		} else {
-//			Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS, testStart,
-//					testFinish);
-//		}
-		
+		// ZonedDateTime finishDateTime = ZonedDateTime.now();
+		// testFinish =
+		// finishDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		//
+		// if (s.isFailed()) {
+		// Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey,
+		// XRAY_CONFIG.TEST_STATUS_FAIL, testStart,
+		// testFinish);
+		// } else {
+		// Xray.writeResultsForSingleTest(ExecutionID, XrayIssueKey,
+		// XRAY_CONFIG.TEST_STATUS_PASS, testStart,
+		// testFinish);
+		// }
+
 		/*
-		WebDriver dr = commonActions.getDriver();
-		TakesScreenshot scrShot = ((TakesScreenshot)dr);
-		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
-		File DestFile=new File("C:\\Bitbucket\\rta\\scrn.png");
-		FileUtils.copyFile(SrcFile, DestFile);
-		//byte[] data = FileUtils.readFileToByteArray(DestFile);
-		byte[] data = scrShot.getScreenshotAs(OutputType.BYTES);
-		String testName = s.getName();
-		s.embed(data,"image/png");
-		s.write(testName);
-		*/
+		 * WebDriver dr = commonActions.getDriver(); TakesScreenshot scrShot =
+		 * ((TakesScreenshot)dr); File SrcFile =
+		 * scrShot.getScreenshotAs(OutputType.FILE); File DestFile=new
+		 * File("C:\\Bitbucket\\rta\\scrn.png"); FileUtils.copyFile(SrcFile, DestFile);
+		 * //byte[] data = FileUtils.readFileToByteArray(DestFile); byte[] data =
+		 * scrShot.getScreenshotAs(OutputType.BYTES); String testName = s.getName();
+		 * s.embed(data,"image/png"); s.write(testName);
+		 */
 		commonActions.quit();
 
 	}
 
 	// ********Common step definitions ************//
 	/*
-	private String getTestIdFromFileName(String path) {
-		String result = "";
-		File f = new File(path);
-		//System.out.println("File Name1: " + f.getName().toString().toUpperCase().replace("_", "-").trim());
-		result = f.getName().toString().toUpperCase().replace("_", "-").trim().split(".FEATURE")[0];
-		System.out.println("File Name: " + result);
-		// result = f.getName().toString().toUpperCase().replace("_", "-").trim();
-		return result;
-	}
-
+	 * private String getTestIdFromFileName(String path) { String result = ""; File
+	 * f = new File(path); //System.out.println("File Name1: " +
+	 * f.getName().toString().toUpperCase().replace("_", "-").trim()); result =
+	 * f.getName().toString().toUpperCase().replace("_",
+	 * "-").trim().split(".FEATURE")[0]; System.out.println("File Name: " + result);
+	 * // result = f.getName().toString().toUpperCase().replace("_", "-").trim();
+	 * return result; }
+	 * 
 	 */
 	@Given("^User launches Consorsbank web application$")
 	public void User_launches_consorsbank_web_application() {
@@ -398,11 +397,10 @@ public class GenericSteps {
 	}
 
 	@And("^User enters generated TAN number in \"(.*?)\"$")
-	public void User_enters_tan(String tankey) throws InterruptedException{
-		//Thread.sleep(2000);
-		//commonActions.click("SecurePlusLink");
+	public void User_enters_tan(String tankey) throws InterruptedException {
+		// Thread.sleep(2000);
+		// commonActions.click("SecurePlusLink");
 		Thread.sleep(2000);
 		commonActions.enterTexttoken(tankey, "12345678");
 	}
 }
-

@@ -11,18 +11,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 		<dependencies>
-			<dependency>
+			<!-- <dependency>
 		    <groupId>log4j</groupId>
 		    <artifactId>log4j</artifactId>
 		    <version>1.2.17</version>
-		</dependency>
-		<dependency>
-	         <groupId>com.dab.qa</groupId>
+		</dependency> -->
+		<!-- <dependency>
+	      <groupId>com.dab.qa</groupId>
 	         <artifactId>XrayTools</artifactId>
 	         <version>1.0</version>
 	         <scope>system</scope> 
-	         <systemPath>${basedir}/lib/XrayTools-1.0.jar</systemPath> 
-	    </dependency>
+	         <systemPath>${basedir}/lib/XrayTools-1.0.jar</systemPath>
+	    </dependency> -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>

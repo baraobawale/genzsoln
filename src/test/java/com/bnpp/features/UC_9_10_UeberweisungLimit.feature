@@ -21,7 +21,7 @@ Feature: UC_9_10_UeberweisungLimit
       | Ueberweisungslimit_Verify_Errors |
 
   #Errors - Limit more than max limit
-  @UC9_2
+  @UC9_2 @22.11
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
