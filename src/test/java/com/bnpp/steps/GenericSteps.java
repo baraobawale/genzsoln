@@ -14,8 +14,8 @@ import org.xml.sax.SAXException;
 import com.bnpp.library.CommonActions;
 import com.bnpp.runner.JunitRunner;
 import com.bnpp.utilities.Configurations;
-import com.bnpp.utilities.Log;
-import com.bnpp.utilities.XrayHelper;
+import com.bnpp.xray.Log;
+import com.bnpp.xray.XrayHelper;
 import com.dab.xray.XRAY_CONFIG;
 import com.dab.xray.Xray;
 

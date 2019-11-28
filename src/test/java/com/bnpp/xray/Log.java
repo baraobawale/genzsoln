@@ -1,4 +1,4 @@
-package com.bnpp.utilities;
+package com.bnpp.xray;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -35,6 +35,6 @@ public class Configurations {
 	// Take screenshots on run parameter settings.
 	public static final String takeScreenshots = "Y";
 
-	public final static String XrayConfigPath = "./src/test/java/com/bnpp/utilities/config.properties";
+	public final static String XrayConfigPath = "./src/test/java/com/bnpp/xray/config.properties";
 
 }

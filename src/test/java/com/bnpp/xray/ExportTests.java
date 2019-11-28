@@ -1,6 +1,7 @@
-package com.bnpp.utilities;
+package com.bnpp.xray;
 
 import com.bnpp.runner.JunitRunner;
+import com.bnpp.utilities.Configurations;
 import com.dab.xray.Xray;
 
 public class ExportTests {

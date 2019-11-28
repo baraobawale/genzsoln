@@ -12,8 +12,8 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 import com.bnpp.utilities.Configurations;
-import com.bnpp.utilities.Log;
-import com.bnpp.utilities.XrayHelper;
+import com.bnpp.xray.Log;
+import com.bnpp.xray.XrayHelper;
 import com.dab.config.PropertiesHandler;
 import com.dab.xray.TestExecution;
 import com.dab.xray.Xray;
