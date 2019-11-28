@@ -1,3 +1,4 @@
+@UC17
 Feature: UC17_18_19_20_21_TradingKauf
 
   #Executable - Aktie,Fonds,Anleihe - Anlegen, Aendern, loeschen (Zertifikat & Optionsschein Data pending)
@@ -31,7 +32,7 @@ Feature: UC17_18_19_20_21_TradingKauf
       | TestCase                  |
       | KaufOrder_Anlegen_Anleihe |
 
-  @UC17
+  @UC17_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -127,11 +128,11 @@ Feature: UC17_18_19_20_21_TradingKauf
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Mein_Konto_Depot" in "Mein_Konto_Depot"
     And User clicks on "Orderuebersicht_kontouebersicht"
-    And User clicks on "Edit" of Created_WKN,Status in CreatedWKN_OrderUebersicht with Status_OrderUebersicht
-    And user enters "Limit" in "Limit_OrderAendern"
+    And User clicks on "Edit_Aktie"
+    And User enters Limit in Limit_OrderAendern
     And User clicks on "WeiterTANEingabe_OrderAendern"
     And User submits generated TAN number using "MobileTanLink_OrderAendern" on "TAN_field_OrderAendern"
-    And User clicks on "OrderAendern_OrderAendern"
+    And User clicks on "OrderAendern_OrderAendernAktie"
     Then Verify Message,details on OrderAendern
 
     Examples: 

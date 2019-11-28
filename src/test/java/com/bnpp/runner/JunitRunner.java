@@ -8,7 +8,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 
-@CucumberOptions(monochrome = true,features = "src/test/java/com/bnpp/features/", dryRun=false,glue={"com/bnpp/steps/"},tags="@UC34_2",
+@CucumberOptions(monochrome = true,features = "src/test/java/com/bnpp/features/", dryRun=false,glue={"com/bnpp/steps/"},tags="@UC17_6",
 plugin= {
 		"json:target/cucumber.json"
 		})

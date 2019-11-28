@@ -40,11 +40,13 @@ public class GenericSteps {
 	public void before(Scenario s) throws Exception {
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
 			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
+
 		} else {
 			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
-		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
 
+		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
+		
 	}
 
 	/**
@@ -121,8 +123,8 @@ public class GenericSteps {
 			commonActions.click(locatorKey);
 			commonActions.pressTab();
 		} catch (ElementNotInteractableException e) {
-			commonActions.logAssert_Fail(
-					"Clicking failed on:-" + locatorKey + " :Please check element is visible on the page-");
+//			commonActions.logAssert_Fail(
+//					"Clicking failed on:-" + locatorKey + " :Please check element is visible on the page-");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

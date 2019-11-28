@@ -5,11 +5,13 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.StaleElementReferenceException;
 
 
 import com.bnpp.library.CommonActions;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -73,6 +75,7 @@ public class UC17_18_19_20_21_TradingKauf {
 	@When("Capture entered details on OrderErteilen")
 	public void capture_entered_details_on_OrderErteilen() throws FileNotFoundException, IOException, ParseException {
 		try {
+			Thread.sleep(7000);
 			CapturedOrderart    = commonActions.getText("CapturedAnleihe_OrderArt");
 			CapturedWKN = commonActions.getText("CapturedAnleihe_WKN");
 			CapturedHandelsplatz    = commonActions.getText("CapturedAnleihe_Handelsplatz");
@@ -219,12 +222,12 @@ public class UC17_18_19_20_21_TradingKauf {
 	@Then("^Verify Message,details on OrderAendern")
 	public void Then_Verify_Message_details_on_OrderAendern() {
 		try {
-			messageAendernORLoeschen=commonActions.getText("AendernORLoeschenMessage");
-			if (messageAendernORLoeschen.equals(commonActions.getValueFromJson("Message")))
-			{	System.out.println("Message OrderAendern "+ messageAendernORLoeschen);
-			commonActions.logPassStatus("Pass | Valid message displayed - " + messageAendernORLoeschen);
+			String messageAendern=commonActions.getText("messageAendern");
+			if (messageAendern.equals(commonActions.getValueFromJson("Message")))
+			{	System.out.println("Message OrderAendern "+ messageAendern);
+			commonActions.logPassStatus("Pass | Valid message displayed - " + messageAendern);
 			}else {
-				commonActions.logFailStatus("Fail | Valid message display failed -" + messageAendernORLoeschen);
+				commonActions.logFailStatus("Fail | Valid message display failed -" + messageAendern);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -262,7 +265,11 @@ public class UC17_18_19_20_21_TradingKauf {
 			if (commonActions.getScenarioName().equals("KaufOrder_Loeschen_Aktie") && Status.equals(commonActions.getText("Status_OrderUebersicht_Loeschen_Aktie")))
 			{	locatorKey = "DeleteAktie";
 			commonActions.click(locatorKey);
-			System.out.println("Loeschen SUCCESSFUL ");}
+			if(commonActions.isElementPresent("OrderExecuted")) {
+				commonActions.logPassStatus("Order is executed and cannot be deleted");
+			    System.out.println("Loeschen SUCCESSFUL ");
+			}
+			}
 			
 			if (commonActions.getScenarioName().equals("KaufOrder_Loeschen_Fond")&& Status.equals(commonActions.getText("Status_OrderUebersicht_Loeschen_Fond")))
 			{	
@@ -280,7 +287,28 @@ public class UC17_18_19_20_21_TradingKauf {
 			e.printStackTrace();
 		}
 	}
+	
+	@And("^User enters Limit in Limit_OrderAendern$")
+	public void User_Enters_Limit() throws InterruptedException, IllegalArgumentException, IOException, ParseException {
+		try {
+			
+			String locatorKey="LimitToEnter";
+			String textvalue = commonActions.getValueFromJson("Limit");
+			double i=Double.parseDouble(textvalue.replace(",", "."));
+			i=(double) (i+Math.random()*1);
+			double f=Math.round(i*100.0)/100.0;
+			String valueToInput=String.valueOf(f);
+			valueToInput=valueToInput.replace(".", ",");
+			System.out.println(valueToInput);
+			//commonActions.click(locatorKey);
+			commonActions.enterText(locatorKey, valueToInput);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		commonActions.logAssert_Fail("Entering limit value failed");
+		}
 
+}
 }
 
 
