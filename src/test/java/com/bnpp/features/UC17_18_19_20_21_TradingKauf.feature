@@ -130,7 +130,7 @@ Feature: UC17_18_19_20_21_TradingKauf
     And User clicks on "Orderuebersicht_kontouebersicht"
     And User clicks on "Edit_Aktie"
     And User enters Limit in Limit_OrderAendern
-    And User clicks on "WeiterTANEingabe_OrderAendern"
+    And User clicks on WeiterTANEingabe_OrderAendern
     And User submits generated TAN number using "MobileTanLink_OrderAendern" on "TAN_field_OrderAendern"
     And User clicks on "OrderAendern_OrderAendernAktie"
     Then Verify Message,details on OrderAendern

@@ -117,7 +117,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
       | TagesgeldGemeinschaftskonto_Anlegen |
 
   # 1 Minderjaehrigenkonto Anlegen
-  @UC34_3
+@UC34_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
@@ -171,7 +171,7 @@ Feature: UC34_35_36_37_NeukundenTagesgeld
     And User selects "Beruf_2" in "Beruf2_GesetzlicherVertreter1"
     And User selects "Branche_2" in "Branche2_GesetzlicherVertreter1"
     And User selects checkbox "Hiermit_bestaetige_ich" in "HiermitBestaetigeIch_GesetzlicherVertreter1"
-    And User clicks on "Weiter_GesetzlicherVertreter1"
+    And User clicks on Weiter_GesetzlicherVertreter1
     And User clicks on "kontoEroeffnen_GesetzlicherVertreter1"
     And Capture Vorgangsnummer,Message on TagesgeldkontoMinderjaehrigen1
     And User clicks on "EroeffnungsunterlagenHerunterladen_TagesgeldkontoMinderjaehrigen1"

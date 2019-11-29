@@ -178,7 +178,7 @@ Feature: UC31_32_33_NeukundenDepot
     And User selects "Branche_2" in "Branche2_GesetzlicherVertreter1Page"
     And User selects checkbox "alleinige_gesetzliche_Vertreter_des_Kindes_bin" in "AlleinigeGesetzlicheVertreterDesKindesBinGesetzlicherVertreter1Page"
     And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_2" in "ErfahrungenImBereichWertpapierhande2GesetzlicherVertreter1Page"
-    And User clicks on "Weiter_GesetzlicherVertreter1Page"
+    And User clicks on Weiter_GesetzlicherVertreter1Page
     And User selects checkbox "Einverstaendnis_mit_PRIIP_Verordnung" in "EinverstaendnisMitPRIIPVerordnung_KontoverwendungPage"
     And User clicks on "kontoEroeffnen__KontoverwendungPage"
     And Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen

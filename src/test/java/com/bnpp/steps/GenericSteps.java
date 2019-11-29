@@ -86,7 +86,7 @@ public class GenericSteps {
 			if (textToEnter.equals("")) {
 				commonActions.clearfield(locatorKey);
 			} else {
-				commonActions.click(locatorKey);
+				//commonActions.click(locatorKey);
 				commonActions.enterText(locatorKey, textToEnter);
 			}
 			commonActions.pressTab();
