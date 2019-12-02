@@ -668,8 +668,8 @@ public class CommonActions {
 	public void quit() {
 		if (report != null)
 			report.flush();
-//		if (driver != null)
-//			driver.quit();
+		if (driver != null)
+			driver.quit();
 		softAssertions.assertAll();
 		if ((softAssertions.errorsCollected().size()) != 0)
 			logAssert_Fail(scenarioname + " failed");

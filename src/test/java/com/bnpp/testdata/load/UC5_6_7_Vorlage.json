@@ -42,14 +42,14 @@
 			"PIN_Password": "12345",
 			"Account_Type": "Verrechnungskonto",
 			"Created_Vorlagenname": "001 DELTA BUERICZUEK",
-			"Message": "Ihre Überweisungsvorlage wurde geloescht"
+			"Message": "Ihre Überweisungsvorlage wurde gelöscht"
 		},
 		"Vorlagen_loeschen_kontoBLZ": {
 			"UserID_Kontonummer": "880804000",
 			"PIN_Password": "12345",
 			"Account_Type": "Verrechnungskonto",
 			"Created_Vorlagenname": "002 DELTA BUERICZUEK",
-			"Message": "Ihre Überweisungsvorlage wurde geloescht"
+			"Message": "Ihre Überweisungsvorlage wurde gelöscht"
 		}
 	}
 }

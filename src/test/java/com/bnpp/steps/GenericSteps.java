@@ -288,7 +288,7 @@ public class GenericSteps {
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void User_selects(String dataKey, String locatorKey) throws Exception {
 		try {
-			if (dataKey.equals("Account_Type")) {
+			if (dataKey.equals("Account_Type")||dataKey.equals("Kategorie")) {
 				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 			} else {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
@@ -355,11 +355,11 @@ public class GenericSteps {
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
 		try {
 
-			// if (commonActions.isElementPresent("SecurePlusLink")) {
-			// commonActions.click("SecurePlusLink");
-			// }
-			// commonActions.enterTexttoken(tankey, "12345678");
-			// commonActions.click("BestaetigenButton");
+			 if (commonActions.isElementPresent("SecurePlusLink")) {
+			 commonActions.click("SecurePlusLink");
+			 }
+			 commonActions.enterTexttoken(tankey, "12345678");
+			 commonActions.click("BestaetigenButton");
 
 		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
