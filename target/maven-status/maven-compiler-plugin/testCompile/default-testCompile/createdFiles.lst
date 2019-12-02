@@ -36,7 +36,7 @@ com\bnpp\steps\UC58_61_EinzelEroeffnet.class
 com\bnpp\utilities\TANGenerator.class
 com\bnpp\steps\UC31_32_33_NeukundenDepot.class
 com\bnpp\steps\UC3_Dauerauftraege.class
-com\bnpp\utilities\ExportTests.class
+Parallel22IT.class
 com\bnpp\steps\UC4_Terminueberweisungen.class
 com\bnpp\mTANResources\mTanRedirectionAdd.class
 com\bnpp\steps\UC_9_10_UeberweisungLimit.class
@@ -51,7 +51,6 @@ com\bnpp\steps\UC55_57_GemKontoEroeffnet.class
 com\bnpp\steps\UC71_Datenschutz.class
 com\bnpp\reports\ExtentManager.class
 com\bnpp\steps\UC42_43_44_NeukundenSparplan.class
-com\bnpp\utilities\XrayHelper.class
 Parallel18IT.class
 com\bnpp\steps\UC34_35_36_37_NeukundenTagesgeld.class
 com\bnpp\steps\UC11_12_13_Referenzkonto.class
@@ -59,5 +58,4 @@ com\bnpp\steps\UC27_DepotUebertrag.class
 Parallel06IT.class
 com\bnpp\mTANResources\CalvinServices.class
 com\bnpp\mTANResources\xmlParser.class
-com\bnpp\utilities\Log.class
 Parallel11IT.class

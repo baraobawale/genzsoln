@@ -14,11 +14,10 @@ public class XrayHelper {
 		String result = "";
 
 		File f = new File(path);
-		result = f.getName().toString().toUpperCase().replace("_", "-").trim().split(".FEATURE")[0];
+		result = f.getName().toString().split("__")[0].toUpperCase().replace("_", "-").trim().split(".FEATURE")[0];
 		Log.info("File Name = Test Issue Key: " + result);
 
 		return result;
 	}
 
-	
 }

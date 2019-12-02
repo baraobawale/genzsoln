@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 
 import com.bnpp.utilities.Configurations;
 import com.bnpp.xray.Log;
-import com.bnpp.xray.XrayHelper;
 import com.dab.config.PropertiesHandler;
 import com.dab.xray.TestExecution;
 import com.dab.xray.Xray;
@@ -31,14 +30,18 @@ public class JunitRunner {
 	public static boolean featureTestPassed = true;
 	public static String ExecutionID = "";
 	public static String testStart = "";
+	public static String testPlanId = "";
 
 	@BeforeClass
 	public static void setupBeforeClass() {
-		
+
 		com.dab.config.PropertiesHandler.setConfigPath(Configurations.XrayConfigPath);
 		setLogger();
-		ExecutionID = TestExecution.getExecKey(); 
-		
+		ExecutionID = TestExecution.getExecKey();
+
+		testPlanId = com.dab.config.PropertiesHandler.getXrayTestPlanKey();
+
+		TestExecution.addTestPlanToTestExecution(testPlanId, ExecutionID);
 
 		ZonedDateTime startDateTime = ZonedDateTime.now();
 		testStart = startDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);

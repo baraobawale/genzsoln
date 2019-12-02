@@ -40,9 +40,8 @@ public class GenericSteps {
 	/**
 	 * 
 	 * @param s
-	 * @throws Exception
-	 *             Description Initialization before starting of each scenario
-	 *             execution
+	 * @throws Exception Description Initialization before starting of each scenario
+	 *                   execution
 	 */
 	@Before
 	public void before(Scenario s) throws Exception {
