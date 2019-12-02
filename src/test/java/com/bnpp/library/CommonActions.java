@@ -719,13 +719,6 @@ public class CommonActions {
 			report.flush();
 		if (driver != null)
 			driver.quit();
-		try {
-			Runtime.getRuntime().exec(
-					"sh ./module-report \"../../../../target/cucumber.json\" \"RTA\" \"../custom_templates/templates.json\" ");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		softAssertions.assertAll();
 		if ((softAssertions.errorsCollected().size()) != 0)
 			logAssert_Fail(scenarioname + " failed");
