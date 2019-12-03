@@ -18,6 +18,7 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class GenericSteps {
@@ -44,9 +45,7 @@ public class GenericSteps {
 			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
 		commonActions.setfeaturefilenameandsceanrio(s.getId(), s.getName());
-		// commonActions.takeSceenShot_NewReport(s);
 		commonActions.setScenario(s);
-
 	}
 
 	/**
@@ -112,11 +111,20 @@ public class GenericSteps {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			String textToEnter = commonActions.getValueFromJson(dataKey);
+			/************ for testing purpose */
+			// if(locatorKey.equals("EMail2_GesetzlicherVertreter1Page")) {
+			// commonActions.click(locatorKey);
+			// }
+
+			/*******************************************/
 			if (textToEnter.equals("")) {
 				commonActions.clearfield(locatorKey);
-			} else
+			} else {
+				// commonActions.click(locatorKey);
 				commonActions.enterText(locatorKey, textToEnter);
+			}
 			commonActions.pressTab();
+
 		} catch (ElementNotInteractableException e) {
 			commonActions.logAssert_Fail(
 					"Enter text failed on:- " + locatorKey + " :Please check element is visible on the page");
@@ -149,8 +157,9 @@ public class GenericSteps {
 			commonActions.click(locatorKey);
 			commonActions.pressTab();
 		} catch (ElementNotInteractableException e) {
-			commonActions.logAssert_Fail(
-					"Clicking failed on:-" + locatorKey + " :Please check element is visible on the page-");
+			// commonActions.logAssert_Fail(
+			// "Clicking failed on:-" + locatorKey + " :Please check element is visible on
+			// the page-");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -313,7 +322,7 @@ public class GenericSteps {
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void User_selects(String dataKey, String locatorKey) throws Exception {
 		try {
-			if (dataKey.equals("Account_Type")) {
+			if (dataKey.equals("Account_Type") || dataKey.equals("Kategorie")) {
 				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 			} else {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
@@ -380,11 +389,11 @@ public class GenericSteps {
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
 		try {
 
-			// if (commonActions.isElementPresent("SecurePlusLink")) {
-			// commonActions.click("SecurePlusLink");
-			// }
-			// commonActions.enterTexttoken(tankey, "12345678");
-			// commonActions.click("BestaetigenButton");
+			if (commonActions.isElementPresent("SecurePlusLink")) {
+				commonActions.click("SecurePlusLink");
+			}
+			commonActions.enterTexttoken(tankey, "12345678");
+			commonActions.click("BestaetigenButton");
 
 		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
@@ -396,11 +405,15 @@ public class GenericSteps {
 		}
 	}
 
-	@And("^User enters generated TAN number in \"(.*?)\"$")
-	public void User_enters_tan(String tankey) throws InterruptedException {
-		// Thread.sleep(2000);
-		// commonActions.click("SecurePlusLink");
-		Thread.sleep(2000);
-		commonActions.enterTexttoken(tankey, "12345678");
+	@Then("Download PDF generated in New Tab")
+	public void download_PDF_generated_in_New_Tab() throws InterruptedException {
+		try {
+			Thread.sleep(7000);
+			commonActions.VerifyifFilePresent();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			// commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
+		}
 	}
 }

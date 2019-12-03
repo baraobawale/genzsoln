@@ -8,14 +8,14 @@
 			"Geburtsdatum_TT": "10",
 			"Geburtsdatum_MM": "10",
 			"Geburtsdatum_JJ": "1980",
-			"Geburtsort": "Nuernberg",
+			"Geburtsort": "Nürnberg",
 			"Geburtsland": "Deutschland",
 			"Staatsangehoerigkeit": "Deutschland",
 			"Weitere_Staatsangehoerigkeit_USA": "Nein",
 			"USA_steuerpflichtig": "Nein",
 			"Strasse_Hausnummer": "Bahnhofstr. 55",
 			"PLZ": "90402",
-			"Ort": "Nuernberg",
+			"Ort": "Nürnberg",
 			"Land": "Deutschland",
 			"Die_eingegebene_Adresse_ist_nicht_eindeutig": "Meine eingegebene Adresse beibehalten",
 			"Ansaessigkeit_ausserhalb_Deutschlands_USA": "Nein",
@@ -31,7 +31,7 @@
 			"Erklaerung_zu_Risiken_bei_Finanztermingeschaeften": "Select",
 			"Besondere_Merkmale_und_Risikoerklaerung": "Select",
 			"Einverstaendnis_mit_PRIIP_Verordnung": "Select",
-			"Message": "Danke fuer Ihren Antrag. Sie haben es fast geschafft."
+			"Message": "Danke für Ihren Antrag. Sie haben es fast geschafft."
 		},
 		"Einzelkonto_DepotCFD_BestehendesKonto": {
 			"Kunde_bei_der_Consorsbank": "Ja",
@@ -47,7 +47,7 @@
 			"Zulassung_zum_Handel_Finanztermingeschaeften": "Select",
 			"Erklaerung_zu_Risiken_bei_Finanztermingeschaeften": "Select",
 			"Besondere_Merkmale_und_Risikoerklaerung": "Select",
-			"Message": "Danke fuer Ihren Antrag"
+			"Message": "Danke für Ihren Antrag"
 		}
 	}
 }

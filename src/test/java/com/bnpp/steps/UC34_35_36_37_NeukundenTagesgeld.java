@@ -154,4 +154,17 @@ public class UC34_35_36_37_NeukundenTagesgeld {
 		commonActions.click("Weiter_GesetzlicherVertreter2");
 	}
 	
+	
+	@And("User clicks on Weiter_GesetzlicherVertreter1")
+	public void User_clicks_on_Weiter_GesetzlicherVertreter1() throws IllegalArgumentException, InterruptedException, IOException, ParseException{
+		commonActions.click("Weiter_GesetzlicherVertreter1");
+		commonActions.clearfield("maintaxrasidance");
+		String locatorKey="EMail2_GesetzlicherVertreter1";
+		String textToEnter = commonActions.getValueFromJson("EMail_2");
+		if (textToEnter.equals("")) {
+			commonActions.clearfield(locatorKey);
+		} else
+			commonActions.enterText(locatorKey, textToEnter);
+		commonActions.click("Weiter_GesetzlicherVertreter1");
+	}
 }

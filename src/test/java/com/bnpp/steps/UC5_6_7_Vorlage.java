@@ -412,6 +412,8 @@ public class UC5_6_7_Vorlage {
 					commonActions.moveScrollDown();
 					
 				}
+				commonActions.click("NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr");
 	}
+	
 
 }

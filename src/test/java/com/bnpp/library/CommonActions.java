@@ -166,8 +166,10 @@ public class CommonActions {
 			prefs.put("plugins.plugins_disabled", new String[] { "Chrome PDF Viewer" });
 			prefs.put("plugins.always_open_pdf_externally", true);
 			prefs.put("profile.default_content_settings.popups", 0);
+
 			// below condition is for creating download folder only in case of
 			// scenario with PDF download feature
+
 			if (getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")
 					|| getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")
 					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen")
@@ -189,9 +191,11 @@ public class CommonActions {
 				// directory of the report folder
 				new File(Configurations.downloadPath).mkdirs();
 				prefs.put("download.default_directory", Configurations.downloadPath);
+
 			}
+
 			ops.setExperimentalOption("prefs", prefs);
-		} catch (Exception e) {
+		 }catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw e;
@@ -310,8 +314,10 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
+			if(!objectKey.equals("Edit_Aktie")&&(!scenarioname.equals("KaufOrder_Loeschen_Aktie"))&&(!scenarioname.equals("KaufOrder_Loeschen_Fond"))) {
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
 			Thread.sleep(1000);
+			}
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -888,7 +894,7 @@ public class CommonActions {
 
 	public String checkGermanCharacters(String data) {
 		try {
-			if (!data.equals("")) {
+			if (data.equals("")) {
 				if (data.contains("ae"))
 					data = data.replace("ae", "ä");
 				if (data.contains("oe"))
@@ -1131,5 +1137,16 @@ public class CommonActions {
 
 		driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"),
 				capabilities);
+	}
+
+	public void pressEscape() {
+		// TODO Auto-generated method stub
+		try {
+			Actions act = new Actions(driver);
+			act.sendKeys(Keys.ESCAPE).build().perform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}	
 	}
 }

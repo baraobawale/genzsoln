@@ -13,7 +13,7 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 
 @CucumberOptions(monochrome = true, features = "src/test/java/com/bnpp/features/", dryRun = false, glue = {
-		"com/bnpp/steps/" }, tags = "@Jith", plugin = { "json:target/cucumber.json" })
+		"com/bnpp/steps/" }, tags = "@UC17_6", plugin = { "json:target/cucumber.json" })
 
 public class JunitRunner {
 

@@ -1,9 +1,9 @@
-@UC44
+@UC42
 Feature: UC42_43_44_NeukundenSparplan
 
   #Executable - Neukunden Sparplan Anlegen
   #Sparplan Einzelkonto Anlegen
-  @UC44_1
+  @UC42_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Sparplaene" in "Sparen_Anlegen"
@@ -51,7 +51,7 @@ Feature: UC42_43_44_NeukundenSparplan
       | SparplanEinzelkonto_Anlegen |
 
   #Gemeinschaftskonto Anlegen
-  @UC44_2
+  @UC42_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User navigates to "Sparplaene" in "Sparen_Anlegen"
@@ -86,7 +86,7 @@ Feature: UC42_43_44_NeukundenSparplan
     And User selects "Jahreseinkommen_Netto_1" in "JahreseinkommenNetto1_Kontoinhaber1"
     And User selects "Verfuegbares_Vermoegen_1" in "VerfuegbaresVermoegen1_Kontoinhaber1"
     And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_1" in "ErfahrungenImBereichWertpapierhandel_Kontoinhaber1"
-    And User clicks on "Zu_Kontoinhaber_2" in "ZuKontoinhaber2_Kontoinhaber1"
+    And User clicks on "Zu_Kontoinhaber_2"
     And User selects radiobutton "Anrede_2" in "Anrede2_Kontoinhaber2"
     And User enters "Vorname_2" in "Vorname2_Kontoinhaber2"
     And User enters "Nachname_2" in "Nachname2_Kontoinhaber2"
@@ -102,7 +102,7 @@ Feature: UC42_43_44_NeukundenSparplan
     And User enters "Strasse_Hausnummer_2" in "StrasseHausnummer2_Kontoinhaber2"
     And User enters "PLZ_2" in "PLZ2_Kontoinhaber2"
     And User enters "Ort_2" in "Ort2_Kontoinhaber2"
-    And User enters "Land_2" in "Land2_Kontoinhaber2"
+    And User selects "Land_2" in "Land2_Kontoinhaber2"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_2" in "AnsaessigkeitAusserhalbDeutschlandsUSA2_Kontoinhaber2"
     And User enters "EMail_2" in "EMail2_Kontoinhaber2"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_Kontoinhaber2"
@@ -125,7 +125,7 @@ Feature: UC42_43_44_NeukundenSparplan
       | SparplanGemeinschaftskonto_Anlegen |
 
   #Minderjaehrigenkonto_2GV Anlegen
-  @UC44_3
+  @UC42_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User navigates to "Sparplaene" in "Sparen_Anlegen"
@@ -180,7 +180,7 @@ Feature: UC42_43_44_NeukundenSparplan
     And User selects "Beruf_2" in "Beruf2_GesetzlicherVertreter1Page"
     And User selects "Branche_2" in "Branche2_GesetzlicherVertreter1Page"
     And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_2" in "ErfahrungenImBereichWertpapierhande2GesetzlicherVertreter1Page"
-    And User clicks on "Zum2GesetzlVertreter_GesetzlicherVertreter1Page"
+    And User clicks on Zum2GesetzlVertreter_GesetzlicherVertreter1Page
     And User selects radiobutton "Anrede_3" in "Anrede2_GesetzlicherVertreter2Page"
     And User enters "Vorname_3" in "Vorname3_GesetzlicherVertreter2Page"
     And User enters "Nachname_3" in "Nachname3_GesetzlicherVertreter2Page"
@@ -203,7 +203,7 @@ Feature: UC42_43_44_NeukundenSparplan
     And User selects "Beruf_3" in "Beruf3_GesetzlicherVertreter1Page"
     And User selects "Branche_3" in "Branche3_GesetzlicherVertreter1Page"
     And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_3" in "ErfahrungenImBereichWertpapierhande3_GesetzlicherVertreter2Page"
-    And User clicks on "Weiter_GesetzlicherVertreter2Page"
+    And User clicks on Weiter_GesetzlicherVertreter2Page
     And User selects checkbox "Einverstaendnis_mit_PRIIP_Verordnung" in "EinverstaendnisMitPRIIPVerordnung_KontoverwendungPage"
     And User clicks on "kontoEroeffnen__KontoverwendungPage"
     And Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen_2GV

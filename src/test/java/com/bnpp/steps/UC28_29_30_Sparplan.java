@@ -4,7 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.support.ui.Select;
+
 import com.bnpp.library.CommonActions;
+
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -35,12 +41,12 @@ public class UC28_29_30_Sparplan {
 		System.out.println("Captured-NameSparplan: " + CapturedNameSparplan1);
 		System.out.println("Captured-SparrateSparplan: " + CapturedSparrateSparplan1);
 		System.out.println("Captured-WKNSparplan: " + capturedWKN1);
-		
+
 		NameFromJSON=commonActions.getValueFromJson("Name");
 		SparrateFromJson=commonActions.getValueFromJson("Sparrate");
 		WKNfromJSON=commonActions.getValueFromJson("WKN/Name/ISIN");
-	
-	
+
+
 		try {
 			if(CapturedNameSparplan1.contains(NameFromJSON)) {
 				System.out.println(" Name Captured for SparplanAnlegen-Successfully");
@@ -55,7 +61,7 @@ public class UC28_29_30_Sparplan {
 			}
 			else
 				System.out.println("Sparrate Captured for SparplanAnlegen failed");
-			
+
 			if(capturedWKN1.contains(WKNfromJSON)) {
 				System.out.println(" WKN Captured for SparplanAnlegen-Successfully");
 
@@ -86,11 +92,11 @@ public class UC28_29_30_Sparplan {
 	public void verify_on_UebersichtSparplaene(String string, String string2, String string3) throws FileNotFoundException, IOException, ParseException {
 		try {
 			SparrateFromJson=commonActions.getKeyFromJson("Sparrate");
-			
+
 			String VerifyNAMESparplanAnlegen=commonActions.getText("VerifyNAMESparplanAnlegen");
 			String VerifyWKNSparplanAnlegen=commonActions.getText("VerifyWKNSparplanAnlegen");
 			String VerifySPARRATESparplanAnlegen=commonActions.getText("VerifySPARRATESparplanAnlegen");
-			
+
 			System.out.println("VerifyNAMESparplanAnlegen :" + VerifyNAMESparplanAnlegen);
 			System.out.println("VerifyWKNSparplanAnlegen :" + VerifyWKNSparplanAnlegen);
 			System.out.println("VerifySPARRATESparplanAnlegen :" + VerifySPARRATESparplanAnlegen);
@@ -101,28 +107,27 @@ public class UC28_29_30_Sparplan {
 			} else {
 				System.out.println("Verify Name for SparplanAnlegen failed");
 				commonActions.logFailStatus("Fail | Valid message display failed - " + VerifyNAMESparplanAnlegen);
-			     }
+			}
 			if (VerifyWKNSparplanAnlegen.contains(WKNfromJSON)) {
 				System.out.println("Verify WKN for SparplanAnlegen Successful");
 				commonActions.logPassStatus("Pass | Valid message dispayed - " + VerifyWKNSparplanAnlegen);
 
 			} else {
 				System.out.println("Verify WKN for SparplanAnlegen failed");
-			    commonActions.logFailStatus("Fail | Valid message display failed - " + VerifyWKNSparplanAnlegen);
-			     }
+				commonActions.logFailStatus("Fail | Valid message display failed - " + VerifyWKNSparplanAnlegen);
+			}
 			if (VerifySPARRATESparplanAnlegen.contains(SparrateFromJson)) {
 				System.out.println("Verify Sparrate for SparplanAnlegen Successful");
 				commonActions.logPassStatus("Pass | Valid message dispayed - " + VerifySPARRATESparplanAnlegen);
 
 			}else {
 				commonActions.logFailStatus("Fail | Valid message display failed - " + VerifySPARRATESparplanAnlegen);
-			     }
-			
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Data save fail for UebersichtSparplaene");
 		}
-
 	}
 
 	@Then("Verify captured details,Message from SparplanAnlegen")
@@ -132,7 +137,6 @@ public class UC28_29_30_Sparplan {
 			if (CapturedMessage.equalsIgnoreCase(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message for SparplanAnlegen sucess");
 				commonActions.logPassStatus("Pass | Valid message dispayed - " + CapturedMessage);
-
 			} 
 			else
 				commonActions.logFailStatus("Fail | Valid message display failed - " + CapturedMessage);
@@ -140,7 +144,6 @@ public class UC28_29_30_Sparplan {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Data save fail for Captured Message SparplanAnlegen");
 		}
-
 	}
 
 	@When("user selects {string} of {string} in {string}")
@@ -153,7 +156,6 @@ public class UC28_29_30_Sparplan {
 			try {
 				commonActions.click(string3);
 				Thread.sleep(500);
-
 				if(json1.equals("Aenderung/Pause")) {
 					commonActions.click("pause");
 				}
@@ -164,7 +166,6 @@ public class UC28_29_30_Sparplan {
 					commonActions.click("Auftragsuebersicht");
 				else if(json1.equals("Wertpapierwechsel"))
 					commonActions.click("Wertpapierwechsel");
-
 				else
 					System.out.println("clicked on dropdown icon FAILED");
 			} catch (InterruptedException e) {
@@ -191,8 +192,6 @@ public class UC28_29_30_Sparplan {
 			commonActions.logAssert_Fail("Fail | Data save fail for SparplanAendern");
 		}
 	}
-
-
 	@When("Capture Message on LoeschungSparplan")
 	public void capture_Message_on_LoeschungSparplan() {
 		try {
@@ -203,10 +202,7 @@ public class UC28_29_30_Sparplan {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Data save fail for LoeschungSparplan");
 		}
-
-
 	}
-
 
 	@Then("Verify captured Message from LoeschungSparplan")
 	public void verify_captured_Message_from_LoeschungSparplan() {
@@ -218,14 +214,12 @@ public class UC28_29_30_Sparplan {
 			if (CapturedLoeschungSparplan.equalsIgnoreCase(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message for LoeschungSparplan");
 				commonActions.logPassStatus("Pass | Valid message dispayed - " + CapturedLoeschungSparplan);
-
 			} else
 				commonActions.logFailStatus("Fail | Valid message display failed - " + CapturedLoeschungSparplan);
 		} catch (Exception e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Data save fail for LoeschungSparplan");
 		}
-
 	}
 
 	@Then("Verify Created Sparplan is not displayed")
@@ -236,13 +230,11 @@ public class UC28_29_30_Sparplan {
 		}
 		else
 			commonActions.logFailStatus("Fail | Valid message display failed ");
-
-
 	}
-	
+
 	@Then("Verify message,details on WertpapierwechselFuerSparplan")
 	public void verify_message_details_on_WertpapierwechselFuerSparplan() {
-		
+
 		try {
 			String WertpapierwechselFuerSparplanMessage=commonActions.getText("WertpapierwechselFuerSparplanMessage");
 			System.out.println("text Verify for WertpapierwechselFuerSparplanMessage:" + WertpapierwechselFuerSparplanMessage);
@@ -251,16 +243,14 @@ public class UC28_29_30_Sparplan {
 			if (WertpapierwechselFuerSparplanMessage.equalsIgnoreCase(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message for WertpapierwechselFuerSparplanMessage");
 				commonActions.logPassStatus("Pass | Valid message dispayed - " + WertpapierwechselFuerSparplanMessage);
-
 			} else
 				commonActions.logFailStatus("Fail | Valid message display failed - " + WertpapierwechselFuerSparplanMessage);
 		} catch (Exception e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Fail | Data save fail for WertpapierwechselFuerSparplanMessage");
 		}
-	    
 	}
-	
+
 	@Then("Verify message,details on EinmalzahlungFuerSparplan")
 	public void verify_message_details_on_EinmalzahlungFuerSparplan() {
 		try {
@@ -271,7 +261,6 @@ public class UC28_29_30_Sparplan {
 			if (CapturedMessageEinmalzahlungFuerSparplan.equalsIgnoreCase(commonActions.getValueFromJson("Message"))) {
 				System.out.println("Verify Message for EinmalzahlungFuerSparplan");
 				commonActions.logPassStatus("Pass | Valid message dispayed - " + CapturedMessageEinmalzahlungFuerSparplan);
-
 			} else
 				commonActions.logFailStatus("Fail | Valid message display failed - " + CapturedMessageEinmalzahlungFuerSparplan);
 		} catch (Exception e) {
@@ -299,4 +288,95 @@ public class UC28_29_30_Sparplan {
 		}
 	}
 
+	@When("User clicks and selects {string} in IBAN")
+	public void user_clicks_and_selects_in_IBAN(String locatorKey) {
+		try {
+
+			commonActions.click(locatorKey);
+			Thread.sleep(1000);
+			commonActions.click("ExitIban");
+			commonActions.pressTab();
+		} 
+		catch (ElementClickInterceptedException e) {
+		}
+		catch (Exception e) {
+
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Clicking failed -" + locatorKey);
+		}
+	}
+
+	@When("User enters Laufzeit_von in {string}")
+	public void user_enters_Laufzeit_von_in(String locatorKey) {
+		try{
+
+			System.out.println("locatorKey = "+locatorKey);
+			commonActions.click("Laufzeit");
+			if(commonActions.getScenarioName().equals("Sparplan_Anlegen") )
+			{commonActions.click("nextMonth");
+			}
+			commonActions.waitForVisibilityofElement(locatorKey);
+			commonActions.click(locatorKey);	
+			commonActions.pressTab();
+
+		}catch (ElementClickInterceptedException e) {
+
+		}catch (ElementNotInteractableException e) {
+
+		} catch (Exception e) {			
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Enter text failed -" + locatorKey);
+		}
+
+	}
+	@And("^User enters \"(.*?)\" in  \"(.*?)\"$")
+	public void User_enters(String dataKey, String locatorKey)
+			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
+		try{
+			String text = commonActions.getValueFromJson(dataKey);
+			commonActions.click(locatorKey);
+			commonActions.enterText(locatorKey, text);		
+		} catch (Exception e) {
+			e.printStackTrace();
+			commonActions.logAssert_Fail("Fail | Enter text failed -" + locatorKey);
+		}
+	}
+
+	@When("User selects byValue {string} in {string}")
+	public void user_selects_byValue_in(String datakey, String locatorKey) throws FileNotFoundException, IOException, ParseException, InterruptedException {
+
+		Select s = new Select(commonActions.getElement(locatorKey));
+		String myData = commonActions.getValueFromJson(datakey);
+		System.out.println("myData json "+myData);			
+		try {
+			if (datakey.equals("Immer_Am")) {
+				if(commonActions.getScenarioName().equals("Sparplan_Anlegen"))
+				{	myData = "DAY_01";					
+				} else if(commonActions.getScenarioName().equals("Sparplan_Aendern"))
+				{	myData = "DAY_15";					
+				}
+				s.selectByValue(myData);
+			}else if (datakey.equals("Zum_Date")) {
+				if(commonActions.getScenarioName().equals("Sparplan_Anlegen"))
+				{	myData = "_01";					
+				} else if(commonActions.getScenarioName().equals("Sparplan_Aendern"))
+				{   myData = "_15";
+				}
+				s.selectByValue(myData);
+			}else if (datakey.equals("Zum_Month") && (commonActions.getScenarioName().equals("Sparplan_Anlegen") || commonActions.getScenarioName().equals("Sparplan_Aendern")) ) 
+			{   myData = "NOV";
+			s.selectByValue(myData);
+			System.out.println("selectByValue Zum_Month selected");
+			}else {
+				commonActions.waitForVisibilityofElement(locatorKey);               
+				s.selectByVisibleText(myData);
+				System.out.println("selectByVisibleText selected");
+			}		
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Element could not be selected");
+			//	commonActions.logAssert_Fail("Element could not be selected");
+		}
+	}
 }
