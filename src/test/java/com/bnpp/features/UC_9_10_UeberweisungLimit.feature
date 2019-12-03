@@ -6,7 +6,7 @@ Feature: UC_9_10_UeberweisungLimit
   @UC9_1 @Jith
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
-    When User Logs in with "UserID_Kontonummer","PIN_Password"
+    #When User Logs in with "UserID_Kontonummer","PIN_Password"
     #And User submits generated TAN number in "TAN_field_Login"
     #And User navigates to "Kontodetails" in "Mein_Konto_Depot"
     #And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
