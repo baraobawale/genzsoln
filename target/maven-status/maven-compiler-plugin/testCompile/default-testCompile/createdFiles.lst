@@ -49,6 +49,7 @@ Parallel12IT.class
 com\bnpp\steps\UC67_68_Stammdaten.class
 com\bnpp\steps\UC55_57_GemKontoEroeffnet.class
 com\bnpp\steps\UC71_Datenschutz.class
+Parallel23IT.class
 com\bnpp\reports\ExtentManager.class
 com\bnpp\steps\UC42_43_44_NeukundenSparplan.class
 Parallel18IT.class
