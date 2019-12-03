@@ -182,7 +182,8 @@ public class CommonActions {
 					|| getScenarioName().equals("DepotGemeinschaftskonto_Anlegen")
 					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
 					|| getScenarioName().equals("GVDepotBestehendesKind_Anlegen")
-					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")) {
+					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")
+					|| getScenarioName().equals("GVDepotWeiteresKind_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				new File(Configurations.downloadPath).mkdirs();
@@ -225,7 +226,7 @@ public class CommonActions {
 	 */
 	public void VerifyifFilePresent() throws InterruptedException {
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(20000);
 			File Files = new File(Configurations.downloadPath);
 			System.out.println("download path" + Configurations.downloadPath);
 			int Count = Files.list().length;
@@ -895,18 +896,18 @@ public class CommonActions {
 	public String checkGermanCharacters(String data) {
 		try {
 			if (data.equals("")) {
-				if (data.contains("ae"))
-					data = data.replace("ae", "ä");
-				if (data.contains("oe"))
-					data = data.replace("oe", "ö");
-				if (data.contains("ue"))
-					data = data.replace("ue", "ü");
-				if (data.contains("Ae"))
-					data = data.replace("Ae", "Ä");
-				if (data.contains("Oe"))
-					data = data.replace("Oe", "Ö");
-				if (data.contains("Ue"))
-					data = data.replace("Ue", "Ü");
+//				if (data.contains("ae"))
+//					data = data.replace("ae", "ä");
+//				if (data.contains("oe"))
+//					data = data.replace("oe", "ö");
+//				if (data.contains("ue"))
+//					data = data.replace("ue", "ü");
+//				if (data.contains("Ae"))
+//					data = data.replace("Ae", "Ä");
+//				if (data.contains("Oe"))
+//					data = data.replace("Oe", "Ö");
+//				if (data.contains("Ue"))
+//					data = data.replace("Ue", "Ü");
 			}
 		} catch (Exception e) {
 

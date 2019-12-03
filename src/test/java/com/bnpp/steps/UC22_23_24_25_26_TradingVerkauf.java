@@ -33,7 +33,7 @@ public class UC22_23_24_25_26_TradingVerkauf {
 		if (commonActions.getScenarioName().equals("VerkaufOrder_Anlegen_Fonds")) {
 			try {
 				commonActions.click("Handelsplatz_OrderErteilen");
-				commonActions.pressTab();
+				//commonActions.pressTab();
 				Thread.sleep(2000);				
 				commonActions.click("Handelsplatz_Tradegate");
 			//	Thread.sleep(1000);	
@@ -51,11 +51,12 @@ public class UC22_23_24_25_26_TradingVerkauf {
 	@When("Capture entered details on OrderErteilen_TradingVerkauf")
 	public void capture_entered_details_on_OrderErteilen_TradingVerkauf() {
 		try {
-			Thread.sleep(7000);
+		Thread.sleep(5000);
 	    CaptureOrderart = commonActions.getText("Anlegen_Fonds_OrderArt");
 	    CaptureWKN = commonActions.getText("Anlegen_Fonds_WKN");
 	    CaptureStuck = commonActions.getText("Anlegen_Fonds_Stueck");
 	    CaptureHandelsplatz = commonActions.getText("Anlegen_Fonds_Handelsplatz");
+	    
 	    System.out.println("CaptureOrderart:" + CaptureOrderart);
 		System.out.println("CaptureWKN:" + CaptureWKN);
 		System.out.println("CaptureStuck:" + CaptureStuck);
