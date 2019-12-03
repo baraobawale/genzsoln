@@ -18,7 +18,6 @@ Feature: UC16_Dauerlastschrift
     And User selects value "Intervall" in "Intervall_DauerlastschriftAnlengen"
     And User selects value "Immer_am" in "ImmerAm_DauerlastschriftAnlengen"
     And User enters "Startdatum" in "Startdatum_DauerlastschriftAnlengen"
-    # And User selects checkbox "Unbegrenzt_gültig" in "UnbegrenztGultig_DauerlastschriftAnlengen"
     And User clicks on "WeiterZurTANEingabe_DauerlastschriftAnlengen"
     And User submits generated TAN number using "MobileTanLink_DauerlastschriftAnlengen" on "TAN_field_DauerlastschriftAnlengen"
     And User clicks on "DauerlastschriftenAnlegen_DauerlastschriftAnlengen"

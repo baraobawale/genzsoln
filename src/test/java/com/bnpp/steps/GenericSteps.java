@@ -389,11 +389,9 @@ public class GenericSteps {
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
 		try {
 
-			if (commonActions.isElementPresent("SecurePlusLink")) {
-				commonActions.click("SecurePlusLink");
-			}
-			commonActions.enterTexttoken(tankey, "12345678");
-			commonActions.click("BestaetigenButton");
+//			commonActions.click("SecurePlusLink");
+//			commonActions.enterTexttoken(tankey, "12345678");
+//			commonActions.click("BestaetigenButton");
 
 		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
