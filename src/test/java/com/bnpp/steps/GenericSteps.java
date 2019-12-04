@@ -388,11 +388,11 @@ public class GenericSteps {
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
 		try {
-
-//			commonActions.click("SecurePlusLink");
-//			commonActions.enterTexttoken(tankey, "12345678");
-//			commonActions.click("BestaetigenButton");
-
+			if (commonActions.getFeatureName().equals("UC49_50_53_54_GVKontoKind")) {
+				commonActions.click("SecurePlusLink");
+				commonActions.enterTexttoken(tankey, "12345678");
+				commonActions.click("BestaetigenButton");
+			}
 		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Please check element is visible on the page");

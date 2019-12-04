@@ -75,7 +75,7 @@ Feature: UC11_12_13_Referenzkonto
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Referenz_konton" in "Mein_Konto_Depot"
     And user clicks on "Delete_Referenzkonton" of "Created_Referenzkonton" in "CreatedReferenzkonton_ReferenzKonton"
-    And User submits generated TAN number using "MobileTanLink_ReferenzKontonAnlengen" on "TAN_field_Referenzkontoloeschen"
+    And User submits generated TAN number using "MobileTanLink_Referenzkontoloeschen" on "TAN_field_Referenzkontoloeschen"
     And User clicks on "Referenzkontoloeschen_Referenzkontoloeschen"
     Then Verify Message on Referenzkontoloschen
 
