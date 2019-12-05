@@ -389,7 +389,6 @@ public class GenericSteps {
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
 		try {
 			if (commonActions.getFeatureName().equals("UC49_50_53_54_GVKontoKind")) {
-				commonActions.click("SecurePlusLink");
 				commonActions.enterTexttoken(tankey, "12345678");
 				commonActions.click("BestaetigenButton");
 			}

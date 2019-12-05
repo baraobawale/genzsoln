@@ -70,7 +70,7 @@ public class CommonActions {
 	public static String featurename;
 	public static String scenarioname;
 	public SoftAssertions softAssertions;
-
+	public String downloadpaath;
 	public Scenario sc;
 
 	public CommonActions() {
@@ -183,20 +183,20 @@ public class CommonActions {
 					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
 					|| getScenarioName().equals("GVDepotBestehendesKind_Anlegen")
 					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")
-					|| getScenarioName().equals("GVDepotWeiteresKind_Anlegen")) {
+					|| getScenarioName().equals("GVDepotWeiteresKind_Anlegen")
+					|| getScenarioName().equals("GVTagesgeldWeiteresKind_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
+				folderName = d.toString().replace(" ", "_");
 				new File(Configurations.downloadPath).mkdirs();
 				Configurations.downloadPath = Configurations.downloadPath + folderName;
-
 				// directory of the report folder
 				new File(Configurations.downloadPath).mkdirs();
 				prefs.put("download.default_directory", Configurations.downloadPath);
 
 			}
-
 			ops.setExperimentalOption("prefs", prefs);
-		 }catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw e;
@@ -227,9 +227,9 @@ public class CommonActions {
 	public void VerifyifFilePresent() throws InterruptedException {
 		try {
 			Thread.sleep(20000);
-			File Files = new File(Configurations.downloadPath);
+			File files = new File(Configurations.downloadPath);
 			System.out.println("download path" + Configurations.downloadPath);
-			int Count = Files.list().length;
+			int Count = files.list().length;
 			System.out.println("No. Of Files: " + Count);
 			if (Count == 1) {
 				// logPassStatus("PDF is downloaded successfully at
@@ -237,12 +237,18 @@ public class CommonActions {
 				logPassStatus("Pass | PDF is downloaded successfully at - " + Configurations.downloadPath);
 
 			} else {
-				logFailStatus("Error | PDF download failed, PLease check");
+				logFailStatus(scenarioname + " : "
+						+ "Error | PDF download failed. Probably pdf not downloaded in desired folder");
 
-				logFailStatus("Pdf is not downloaded");
 			}
 			// put download file path in reports
 			// scenario.debug(Configurations.downloadPath);
+		} catch (NullPointerException e) {
+			logFailStatus(scenarioname + " : "
+					+ "Error | Probably pdf not downloaded in desired folder");
+			System.out.println(scenarioname + " : "
+					+ "Error | Probably pdf not downloaded in desired folder");
+			throw e;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
@@ -315,9 +321,10 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
-			if(!objectKey.equals("Edit_Aktie")&&(!scenarioname.equals("KaufOrder_Loeschen_Aktie"))&&(!scenarioname.equals("KaufOrder_Loeschen_Fond"))) {
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
-			Thread.sleep(1000);
+			if (!objectKey.equals("Edit_Aktie") && (!scenarioname.equals("KaufOrder_Loeschen_Aktie"))
+					&& (!scenarioname.equals("KaufOrder_Loeschen_Fond"))) {
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+				Thread.sleep(1000);
 			}
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
@@ -896,18 +903,18 @@ public class CommonActions {
 	public String checkGermanCharacters(String data) {
 		try {
 			if (data.equals("")) {
-//				if (data.contains("ae"))
-//					data = data.replace("ae", "ä");
-//				if (data.contains("oe"))
-//					data = data.replace("oe", "ö");
-//				if (data.contains("ue"))
-//					data = data.replace("ue", "ü");
-//				if (data.contains("Ae"))
-//					data = data.replace("Ae", "Ä");
-//				if (data.contains("Oe"))
-//					data = data.replace("Oe", "Ö");
-//				if (data.contains("Ue"))
-//					data = data.replace("Ue", "Ü");
+				// if (data.contains("ae"))
+				// data = data.replace("ae", "ä");
+				// if (data.contains("oe"))
+				// data = data.replace("oe", "ö");
+				// if (data.contains("ue"))
+				// data = data.replace("ue", "ü");
+				// if (data.contains("Ae"))
+				// data = data.replace("Ae", "Ä");
+				// if (data.contains("Oe"))
+				// data = data.replace("Oe", "Ö");
+				// if (data.contains("Ue"))
+				// data = data.replace("Ue", "Ü");
 			}
 		} catch (Exception e) {
 
@@ -1148,6 +1155,6 @@ public class CommonActions {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
-		}	
+		}
 	}
 }
