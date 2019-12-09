@@ -187,7 +187,7 @@ public class CommonActions {
 					|| getScenarioName().equals("GVTagesgeldWeiteresKind_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
-				folderName = d.toString().replace(" ", "_");
+				// folderName = d.toString().replace(" ", "_");
 				new File(Configurations.downloadPath).mkdirs();
 				Configurations.downloadPath = Configurations.downloadPath + folderName;
 				// directory of the report folder
@@ -244,10 +244,8 @@ public class CommonActions {
 			// put download file path in reports
 			// scenario.debug(Configurations.downloadPath);
 		} catch (NullPointerException e) {
-			logFailStatus(scenarioname + " : "
-					+ "Error | Probably pdf not downloaded in desired folder");
-			System.out.println(scenarioname + " : "
-					+ "Error | Probably pdf not downloaded in desired folder");
+			logFailStatus(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
+			System.out.println(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
 			throw e;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

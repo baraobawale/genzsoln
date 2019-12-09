@@ -19,7 +19,7 @@ public class Configurations {
 	public final static String testDataResourcePath = "../src/test/java/com/bnpp/TestData/";
 
 	// Browser Stack configuration
-	public static final String RunOnBrowserStack = "Y";
+	public static final String RunOnBrowserStack = "N";
 	public static final String USERNAME = "chetana19";
 
 	public static final String AUTOMATE_KEY = "5tW8jrFVdPxbpgUSvssc";
@@ -32,7 +32,7 @@ public class Configurations {
 	public static final String reportPath = "./Reports/";
 
 	// download file path
-	public static String downloadPath = "./Downloads/";
+	public static String downloadPath = System.getProperty("user.dir") + "\\Downloads\\";
 
 	// Take screenshots on run parameter settings.
 	public static final String takeScreenshots = "Y";
