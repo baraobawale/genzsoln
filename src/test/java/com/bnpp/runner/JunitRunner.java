@@ -26,11 +26,14 @@ import cucumber.api.junit.Cucumber;
 		"com/bnpp/steps/" }, tags = "@TA-120", plugin = { "json:target/cucumber.json" })
 public class JunitRunner {
 
+	final static String PATH_TO_CUCUMBER_REPORT = "target/cucumber.json";
+	final static String PATH_REPORT_TEAMPLATE = "custom_templates/templates.json";
 	public static String currentXrayIssueKey = "";
 	public static boolean featureTestPassed = true;
 	public static String ExecutionID = "";
 	public static String testStart = "";
 	public static String testPlanId = "";
+	public static String folderNameReport = "";
 
 	@BeforeClass
 	public static void setupBeforeClass() {
@@ -56,12 +59,12 @@ public class JunitRunner {
 	}
 
 	@AfterClass
-	public static void teardown() throws InterruptedException {
+	public static void teardown() throws Exception {
 
-		TimeUnit.SECONDS.sleep(5);
+		generateReport();
 
 		// *** activating and deacivating in config.properties
-		Xray.attachFileToJiraIssue(Configurations.reportPath, ExecutionID);
+		Xray.attachFileToJiraIssue("Reports_" + folderNameReport, ExecutionID);
 
 	}
 
@@ -71,6 +74,20 @@ public class JunitRunner {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
 		System.setProperty("currenttime", dateFormat.format(new Date()));
 		Log.info("Log configuration done. Log Dir:" + PropertiesHandler.getLogsFolder());
+
+	}
+
+	public static void generateReport() throws Exception {
+
+		TimeUnit.SECONDS.sleep(5);
+
+		Date currentDate = new Date();
+		folderNameReport = currentDate.toString().replace(":", "_").replace(" ", "_");
+
+		String[] arg = { PATH_TO_CUCUMBER_REPORT, folderNameReport, PATH_REPORT_TEAMPLATE };
+		com.consorsbank.test.core.report.Main.main(arg);
+
+		TimeUnit.SECONDS.sleep(10);
 
 	}
 
