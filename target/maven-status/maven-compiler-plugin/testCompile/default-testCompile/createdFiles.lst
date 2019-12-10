@@ -38,6 +38,7 @@ com\bnpp\steps\UC58_61_EinzelEroeffnet.class
 com\bnpp\utilities\TANGenerator.class
 com\bnpp\steps\UC31_32_33_NeukundenDepot.class
 com\bnpp\steps\UC3_Dauerauftraege.class
+Parallel22IT.class
 com\bnpp\steps\UC4_Terminueberweisungen.class
 com\bnpp\mTANResources\mTanRedirectionAdd.class
 com\bnpp\steps\UC_9_10_UeberweisungLimit.class
@@ -51,6 +52,7 @@ Parallel12IT.class
 com\bnpp\steps\UC67_68_Stammdaten.class
 com\bnpp\steps\UC55_57_GemKontoEroeffnet.class
 com\bnpp\steps\UC71_Datenschutz.class
+Parallel23IT.class
 com\bnpp\reports\ExtentManager.class
 com\bnpp\steps\UC42_43_44_NeukundenSparplan.class
 Parallel18IT.class
