@@ -29,14 +29,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -60,6 +58,8 @@ import com.bnpp.mTANResources.MobileTan;
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
 
+import cucumber.api.Scenario;
+
 public class CommonActions {
 	WebDriver driver;
 	Exception e;
@@ -70,6 +70,8 @@ public class CommonActions {
 	public static String featurename;
 	public static String scenarioname;
 	public SoftAssertions softAssertions;
+	public String downloadpaath;
+	public Scenario sc;
 
 	public CommonActions() {
 
@@ -85,6 +87,23 @@ public class CommonActions {
 				Assert.fail();
 			}
 		}
+
+	}
+
+	public WebDriver getDriver() {
+
+		return driver;
+	}
+
+	public void screenCapture() {
+		byte[] data = ((TakesScreenshot) (getDriver())).getScreenshotAs(OutputType.BYTES);
+		String testName = sc.getName();
+		sc.embed(data, "image/png");
+		sc.write(testName);
+	}
+
+	public void setScenario(Scenario s) {
+		sc = s;
 	}
 
 	/**
@@ -98,7 +117,7 @@ public class CommonActions {
 				setUp();
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
-					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath77);
+					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath78);
 					driver = new ChromeDriver(loadChromeOptions());
 					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
@@ -147,8 +166,10 @@ public class CommonActions {
 			prefs.put("plugins.plugins_disabled", new String[] { "Chrome PDF Viewer" });
 			prefs.put("plugins.always_open_pdf_externally", true);
 			prefs.put("profile.default_content_settings.popups", 0);
+
 			// below condition is for creating download folder only in case of
 			// scenario with PDF download feature
+
 			if (getScenarioName().equals("Ueberweisungslimit_MaxLimit_Error")
 					|| getScenarioName().equals("Einzelkonto_DepotCFD_NeuesKonto")
 					|| getScenarioName().equals("SparplanMinderjaehrigenkonto_2GV_Anlegen")
@@ -161,15 +182,18 @@ public class CommonActions {
 					|| getScenarioName().equals("DepotGemeinschaftskonto_Anlegen")
 					|| getScenarioName().equals("DepotMinderjaehrigenkonto_Anlegen")
 					|| getScenarioName().equals("GVDepotBestehendesKind_Anlegen")
-					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")) {
+					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")
+					|| getScenarioName().equals("GVDepotWeiteresKind_Anlegen")
+					|| getScenarioName().equals("GVTagesgeldWeiteresKind_Anlegen")) {
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
+				// folderName = d.toString().replace(" ", "_");
 				new File(Configurations.downloadPath).mkdirs();
 				Configurations.downloadPath = Configurations.downloadPath + folderName;
-
 				// directory of the report folder
 				new File(Configurations.downloadPath).mkdirs();
 				prefs.put("download.default_directory", Configurations.downloadPath);
+
 			}
 			ops.setExperimentalOption("prefs", prefs);
 		} catch (Exception e) {
@@ -196,16 +220,15 @@ public class CommonActions {
 	}
 
 	/**
-	 * @param objectKey
-	 *            Description Common verify file is Present
+	 * @param objectKey Description Common verify file is Present
 	 * @throws InterruptedException
 	 */
 	public void VerifyifFilePresent() throws InterruptedException {
 		try {
-			Thread.sleep(10000);
-			File Files = new File(Configurations.downloadPath);
+			Thread.sleep(20000);
+			File files = new File(Configurations.downloadPath);
 			System.out.println("download path" + Configurations.downloadPath);
-			int Count = Files.list().length;
+			int Count = files.list().length;
 			System.out.println("No. Of Files: " + Count);
 			if (Count == 1) {
 				// logPassStatus("PDF is downloaded successfully at
@@ -213,12 +236,16 @@ public class CommonActions {
 				logPassStatus("Pass | PDF is downloaded successfully at - " + Configurations.downloadPath);
 
 			} else {
-				logFailStatus("Error | PDF download failed, PLease check");
+				logFailStatus(scenarioname + " : "
+						+ "Error | PDF download failed. Probably pdf not downloaded in desired folder");
 
-				logFailStatus("Pdf is not downloaded");
 			}
 			// put download file path in reports
 			// scenario.debug(Configurations.downloadPath);
+		} catch (NullPointerException e) {
+			logFailStatus(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
+			System.out.println(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
+			throw e;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
@@ -228,8 +255,8 @@ public class CommonActions {
 	/**
 	 * @param objectKey
 	 * @param data
-	 * @throws Exception
-	 *             Description Common action select from combo box by value text
+	 * @throws Exception Description Common action select from combo box by value
+	 *                   text
 	 */
 	public void selectFromDropDownByValue(String objectKey, String datakey) throws Exception {
 		try {
@@ -291,8 +318,11 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
-			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
-			Thread.sleep(1000);
+			if (!objectKey.equals("Edit_Aktie") && (!scenarioname.equals("KaufOrder_Loeschen_Aktie"))
+					&& (!scenarioname.equals("KaufOrder_Loeschen_Fond"))) {
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+				Thread.sleep(1000);
+			}
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			System.out.println("\r\n" + "Locator key missing in object repository file: " + objectKey);
@@ -317,8 +347,8 @@ public class CommonActions {
 
 	/**
 	 * @param objectKey
-	 * @return true if element is present false if not found. Description: Check
-	 *         if element is present and used as a checkpoint. true - present
+	 * @return true if element is present false if not found. Description: Check if
+	 *         element is present and used as a checkpoint. true - present
 	 */
 	public boolean isElementPresent(String objectKey) {
 		List<WebElement> e = null;
@@ -334,8 +364,7 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param objectKey
-	 *            Description: Common action click
+	 * @param objectKey Description: Common action click
 	 * @throws InterruptedException
 	 */
 	public void click(String objectKey) throws InterruptedException {
@@ -351,8 +380,7 @@ public class CommonActions {
 
 	/**
 	 * @param objectKey
-	 * @param strValue
-	 *            Description: Common action type
+	 * @param strValue  Description: Common action type
 	 * @throws IllegalArgumentException
 	 * @throws InterruptedException
 	 * @throws ParseException
@@ -363,19 +391,19 @@ public class CommonActions {
 		try {
 			getElement(objectKey).clear();
 			getElement(objectKey).sendKeys(textToEnter);
-			} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
 		}
 
 	}
-	
+
 	public void enterTextToLogin(String objectKey, String dataKey)
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			getElement(objectKey).clear();
 			getElement(objectKey).sendKeys(getKeyFromJson(dataKey));
-			} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;
 		}
@@ -385,8 +413,7 @@ public class CommonActions {
 	/**
 	 * 
 	 * @param objectKey
-	 * @param strValue
-	 *            Description Type Tan no
+	 * @param strValue  Description Type Tan no
 	 * @throws InterruptedException
 	 */
 	public void enterTan(String objectKey, String strValue) throws InterruptedException {
@@ -402,8 +429,7 @@ public class CommonActions {
 	}
 
 	/**
-	 * @param objectKey
-	 *            Description Common action clear
+	 * @param objectKey Description Common action clear
 	 */
 	public void clearfield(String objectKey) {
 		try {
@@ -441,9 +467,8 @@ public class CommonActions {
 	/**
 	 * @param objectKey
 	 * @param data
-	 * @throws Exception
-	 *             Description Common action select from combo box by visible
-	 *             text
+	 * @throws Exception Description Common action select from combo box by visible
+	 *                   text
 	 */
 	public void selectFromDropDown(String objectKey, String datakey) throws Exception {
 		Select s = new Select(getElement(objectKey));
@@ -501,8 +526,7 @@ public class CommonActions {
 	 * 
 	 * @param objectKey
 	 * @param data
-	 * @throws Exception
-	 *             Description Common action select from combo box by Index
+	 * @throws Exception Description Common action select from combo box by Index
 	 */
 	public void selectDropDownByIndex(String objectKey, String data) throws Exception {
 		try {
@@ -544,8 +568,7 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param objectKey
-	 *            Description Common action mouse over the element
+	 * @param objectKey Description Common action mouse over the element
 	 */
 	public void mouseover(String objectKey) {
 		try {
@@ -553,7 +576,7 @@ public class CommonActions {
 			act.moveToElement(getElement(objectKey)).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			
+
 		}
 	}
 
@@ -582,8 +605,7 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param msg
-	 *            Description Reporting function to pass the step
+	 * @param msg Description Reporting function to pass the step
 	 */
 	public void logPassStatus(String msg) {
 		scenario.log(Status.PASS, msg);
@@ -594,9 +616,8 @@ public class CommonActions {
 	}
 
 	/**
-	 * @param errMsg
-	 *            Description Common function to fail the report and stop
-	 *            execution
+	 * @param errMsg Description Common function to fail the report and stop
+	 *               execution
 	 */
 	public void logAssert_Fail(String errMsg) {
 		// fail in extent reports
@@ -619,8 +640,7 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param msg
-	 *            Description Reporting function to fail the step and continue
+	 * @param msg Description Reporting function to fail the step and continue
 	 *            execution
 	 */
 	public void logFailStatus(String msg) {
@@ -638,10 +658,11 @@ public class CommonActions {
 	 * Description Common function to take the screenshots of failure steps
 	 */
 
-	public void takeSceenShot() {
+	public void takeSceenShot1() {
 		if ((Configurations.takeScreenshots).equals("Y")) {
 			Date d = new Date();
 			try {
+
 				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
 				// take screenshot
 				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -660,10 +681,43 @@ public class CommonActions {
 
 	}
 
+	// public void takeSceenShot_NewReport() {
+	public void takeSceenShot() {
+		if ((Configurations.takeScreenshots).equals("Y")) {
+			Date d = new Date();
+			try {
+				/**
+				 * Screen capture for new report
+				 */
+				// screenCapture();
+				byte[] data = ((TakesScreenshot) (getDriver())).getScreenshotAs(OutputType.BYTES);
+				String testName = sc.getName();
+				sc.embed(data, "image/png");
+				sc.write(testName);
+
+				String screenshotFile = d.toString().replace(":", "_").replace(" ", "_") + ".png";
+				// take screenshot
+				File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+				// get the dynamic folder name
+				FileUtils.copyFile(srcFile, new File(ExtentManager.screenshotFolderPath + screenshotFile));
+				String PathofScreenShot = System.getProperty("user.dir") + "\\" + ExtentManager.screenshotFolderPath
+						+ screenshotFile;
+				// put screenshot file in reports
+				scenario.info("Screenshot", MediaEntityBuilder.createScreenCaptureFromPath(PathofScreenShot).build());
+			} catch (IOException e) {
+				e.printStackTrace();
+				Assert.fail();
+			}
+		}
+
+	}
+
 	/**
 	 * Description Common function for quitting the browser and reports.
 	 */
 	public void quit() {
+		takeSceenShot();
 		if (report != null)
 			report.flush();
 		if (driver != null)
@@ -675,8 +729,7 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param scenarioName
-	 *            Description Common function to initialize the reports
+	 * @param scenarioName Description Common function to initialize the reports
 	 */
 	public void initReports(String scenarioName) {
 		try {
@@ -690,19 +743,21 @@ public class CommonActions {
 	}
 
 	public String getValueFromJson(String dataKeyInJson) throws FileNotFoundException, IOException, ParseException {
+		// System.out.println("dataKeyInJson >>>>" + dataKeyInJson);
 		String datakey = null;
 		try {
 			datakey = getKeyFromJson(dataKeyInJson);
 			datakey = checkGermanCharacters(datakey);
-			// System.out.println(dataKeyInJson + ":" + datakey);
 
 		} catch (FileNotFoundException e) {
 			logAssert_Fail(featurename + " .json file not found");
+		} catch (NullPointerException e) {
+			throw e;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 			logAssert_Fail(dataKeyInJson + " : Please make sure ojectKey present in json file");
 		}
-		
+
 		return datakey;
 	}
 
@@ -757,7 +812,6 @@ public class CommonActions {
 						break;
 					}
 					// System.out.println(pair.getKey() + ":" +
-
 				}
 			}
 			return data;
@@ -836,30 +890,30 @@ public class CommonActions {
 
 	public String checkGermanCharacters(String data) {
 		try {
-			if (!data.equals("")) {
-				if (data.contains("ae"))
-					data = data.replace("ae", "ä");
-				if (data.contains("oe"))
-					data = data.replace("oe", "ö");
-				if (data.contains("ue"))
-					data = data.replace("ue", "ü");
-				if (data.contains("Ae"))
-					data = data.replace("Ae", "Ä");
-				if (data.contains("Oe"))
-					data = data.replace("Oe", "Ö");
-				if (data.contains("Ue"))
-					data = data.replace("Ue", "Ü");
+			if (data.equals("")) {
+				// if (data.contains("ae"))
+				// data = data.replace("ae", "ä");
+				// if (data.contains("oe"))
+				// data = data.replace("oe", "ö");
+				// if (data.contains("ue"))
+				// data = data.replace("ue", "ü");
+				// if (data.contains("Ae"))
+				// data = data.replace("Ae", "Ä");
+				// if (data.contains("Oe"))
+				// data = data.replace("Oe", "Ö");
+				// if (data.contains("Ue"))
+				// data = data.replace("Ue", "Ü");
 			}
 		} catch (Exception e) {
-			
+
 			throw e;
-			
+
 		}
 		return data;
 
 	}
 
-	public void setfaturefilenameandsceanrio(String id, String name) {
+	public void setfeaturefilenameandsceanrio(String id, String name) {
 		featurename = id;
 		String[] d = featurename.split("/features/");
 		// System.out.println(d[0] + " " + d[1]);
@@ -867,7 +921,6 @@ public class CommonActions {
 		// System.out.println(d2[0]);
 		featurename = d2[0];
 		scenarioname = name;
-
 	}
 
 	public String getScenarioName() {
@@ -892,8 +945,6 @@ public class CommonActions {
 		}
 	}
 
-	
-
 	public boolean compareTextWithJsonDataKeyValue(String ObjectKey, String jsonDataKey)
 			throws FileNotFoundException, IOException, ParseException {
 		if (getText(ObjectKey).equals(getValueFromJson(jsonDataKey)))
@@ -911,7 +962,7 @@ public class CommonActions {
 			return false;
 	}
 
-	//Not in use currently for load environement 13.11.2019
+	// Not in use currently for load environement 13.11.2019
 	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, ParseException {
 		Properties prop = new Properties();
@@ -947,8 +998,10 @@ public class CommonActions {
 
 	/**
 	 * Description Common function for checked or unchecked the radio button
+	 * 
+	 * @throws Exception
 	 */
-	public void clearRadioButton(String objectKey) {
+	public void clearRadioButton(String objectKey) throws Exception {
 		WebElement e;
 
 		try {
@@ -958,7 +1011,7 @@ public class CommonActions {
 				driver.findElement(By.xpath(properties.getProperty(objectKey))).click();
 			}
 		} catch (Exception ex) {
-			logAssert_Fail("Clear radio button failed");
+			throw ex;
 		}
 	}
 
@@ -970,7 +1023,8 @@ public class CommonActions {
 		return e.size();
 
 	}
-	//Not in use currently for load environement 13.11.2019
+
+	// Not in use currently for load environement 13.11.2019
 	public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String tanfield) throws ClientProtocolException,
 			IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException {
 		Properties prop = new Properties();
@@ -1007,8 +1061,14 @@ public class CommonActions {
 		getElement(tankey).sendKeys(string);
 	}
 
-	public void enterLoadenvironmentTan(String tanField, String string) {
+	public void enterLoadenvironmentTan(String tanField, String string) throws InterruptedException {
 		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
 		getElement(tanField).sendKeys(string);
 	}
 
@@ -1025,54 +1085,64 @@ public class CommonActions {
 		System.out.println(newDate);
 		return newDate;
 	}
-	
-	 public void setUp() throws Exception {
-	    	
-	        DesiredCapabilities capabilities = new DesiredCapabilities();
 
-	        System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
-	        System.getProperties().put("https.proxyPort", "8080");
-	        System.out.println(System.getProperty("browser"));
-	        if(System.getProperty("browser").equals("chrome")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","75.0");
-	        	capabilities.setCapability("os", "Windows");
-	        	capabilities.setCapability("os_version", "10");
-	        }
-	        else if(System.getProperty("browser").equals("firefox")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","69.0");
-	        	capabilities.setCapability("os", "Windows");
-	        	capabilities.setCapability("os_version", "10");
-	        }
-	        else if(System.getProperty("browser").equals("safari")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","7.1");
-	        	capabilities.setCapability("os", "OS X");
-	        	capabilities.setCapability("os_version", "Mavericks");
-	        }
-	        else if(System.getProperty("browser").equals("IE")) {
-	        	capabilities.setCapability("browser", System.getProperty("browser"));
-	        	capabilities.setCapability("browser_version","11.0");
-	        	capabilities.setCapability("os", "Windows");
-	        	capabilities.setCapability("os_version", "10");
-	        }
-	     
-	        Thread.sleep(2000);
-	        String username = "chetana19";
-	        String accessKey = "5tW8jrFVdPxbpgUSvssc";
+	public void setUp() throws Exception {
 
-//	        if(capabilities.getCapability("browserstack.local") != null && capabilities.getCapability("browserstack.local") == "true"){
-//	            l = new Local();
-//	            Map<String, String> options = new HashMap<String, String>();
-//	            options.put("key", accessKey);
-//	            l.start(options);
-//	        }
-	        capabilities.setCapability("browserstack.local", "true");
-	        capabilities.setCapability("name", getScenarioName());
-	        capabilities.setCapability("acceptSslCerts", "true");
-	        capabilities.setCapability("browserstack.debug","true");
+		DesiredCapabilities capabilities = new DesiredCapabilities();
 
-	        driver = new RemoteWebDriver(new URL("https://"+username+":"+accessKey+"@hub.browserstack.com/wd/hub"), capabilities);
-	    }    
+		System.getProperties().put("https.proxyHost", "proxyclient.corp.dir");
+		System.getProperties().put("https.proxyPort", "8080");
+		System.out.println(System.getProperty("browser"));
+		if (System.getProperty("browser").equals("chrome")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "75.0");
+			capabilities.setCapability("os", "Windows");
+			capabilities.setCapability("os_version", "10");
+		} else if (System.getProperty("browser").equals("firefox")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "69.0");
+			capabilities.setCapability("os", "Windows");
+			capabilities.setCapability("os_version", "10");
+		} else if (System.getProperty("browser").equals("safari")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "7.1");
+			capabilities.setCapability("os", "OS X");
+			capabilities.setCapability("os_version", "Mavericks");
+		} else if (System.getProperty("browser").equals("IE")) {
+			capabilities.setCapability("browser", System.getProperty("browser"));
+			capabilities.setCapability("browser_version", "11.0");
+			capabilities.setCapability("os", "Windows");
+			capabilities.setCapability("os_version", "10");
+		}
+
+		Thread.sleep(2000);
+		String username = "chetana19";
+		String accessKey = "5tW8jrFVdPxbpgUSvssc";
+
+		// if(capabilities.getCapability("browserstack.local") != null &&
+		// capabilities.getCapability("browserstack.local") == "true"){
+		// l = new Local();
+		// Map<String, String> options = new HashMap<String, String>();
+		// options.put("key", accessKey);
+		// l.start(options);
+		// }
+		capabilities.setCapability("browserstack.local", "true");
+		capabilities.setCapability("name", getScenarioName());
+		capabilities.setCapability("acceptSslCerts", "true");
+		capabilities.setCapability("browserstack.debug", "true");
+
+		driver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"),
+				capabilities);
+	}
+
+	public void pressEscape() {
+		// TODO Auto-generated method stub
+		try {
+			Actions act = new Actions(driver);
+			act.sendKeys(Keys.ESCAPE).build().perform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+	}
 }

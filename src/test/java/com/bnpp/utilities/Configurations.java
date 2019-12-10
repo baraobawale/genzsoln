@@ -8,6 +8,7 @@ public class Configurations {
 
 	public final static String chromeDriverPath = "./src/test/Resources/Drivers/chromedriver.exe";
 	public final static String chromeDriverPath77 = "./src/test/Resources/Drivers/chromedriver77.exe";
+	public final static String chromeDriverPath78 = "./src/test/Resources/Drivers/chromedriver78.exe";
 	public final static String ieDriverPath = "./src/test/Resources/Drivers/IEDriverServer.exe";
 
 	// Application URL
@@ -20,6 +21,7 @@ public class Configurations {
 	// Browser Stack configuration
 	public static final String RunOnBrowserStack = "Y";
 	public static final String USERNAME = "chetana19";
+
 	public static final String AUTOMATE_KEY = "5tW8jrFVdPxbpgUSvssc";
 
 	public static final String URL_BS = "https://" + USERNAME + ":" + AUTOMATE_KEY
@@ -28,9 +30,10 @@ public class Configurations {
 
 	// Output Reports path
 	public static final String reportPath = "./Reports/";
+	public static final String REPORT_PATH_NEW = "./ReportsModule/";
 
 	// download file path
-	public static String downloadPath = System.getProperty("user.dir") + "/Downloads/";
+	public static String downloadPath = System.getProperty("user.dir") + "\\Downloads\\";
 
 	// Take screenshots on run parameter settings.
 	public static final String takeScreenshots = "Y";

@@ -52,7 +52,8 @@ public class GenericSteps {
 			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
 
-		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
+		commonActions.setfeaturefilenameandsceanrio(s.getId(), s.getName());
+		commonActions.setScenario(s);
 
 		checkNewTest(s);
 
