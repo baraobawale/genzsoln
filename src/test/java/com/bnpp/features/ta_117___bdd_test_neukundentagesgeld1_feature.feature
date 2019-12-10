@@ -1,4 +1,4 @@
-@TA-120 @TA-18 @TA-188 
+@TA-18 @TA-188 
 Feature: TA-117
 
 #Neukunden Tagesgeld Anlegen
