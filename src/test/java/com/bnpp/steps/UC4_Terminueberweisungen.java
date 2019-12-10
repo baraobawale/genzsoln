@@ -3,7 +3,6 @@ package com.bnpp.steps;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
-import org.openqa.selenium.WebElement;
 import com.bnpp.library.CommonActions;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -203,7 +202,8 @@ public class UC4_Terminueberweisungen {
 	@And("^User clicks on NeuesTerminueberweisungenAnlengen_UmsaetzeZahlungsverkehr to create template$")
 	public void user_delete_existing_templates_on_Terminueberweisungen_UmsaetzeZahlungsverkehr()
 			throws InterruptedException {
-		if (commonActions.isElementPresent("TerminoUberWise_04")) {
+		Thread.sleep(3000);
+		if (commonActions.isElementPresent("TerminoUberWise_04")&&commonActions.isElementPresent("DeleteTerminoUberwise_04")) {
 			commonActions.click("DeleteTerminoUberwise_04");
 			// String token = TANGenerator.requestTan();
 			// commonActions.enterNewMobileTan("TAN_field_Vorlageloeschen",
@@ -211,8 +211,10 @@ public class UC4_Terminueberweisungen {
 			commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen", "12345678");
 			commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
 			commonActions.click("ZumZahlungsverkehr_VorlageAnlegen");
-			commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");
-			if(commonActions.isElementPresent("TerminoUberWise_04OnVorlagen")){
+			
+		}
+		commonActions.click("Vorlagen_UmsaetzeZahlungsverkehr");	
+		if(commonActions.isElementPresent("TerminoUberWise_04OnVorlagen")){
 				commonActions.click("TerminoUberWise_04OnVorlagenDelete");
 				commonActions.enterLoadenvironmentTan("TAN_field_Vorlageloeschen","12345678");
 				commonActions.click("UeberweisungsVorlageloeschen_Vorlageloeschen");
@@ -223,8 +225,6 @@ public class UC4_Terminueberweisungen {
 			}
 			Thread.sleep(5000);
 			commonActions.moveScrollDown();
-			
-		}
 		commonActions.click("Terminueberweisungen_UmsaetzeZahlungsverkehr");
 		commonActions.click("NeuesTerminueberweisungenAnlengen_UmsaetzeZahlungsverkehr");
 	}

@@ -3,12 +3,13 @@ package com.bnpp.steps;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.junit.Assert;
+import org.json.simple.parser.ParseException;
+
 import com.bnpp.library.CommonActions;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.runtime.CucumberException;
 
 public class UC42_43_44_NeukundenSparplan {
 
@@ -39,7 +40,7 @@ public class UC42_43_44_NeukundenSparplan {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-//			commonActions.logAssert_Fail("text not found");
+		commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from laden_KostenlosesWertpapierdepotEinzel failed");
 		}
 	}
 
@@ -74,7 +75,7 @@ public class UC42_43_44_NeukundenSparplan {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-//			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotGemeinschafts failed");
 		}
 	}
 
@@ -124,8 +125,34 @@ public class UC42_43_44_NeukundenSparplan {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-//			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen");
 		}
 	}
-
+	
+	@And("User clicks on Zum2GesetzlVertreter_GesetzlicherVertreter1Page")
+	public void User_clicks_on_Zum2GesetzlVertreter_GesetzlicherVertreter1Page() throws FileNotFoundException, IOException, ParseException, IllegalArgumentException, InterruptedException{
+		commonActions.click("Zum2GesetzlVertreter_Kontoinhaber");
+		commonActions.clearfield("maintaxrasidance");
+		String locatorKey="EMail2_GesetzlicherVertreter1Page"; 
+		String textToEnter = commonActions.getValueFromJson("EMail_2");
+		if (textToEnter.equals("")) {
+			commonActions.clearfield(locatorKey);
+		} else
+			commonActions.enterText(locatorKey, textToEnter);
+		commonActions.click("Zum2GesetzlVertreter_Kontoinhaber");
+	}
+	
+	
+	@And("User clicks on Weiter_GesetzlicherVertreter2Page")
+	public void User_clicks_on_Weiter_GesetzlicherVertreter2Page() throws IllegalArgumentException, InterruptedException, IOException, ParseException{
+		commonActions.click("Weiter_GesetzlicherVertreter2Page");
+		commonActions.clearfield("maintaxrasidance2");
+		String locatorKey="EMail3_GesetzlicherVertreter2Page";
+		String textToEnter = commonActions.getValueFromJson("EMail_3");
+		if (textToEnter.equals("")) {
+			commonActions.clearfield(locatorKey);
+		} else
+			commonActions.enterText(locatorKey, textToEnter);
+		commonActions.click("Weiter_GesetzlicherVertreter2Page"); 
+	}
 }

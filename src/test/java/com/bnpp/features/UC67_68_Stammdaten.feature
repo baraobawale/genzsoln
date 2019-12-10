@@ -1,6 +1,7 @@
-
-Feature: UC67_68_Stammdaten
 @UC67
+Feature: UC67_68_Stammdaten
+
+  @UC67_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -17,7 +18,8 @@ Feature: UC67_68_Stammdaten
     Examples: 
       | TestCase                 |
       | Stammdaten_Verify_Errors |
- 
+
+  @UC67_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

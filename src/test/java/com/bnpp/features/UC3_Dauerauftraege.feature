@@ -1,9 +1,9 @@
-@UC42_43
+@UC3
 Feature: UC3_Dauerauftraege
 
   #Executable - Dauerauftraege anlegen,Andern,loeschen
   #Anlegen/Creation
- 
+ @UC3_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -19,7 +19,6 @@ Feature: UC3_Dauerauftraege
     And User selects "Intervall" in "Intervall_DauerauftrageAnlegen" field
     And User selects "Immer_am" in "ImmerAm_DauerauftrageAnlegen" field
     And User selects future date in Startdatum_DauerauftrageAnlegen
-    And User selects checkbox "Unbegrenzt_gültig" in "UnbegrenztGultig_DauerauftrageAnlegen"
     And User selects checkbox "Als_Vorlage_speichern" in "AlsVorlageSpeichern_DauerauftrageAnlegen"
     And User enters "Vorlagenname" in "Vorlagenname_DauerauftrageAnlegen"
     And User clicks on "WeiterZurTANEingabe_DauerauftrageAnlegen"
@@ -36,7 +35,7 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Anlegen |
 
   #Andern/Updation
-  
+  @UC3_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -57,7 +56,7 @@ Feature: UC3_Dauerauftraege
       | Dauerauftraege_Andern |
 
   #Loeschen/Deletion
-  @UC3 
+  @UC3_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

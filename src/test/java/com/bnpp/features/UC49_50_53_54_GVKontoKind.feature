@@ -1,3 +1,4 @@
+
 Feature: UC49_50_53_54_GVKontoKind
 
   #Test data added for int acc2 - Automatable in int acc2
@@ -6,7 +7,6 @@ Feature: UC49_50_53_54_GVKontoKind
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User navigates to "Wertpapierdepot" in "Wertpapierhandel"
-    #And User clicks on "Wertpapierdepot_eroeffnen" in "WertpapierdepotEroeffnen_Wertpapierdepot"
     And User clicks on "Wertpapierdepot_eroeffnen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
     And User is redirected to login page to login with "UserID_Kontonummer","PIN_Password"
@@ -37,13 +37,13 @@ Feature: UC49_50_53_54_GVKontoKind
       | GVDepotBestehendesKind_Anlegen |
 
   #GV Eroeffnet Konto Depot- WEITERES Kind
+  @ExecuteAll1876
   Scenario Outline: <TestCase>
-    #When User open the application
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
     And User clicks on "Wertpapierdepot_eroeffnen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_WertpapierdepotEroeffnen"
-    And User Logs in with "UserID_Kontonummer","PIN_Password"
+    And User is redirected to login page to login with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User selects radiobutton "Gemeinschaftskonto_eroeffnen" in "GemeinschaftskontoEroeffnen_WertpapierdepotEroeffnen"
     And User selects radiobutton "minderjaehriges_Kind_eroeffnen" in "minderjaehrigesKindEroeffnen_WertpapierdepotEroeffnen"
@@ -65,8 +65,6 @@ Feature: UC49_50_53_54_GVKontoKind
     And User enters "PLZ_1" in "PLZ1_Kontoinhaber"
     And User enters "Ort_1" in "Ort1_Kontoinhaber"
     And User selects "Land_1" in "Land_1_Kontoinhaber"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_1" in "DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber"
-    And User clicks on "Uebernehmen_Kontoinhaber"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_1" in "AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber"
     And User enters "Telefon_privat_1" in "TelefonPrivat1_Kontoinhaber"
     And User selects "Beruf_1" in "Beruf1_Kontoinhaber"
@@ -82,16 +80,17 @@ Feature: UC49_50_53_54_GVKontoKind
     And User clicks on "Weiter_GesetzlicherVertreter1Page"
     And User selects checkbox "Einverstaendnis_mit_PRIIP_Verordnung" in "EinverstaendnisMitPRIIPVerordnung_KontoverwendungPage"
     And User clicks on "kontoEroeffnen_KontoverwendungPage"
+    And Capture then  Vorgangsnummer,Message on KostenlosesWertpapierdepotWeiteresKind
+    And User clicks on "EroeffnungsunterlagenHerunterladen_KostenlosesWertpapierdepotWeiteresKind"
+    Then Verify then captured Vorgangsnummer,Message from KostenlosesWertpapierdepotWeiteresKind
+    And Download PDF generated in New Tab
 
-    #And Capture then  Vorgangsnummer,Message on KostenlosesWertpapierdepotWeiteresKind
-    #And User clicks on "EroeffnungsunterlagenHerunterladen_KostenlosesWertpapierdepotWeiteresKind"
-    #Then Verify then captured Vorgangsnummer,Message from KostenlosesWertpapierdepotWeiteresKind
-    #And Download PDF generated in New Tab
     Examples: 
       | TestCase                    |
       | GVDepotWeiteresKind_Anlegen |
 
   #GV Eroeffnet Konto Tagesgeld - BESTEHENDES Kind
+  @ExecuteAll1876
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
@@ -111,9 +110,7 @@ Feature: UC49_50_53_54_GVKontoKind
     And User selects radiobutton "USA_steuerpflichtig_2" in "USASteuerpflichtig2_GesetzlicherVertreter1Page"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_GesetzlicherVertreter1Page"
     And User selects checkbox "Alleiniger_Gesetzlicher_Vertreter_2" in "AlleinigerGesetzlicherVertreter2_GesetzlicherVertreter1Page"
-    #And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_2" in "ErfahrungenImBereichWertpapierhande2_GesetzlicherVertreter1Page"
     And User clicks on "Weiter_GesetzlicherVertreter1Page"
-    # And User selects checkbox "Einverstaendnis_mit_PRIIP_Verordnung" in "EinverstaendnisMitPRIIPVerordnung_KontoverwendungPage"
     And User clicks on "kontoEroeffnen_KontoverwendungPage"
     And Capture Vorgangsnummer,Message on TagesgeldkontoBestehendes
     And User clicks on "EroeffnungsunterlagenHerunterladen_KostenlosesWertpapierdepotBestehendesKind"
@@ -125,12 +122,13 @@ Feature: UC49_50_53_54_GVKontoKind
       | GVTagesgeldBestehendesKind_Anlegen |
 
   #GV Eroeffnet Konto Tagesgeld- WEITERES Kind
+  @ExecuteAll1876
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
     And User clicks on "TagesgeldkontoEroeffnen_SparenAnlegen"
     And User selects radiobutton "Kunde_bei_der_Consorsbank" in "KundeBeiDerConsorsbank_TagesgeldkontoEroeffnen"
-    And User Logs in with "UserID_Kontonummer","PIN_Password"
+    And User is redirected to login page to login with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User selects radiobutton "Gemeinschaftskonto_eroeffnen" in "GemeinschaftskontoEroeffnen_TagesgeldkontoEroeffnen"
     And User selects radiobutton "minderjaehriges_Kind_eroeffnen" in "minderjaehrigesKindEroeffnen_TagesgeldkontoEroeffnen"
@@ -152,8 +150,6 @@ Feature: UC49_50_53_54_GVKontoKind
     And User enters "PLZ_1" in "PLZ1_Kontoinhaber"
     And User enters "Ort_1" in "Ort1_Kontoinhaber"
     And User selects "Land_1" in "Land_1_Kontoinhaber"
-    And User selects radiobutton "Die_eingegebene_Adresse_ist_nicht_eindeutig_1" in "DieEingegebeneAdresseIstNichtEindeutig1_Kontoinhaber"
-    And User clicks on "Uebernehmen_Kontoinhaber"
     And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_1" in "AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber"
     And User enters "Telefon_privat_1" in "TelefonPrivat1_Kontoinhaber"
     And User selects "Beruf_1" in "Beruf1_Kontoinhaber"
@@ -165,14 +161,13 @@ Feature: UC49_50_53_54_GVKontoKind
     And User selects radiobutton "USA_steuerpflichtig_2" in "USASteuerpflichtig2_GesetzlicherVertreter1Page"
     And User enters "EMail_wiederholen_2" in "EMailWiederholen2_GesetzlicherVertreter1Page"
     And User selects checkbox "Alleiniger_Gesetzlicher_Vertreter_2" in "AlleinigerGesetzlicherVertreter2_GesetzlicherVertreter1Page"
-    #And User selects radiobutton "Erfahrungen_im_Bereich_Wertpapierhande_2" in "ErfahrungenImBereichWertpapierhande2_GesetzlicherVertreter1Page"
     And User clicks on "Weiter_GesetzlicherVertreter1Page"
     And User clicks on "kontoEroeffnen__KontoverwendungPage"
+    And Capture Vorgangsnummer,Message on TagesgeldkontoWeiteres
+    And User clicks on "EroeffnungsunterlagenHerunterladen_TagesgeldkontoWeiteres"
+    Then Verify captured Vorgangsnummer,Message from TagesgeldkontoWeiteres
+    And Download PDF generated in New Tab
 
-    #And Capture Vorgangsnummer,Message on TagesgeldkontoWeiteres
-    #And User clicks on "EroeffnungsunterlagenHerunterladen_TagesgeldkontoWeiteres"
-    #Then Verify captured Vorgangsnummer,Message from TagesgeldkontoWeiteres
-    #And Download PDF generated in New Tab
     Examples: 
       | TestCase                        |
       | GVTagesgeldWeiteresKind_Anlegen |

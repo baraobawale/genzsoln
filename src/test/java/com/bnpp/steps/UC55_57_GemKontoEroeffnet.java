@@ -1,10 +1,5 @@
 package com.bnpp.steps;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import org.json.simple.parser.ParseException;
-import org.openqa.selenium.WebElement;
-
 import com.bnpp.library.CommonActions;
 
 import cucumber.api.java.en.Then;
@@ -32,7 +27,7 @@ public class UC55_57_GemKontoEroeffnet {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture the Vorgangsnummer,Message on KostenlosesWertpapierdepotGemeinschafts failed");
 		}
 	}
 
@@ -53,7 +48,7 @@ try {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify the captured Vorgangsnummer,Message from KostenlosesWertpapierdepotGemeinschafts failed");
 		}
 	}
 	
@@ -66,7 +61,7 @@ try {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Capture the Vorgangsnummer,Message on TagesgeldkontoGemeinschafts failed");
 		}
 	}
 
@@ -87,7 +82,7 @@ try {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("text not found");
+			commonActions.logAssert_Fail("Verify the captured Vorgangsnummer,Message from TagesgeldkontoGemeinschafts failed");
 		}
 	}
 

@@ -3,7 +3,7 @@ Feature: UC69_70_Risikoklasse
 
   #Executable - Risikoklasse/FTG setzen (mit Fehlermeldungen)
   # Risikoklasse/FTG Setzen Fehlermeldungen
-  
+  @UC69_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -11,9 +11,6 @@ Feature: UC69_70_Risikoklasse
     And User navigates to "Persoenliche_Einstellungen" in "Mein_Konto_Depot"
     And User clicks on "Risikoklasse/Finanztermingeschaefte_PersoenlicheEinstellungen"
     And User clicks on "RisikoklasseJetztAendern_RisikoklasseFinanztermingeschaefte"
-    And User selects checkbox "Hinweis_gelesen" in "HinweisGelesen_RisikoklasseFinanztermingeschaefte"
-    And User selects radiobutton "Kenntnisse_vorhanden" in "KenntnisseVorhanden_RisikoklasseFinanztermingeschaefte"
-    And User selects radiobutton "Wertpapierkaeufe" in "WertpapierkaeufeInDenLetztenZweiJahren_RisikoklasseFinanztermingeschaefte"
     And User clicks on "Weiter_RisikoklasseFinanztermingeschaefte"
     Then Verify displayed ErrorMesssages on RisikoklasseFinanztermingeschaefte
 
@@ -22,6 +19,7 @@ Feature: UC69_70_Risikoklasse
       | Risikoklasse_Verify_Errors |
 
   # Risikoklasse/FTG Setzen
+  @UC69_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

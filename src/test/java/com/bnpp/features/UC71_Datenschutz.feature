@@ -2,6 +2,7 @@
 Feature: UC71_Datenschutz
 
   # Datenschutz andern - Non Executable
+  @UC71_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -16,4 +17,4 @@ Feature: UC71_Datenschutz
     Examples: 
       | TestCase                          |
       | Datenschutz_select_All_Unselected |
-      | Datenschutz_select_All_Selected   |
+    	| Datenschutz_select_All_Selected   |

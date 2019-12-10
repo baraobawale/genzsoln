@@ -4,8 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
 import com.bnpp.library.CommonActions;
-import cucumber.api.java.en.And;
+
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.CucumberException;

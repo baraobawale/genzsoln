@@ -1,14 +1,9 @@
 package com.bnpp.steps;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.junit.Assert;
 import com.bnpp.library.CommonActions;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.runtime.CucumberException;
 
 public class UC62_63_CFDHandel {
 
@@ -52,7 +47,7 @@ public class UC62_63_CFDHandel {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-//			commonActions.logAssert_Fail("text not found");
+		commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from CFDKontoEinzel failed");
 		}
 	}
 	
