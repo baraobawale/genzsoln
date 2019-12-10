@@ -17,7 +17,7 @@ test_safari:
 	mvn install -Dbrowser=safari -Dtest=JunitRunner -Djavax.net.ssl.trustStore=/export/home/jenkins/certs/trust.jks -Djavax.net.ssl.trustStorePassword=changeit
 
 test_chrome:
-	mvn install -Dbrowser=chrome -Dtest=JunitRunner -Djavax.net.ssl.trustStore=/export/home/jenkins/certs/trust.jks -Djavax.net.ssl.trustStorePassword=changeit
+	mvn install -Dbrowser=chrome -Djavax.net.ssl.trustStore=/export/home/jenkins/certs/trust.jks -Djavax.net.ssl.trustStorePassword=changeit
 
 test_local:
     mvn install -Dbrowser=chrome -Dlocal=true -Djavax.net.ssl.trustStore=/export/home/jenkins/certs/trust.jks -Djavax.net.ssl.trustStorePassword=changeit
