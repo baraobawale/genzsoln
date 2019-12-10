@@ -2,11 +2,16 @@ package com.bnpp.steps;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.json.simple.parser.ParseException;
 
 import com.bnpp.library.CommonActions;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -20,13 +25,15 @@ public class UC16_Dauerlastschrift {
 	String CapturedIBANDauerlastschrift;
 	String CapturedStartdatumDauerlastschrift;
 	String VerifyStartdatumDauerlastschrift;
-	String VerifyIBANDauerlastschrift;			
+	String VerifyIBANDauerlastschrift;	
+	String DauerlastschriftAnlengenDATE;
+
 
 	public UC16_Dauerlastschrift(CommonActions commonActions)
 			throws FileNotFoundException, IOException, ParseException {
 		this.commonActions = commonActions;
 	}
-	
+
 	@When("User clicks on Edit_Dauerlastschrift of CreatedDauerlastschrift_UmsaetzeZahlungsverkehr")
 	public void user_clicks_on_Edit_Dauerlastschrift_of_CreatedDauerlastschrift_UmsaetzeZahlungsverkehr() {
 		try {
@@ -39,7 +46,7 @@ public class UC16_Dauerlastschrift {
 			commonActions.logAssert_Fail("Element could not be clicked");
 		}
 	}
-	
+
 	@When("User clicks on Delete_Dauerlastschrift of CreatedDauerlastschrift_Dauerlastschriftloeschen")
 	public void user_clicks_on_Delete_Dauerlastschrift_of_CreatedDauerlastschrift_Dauerlastschriftloeschen() {
 		try {
@@ -68,7 +75,7 @@ public class UC16_Dauerlastschrift {
 	}
 	@Then("Verify {string},{string} under LaufendenZahlungenVorlagen_UmsaetzeZahlungsverkehr")
 	public void verify_under_LaufendenZahlungenVorlagen_UmsaetzeZahlungsverkehr(String string, String string2) {
-		
+
 		VerifyStartdatumDauerlastschrift= commonActions.getText("VerifyStartdatumDauerlastschrift");
 		VerifyIBANDauerlastschrift= commonActions.getText("VerifyIBANDauerlastschrift");
 
@@ -108,7 +115,7 @@ public class UC16_Dauerlastschrift {
 	@Then("Verify captured details,Message from DauerlastschriftAnlengen")
 	public void verify_captured_details_Message_from_DauerlastschriftAnlengen() {
 		try {
-			
+
 			System.out.println("MessageDauerlastschrift CAPTURED: "+MessageDauerlastschrift);
 			MessageJson=commonActions.getValueFromJson("Message");
 			System.out.println("MessageDauerlastschrift : "+MessageDauerlastschrift);
@@ -148,7 +155,7 @@ public class UC16_Dauerlastschrift {
 			commonActions.logAssert_Fail("Verify Message,details on DauerlastschriftAndern Failed");
 		}
 	}
-	
+
 	@Then("Verify Message on Dauerlastschriftloeschen")
 	public void verify_Message_on_Dauerlastschriftloeschen() {
 		try {
@@ -169,6 +176,24 @@ public class UC16_Dauerlastschrift {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Verify Message,details on Dauerlastschriftloeschen Failed");
 		}
-}
+	}
+
+	@And("^User clicks on NeuesDauerlastschriftenAnlengen_UmsaetzeZahlungsverkehr to create template$")
+	public void user_clicks_on_NeuesDauerlastschriftenAnlengen_UmsaetzeZahlungsverkehr() throws InterruptedException{
+		try {
+			if (commonActions.isElementPresent("VerifyIBANDauerlastschrift")) {
+				commonActions.click("Delete_Dauerlastschrift");
+				commonActions.enterLoadenvironmentTan("TAN_field_Dauerlastschriftloeschen","12345678");
+				commonActions.click("Dauerlastschriftenloeschen_Dauerlastschriftloeschen");
+				commonActions.click("ZumZahlungsverkehr_DauerlastschriftAnlengen");
+			}
+			Thread.sleep(3000);
+			commonActions.moveScrollDown();
+			commonActions.click("Dauerlastschriften_UmsaetzeZahlungsverkehr");
+			commonActions.click("NeuesDauerlastschriftenAnlengen_UmsaetzeZahlungsverkehr");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}}
+
 
 }
