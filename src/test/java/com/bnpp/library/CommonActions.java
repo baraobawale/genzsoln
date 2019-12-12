@@ -70,7 +70,7 @@ public class CommonActions {
 	public static String featurename;
 	public static String scenarioname;
 	public SoftAssertions softAssertions;
-	public String downloadpaath;
+	public String downloadDir;
 	public Scenario sc;
 
 	public CommonActions() {
@@ -185,14 +185,16 @@ public class CommonActions {
 					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")
 					|| getScenarioName().equals("GVDepotWeiteresKind_Anlegen")
 					|| getScenarioName().equals("GVTagesgeldWeiteresKind_Anlegen")) {
-				Date d = new Date();
-				String folderName = d.toString().replace(":", "_");
-				// folderName = d.toString().replace(" ", "_");
-				new File(Configurations.downloadPath).mkdirs();
-				Configurations.downloadPath = Configurations.downloadPath + folderName;
-				// directory of the report folder
-				new File(Configurations.downloadPath).mkdirs();
-				prefs.put("download.default_directory", Configurations.downloadPath);
+                Date d = new Date();
+                String folderName = d.toString().replace(":", "_");
+                // folderName = d.toString().replace(" ", "_");
+                new File(Configurations.downloadPath).mkdirs();
+                downloadDir = Configurations.downloadPath + folderName;
+                System.out.println(downloadDir);
+                // directory of the report folder
+                new File(downloadDir).mkdirs();
+                prefs.put("download.default_directory", downloadDir);
+
 
 			}
 			ops.setExperimentalOption("prefs", prefs);
@@ -225,33 +227,35 @@ public class CommonActions {
 	 * @throws InterruptedException
 	 */
 	public void VerifyifFilePresent() throws InterruptedException {
-		try {
-			Thread.sleep(20000);
-			File files = new File(Configurations.downloadPath);
-			System.out.println("download path" + Configurations.downloadPath);
-			int Count = files.list().length;
-			System.out.println("No. Of Files: " + Count);
-			if (Count == 1) {
-				// logPassStatus("PDF is downloaded successfully at
-				// "+Configurations.downloadPath);
-				logPassStatus("Pass | PDF is downloaded successfully at - " + Configurations.downloadPath);
+        try {
+               Thread.sleep(20000);
+               File files = new File(downloadDir);
+               System.out.println("download path" + downloadDir);
+               int Count = files.list().length;
+               System.out.println("No. Of Files: " + Count);
+               if (Count == 1) {
+                     // logPassStatus("PDF is downloaded successfully at
+                     // "+Configurations.downloadPath);
+                     logPassStatus("Pass | PDF is downloaded successfully at - " + downloadDir);
 
-			} else {
-				logFailStatus(scenarioname + " : "
-						+ "Error | PDF download failed. Probably pdf not downloaded in desired folder");
+               } else {
+                     logFailStatus(scenarioname + " : "
+                                  + "Error | PDF download failed. Probably pdf not downloaded in desired folder");
 
-			}
-			// put download file path in reports
-			// scenario.debug(Configurations.downloadPath);
-		} catch (NullPointerException e) {
-			logFailStatus(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
-			System.out.println(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
-			throw e;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw e;
-		}
-	}
+               }
+               downloadDir = "";
+               // put download file path in reports
+               // scenario.debug(Configurations.downloadPath);
+        } catch (NullPointerException e) {
+               logFailStatus(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
+               System.out.println(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
+            downloadDir = "";     
+               throw e;
+        } catch (Exception e) {
+               // TODO Auto-generated catch block
+               throw e;
+        }
+  }
 
 	/**
 	 * @param objectKey
