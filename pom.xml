@@ -20,20 +20,6 @@
 		      	<scope>system</scope>
 		      	<systemPath>${basedir}/lib/XrayTools-1.0-SNAPSHOT.jar</systemPath>
 		</dependency>
-		<dependency>
-			<groupId>com.consorsbank.module</groupId>
-		      	<artifactId>ReportPluginModule</artifactId>
-		      	<version>1.0</version>
-		      	<scope>system</scope>
-		      	<systemPath>${basedir}/lib/module-report-1.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.consorsbank.core</groupId>
-		      	<artifactId>ReportPluginCore</artifactId>
-		      	<version>1.0</version>
-		      	<scope>system</scope>
-		      	<systemPath>${basedir}/lib/module-core-1.0-SNAPSHOT.jar</systemPath>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.mkolisnyk/cucumber-report-generator -->
 		<dependency>
 		    <groupId>com.github.mkolisnyk</groupId>
