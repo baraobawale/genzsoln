@@ -360,8 +360,32 @@ public class GenericSteps {
 		}
 	}
 
-	@And("User selects checkbox {string} in {string}")
+	@When("User selects value {string} in {string}")
+	public void user_selects_value_in(String valueKey, String DropdownKey) {
+		try {
+			commonActions.click(DropdownKey);
+			Thread.sleep(2000);
+			commonActions.click(valueKey);
+			Thread.sleep(1000);
+			commonActions.pressTab();
+			System.out.println("Element selected");
+		} catch (ElementClickInterceptedException e) {
+			e.printStackTrace();
+			// System.out.println("Element could not be selected");
 
+		} catch (ElementNotInteractableException e) {
+			e.printStackTrace();
+			// System.out.println("Element could not be selected");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Element could not be selected");
+			// commonActions.logAssert_Fail("Element could not be selected");
+		}
+
+	}
+
+	@And("User selects checkbox {string} in {string}")
 	public void User_selects_checkbox(String dataKey, String locatorKey)
 			throws FileNotFoundException, IOException, ParseException, InterruptedException {
 		try {
