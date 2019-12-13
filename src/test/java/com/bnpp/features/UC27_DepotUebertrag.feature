@@ -1,10 +1,38 @@
-@UC27
+ @UC_27123
 Feature: UC27_DepotUebertrag
 
   #Executable - Depot Transfer Internally
   #The depot account should have open position not transfered.!!
+  # Need to buy depot for internal transfer of share
+  
+  Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
+    When User Logs in with "UserID_Kontonummer","PIN_Password"
+    And User submits generated TAN number in "TAN_field_Login"
+    And User navigates to "Mein_Konto_Depot" in "Mein_Konto_Depot"
+    And User clicks on "KaufenVerkaufen_kontouebersicht"
+    And User clicks on "Orderart"
+    And User enters "Name_WKN_ISIN" in "NameWKNISIN_OrderErteilen"
+    And User clicks on "Uebernehmen_OrderErteilen"
+    And User selects value "Handelsplatz_Tradegate" in "Handelsplatz_OrderErteilen"
+    And User enters "Stueck_Betrag" in "Betrag_OrderErteilen" 
+    And User clicks on "Limithandel_OrderErteilen"
+    And User selects "Ordertyp" in "Ordertyp_OrderErteilen"
+    And User selects "Gueltigkeit" in "Gueltigkeit_OrderErteilen"
+    And User clicks on "WeiterTANEingabe_OrderErteilen"
+    And User submits generated TAN number using "MobileTanLink_OrderErteilen" on "TAN_field_OrderErteilen"
+    And User clicks on KostenpflichtigKaufen_OrderErteilen
+    And Capture entered details on OrderErteilen_kauf
+    And Capture Message on OrderErteilen_kauf
+    And User clicks on "ZumOrderUebersicht_OrderErteilen"
+    Then Verify "Orderart","WKN","NominalStueck_Betrag","Ordertyp","Handelsplatz" on OrderUebersicht_kauf
+    And Verify captured details,Message from OrderErteilen_kauf
+
+    Examples: 
+      | TestCase                  |
+      | KaufOrder_Anlegen_Anleihe |
+
   # Depot Uebertrag
-  @UC27_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

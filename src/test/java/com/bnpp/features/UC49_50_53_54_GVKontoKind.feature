@@ -1,9 +1,10 @@
-
+@UC49
 Feature: UC49_50_53_54_GVKontoKind
 
   #Test data added for int acc2 - Automatable in int acc2
   #GV Eroeffnet Konto Depot/Tagesgeld Kind
   #GV Eroeffnet Konto Depot - BESTEHENDES Kind
+  @UC49_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User navigates to "Wertpapierdepot" in "Wertpapierhandel"
@@ -37,7 +38,7 @@ Feature: UC49_50_53_54_GVKontoKind
       | GVDepotBestehendesKind_Anlegen |
 
   #GV Eroeffnet Konto Depot- WEITERES Kind
-  @ExecuteAll1876
+ @UC49_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Wertpapierdepot" in "Wertpapierhandel"
@@ -90,7 +91,7 @@ Feature: UC49_50_53_54_GVKontoKind
       | GVDepotWeiteresKind_Anlegen |
 
   #GV Eroeffnet Konto Tagesgeld - BESTEHENDES Kind
-  @ExecuteAll1876
+  @UC49_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"
@@ -122,7 +123,7 @@ Feature: UC49_50_53_54_GVKontoKind
       | GVTagesgeldBestehendesKind_Anlegen |
 
   #GV Eroeffnet Konto Tagesgeld- WEITERES Kind
-  @ExecuteAll1876
+  @UC49_4
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     And User navigates to "Tagesgeld" in "Sparen_Anlegen"

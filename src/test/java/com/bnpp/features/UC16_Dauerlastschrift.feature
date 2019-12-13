@@ -12,7 +12,7 @@ Feature: UC16_Dauerlastschrift
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Dauerlastschriften_UmsaetzeZahlungsverkehr"
-    And User clicks on "NeuesDauerlastschriftenAnlengen_UmsaetzeZahlungsverkehr"
+    And User clicks on NeuesDauerlastschriftenAnlengen_UmsaetzeZahlungsverkehr to create template
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_DauerlastschriftAnlengen"
     And User enters "Betrag" in "Betrag_DauerlastschriftAnlengen"
     And User selects value "Intervall" in "Intervall_DauerlastschriftAnlengen"

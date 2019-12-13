@@ -1,6 +1,20 @@
 {
 	"UC27_DepotUebertrag": 
 	{
+	"KaufOrder_Anlegen_Anleihe": 
+		{
+		    "UserID_Kontonummer": "880804000",
+		    "PIN_Password": "12345",		
+			"Orderart": "Kaufen",
+			"Name_WKN_ISIN": "710000",
+			"Handelsplatz": "Tradegate",
+			"Stueck_Betrag": "1,00",
+			"Ordertyp": "Market",
+			"Gueltigkeit": "Keine Angabe",
+			"Message": "Die Order wurde erfolgreich angelegt."
+			
+		},
+	
 		"DepotUebertrag_Intern": 
 		{
 		    "UserID_Kontonummer": "880804000",

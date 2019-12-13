@@ -70,5 +70,4 @@ public class JunitRunner {
 		Log.info("Log configuration done. Log Dir:" + PropertiesHandler.getLogsFolder());
 
 	}
-
 }

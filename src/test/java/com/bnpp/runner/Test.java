@@ -13,28 +13,15 @@ public class Test {
 //		String cd=abc.replace("4", "4 ");
 //		System.out.println(cd);
 //		
-		Properties prop = new Properties();
-		// FileInputStream fis = new
-		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
-		FileInputStream fis = new FileInputStream(
-				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
-		prop.load(fis);
-		String customerId = prop.getProperty("userID");
-		String customerPin = prop.getProperty("pin");
-		String cafeUser = prop.getProperty("cafeUserID");
-		String cafePin = prop.getProperty("cafePin");
+		String a="122,73";
+		double i=Double.parseDouble(a.replace(",", "."));
+		i=(double) (i+Math.random()*1);
+		double f=Math.round(i*100.0)/100.0;
+		String valueToInput=String.valueOf(f);
+		valueToInput=valueToInput.replace(".", ",");
+		System.out.println(valueToInput);
 		
-		// Redirecting Mobile TAN
-		MobileTan mt = new MobileTan();
-		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+		
 
-		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		//commonActions.click("MobileTAN_link_Login");
-
-		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-		System.out.println("mTAN is  -" + mTAN);
-		Thread.sleep(3000);
-		//commonActions.enterTokenTan(TanKey, mTAN);
-	}
-
+}
 }

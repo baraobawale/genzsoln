@@ -8,7 +8,7 @@ test_parallel:
 	make -j test_firefox test_ie test_chrome
 
 test_firefox:
-	mvn install -Dbrowser=firefox -Dtest=JunitRunner 
+	mvn install -Dbrowser=firefox -Dtest=JunitRunner
 
 test_ie:
 	mvn install -Dbrowser=IE -Dtest=JunitRunner

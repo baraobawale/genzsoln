@@ -70,7 +70,8 @@ public class CommonActions {
 	public static String featurename;
 	public static String scenarioname;
 	public SoftAssertions softAssertions;
-	public String downloadpaath;
+	public String downloadDir;
+
 	public Scenario sc;
 
 	public CommonActions() {
@@ -185,14 +186,16 @@ public class CommonActions {
 					|| getScenarioName().equals("GVTagesgeldBestehendesKind_Anlegen")
 					|| getScenarioName().equals("GVDepotWeiteresKind_Anlegen")
 					|| getScenarioName().equals("GVTagesgeldWeiteresKind_Anlegen")) {
+
 				Date d = new Date();
 				String folderName = d.toString().replace(":", "_");
 				// folderName = d.toString().replace(" ", "_");
 				new File(Configurations.downloadPath).mkdirs();
-				Configurations.downloadPath = Configurations.downloadPath + folderName;
+				downloadDir = Configurations.downloadPath + folderName;
+				System.out.println(downloadDir);
 				// directory of the report folder
-				new File(Configurations.downloadPath).mkdirs();
-				prefs.put("download.default_directory", Configurations.downloadPath);
+				new File(downloadDir).mkdirs();
+				prefs.put("download.default_directory", downloadDir);
 
 			}
 			ops.setExperimentalOption("prefs", prefs);
@@ -220,31 +223,34 @@ public class CommonActions {
 	}
 
 	/**
-	 * @param objectKey Description Common verify file is Present
+	 * @param objectKey
+	 *            Description Common verify file is Present
 	 * @throws InterruptedException
 	 */
 	public void VerifyifFilePresent() throws InterruptedException {
 		try {
 			Thread.sleep(20000);
-			File files = new File(Configurations.downloadPath);
-			System.out.println("download path" + Configurations.downloadPath);
+			File files = new File(downloadDir);
+			System.out.println("download path" + downloadDir);
 			int Count = files.list().length;
 			System.out.println("No. Of Files: " + Count);
 			if (Count == 1) {
 				// logPassStatus("PDF is downloaded successfully at
 				// "+Configurations.downloadPath);
-				logPassStatus("Pass | PDF is downloaded successfully at - " + Configurations.downloadPath);
+				logPassStatus("Pass | PDF is downloaded successfully at - " + downloadDir);
 
 			} else {
 				logFailStatus(scenarioname + " : "
 						+ "Error | PDF download failed. Probably pdf not downloaded in desired folder");
 
 			}
+			downloadDir = "";
 			// put download file path in reports
 			// scenario.debug(Configurations.downloadPath);
 		} catch (NullPointerException e) {
 			logFailStatus(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
 			System.out.println(scenarioname + " : " + "Error | Probably pdf not downloaded in desired folder");
+			downloadDir = "";
 			throw e;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -255,8 +261,8 @@ public class CommonActions {
 	/**
 	 * @param objectKey
 	 * @param data
-	 * @throws Exception Description Common action select from combo box by value
-	 *                   text
+	 * @throws Exception
+	 *             Description Common action select from combo box by value text
 	 */
 	public void selectFromDropDownByValue(String objectKey, String datakey) throws Exception {
 		try {
@@ -364,7 +370,8 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param objectKey Description: Common action click
+	 * @param objectKey
+	 *            Description: Common action click
 	 * @throws InterruptedException
 	 */
 	public void click(String objectKey) throws InterruptedException {
@@ -380,7 +387,8 @@ public class CommonActions {
 
 	/**
 	 * @param objectKey
-	 * @param strValue  Description: Common action type
+	 * @param strValue
+	 *            Description: Common action type
 	 * @throws IllegalArgumentException
 	 * @throws InterruptedException
 	 * @throws ParseException
@@ -413,7 +421,8 @@ public class CommonActions {
 	/**
 	 * 
 	 * @param objectKey
-	 * @param strValue  Description Type Tan no
+	 * @param strValue
+	 *            Description Type Tan no
 	 * @throws InterruptedException
 	 */
 	public void enterTan(String objectKey, String strValue) throws InterruptedException {
@@ -429,7 +438,8 @@ public class CommonActions {
 	}
 
 	/**
-	 * @param objectKey Description Common action clear
+	 * @param objectKey
+	 *            Description Common action clear
 	 */
 	public void clearfield(String objectKey) {
 		try {
@@ -467,8 +477,8 @@ public class CommonActions {
 	/**
 	 * @param objectKey
 	 * @param data
-	 * @throws Exception Description Common action select from combo box by visible
-	 *                   text
+	 * @throws Exception
+	 *             Description Common action select from combo box by visible text
 	 */
 	public void selectFromDropDown(String objectKey, String datakey) throws Exception {
 		Select s = new Select(getElement(objectKey));
@@ -526,7 +536,8 @@ public class CommonActions {
 	 * 
 	 * @param objectKey
 	 * @param data
-	 * @throws Exception Description Common action select from combo box by Index
+	 * @throws Exception
+	 *             Description Common action select from combo box by Index
 	 */
 	public void selectDropDownByIndex(String objectKey, String data) throws Exception {
 		try {
@@ -568,7 +579,8 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param objectKey Description Common action mouse over the element
+	 * @param objectKey
+	 *            Description Common action mouse over the element
 	 */
 	public void mouseover(String objectKey) {
 		try {
@@ -605,7 +617,8 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param msg Description Reporting function to pass the step
+	 * @param msg
+	 *            Description Reporting function to pass the step
 	 */
 	public void logPassStatus(String msg) {
 		scenario.log(Status.PASS, msg);
@@ -616,8 +629,8 @@ public class CommonActions {
 	}
 
 	/**
-	 * @param errMsg Description Common function to fail the report and stop
-	 *               execution
+	 * @param errMsg
+	 *            Description Common function to fail the report and stop execution
 	 */
 	public void logAssert_Fail(String errMsg) {
 		// fail in extent reports
@@ -640,7 +653,8 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param msg Description Reporting function to fail the step and continue
+	 * @param msg
+	 *            Description Reporting function to fail the step and continue
 	 *            execution
 	 */
 	public void logFailStatus(String msg) {
@@ -729,7 +743,8 @@ public class CommonActions {
 
 	/**
 	 * 
-	 * @param scenarioName Description Common function to initialize the reports
+	 * @param scenarioName
+	 *            Description Common function to initialize the reports
 	 */
 	public void initReports(String scenarioName) {
 		try {
