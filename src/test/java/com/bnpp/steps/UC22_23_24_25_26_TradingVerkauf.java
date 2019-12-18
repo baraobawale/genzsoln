@@ -22,12 +22,20 @@ public class UC22_23_24_25_26_TradingVerkauf {
 	String Handelsplatz_TradingVerkauf ="";
 	String WKN_TradingVerkauf ="";
 	String Stuck_TradingVerkauf = "";
+	String message;
+	String ort;
+	String Handelsplatz;
+	String WKN;
+	String Stueck_Betrag;
+	String Nominal_Betrag;
+	String CapturedNominalBetrag;
+	
 
 	public UC22_23_24_25_26_TradingVerkauf(CommonActions con) {
 		this.commonActions = con;
 	}
 	
-    
+   
 	@When("User selects Handelsplatz in Handelsplatz_OrderErteilen")
 	public void user_selects_Handelsplatz_in_Handelsplatz_OrderErteilen() throws InterruptedException {
 		if (commonActions.getScenarioName().equals("VerkaufOrder_Anlegen_Fonds")) {
@@ -134,6 +142,101 @@ public class UC22_23_24_25_26_TradingVerkauf {
 		} else {
 			commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureMessage);
 		}
+	}
+	
+	@When("Capture entered details on OrderErteilen_Kauf")
+	public void capture_entered_details_on_OrderErteilen_Kauf() {
+		try {
+			Thread.sleep(7000);
+			CaptureOrderart = commonActions.getText("CapturedAnleihe_OrderArt");
+			CaptureWKN = commonActions.getText("CapturedAnleihe_WKN");
+			CaptureHandelsplatz = commonActions.getText("CapturedAnleihe_Handelsplatz");
+			CaptureStuck = commonActions.getText("CapturedAnleihe_Stueck_Betrag");
+			System.out.println("CapturedStueck_Betrag: " + CaptureStuck);
+			System.out.println("CapturedOrderart: " + CaptureOrderart);
+			System.out.println("CapturedWKN: " + CaptureWKN);
+			System.out.println("CapturedHandelsplatz: " + CaptureHandelsplatz);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	@When("Capture Message on OrderErteilen_Kauf")
+	public void capture_Message_on_OrderErteilen_Kauf() {
+		try {
+			message = commonActions.getText("CapturedMessageKauf");
+			System.out.println("Message CAPTURED: " + message);
+
+		} catch (StaleElementReferenceException e) {
+			e.printStackTrace();
+			System.out.println("Element not Captured");
+		} catch (Exception e) {
+			System.out.println("Message NOT CAPTURED");
+			e.printStackTrace();
+			// commonActions.logAssert_Fail("Message NOT CAPTURED");
+		}
+	}
+
+	@Then("Verify {string},{string},{string},{string},{string} on OrderUebersicht_Kauf")
+	public void verify_on_OrderUebersicht_Kauf(String string, String string2, String string3, String string4, String string5) {
+		ort = commonActions.getText("Verify_OrderartTable");
+		Handelsplatz = commonActions.getText("Verify_Handelsplatz_table");
+		WKN = commonActions.getText("Verify_WKN_table");
+		System.out.println("Verify_Orderart:" + ort);
+		System.out.println("Verify_Handelsplatz:" + Handelsplatz);
+		System.out.println("Verify_WKN:" + WKN);
+
+		if (ort.equals(CaptureOrderart)) {
+			System.out.println("Valid Ort value displayed");
+			commonActions.logPassStatus("Pass | Valid Ort value displayed - " + ort);
+		} else {
+			System.out.println("ort print failed-");
+			commonActions.logFailStatus("Fail | Valid Ort value display failed - " + ort);
+		}
+		if (Handelsplatz.equals(CaptureHandelsplatz)) {
+			System.out.println("Valid Handelsplat value displayed");
+			commonActions.logPassStatus("Pass | Valid Handelsplat value displayed - " + Handelsplatz);
+		} else {
+			System.out.println("Valid Handelsplat value display failed");
+			commonActions.logFailStatus("Fail | Valid Handelsplat value display failed - " + Handelsplatz);
+		}
+		if (CaptureWKN.contains(WKN)) {
+			System.out.println("Valid WKN value displayed");
+			commonActions.logPassStatus("Pass | Valid WKN value displayed - " + WKN);
+		} else {
+			System.out.println("Valid WKN value display failed");
+			commonActions.logFailStatus("Fail | Valid WKN value display failed - " + WKN);
+		}
+		Nominal_Betrag = commonActions.getText("Verify_StueckORNominal");
+		System.out.println("Nominal_Betrag:" + Nominal_Betrag);
+		if (Nominal_Betrag.equals(CaptureStuck)) {
+			System.out.println("Valid Stop NominalStueck_Betrag displayed");
+			commonActions.logPassStatus("Pass | Valid Stop NominalStueck_Betrag displayed - " + Nominal_Betrag);
+		} else {
+			System.out.println("Valid NominalStueck_Betrag value display failed");
+			commonActions.logFailStatus("Fail | Valid NominalStueck_Betrag value display failed - " + Nominal_Betrag);
+		}
+
+	}
+
+	@Then("Verify captured details,Message from OrderErteilen_Kauf")
+	public void verify_captured_details_Message_from_OrderErteilen_Kauf() {
+		try {
+			if (message.equals(commonActions.getValueFromJson("Message"))) {
+				System.out.println("Message : " + message);
+				commonActions.logPassStatus("Pass | Valid message displayed " + message);
+			} else {
+				System.out.println("Message verify failed");
+				commonActions.logFailStatus("Fail | Valid message display failed" + message);
+
+			}
+		} catch (StaleElementReferenceException e) {
+			e.printStackTrace();
+			System.out.println("Element not Captured");
+		} catch (Exception e) {
+			e.printStackTrace();
+			// commonActions.logAssert_Fail("Failure verifying data");
+		}	
 	}
 	
 	}

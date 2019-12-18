@@ -324,7 +324,7 @@ public class CommonActions {
 		WebDriverWait wait = new WebDriverWait(driver, 40);
 		try {
 			e = driver.findElement(By.xpath(properties.getProperty(objectKey)));// present
-			if (!objectKey.equals("Edit_Aktie") && (!scenarioname.equals("KaufOrder_Loeschen_Aktie"))
+			 if (!objectKey.equals("Edit_Aktie") && (!scenarioname.equals("KaufOrder_Loeschen_Aktie"))
 					&& (!scenarioname.equals("KaufOrder_Loeschen_Fond"))) {
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
 				Thread.sleep(1000);
@@ -1155,6 +1155,17 @@ public class CommonActions {
 		try {
 			Actions act = new Actions(driver);
 			act.sendKeys(Keys.ESCAPE).build().perform();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+	}
+
+	public void pressRightArrow() {
+		// TODO Auto-generated method stub
+		try {
+			Actions act = new Actions(driver);
+			act.sendKeys(Keys.ARROW_RIGHT).build().perform();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw e;

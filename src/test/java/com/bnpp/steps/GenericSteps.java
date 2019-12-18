@@ -331,6 +331,7 @@ public class GenericSteps {
 
 			} else {
 				commonActions.pressTab();
+				Thread.sleep(1000);
 				commonActions.click(locatorKey);
 
 			}

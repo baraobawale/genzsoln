@@ -75,7 +75,7 @@ Feature: UC31_32_33_NeukundenDepot
     And User enters "PLZ_1" in "PLZ1_Kontoinhaber1"
     And User enters "Ort_1" in "Ort1_Kontoinhaber1"
     And User selects "Land_1" in "Land_1_Kontoinhaber1"
-    And User selects radiobutton "Ansaessigkeit_ausserhalb_Deutschlands_USA_1" in "AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber1"
+    And User selects radiobutton Ansaessigkeit_ausserhalb_Deutschlands_USA_1 in AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber1
     And User enters "EMail_1" in "EMail1_Kontoinhaber1"
     And User enters "EMail_wiederholen_1" in "EMailWiederholen1_Kontoinhaber1"
     And User enters "Telefon_privat_1" in "TelefonPrivat1_Kontoinhaber1"

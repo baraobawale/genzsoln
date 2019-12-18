@@ -3,6 +3,7 @@ package com.bnpp.steps;
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.ElementClickInterceptedException;
 
 import com.bnpp.library.CommonActions;
 
@@ -16,9 +17,9 @@ public class UC31_32_33_NeukundenDepot {
 	String CaptureMsgKostenlosesWertpapierdepotEinzel = "";
 	String CaptureKostenlosesWertpapierdepotEinzel = "";
 	String CaptureKostenlosesWertpapierdepotMinderjaehrigen = "";
-	String CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel ="";
-	String CaptureMessageGemeinschafts="";
-	String CaptureVorgangsnummerGemeinschafts="";
+	String CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel = "";
+	String CaptureMessageGemeinschafts = "";
+	String CaptureVorgangsnummerGemeinschafts = "";
 
 	public UC31_32_33_NeukundenDepot(CommonActions commonActions) {
 		this.commonActions = commonActions;
@@ -30,8 +31,7 @@ public class UC31_32_33_NeukundenDepot {
 			CaptureMsgKostenlosesWertpapierdepotEinzel = commonActions.getText("MsgKostenlosesWertpapierdepotEinzel");
 			CaptureKostenlosesWertpapierdepotEinzel = commonActions.getText("CaptureKostenlosesWertpapierdepotEinzel");
 
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotEinzel failed");
 		}
@@ -42,31 +42,35 @@ public class UC31_32_33_NeukundenDepot {
 		try {
 
 			if (CaptureMsgKostenlosesWertpapierdepotEinzel.equals(commonActions.getValueFromJson("Message"))) {
-				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMsgKostenlosesWertpapierdepotEinzel);
+				commonActions
+						.logPassStatus("Pass | Valid Messge displayed -" + CaptureMsgKostenlosesWertpapierdepotEinzel);
 			} else {
-				commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureMsgKostenlosesWertpapierdepotEinzel);
+				commonActions.logFailStatus(
+						"Error | Valid Messge display failed -" + CaptureMsgKostenlosesWertpapierdepotEinzel);
 			}
 			if (!CaptureKostenlosesWertpapierdepotEinzel.equals("")) {
-				commonActions.logPassStatus("Pass | captured Vorgangsnummer - "+CaptureKostenlosesWertpapierdepotEinzel);
+				commonActions
+						.logPassStatus("Pass | captured Vorgangsnummer - " + CaptureKostenlosesWertpapierdepotEinzel);
 			} else {
-				commonActions.logFailStatus("Error | captured Vorgangsnummer - "+CaptureKostenlosesWertpapierdepotEinzel);
+				commonActions
+						.logFailStatus("Error | captured Vorgangsnummer - " + CaptureKostenlosesWertpapierdepotEinzel);
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotEinzel");
+			commonActions
+					.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotEinzel");
 		}
 	}
 
 	@When("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotGemeinschafts_{int}")
 	public void capture_Vorgangsnummer_Message_on_KostenlosesWertpapierdepotGemeinschafts_(Integer int1) {
 		try {
-			CaptureMessageGemeinschafts= commonActions.getText("MsgKostenlosesWertpapierdepotEinzel");
-			CaptureVorgangsnummerGemeinschafts = commonActions.getText("CaptureKostenlosesWertpapierdepotEinzel");	
-		}
-		catch (Exception e) {
+			CaptureMessageGemeinschafts = commonActions.getText("MsgKostenlosesWertpapierdepotEinzel");
+			CaptureVorgangsnummerGemeinschafts = commonActions.getText("CaptureKostenlosesWertpapierdepotEinzel");
+		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotGemeinschafts failed");
+			commonActions
+					.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotGemeinschafts failed");
 		}
 
 	}
@@ -76,19 +80,19 @@ public class UC31_32_33_NeukundenDepot {
 		try {
 
 			if (CaptureMessageGemeinschafts.equals(commonActions.getValueFromJson("Message"))) {
-				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureMessageGemeinschafts);
+				commonActions.logPassStatus("Pass | Valid Messge displayed -" + CaptureMessageGemeinschafts);
 			} else {
-				commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureMessageGemeinschafts);
+				commonActions.logFailStatus("Error | Valid Messge display failed -" + CaptureMessageGemeinschafts);
 			}
 			if (!CaptureVorgangsnummerGemeinschafts.equals("")) {
-				commonActions.logPassStatus("Pass | captured Vorgangsnummer - "+CaptureVorgangsnummerGemeinschafts);
+				commonActions.logPassStatus("Pass | captured Vorgangsnummer - " + CaptureVorgangsnummerGemeinschafts);
 			} else {
-				commonActions.logFailStatus("Error | captured Vorgangsnummer - "+CaptureVorgangsnummerGemeinschafts);
+				commonActions.logFailStatus("Error | captured Vorgangsnummer - " + CaptureVorgangsnummerGemeinschafts);
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotGemeinschafts Failed");
+			commonActions.logAssert_Fail(
+					"Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotGemeinschafts Failed");
 		}
 
 	}
@@ -96,13 +100,15 @@ public class UC31_32_33_NeukundenDepot {
 	@When("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen")
 	public void capture_Vorgangsnummer_Message_on_KostenlosesWertpapierdepotMinderjaehrigen() {
 		try {
-			CaptureKostenlosesWertpapierdepotMinderjaehrigen = commonActions.getText("MsgKostenlosesWertpapierdepotMinderjaehrigen");
-			CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel = commonActions.getText("VorgangsnummerKostenlosesWertpapierdepotEinzel");
+			CaptureKostenlosesWertpapierdepotMinderjaehrigen = commonActions
+					.getText("MsgKostenlosesWertpapierdepotMinderjaehrigen");
+			CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel = commonActions
+					.getText("VorgangsnummerKostenlosesWertpapierdepotEinzel");
 
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen failed");
+			commonActions.logAssert_Fail(
+					"Capture Vorgangsnummer,Message on KostenlosesWertpapierdepotMinderjaehrigen failed");
 		}
 	}
 
@@ -111,34 +117,47 @@ public class UC31_32_33_NeukundenDepot {
 		try {
 
 			if (CaptureKostenlosesWertpapierdepotMinderjaehrigen.equals(commonActions.getValueFromJson("Message"))) {
-				commonActions.logPassStatus("Pass | Valid Messge displayed -"+CaptureKostenlosesWertpapierdepotMinderjaehrigen);
+				commonActions.logPassStatus(
+						"Pass | Valid Messge displayed -" + CaptureKostenlosesWertpapierdepotMinderjaehrigen);
 			} else {
-				commonActions.logFailStatus("Error | Valid Messge display failed -"+CaptureKostenlosesWertpapierdepotMinderjaehrigen);
+				commonActions.logFailStatus(
+						"Error | Valid Messge display failed -" + CaptureKostenlosesWertpapierdepotMinderjaehrigen);
 			}
 			if (!CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel.equals("")) {
-				commonActions.logPassStatus("Pass | captured Vorgangsnummer - "+CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel);
+				commonActions.logPassStatus(
+						"Pass | captured Vorgangsnummer - " + CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel);
 			} else {
-				commonActions.logFailStatus("Error | captured Vorgangsnummer - "+CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel);
+				commonActions.logFailStatus(
+						"Error | captured Vorgangsnummer - " + CaptureVorgangsnummerKostenlosesWertpapierdepotEinzel);
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			commonActions.logAssert_Fail("Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen");
+			commonActions.logAssert_Fail(
+					"Verify captured Vorgangsnummer,Message from KostenlosesWertpapierdepotMinderjaehrigen");
 		}
 	}
 
-
-
 	@And("User clicks on Weiter_GesetzlicherVertreter1Page")
-	public void User_clicks_on_Weiter_GesetzlicherVertreter1Page() throws IllegalArgumentException, InterruptedException, IOException, ParseException{
-		commonActions.click("Weiter_GesetzlicherVertreter1Page"); 
+	public void User_clicks_on_Weiter_GesetzlicherVertreter1Page()
+			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
+		commonActions.click("Weiter_GesetzlicherVertreter1Page");
 		commonActions.clearfield("maintaxrasidance");
-		String locatorKey="EMail2_GesetzlicherVertreter1Page"; 
+		String locatorKey = "EMail2_GesetzlicherVertreter1Page";
 		String textToEnter = commonActions.getValueFromJson("EMail_2");
 		if (textToEnter.equals("")) {
 			commonActions.clearfield(locatorKey);
 		} else
 			commonActions.enterText(locatorKey, textToEnter);
 		commonActions.click("Weiter_GesetzlicherVertreter1Page");
+	}
+
+	@And("User selects radiobutton Ansaessigkeit_ausserhalb_Deutschlands_USA_1 in AnsaessigkeitAusserhalbDeutschlandsUSA1_Kontoinhaber1")
+	public void select_radiobutton_Ansaessigkeit_ausserhalb_Deutschlands_USA_1() throws InterruptedException {
+		commonActions.pressTab();
+		commonActions.pressTab();
+		commonActions.pressTab();
+		commonActions.pressRightArrow();
+		commonActions.pressTab();
+				
 	}
 }
