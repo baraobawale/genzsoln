@@ -1,7 +1,1 @@
-com\bnpp\reports\ExtentManager.class
-com\bnpp\steps\UC67_68_Stammdaten.class
-com\bnpp\runner\JunitRunner.class
-com\bnpp\utilities\TANGenerator.class
-com\bnpp\library\CommonActions.class
-com\bnpp\steps\GenericSteps.class
-com\bnpp\utilities\Configurations.class
+

@@ -23,7 +23,7 @@
 			"Ablauf_Gueltigkeit": "Select",
 			"CFD_Margin_Call": "Select",
 			"Hinweis_Benachrichtigungsservice": "Select",
-			"Message": "Ihre aktuell gewaehlten E-Mailbenachrichtigungen",
+			"Message": "Ihre aktuell gewählten E-Mailbenachrichtigungen",
 			"Status" : "Checked"
 		},
 		"EMail_Benachrichtigungen_Unselect": 
@@ -35,7 +35,7 @@
 			"Ablauf_Gueltigkeit": "",
 			"CFD_Margin_Call": "",
 			"Hinweis_Benachrichtigungsservice": "",
-			"Message": "Ihre aktuell gewaehlten E-Mailbenachrichtigungen",
+			"Message": "Ihre aktuell gewählten E-Mailbenachrichtigungen",
 			"Status" : "Unchecked"
 		}
 	}

@@ -2,6 +2,10 @@ package com.bnpp.steps;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 import org.apache.http.client.ClientProtocolException;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -10,17 +14,27 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.xml.sax.SAXException;
 
 import com.bnpp.library.CommonActions;
+import com.bnpp.runner.JunitRunner;
 import com.bnpp.utilities.Configurations;
+import com.bnpp.xray.Log;
+import com.bnpp.xray.XrayHelper;
+import com.dab.xray.XRAY_CONFIG;
+import com.dab.xray.Xray;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class GenericSteps {
 
 	CommonActions commonActions;
+	// String testStart = "";
+	String testFinish = "";
+	String XrayIssueKey = "";
 
 	public GenericSteps(CommonActions con) {
 		this.commonActions = con;
@@ -35,25 +49,75 @@ public class GenericSteps {
 	 */
 	@Before
 	public void before(Scenario s) throws Exception {
+
 		if ((Configurations.RunOnBrowserStack).equals("Y")) {
 			commonActions.initReports(s.getName() + "_" + System.getProperty("browser"));
+		} else {
+			commonActions.initReports(s.getName() + "_" + "chrome");
 		}
-		commonActions.initReports(s.getName() + "_" + "chrome");
-		commonActions.setfaturefilenameandsceanrio(s.getId(), s.getName());
+		commonActions.setfeaturefilenameandsceanrio(s.getId(), s.getName());
+		commonActions.setScenario(s);
 
+		checkNewTest(s);
 	}
 
 	/**
 	 * Description Closing the resources after execution of each scenario
+	 * 
+	 * @throws IOException
 	 */
 	@After
+	public void after(Scenario s) {
 
-	public void after() {
 		commonActions.quit();
+
+		saveTestResultsToXray(s);
+
+	}
+
+	private void saveTestResultsToXray(Scenario s) {
+
+		ZonedDateTime finishDateTime = ZonedDateTime.now();
+		testFinish = finishDateTime.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		Log.info("Test Finish Time: " + testFinish);
+
+		if (s.isFailed()) {
+			Log.error("Test Failed!");
+			JunitRunner.featureTestPassed = false;
+			Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_FAIL,
+					JunitRunner.testStart, testFinish);
+		} else {
+			if (JunitRunner.featureTestPassed == true) {
+				Log.info("Test Passed!");
+				Xray.writeResultsForSingleTest(JunitRunner.ExecutionID, XrayIssueKey, XRAY_CONFIG.TEST_STATUS_PASS,
+						JunitRunner.testStart, testFinish);
+			}
+		}
+
+	}
+
+	private void checkNewTest(Scenario s) {
+		XrayIssueKey = XrayHelper.getTestIdFromFileName(s.getId());
+
+		if (!JunitRunner.currentXrayIssueKey.contains(XrayIssueKey)) {
+			System.out.println("This is a new Feature!");
+			JunitRunner.currentXrayIssueKey = XrayIssueKey;
+			JunitRunner.featureTestPassed = true;
+		}
+
 	}
 
 	// ********Common step definitions ************//
-
+	/*
+	 * private String getTestIdFromFileName(String path) { String result = ""; File
+	 * f = new File(path); //System.out.println("File Name1: " +
+	 * f.getName().toString().toUpperCase().replace("_", "-").trim()); result =
+	 * f.getName().toString().toUpperCase().replace("_",
+	 * "-").trim().split(".FEATURE")[0]; System.out.println("File Name: " + result);
+	 * // result = f.getName().toString().toUpperCase().replace("_", "-").trim();
+	 * return result; }
+	 * 
+	 */
 	@Given("^User launches Consorsbank web application$")
 	public void User_launches_consorsbank_web_application() {
 		try {
@@ -71,11 +135,20 @@ public class GenericSteps {
 			throws IllegalArgumentException, InterruptedException, IOException, ParseException {
 		try {
 			String textToEnter = commonActions.getValueFromJson(dataKey);
+			/************ for testing purpose */
+			// if(locatorKey.equals("EMail2_GesetzlicherVertreter1Page")) {
+			// commonActions.click(locatorKey);
+			// }
+
+			/*******************************************/
 			if (textToEnter.equals("")) {
 				commonActions.clearfield(locatorKey);
-			} else
+			} else {
+				// commonActions.click(locatorKey);
 				commonActions.enterText(locatorKey, textToEnter);
+			}
 			commonActions.pressTab();
+
 		} catch (ElementNotInteractableException e) {
 			commonActions.logAssert_Fail(
 					"Enter text failed on:- " + locatorKey + " :Please check element is visible on the page");
@@ -108,8 +181,9 @@ public class GenericSteps {
 			commonActions.click(locatorKey);
 			commonActions.pressTab();
 		} catch (ElementNotInteractableException e) {
-			commonActions.logAssert_Fail(
-					"Clicking failed on:-" + locatorKey + " :Please check element is visible on the page-");
+			// commonActions.logAssert_Fail(
+			// "Clicking failed on:-" + locatorKey + " :Please check element is visible on
+			// the page-");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -257,6 +331,7 @@ public class GenericSteps {
 
 			} else {
 				commonActions.pressTab();
+				Thread.sleep(1000);
 				commonActions.click(locatorKey);
 
 			}
@@ -267,13 +342,12 @@ public class GenericSteps {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("User selects radio button failed: " + locatorKey + ":" + dataKey);
 		}
-
 	}
 
 	@And("^User selects \"(.*?)\" in \"(.*?)\"$")
 	public void User_selects(String dataKey, String locatorKey) throws Exception {
 		try {
-			if (dataKey.equals("Account_Type")) {
+			if (dataKey.equals("Account_Type") || dataKey.equals("Kategorie")) {
 				commonActions.selectFromDropDownByValue(locatorKey, dataKey);
 			} else {
 				commonActions.selectFromDropDown(locatorKey, dataKey);
@@ -325,7 +399,6 @@ public class GenericSteps {
 				// check feature file steps for blank
 			} else {
 			}
-
 		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Please check element is visible on the page: " + locatorKey + ":" + dataKey);
@@ -339,13 +412,10 @@ public class GenericSteps {
 	@And("^User submits generated TAN number in \"(.*?)\"$")
 	public void User_submits_generated_TAN_number(String tankey) throws InterruptedException {
 		try {
-
-			// if (commonActions.isElementPresent("SecurePlusLink")) {
-			// commonActions.click("SecurePlusLink");
-			// }
-			// commonActions.enterTexttoken(tankey, "12345678");
-			// commonActions.click("BestaetigenButton");
-
+			if (commonActions.getFeatureName().equals("UC49_50_53_54_GVKontoKind")) {
+				commonActions.enterTexttoken(tankey, "12345678");
+				commonActions.click("BestaetigenButton");
+			}
 		} catch (ElementNotInteractableException e) {
 			e.printStackTrace();
 			commonActions.logAssert_Fail("Please check element is visible on the page");
@@ -356,4 +426,15 @@ public class GenericSteps {
 		}
 	}
 
+	@Then("Download PDF generated in New Tab")
+	public void download_PDF_generated_in_New_Tab() throws InterruptedException {
+		try {
+			Thread.sleep(7000);
+			commonActions.VerifyifFilePresent();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			// commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
+		}
+	}
 }

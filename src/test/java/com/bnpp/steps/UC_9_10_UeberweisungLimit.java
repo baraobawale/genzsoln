@@ -132,17 +132,6 @@ public class UC_9_10_UeberweisungLimit {
 			commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
 		}
 	}
-	@Then("Download PDF generated in New Tab")
-	public void download_PDF_generated_in_New_Tab() throws InterruptedException {
-		try {
-			Thread.sleep(7000);
-			commonActions.VerifyifFilePresent();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//commonActions.logAssert_Fail(commonActions.getScenarioName()+ "failed");
-		}
-	}
 	
 	@And("User enters Uberweisungslimit in Uberweisungslimit_Ueberweisungslimit")
 	public void User_enters_Uberweisunglimmit(){

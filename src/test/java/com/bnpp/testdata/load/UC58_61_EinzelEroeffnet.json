@@ -12,7 +12,7 @@
 			"Telefon_privat": "1234567890",
 			"Erfahrungen_im_Bereich_Wertpapierhande": "Keine Angaben ",
 			"Einverstaendnis_mit_PRIIP_Verordnung": "Select",
-			"Message": "Danke fuer Ihren Antrag"
+			"Message": "Danke für Ihren Antrag"
 		},
 		"Einzelkonto_Tagesgeld": {
 			"Kunde_bei_der_Consorsbank": "Ja",
@@ -24,7 +24,7 @@
 			"Ansaessigkeit_ausserhalb_Deutschlands_USA": "Nein",
 			"EMail_wiederholen": "test@test.com",
 			"Telefon_privat": "1234567890",
-			"Message": "Danke fuer Ihren Antrag"
+			"Message": "Danke für Ihren Antrag"
 		}
 	}
 }

@@ -3,7 +3,7 @@ Feature: UC4_Terminueberweisungen
 
   #Executable - Terminueberweisungen anlegen,Andern,loeschen
   #Anlegen/Creation
-  
+  @UC4_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -33,7 +33,7 @@ Feature: UC4_Terminueberweisungen
       | Terminueberweisungen_Anlegen |
 
   #Andern/Updation
-  @UC44
+  @UC4_2
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -55,7 +55,7 @@ Feature: UC4_Terminueberweisungen
       | Terminueberweisungen_Andern |
 
   #Loeschen/Deletion
-  @UC44
+  @UC4_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

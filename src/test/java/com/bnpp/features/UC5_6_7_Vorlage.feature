@@ -1,22 +1,23 @@
+@UC5
 Feature: UC5_6_7_Vorlage
 
-  #Anlegen/Create-IBAN
-  @567Create
+  #Anlegen/Create - IBAN
+  @UC5_1
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
-    #And User submits generated Mobile TAN number
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
-     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
+    And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr"
+   	And User clicks on NeueUeberweisungsvorlageAnlegen_UmsaetzeZahlungsverkehr to create template
     And User enters "Vorlagenname" in "Vorlagenname_VorlageAnlegen"
     And User enters "Name" in "Name_VorlageAnlegen"
     And User enters "IBAN_oder_Kontonummer" in "IBANOderKontonummer_VorlageAnlegen"
     And User enters "Betrag" in "Betrag_VorlageAnlegen"
     And User clicks on "WeiterZurTANEingabe_VorlageAnlegen"
-    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungsvorlageAnlegen_VorlageAnlegen"
     And Capture entered details on VorlageAnlegen
     And Capture Message on VorlageAnlegen
@@ -28,9 +29,10 @@ Feature: UC5_6_7_Vorlage
       | TestCase             |
       | IBANVorlagen_Anlegen |
 
-#Anlegen/Create-KontoBLZ
-@567Create
+  #Anlegen/Create-KontoBLZ
+  @UC5_2
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
@@ -44,7 +46,7 @@ Feature: UC5_6_7_Vorlage
     And User enters "BLZ" in "BLZ_VorlageAnlegen"
     And User enters "Betrag" in "Betrag_VorlageAnlegen"
     And User clicks on "WeiterZurTANEingabe_VorlageAnlegen"
-    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungsvorlageAnlegen_VorlageAnlegen"
     And Capture entered details on VorlageAnlegen
     And Capture Message on VorlageAnlegen
@@ -56,37 +58,40 @@ Feature: UC5_6_7_Vorlage
       | TestCase                 |
       | KontoBLZVorlagen_Anlegen |
 
-	#Aendern/Change-IBAN/KontoBLZ
+  #Aendern/Change-IBAN/KontoBLZ
+  @UC5_3
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr" field
-    And User changes "Betrag" in "Betrag_VorlageAendern"
+    And User click on "Edit" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
+    And User enters "Betrag" in "Betrag_VorlageAendern"
     And User clicks on "WeiterZurTANEingabe_VorlageAendern"
-    And User submits generated TAN number in "TAN_field_VorlageAnlegen"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_VorlageAnlegen"
     And User clicks on "UeberweisungVorlageSpeichern_VorlageAendern"
     Then Verify Message,details on VorlageAendern
 
     Examples: 
-      | TestCase                  | 
+      | TestCase                  |
       | Vorlagen_Aendern_IBAN     |
       | Vorlagen_Aendern_kontoBLZ |
 
   #Loeschen/Delete-IBAN/KontoBLZ
-  @567Delete
+  @UC5_4
   Scenario Outline: <TestCase>
+    Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Umsaetze_Zahlungsverkehr" in "Mein_Konto_Depot"
     And User selects "Account_Type" in "AccountType_UmsaetzeZahlungsverkehr"
     And User clicks on "Zahlungsverkehr_UmsaetzeZahlungsverkehr"
     And User clicks on "Vorlagen_UmsaetzeZahlungsverkehr"
-    And User clicks on "Delete" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr" field
-    And User submits generated TAN number in "TAN_field_Vorlageloeschen"
+    And User click on "Delete" of "Created_Vorlagenname" in "CreatedVorlagenname_UmsaetzeZahlungsverkehr"
+    And User submits generated TAN number using "MobileTanLink_VorlageAnlegen" on "TAN_field_Vorlageloeschen"
     And User clicks on "UeberweisungsVorlageloeschen_Vorlageloeschen"
     Then Verify Message on Vorlageloeschen
 

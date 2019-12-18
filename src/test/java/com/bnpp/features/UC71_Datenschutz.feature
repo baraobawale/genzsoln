@@ -1,9 +1,11 @@
-@RTA
+@UC71
 Feature: UC71_Datenschutz
 
   # Datenschutz andern - Non Executable
+  @UC71_1
   Scenario Outline: <TestCase>
-    When User Logs in with "UserID_Kontonummer","PIN_Password"
+    Given User launches Consorsbank web application
+    And User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
     And User navigates to "Mein_Datenschutz" in "Mein_Konto_Depot"
     And User selects checkbox "E-Mail_informiert" in "EMailInformiert_MeinDatenschutzAndern"
@@ -15,4 +17,4 @@ Feature: UC71_Datenschutz
     Examples: 
       | TestCase                          |
       | Datenschutz_select_All_Unselected |
-      | Datenschutz_select_All_Selected   |
+    	| Datenschutz_select_All_Selected   |

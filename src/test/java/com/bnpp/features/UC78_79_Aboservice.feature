@@ -1,8 +1,9 @@
-@UC78_79
+@UC78
 Feature: UC78_79_Aboservice
 
   #Executable : Aboservice setzen und zuruecksetzen(mit Fehlermeldungen)
   # Verify Error - Aboservice
+  @UC78_1
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
@@ -17,8 +18,8 @@ Feature: UC78_79_Aboservice
       | Aboservice_Verify_Errors |
 
   #Setzen/Set Newsletter Subscription
-  @AB
-  Scenario Outline: <TestCase>
+  @UC78_2
+   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"
     And User submits generated TAN number in "TAN_field_Login"
@@ -38,6 +39,7 @@ Feature: UC78_79_Aboservice
       | Aboservice_Setzen |
 
   #Zuruecksetzen/Reset subscription
+  @UC78_3
   Scenario Outline: <TestCase>
     Given User launches Consorsbank web application
     When User Logs in with "UserID_Kontonummer","PIN_Password"

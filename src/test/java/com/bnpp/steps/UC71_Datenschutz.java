@@ -16,7 +16,7 @@ public class UC71_Datenschutz {
 	public void Verify_messages_displayed_on_Mein_Datenchutz() {
 		try {
 			String ScenarioName = commonActions.getScenarioName();
-			System.out.println("ScenarioName" + ScenarioName);
+			Thread.sleep(6000);
 			if (ScenarioName.equals("Datenschutz_select_All_Unselected")) {
 				if (commonActions.isElementPresent("e-mail_msg_1")
 						&& commonActions.isElementPresent("unselected_Mark_1"))
@@ -54,7 +54,7 @@ public class UC71_Datenschutz {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			commonActions.logAssert_Fail(commonActions.getScenarioName()+" failed.");
 		}
 	}
 

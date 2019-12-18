@@ -20,26 +20,35 @@ public class UC67_68_Stammdaten {
 	@Then("^Verify displayed \"(.*?)\" on PersoenlicheEinstellungen$")
 	public void verify_error_messsages_are_displayed(String ErrorMesssages)
 			throws FileNotFoundException, IOException, ParseException {
-				
-			if (commonActions.verifyErrorMessage("PLZError").equals(commonActions.getText("plz_errorMessage")))
-				commonActions.logPassStatus("Pass | Valid PLZ message displayed "+commonActions.getText("plz_errorMessage"));
-			else
-				commonActions.logFailStatus("Fail | Valid PLZ message display fail "+commonActions.getText("plz_errorMessage"));
-			
-			if (commonActions.verifyErrorMessage("StrabeError").equals(commonActions.getText("StraBe_errorMessage")))
-				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("StraBe_errorMessage"));
-			else
-				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("StraBe_errorMessage"));
-			
-			if (commonActions.verifyErrorMessage("OrtError").equals(commonActions.getText("Ort_errorMessage")))
-				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("Ort_errorMessage"));
-			else
-				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("OrtError"));
-			if (commonActions.verifyErrorMessage("BrancheError").equals(commonActions.getText("Branchie_errorMessage")))
-				commonActions.logPassStatus("Pass | Valid message displayed "+commonActions.getText("Branchie_errorMessage"));
-			else
-				commonActions.logFailStatus("Fail | Valid message display failed "+commonActions.getText("Branchie_errorMessage"));
-		
+		System.out.println("PLZ: " + commonActions.getText("plz_errorMessage"));
+		System.out.println("StrabeError: " + commonActions.getText("StraBe_errorMessage"));
+		System.out.println("OrtError: " + commonActions.getText("Ort_errorMessage"));
+		System.out.println("BrancheError: " + commonActions.getText("Branchie_errorMessage"));
+
+		if (commonActions.verifyErrorMessage("PLZError").equals(commonActions.getText("plz_errorMessage")))
+			commonActions
+					.logPassStatus("Pass | Valid PLZ message displayed " + commonActions.getText("plz_errorMessage"));
+		else
+			commonActions.logFailStatus(
+					"Fail | Valid PLZ message display fail " + commonActions.getText("plz_errorMessage"));
+
+		if (commonActions.verifyErrorMessage("OrtError").equals(commonActions.getText("Ort_errorMessage")))
+			commonActions.logPassStatus("Pass | Valid message displayed " + commonActions.getText("Ort_errorMessage"));
+		else
+			commonActions.logFailStatus("Fail | Valid message display failed " + commonActions.getText("OrtError"));
+		if (commonActions.verifyErrorMessage("BrancheError").equals(commonActions.getText("Branchie_errorMessage")))
+			commonActions
+					.logPassStatus("Pass | Valid message displayed " + commonActions.getText("Branchie_errorMessage"));
+		else
+			commonActions.logFailStatus(
+					"Fail | Valid message display failed " + commonActions.getText("Branchie_errorMessage"));
+		if (commonActions.verifyErrorMessage("StrabeError").equals(commonActions.getText("StraBe_errorMessage")))
+			commonActions
+					.logPassStatus("Pass | Valid message displayed " + commonActions.getText("StraBe_errorMessage"));
+		else
+			commonActions.logFailStatus(
+					"Fail | Valid message display failed " + commonActions.getText("StraBe_errorMessage"));
+
 	}
 
 	@Then("^verify changed data shown on bestaetigung page$")
