@@ -56,6 +56,7 @@ public class JunitRunner {
 	public static void teardown() throws Exception {
 
 		ReportBuilder.generateReport();
+		System.out.println("after class");
 
 		// *** activating and deacivating in config.properties
 		Xray.attachFileToJiraIssue(Configurations.reportPath + folderNameReport, ExecutionID);
