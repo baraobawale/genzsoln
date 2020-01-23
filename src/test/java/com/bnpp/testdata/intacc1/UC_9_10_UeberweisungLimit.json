@@ -1,8 +1,8 @@
 {
 	"UC_9_10_UeberweisungLimit": {
 		"Ueberweisungslimit_Verify_Errors": {
-			"UserID_Kontonummer": "880589404",
-			"PIN_Password": "12345",
+			"firstname": "880589404",
+			"lastname": "12345",
 			"Account_Type": "Verrechnungskonto",
 			"Uberweisungslimit": "null",
 			"Ich_bestaetige": "null",

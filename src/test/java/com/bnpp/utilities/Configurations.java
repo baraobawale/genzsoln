@@ -9,17 +9,19 @@ public class Configurations {
 	public final static String chromeDriverPath = "./src/test/Resources/Drivers/chromedriver.exe";
 	public final static String chromeDriverPath77 = "./src/test/Resources/Drivers/chromedriver77.exe";
 	public final static String chromeDriverPath78 = "./src/test/Resources/Drivers/chromedriver78.exe";
+	public final static String chromeDriverPath79 = "./src/test/Resources/Drivers/chromedriver79.exe";
 	public final static String ieDriverPath = "./src/test/Resources/Drivers/IEDriverServer.exe";
 
 	// Application URL
 	public final static String AppurlLoad = "https://load1-de.consorsbank.de/home";
 	public final static String AppurlEnv2 = "https://int-acc-ewev-2.consorsbank.de/home";
 	public final static String AppurlEnv1 = "https://int-acc-ewev.consorsbank.de/home";
+	public final static String load = "https://www.facebook.com";
 	// Test Data source path
 	public final static String testDataResourcePath = "../src/test/java/com/bnpp/TestData/";
 
 	// Browser Stack configuration
-	public static final String RunOnBrowserStack = "Y";
+	public static final String RunOnBrowserStack = "N";
 	public static final String USERNAME = "chetana19";
 
 	public static final String AUTOMATE_KEY = "5tW8jrFVdPxbpgUSvssc";

@@ -54,7 +54,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.bnpp.mTANResources.MobileTan;
+
 import com.bnpp.reports.ExtentManager;
 import com.bnpp.utilities.Configurations;
 
@@ -115,11 +115,15 @@ public class CommonActions {
 	public void launchBrowser() throws MalformedURLException {
 		try {
 			if ((Configurations.RunOnBrowserStack).equals("Y")) {
+				System.out.println("1");
 				setUp();
 			} else {
 				if ((Configurations.BrowserName).equals("Chrome")) {
+					System.out.println("2");
 					System.setProperty("webdriver.chrome.driver", Configurations.chromeDriverPath78);
+					System.out.println("3");
 					driver = new ChromeDriver(loadChromeOptions());
+					System.out.println("4");
 					logInfoStatus("Info | Browser : " + (Configurations.BrowserName));
 				} else if ((Configurations.BrowserName).equals("IE")) {
 					System.setProperty("webdriver.ie.driver", properties.getProperty("ieDriverPath"));
@@ -140,6 +144,12 @@ public class CommonActions {
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
 				driver.get(Configurations.AppurlLoad);
 				logInfoStatus("Info | Environment Name: " + Configurations.AppurlLoad);
+			}
+			
+			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+				System.out.println("Above driver launch");
+				driver.get(Configurations.load);
+				//logInfoStatus("Info | Environment Name: " + Configurations.AppurlLoad);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -777,11 +787,13 @@ public class CommonActions {
 	}
 
 	public String getKeyFromJson(String dataKey) throws FileNotFoundException, IOException, ParseException {
+		System.out.println("**********above try block*********");
 
 		try {
 			String data = null;
 			JSONParser parser = new JSONParser();
 			if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc1")) {
+				System.out.println("get json intacc1");
 				JSONObject getFeatureName = (JSONObject) parser
 						.parse(new FileReader("./src/test/java/com/bnpp/testdata/intacc1/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
@@ -798,6 +810,7 @@ public class CommonActions {
 				}
 
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("intacc2")) {
+				System.out.println("get json intacc2");
 				JSONObject getFeatureName = (JSONObject) parser
 						.parse(new FileReader("./src/test/java/com/bnpp/testdata/intacc2/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
@@ -814,11 +827,17 @@ public class CommonActions {
 				}
 				// pair.getValue().toString());
 			} else if (Configurations.ExecutionEnvnmt.equalsIgnoreCase("load")) {
+				System.out.println("get json load");
+				System.out.println("feature name"+featurename);
+
 
 				JSONObject getFeatureName = (JSONObject) parser
 						.parse(new FileReader("./src/test/java/com/bnpp/testdata/load/" + featurename + ".json"));
 				JSONObject featureName = (JSONObject) getFeatureName.get(featurename);
+				
+				System.out.println("File Reader"+"./src/test/java/com/bnpp/testdata/load/" + featurename + ".json");
 				Map<String, String> getScenarioName = (Map<String, String>) featureName.get(scenarioname);
+				System.out.println("Scenario Name"+scenarioname);
 				Iterator it = getScenarioName.entrySet().iterator();
 				while (it.hasNext()) {
 					Map.Entry pair = (Map.Entry) it.next();
@@ -977,39 +996,34 @@ public class CommonActions {
 			return false;
 	}
 
-	// Not in use currently for load environement 13.11.2019
-	public void enterNewMobileTan(String tanKey, String token) throws InterruptedException, ClientProtocolException,
-			IOException, ParserConfigurationException, SAXException, ParseException {
-		Properties prop = new Properties();
-		// FileInputStream fis = new
-		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
-		FileInputStream fis = new FileInputStream(
-				System.getProperty("user.dir") + "/src/test/java/com/bnpp/mTANResources/data.properties");
-		prop.load(fis);
-		// String customerId = prop.getProperty("userID");
-		String customerId = getValueFromJson("UserID_Kontonummer");
-		String customerPin = getValueFromJson("PIN_Password");
-		String cafeUser = prop.getProperty("cafeUserID");
-		String cafePin = prop.getProperty("cafePin");
-
-		// Redirecting Mobile TAN
-		MobileTan mt = new MobileTan();
-		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
-
-		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		click("MobileTAN_link_Login");
-		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-		// System.out.println("mTAN is -" + mTAN);
-
-		Thread.sleep(3000);
-		enterTan(tanKey, mTAN);
-		if (tanKey.equals("TAN_field_AngabenZurPerson")) {
-			click("TAN_field_AngabenZurPerson_Button");
-		}
-		logInfoStatus("Info | Token used : " + token);
-
-		// commonActions.enterTokenTan(TanKey, TANGenerator.requestTan());
-	}
+	/*
+	 * // Not in use currently for load environement 13.11.2019 public void
+	 * enterNewMobileTan(String tanKey, String token) throws InterruptedException,
+	 * ClientProtocolException, IOException, ParserConfigurationException,
+	 * SAXException, ParseException { Properties prop = new Properties(); //
+	 * FileInputStream fis = new // FileInputStream(
+	 * "C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties"
+	 * ); FileInputStream fis = new FileInputStream( System.getProperty("user.dir")
+	 * + "/src/test/java/com/bnpp/mTANResources/data.properties"); prop.load(fis);
+	 * // String customerId = prop.getProperty("userID"); String customerId =
+	 * getValueFromJson("UserID_Kontonummer"); String customerPin =
+	 * getValueFromJson("PIN_Password"); String cafeUser =
+	 * prop.getProperty("cafeUserID"); String cafePin = prop.getProperty("cafePin");
+	 * 
+	 * // Redirecting Mobile TAN MobileTan mt = new MobileTan();
+	 * mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+	 * 
+	 * // String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+	 * click("MobileTAN_link_Login"); String mTAN = mt.getMTan(customerId,
+	 * customerPin, cafeUser, cafePin); // System.out.println("mTAN is -" + mTAN);
+	 * 
+	 * Thread.sleep(3000); enterTan(tanKey, mTAN); if
+	 * (tanKey.equals("TAN_field_AngabenZurPerson")) {
+	 * click("TAN_field_AngabenZurPerson_Button"); }
+	 * logInfoStatus("Info | Token used : " + token);
+	 * 
+	 * // commonActions.enterTokenTan(TanKey, TANGenerator.requestTan()); }
+	 */
 
 	/**
 	 * Description Common function for checked or unchecked the radio button
@@ -1040,36 +1054,33 @@ public class CommonActions {
 	}
 
 	// Not in use currently for load environement 13.11.2019
-	public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String tanfield) throws ClientProtocolException,
-			IOException, ParserConfigurationException, SAXException, InterruptedException, ParseException {
-		Properties prop = new Properties();
-		// FileInputStream fis = new
-		// FileInputStream("C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties");
-		FileInputStream fis = new FileInputStream(
-				System.getProperty("user.dir") + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
-		prop.load(fis);
-
-		String customerId = getValueFromJson("UserID_Kontonummer");
-		String customerPin = getValueFromJson("PIN_Password");
-		String cafeUser = prop.getProperty("cafeUserID");
-		String cafePin = prop.getProperty("cafePin");
-
-		// Redirecting Mobile TAN
-		MobileTan mt = new MobileTan();
-		mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
-
-		// String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
-		click(mobiletanlink);
-
-		String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
-		System.out.println("mTAN is -" + mTAN);
-		enterTan(tanfield, mTAN);
-		pressTab();
-		if (tanfield.equals("TAN_field_AngabenZurPerson")) {
-			click("TAN_field_AngabenZurPerson_Button");
-		}
-		logInfoStatus("Info | Token used : " + mTAN);
-	}
+	/*
+	 * public void clickonMobiletanLinkandEnterTan(String mobiletanlink, String
+	 * tanfield) throws ClientProtocolException, IOException,
+	 * ParserConfigurationException, SAXException, InterruptedException,
+	 * ParseException { Properties prop = new Properties(); // FileInputStream fis =
+	 * new // FileInputStream(
+	 * "C:\\workspace\\mobileTANTest\\src\\main\\java\\mTANResources\\data.properties"
+	 * ); FileInputStream fis = new FileInputStream( System.getProperty("user.dir")
+	 * + "\\src\\test\\java\\com\\bnpp\\mTANResources\\data.properties");
+	 * prop.load(fis);
+	 * 
+	 * String customerId = getValueFromJson("UserID_Kontonummer"); String
+	 * customerPin = getValueFromJson("PIN_Password"); String cafeUser =
+	 * prop.getProperty("cafeUserID"); String cafePin = prop.getProperty("cafePin");
+	 * 
+	 * // Redirecting Mobile TAN MobileTan mt = new MobileTan();
+	 * mt.mTanRedirection(customerId, customerPin, cafeUser, cafePin);
+	 * 
+	 * // String MobileTAN_link_Login = "//a[@id='mobile-tan-request']";
+	 * click(mobiletanlink);
+	 * 
+	 * String mTAN = mt.getMTan(customerId, customerPin, cafeUser, cafePin);
+	 * System.out.println("mTAN is -" + mTAN); enterTan(tanfield, mTAN); pressTab();
+	 * if (tanfield.equals("TAN_field_AngabenZurPerson")) {
+	 * click("TAN_field_AngabenZurPerson_Button"); }
+	 * logInfoStatus("Info | Token used : " + mTAN); }
+	 */
 
 	public void enterTexttoken(String tankey, String string) {
 		// TODO Auto-generated method stub
