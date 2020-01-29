@@ -16,7 +16,7 @@ public class Configurations {
 	public final static String AppurlLoad = "https://load1-de.consorsbank.de/home";
 	public final static String AppurlEnv2 = "https://int-acc-ewev-2.consorsbank.de/home";
 	public final static String AppurlEnv1 = "https://int-acc-ewev.consorsbank.de/home";
-	public final static String load = "https://www.facebook.com";
+	public final static String load = "https://www.flipkart.com";
 	// Test Data source path
 	public final static String testDataResourcePath = "../src/test/java/com/bnpp/TestData/";
 

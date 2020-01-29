@@ -491,7 +491,13 @@ public class CommonActions {
 	 *             Description Common action select from combo box by visible text
 	 */
 	public void selectFromDropDown(String objectKey, String datakey) throws Exception {
+		System.out.println("****selectFromDropDown*******");
+		System.out.println( getValueFromJson(datakey));
+		System.out.println(objectKey);
+		
 		Select s = new Select(getElement(objectKey));
+		
+		
 		String myData = getValueFromJson(datakey);
 		try {
 			s.selectByVisibleText(myData);
@@ -552,6 +558,8 @@ public class CommonActions {
 	public void selectDropDownByIndex(String objectKey, String data) throws Exception {
 		try {
 			Select s = new Select(getElement(objectKey));
+			System.out.println("**In select class**");
+			System.out.println(getElement(objectKey));
 			if (data.equals("Intervall")) {
 				Thread.sleep(3000);
 				s.selectByIndex(2);
