@@ -1,0 +1,8 @@
+2020-01-28 18:17:24.055INFO - Log configuration done. Log Dir:./XrayLogs
+2020-01-28 18:17:24.065INFO - exporting Xray Test issues ...
+2020-01-28 18:17:25.213INFO - ***********************************************************
+2020-01-28 18:17:25.214INFO - Request:
+2020-01-28 18:17:25.215INFO - GET https://t-jira-consorsbank.is.echonet/rest/raven/1.0/api/test?jql=project%20=%20TA%20AND%20%22Automation%20Feasibility%22%20%3D%20%22yes%22
+2020-01-28 18:17:25.215INFO - HOST: t-jira-consorsbank.is.echonet
+2020-01-28 18:17:25.216INFO - Content-Type: null
+2020-01-28 18:17:25.216INFO - Content-Length: null

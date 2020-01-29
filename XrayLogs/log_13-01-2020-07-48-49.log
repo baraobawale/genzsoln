@@ -1,0 +1,16 @@
+2020-01-13 19:48:49.849INFO - Log configuration done. Log Dir:./XrayLogs
+2020-01-13 19:48:49.858INFO - {
+    "add": [
+        "TA-119"
+    ]
+}
+2020-01-13 19:48:51.120INFO - ***********************************************************
+2020-01-13 19:48:51.120INFO - Request:
+2020-01-13 19:48:51.121INFO - POST https://t-jira-consorsbank.is.echonet/rest/raven/1.0/api/testplan/TA-120/testexecution
+2020-01-13 19:48:51.122INFO - HOST: t-jira-consorsbank.is.echonet
+2020-01-13 19:48:51.123INFO - Content-Type: Content-type: application/json
+2020-01-13 19:48:51.124INFO - Content-Length: null
+2020-01-13 19:49:10.490INFO - Test Start Time: 2020-01-13T19:49:10+05:30
+2020-01-13 19:49:11.424INFO - File Name = Test Issue Key: UC-9-10-UEBERWEISUNGLIMIT
+2020-01-13 19:49:13.497INFO - File Name = Test Issue Key: UC-9-10-UEBERWEISUNGLIMIT
+2020-01-13 19:49:15.531INFO - File Name = Test Issue Key: UC-9-10-UEBERWEISUNGLIMIT

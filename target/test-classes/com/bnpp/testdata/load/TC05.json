@@ -1,0 +1,16 @@
+{
+	"TC05": {
+		"place_order_verify_into_cart": {
+			"mobilename": "Mi note pro 8",
+			"expected": "Redmi Note 8 pro",
+			"mobno": "9860984127",
+			"day" : "21",
+			"month" : "Oct",
+			"year" : "2010"
+			
+			
+			}
+		}
+}
+			
+	

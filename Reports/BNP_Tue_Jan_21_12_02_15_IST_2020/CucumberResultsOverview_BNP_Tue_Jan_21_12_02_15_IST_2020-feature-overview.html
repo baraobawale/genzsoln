@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head xmlns="http://www.w3.org/1999/xhtml">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+
+        html, body, h1, h2, h3, h4, h5, h6 {
+            background: #f7f8f3; /* Old browsers */
+            font-family: "Arial", sans-serif;
+        }
+
+        h1 {
+            margin-top: 50px;
+            color: white;
+            padding-left: 10px;
+            background: #74bbd9; /* Old browsers */
+            background: -moz-linear-gradient(top,  #00915A 0%, #00A071 50%, #00AC7D 35%, #00915A 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,  #00915A 0%, #00A071 50%, #00AC7D 35%, #00915A 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,  #00915A 0%, #00A071 50%, #00AC7D 35%, #00915A 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#74bbd9', endColorstr='#44a4cb', GradientType=0); /* IE6-9 */
+            font-weight: normal;
+            font-size: larger;
+            height: 50px;
+            line-height: 50px;
+
+        }
+
+        h2 {
+            color: white;
+            padding-left: 10px;
+            background: #49c0f0; /* Old browsers */
+            background: -moz-linear-gradient(top, #00AC7D 50%, #00A071 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #00AC7D 50%, #00A071 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #00AC7D 50%, #00A071 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#49c0f0', endColorstr='#2cafe3', GradientType=0); /* IE6-9 */
+            font-size: large;
+            height: 30px;
+            line-height: 30px;
+            font-weight: normal;
+            margin-top: 20px;
+            margin-bottom: 2px;
+
+        }
+
+        h3 {
+            background-color: #f1f4e7
+        }
+
+        th {
+            border: 2px solid #cddfe4;
+            background: #74bbd9; /* Old browsers */
+            background: -moz-linear-gradient(top, #00915A 0%, #00A071 50%, #00AC7D 35%, #00915A 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #00915A 0%, #00A071 50%, #00AC7D 35%, #00915A 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,  #00915A 0%, #00A071 50%, #00AC7D 35%, #00915A 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#74bbd9', endColorstr='#44a4cb', GradientType=0); /* IE6-9 */
+            color: white;
+            height: 30px;
+            line-height: 30px;
+            font-weight: normal;
+        }
+
+        td {
+            border: 1px solid #cddfe4;
+            padding: 5px;
+        }
+
+        table {
+            border: 1px solid #cddfe4;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .chart {
+            border: 1px solid #cddfe4;
+            border-collapse: collapse;
+            background-color: none;
+        }
+
+        .passed {
+            background-color: #f4f8ec;
+            font-weight: normal;
+            color: black;
+            border: 1px solid green;
+        }
+
+        .skipped {
+            background-color: silver;
+            font-weight: bold;
+            color: darkgray
+        }
+
+        .failed {
+            background-color: white;
+            font-weight: normal;
+            color: red;
+            border: 1px solidred;
+
+        }
+
+        .undefined {
+            background-color: white;
+            font-weight: bold;
+            color: goldenrod
+        }
+
+        .lowest {
+            background-color: lightyellow;
+            color: black
+        }
+
+        .low {
+            background-color: gold;
+            color: black
+        }
+
+        .medium {
+            background-color: orange;
+            color: black
+        }
+
+        .high {
+            background-color: orangered;
+            color: black
+        }
+
+        .highest {
+            background-color: darkred;
+            color: black
+        }
+
+        .passed_description {
+            background-color: #D0FFD0;
+            font-weight: bold;
+            font-style: italic;
+            color: black
+        }
+
+        .failed_description {
+            background-color: #FFA898;
+            font-weight: bold;
+            font-style: italic;
+            color: black
+        }
+
+        .noborder {
+            border: none;
+            border-collapse: collapse;
+            vertical-align: top;
+        }
+
+        OL {
+            counter-reset: item
+        }
+
+        OL > LI {
+            display: block
+        }
+
+        OL > LI:before {
+            content: counters(item, ".") " ";
+            counter-increment: item
+        }
+
+        div.header {
+            display: block;
+            text-align: center;
+            position: running(header);
+        }
+
+        div.footer {
+            display: block;
+            text-align: center;
+            position: running(footer);
+        }
+
+        div.content {
+            page-break-after: always;
+        }
+
+        div.content:last-child {
+            page-break-after: avoid;
+        }
+
+        span a {
+            color: black;
+        }
+
+        @page {
+            size: A4 landscape;
+            @top-center {
+                content: "Overall Results";
+                color: silver;
+                font-size: 14px;
+            }
+            @top-right {
+                content: date("dd MMM, yyyy hh:mm");
+                color: silver;
+                font-size: 8px;
+            }
+            @bottom-right {
+                content: "Page " counter(page) " of " counter(pages) ;
+                color: silver;
+                font-size: 8px;
+            }
+        }
+
+        ol a::after {
+            content: leader('.') target-counter(attr(href), page);
+        }
+    </style>
+
+    <title>Results Overview Report</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div class='header'></div>
+<div class='footer'></div>
+<h1>Overview Chart</h1>
+<table class="chart">
+    <tr>
+        <th class="chart">Features Status</th>
+        <th class="chart">Scenario Status</th>
+    </tr>
+    <tr class="chart">
+        <td class="chart">
+<div id="feature_status" style="width: 400px; height: 300px;">
+    <div style="position: relative;">
+        <div dir="ltr"
+            style="position: relative; width: 400px; height: 300px;">
+            <div aria-label="A chart."
+                style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
+                <svg aria-label="A chart." style="overflow: hidden;" height="300"
+                    width="450">
+                    <defs id="defs"></defs>
+
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L150,59 A90,60,0,0,1,235.59508647,100.45898034 M235.59508647,100.45898034 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L235.59508647,100.45898034 A90,60,0,0,1,202.90067271,167.54101966 M202.90067271,167.54101966 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L202.90067271,167.54101966 A90,60,0,0,1,97.09932729,167.54101966 M97.09932729,167.54101966 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L97.09932729,167.54101966 A90,60,0,0,1,64.40491353,100.45898034 M64.40491353,100.45898034 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L64.40491353,100.45898034 A90,60,0,0,1,150,59 M150,59 L150,117"></path>
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,117 L150,59 L150,44 L150,102 L150,117 "></path>
+
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,113 L150,51 L150,36 L150,98 L150,113 "></path>
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,113 L150,51 L150,36 L150,98 L150,113 "></path>
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,117 L150,59 L150,44 L150,102 L150,117 "></path>
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,113 L150,51 L150,36 L150,98 L150,113 "></path>
+
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L150,44 A90,60,0,0,1,235.59508647,85.45898034 M235.59508647,85.45898034 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L235.59508647,85.45898034 A90,60,0,0,1,202.90067271,152.54101966 M202.90067271,152.54101966 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L202.90067271,152.54101966 A90,60,0,0,1,97.09932729,152.54101966 M97.09932729,152.54101966 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L97.09932729,152.54101966 A90,60,0,0,1,64.40491353,85.45898034 M64.40491353,85.45898034 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L64.40491353,85.45898034 A90,60,0,0,1,150,44 M150,44 L150,102"></path>
+			            <text x="280"
+			            	 y="67.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">0% (0) Passed</text>
+			           <circle cx="270"
+			            cy="62.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="#a4c439" />
+			            <text x="280"
+			            	 y="97.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">0% (0) Failed</text>
+			           <circle cx="270"
+			            cy="92.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="#f1072b" />
+			            <text x="280"
+			            	 y="127.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">100% (1) Undefined</text>
+			           <circle cx="270"
+			            cy="122.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="silver" />
+			            <text x="280"
+			            	 y="157.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">0% (0) Known</text>
+			           <circle cx="270"
+			            cy="152.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="gold" />
+                    </svg>
+            </div>
+        </div>
+    </div>
+</div>
+        </td>
+        <td class="chart">
+<div id="scenario_status" style="width: 400px; height: 300px;">
+    <div style="position: relative;">
+        <div dir="ltr"
+            style="position: relative; width: 400px; height: 300px;">
+            <div aria-label="A chart."
+                style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
+                <svg aria-label="A chart." style="overflow: hidden;" height="300"
+                    width="450">
+                    <defs id="defs"></defs>
+
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L150,59 A90,60,0,0,1,235.59508647,100.45898034 M235.59508647,100.45898034 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L235.59508647,100.45898034 A90,60,0,0,1,202.90067271,167.54101966 M202.90067271,167.54101966 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L202.90067271,167.54101966 A90,60,0,0,1,97.09932729,167.54101966 M97.09932729,167.54101966 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L97.09932729,167.54101966 A90,60,0,0,1,64.40491353,100.45898034 M64.40491353,100.45898034 L150,117"></path>
+                        
+                <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+					d="M150,117 L64.40491353,100.45898034 A90,60,0,0,1,150,59 M150,59 L150,117"></path>
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,117 L150,59 L150,44 L150,102 L150,117 "></path>
+
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,113 L150,51 L150,36 L150,98 L150,113 "></path>
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,113 L150,51 L150,36 L150,98 L150,113 "></path>
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,117 L150,59 L150,44 L150,102 L150,117 "></path>
+
+            
+            <path fill="darkgrey" stroke-width="1" stroke="darkgrey"
+				 d="M150,113 L150,51 L150,36 L150,98 L150,113 "></path>
+
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L150,44 A90,60,0,0,1,235.59508647,85.45898034 M235.59508647,85.45898034 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L235.59508647,85.45898034 A90,60,0,0,1,202.90067271,152.54101966 M202.90067271,152.54101966 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L202.90067271,152.54101966 A90,60,0,0,1,97.09932729,152.54101966 M97.09932729,152.54101966 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L97.09932729,152.54101966 A90,60,0,0,1,64.40491353,85.45898034 M64.40491353,85.45898034 L150,102"></path>
+                        
+                <path fill="silver" stroke-width="1" stroke="silver"
+					d="M150,102 L64.40491353,85.45898034 A90,60,0,0,1,150,44 M150,44 L150,102"></path>
+			            <text x="280"
+			            	 y="67.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">0% (0) Passed</text>
+			           <circle cx="270"
+			            cy="62.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="#a4c439" />
+			            <text x="280"
+			            	 y="97.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">0% (0) Failed</text>
+			           <circle cx="270"
+			            cy="92.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="#f1072b" />
+			            <text x="280"
+			            	 y="127.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">100% (1) Undefined</text>
+			           <circle cx="270"
+			            cy="122.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="silver" />
+			            <text x="280"
+			            	 y="157.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">0% (0) Known</text>
+			           <circle cx="270"
+			            cy="152.5"
+			             r="5" stroke="darkgrey" stroke-width="1" fill="gold" />
+                    </svg>
+            </div>
+        </div>
+    </div>
+</div>
+        </td>
+    </tr>
+</table>
+
+<h1>Summary</h1>
+
+
+<table>
+	<tr><th></th><th>Passed</th><th>Failed</th><th>Known</th><th>Undefined</th><th>Total</th><th>%Passed</th></tr>
+	<tr><th>Features</th>
+		<td class="passed" id="features_passed">0</td>
+		<td class="failed" id="features_failed">0</td>
+		<td class="known" id="features_known">0</td>
+		<td class="undefined" id="features_undefined">1</td>
+		<td id="features_total">1</td>
+		<td id="features_rate">
+				0%
+		</td>
+	</tr>
+	<tr><th>Test Scenarios</th>
+		<td class="passed" id="scenarios_passed">0</td>
+		<td class="failed" id="scenarios_failed">0</td>
+		<td class="known" id="scenarios_known">0</td>
+		<td class="undefined" id="scenarios_undefined">1</td>
+		<td id="scenarios_total">1</td>
+		<td id="scenarios_rate">
+				0%
+		</td>
+	</tr>
+	<tr><th>Steps</th>
+		<td class="passed" id="steps_passed">0</td>
+		<td class="failed" id="steps_failed">0</td>
+		<td class="known" id="steps_known">0</td>
+		<td class="undefined" id="steps_undefined">3</td>
+		<td id="steps_total">3</td>
+		<td id="steps_rate">
+				0%
+		</td>
+	</tr>
+</table>
+<div><b style="color:#000000">Overall Duration: 0h 00m 16s</b></div>
+
+<h1>Features Status</h1>
+
+<table>
+    <tr>
+        <th>Feature Name</th>
+        <th>Status</th>
+        <th>Passed</th>
+        <th>Failed</th>
+        <th>Known</th>
+        <th>Undefined</th>
+        <th>Total</th>
+        <th>Duration</th>
+    </tr>
+            <tr class="undefined">
+                <td>order Mi mobile phone</td>
+                <td>undefined</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td>16.74s</td>
+            </tr>
+
+</table>
+
+<h1>Scenario Status</h1>
+
+<table>
+    <tr>
+        <th>Feature Name</th>
+        <th>Scenario</th>
+        <th>Status</th>
+        <th>Passed</th>
+        <th>Failed</th>
+        <th>Known</th>
+        <th>Undefined</th>
+        <th>Total</th>
+        <th>Retries</th>
+        <th>Duration</th>
+    </tr>
+        <tr class="undefined">
+            <td>order Mi mobile phone</td>
+            <td>Testcase 02</td>
+            <td>undefined</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>3</td>
+            <td>3</td>
+            <td>0</td>
+            <td>16.74s</td>
+        </tr>
+</table>
+</body>
+</html>
