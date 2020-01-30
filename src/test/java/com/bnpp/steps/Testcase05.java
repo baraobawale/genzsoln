@@ -120,6 +120,7 @@ public class Testcase05 {
 		System.out.println("3rd page title"+title3);
 		commonAction.getElement(string).click();
 		Thread.sleep(10000);
+		System.out.println("JEnkins output");
 		
 		
 	}
@@ -133,6 +134,7 @@ public class Testcase05 {
 		String str4 = commonAction.getElement(string).getText().substring(0, 16);
 		System.out.println(str4);
 		Assert.assertEquals(str4, "Redmi Note 8 Pro");
+		System.out.println("Jenkins output");
 		
 		
 
