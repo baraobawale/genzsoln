@@ -22,8 +22,8 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 
-@CucumberOptions(monochrome = true, features = "src/test/java/com/bnpp/features/", dryRun = false, glue = {
-		"com/bnpp/steps/" }, tags="@scenario1", plugin = { "json:target/cucumber.json" })
+@CucumberOptions(monochrome = true, features = "src/test/java/com/bnpp/features/TC04.feature", dryRun = false, glue = {
+		"com/bnpp/steps/" },  plugin = { "json:target/cucumber.json" })
 public class JunitRunner {
 
 	public final static String PATH_TO_CUCUMBER_REPORT = "target/cucumber.json";
